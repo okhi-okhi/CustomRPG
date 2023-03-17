@@ -1,7 +1,5 @@
 ﻿#include "Game.h"
 #include "Event.h"
-#include <widechar_width.h>
-#include <display_width.hpp>
 #include "../System/Exceptions.hpp"
 #include "../System/Config.h"
 #include "../System/Menu.h"
@@ -24,24 +22,6 @@ void Game::init(Player& player)
 	{
 		cout << row << endl;
 	}
-	std::string str = I18n::instance().get("test");
-	int wa = Utils::widthOfString(str);
-	cout<<"wa: " << wa<<endl;
-	// std::wstring wstr = unicode::details::utf8_decode(str);
-	// const auto result = unicode::display_width(str);
-	// std::wcout << "wstr: " << wstr << std::endl;
-	// std::cout <<"r: " << result << std::endl;
-	// // Verify result
-	// std::cout << "Input  : " << str << "\n";
-	// std::cout << "Output : " << std::string(result, '|') << "\n";
-	// std::cout << "Width  : " << result << "\n\n";
-	// std::wstring wstr(str.begin(), str.end());
-	//
-	// for (auto value : wstr)
-	// {
-	// 	cout<< " width: " << widechar_wcwidth(value);
-	// }
-	//
 	// Ally a("twain");
 	// a.print();
 	// a.modifyStat("level", 10);

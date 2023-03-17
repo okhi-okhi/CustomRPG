@@ -10,7 +10,6 @@ namespace Utils {
 	int checkInRange(int n, int min, int max);
 	int lengthOfNumber(int n);
 	int lengthOfString(const std::string& str);
-	int widthOfString(const std::string& str);
 	std::string floatToPercent(const float& value);
 	std::string boolToString(const bool& boolean);
 	json readJsonFile(std::string fileName);

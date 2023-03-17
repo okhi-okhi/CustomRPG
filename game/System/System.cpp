@@ -1,6 +1,7 @@
 #include "System.h"
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 #include <json.hpp>
 #include "../System/Config.h"
 #include "I18n.h"
