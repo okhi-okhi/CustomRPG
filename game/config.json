@@ -1,0 +1,34 @@
+{
+    "armorSlots": [
+        "helmet",
+        "chestplate",
+        "leggings",
+        "boots"
+    ],
+    "formula": {
+        "entity": {
+            "atk": "strength + 3",
+            "defense": "dexterity + vitality*0.5 + 1",
+            "expNext": "level^2*3 + 100",
+            "hpMax": "vitality*5 + strength",
+            "luck": "0",
+            "manaMax": "intelligence*5"
+        }
+    },
+    "game": {
+        "lineCapacity": 3,
+        "nextPlaceNum": 3,
+        "teamCapacity": 5
+    },
+    "system": {
+        "currentLanguage": "zh_TW",
+        "defaultLanguage": "en_US",
+        "playerFilePath": "Games/players.json"
+    },
+    "talents": [
+        "strength",
+        "vitality",
+        "dexterity",
+        "intelligence"
+    ]
+}

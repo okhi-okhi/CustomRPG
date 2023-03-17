@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{21EB8090-0D4E-1035-B6D3-48EBA215DCB7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E9C7FDCE-D52A-8D73-7EB0-C5296AF258F6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Utils\ChanceTable.cpp" />
+    <ClCompile Include="Utils\JsonUtils.cpp" />
+    <ClCompile Include="Utils\Utilities.cpp" />
+    <ClCompile Include="Entity\Ally.cpp" />
+    <ClCompile Include="Entity\Enemy.cpp" />
+    <ClCompile Include="Entity\Entity.cpp" />
+    <ClCompile Include="Entity\Equipment.cpp" />
+    <ClCompile Include="Entity\Occupation.cpp" />
+    <ClCompile Include="Entity\Race.cpp" />
+    <ClCompile Include="Game\EnemyGroup.cpp" />
+    <ClCompile Include="Game\Event.cpp" />
+    <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="Game\Place.cpp" />
+    <ClCompile Include="Game\Script.cpp" />
+    <ClCompile Include="Item\Armor.cpp" />
+    <ClCompile Include="Item\CraftArmor.cpp" />
+    <ClCompile Include="Item\CraftWeapon.cpp" />
+    <ClCompile Include="Item\Item.cpp" />
+    <ClCompile Include="Item\Material.cpp" />
+    <ClCompile Include="Item\Prop.cpp" />
+    <ClCompile Include="Item\Weapon.cpp" />
+    <ClCompile Include="Player\Inventory.cpp" />
+    <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="Player\Team.cpp" />
+    <ClCompile Include="Statu\Status\FireStatu.cpp" />
+    <ClCompile Include="Statu\Statu.cpp" />
+    <ClCompile Include="System\Config.cpp" />
+    <ClCompile Include="System\I18n.cpp" />
+    <ClCompile Include="System\Menu.cpp" />
+    <ClCompile Include="System\Sheet.cpp" />
+    <ClCompile Include="System\System.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utils\ChanceTable.h" />
+    <ClInclude Include="Utils\JsonUtils.h" />
+    <ClInclude Include="Utils\Singleton.h" />
+    <ClInclude Include="Utils\Utilities.h" />
+    <ClInclude Include="Entity\Ally.h" />
+    <ClInclude Include="Entity\Enemy.h" />
+    <ClInclude Include="Entity\Entity.h" />
+    <ClInclude Include="Entity\Equipment.h" />
+    <ClInclude Include="Entity\Occupation.h" />
+    <ClInclude Include="Entity\Race.h" />
+    <ClInclude Include="Game\EnemyGroup.h" />
+    <ClInclude Include="Game\Event.h" />
+    <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="Game\Place.h" />
+    <ClInclude Include="Game\Script.h" />
+    <ClInclude Include="Item\Armor.h" />
+    <ClInclude Include="Item\CraftArmor.h" />
+    <ClInclude Include="Item\CraftWeapon.h" />
+    <ClInclude Include="Item\Item.h" />
+    <ClInclude Include="Item\Material.h" />
+    <ClInclude Include="Item\Prop.h" />
+    <ClInclude Include="Item\Weapon.h" />
+    <ClInclude Include="Player\Inventory.h" />
+    <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="Player\Team.h" />
+    <ClInclude Include="Statu\Status\FireStatu.h" />
+    <ClInclude Include="Statu\Statu.h" />
+    <ClInclude Include="System\Config.h" />
+    <ClInclude Include="System\Exceptions.hpp" />
+    <ClInclude Include="System\GlobalVariable.h" />
+    <ClInclude Include="System\I18n.h" />
+    <ClInclude Include="System\Menu.h" />
+    <ClInclude Include="System\Sheet.h" />
+    <ClInclude Include="System\System.h" />
+  </ItemGroup>
+</Project>
