@@ -1,7 +1,7 @@
 ﻿#include "Game.h"
 #include "Event.h"
 #include "../System/Exceptions.hpp"
-#include "../System/Config.h"
+#include "gameConfig.h"
 #include "../System/Menu.h"
 #include "../System/Sheet.h"
 #include "../Item/Material.h"
@@ -190,11 +190,11 @@ void Game::editMember()
 	cout << I18n::instance().get("game.editMember.description") << endl;
 	cout << endl;
 
-	const int slot = Menu::getInput(0, Config::instance().getTeamCapacity());
+	const int slot = Menu::getInput(0, gameConfig::instance().getTeamCapacity());
 
 	cout << I18n::instance().get("game.editMember.allIdleAllys") << endl;
 
-	const int lineCapacity = Config::instance().getLineCapacity();
+	const int lineCapacity = gameConfig::instance().getLineCapacity();
 	const int lineAmount = static_cast<int>(std::ceil(static_cast<float>(this->player->getAllAllys().size()) / static_cast<float>(lineCapacity)));
 	int selectIndex = 0;
 	std::vector<int> indexes;

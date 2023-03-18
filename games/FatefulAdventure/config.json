@@ -20,11 +20,6 @@
         "nextPlaceNum": 3,
         "teamCapacity": 5
     },
-    "system": {
-        "currentLanguage": "zh_TW",
-        "defaultLanguage": "en_US",
-        "playerFilePath": "Games/players.json"
-    },
     "talents": [
         "strength",
         "vitality",

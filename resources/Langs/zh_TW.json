@@ -1,0 +1,394 @@
+{
+    "name": "繁體中文 (台灣)",
+    "test": "中文",
+    "charWidthFix": "2",
+    "menu": {
+        "button": "%index%: %description%",
+        "continue": "按下ENTER來繼續...",
+        "choose": "請選擇: ",
+        "faultyInput": "錯誤的輸入或超出上限! 上限: %limit%"
+    },
+    "system": {
+        "systemMenu": {
+            "title": "= 主選單 = ",
+            "activePlayer": "= 正在玩的玩家名字: %name% = ",
+            "startGame": "開始遊戲",
+            "createNewPlayer": "創建新玩家",
+            "selectPlayer": "選擇玩家",
+            "savePlayers": "儲存檔案",
+            "loadPlayers": "讀取檔案",
+            "setting": "設定",
+            "quit": "退出遊戲"
+        },
+        "createNewPlayer": {
+            "inputName": "輸入隊伍名字: "
+        },
+        "settingMenu": {
+            "title": "= 設定 =",
+            "selectLanguage": "選擇語言 (目前語言 %language%)",
+            "quit": "返回"
+        },
+        "selectLanguage": {
+            "title": "= 選擇語言 =",
+            "language": "%language%",
+            "quit": "返回",
+            "success": "成功將語言切換成 %language%"
+        },
+        "exception": {
+            "invalidFile": "找不到檔案: %file%!",
+            "badValueFunction": "當讀取 %file% 時轉換失敗, json: %json%",
+            "outOfRange": "索引值小於0或是超出上限! 索引值: %index%, 上限: %max%",
+            "invBadAmount": "移除物品時提供的數量小於1! 數量: %amount%",
+            "badChance": "如果 chanceTable 裡包含 '-1',機率總和就不能超過1, 機率總和: %totalChance%",
+            "noReadFunction": "無法讀取json: %json%",
+            "badString": "不能將json轉換成數值, json: %json%",
+            "invalidKey": "要求的關鍵字 %key% 不存在!"
+        }
+    },
+    "game": {
+        "gameMenu": {
+            "title": "= 遊戲選單 =",
+            "info": "= |stat.team|: %name%  |stat.gold|: %gold%  |stat.distance|: %distance% =",
+            "printStats": "查看資料",
+            "ally": "查看|stat.ally|",
+            "team": "查看|stat.team|",
+            "inventory": "查看|stat.inventory|",
+            "adventure": "前進",
+            "quit": "返回系統"
+        },
+        "teamMenu": {
+            "title": "= 隊伍選單 =",
+            "yourTeam": "你的|stat.team|:",
+            "editMember": "編輯|stat.team|",
+            "setOrder": "更改隊伍順序",
+            "quit": "返回"
+        },
+        "printStats": {
+            "title": "= 玩家數值 =",
+            "team": "= |stat.team|: ",
+            "allys": "= |stat.ally|: ",
+            "inventory": "= |stat.inventory|: "
+        },
+        "editMember": {
+            "description": "輸入想更換角色的欄位編號",
+            "allIdleAllys": "可更換的角色:",
+            "tips": "* 輸入'-1'來清空欄位, 輸入'0'來取消更換",
+            "inputAlly": "輸入更換的角色編號",
+            "cancel": "已取消輸入",
+            "success": "更改隊伍成功!"
+        },
+        "setOrder": {
+            "yourTeam": "你的隊伍: ",
+            "description": "輸入目前所在的角色想移到的位置,來更改隊伍順序\n若該角色想保持原位,請輸入空格\n若沒輸入到隊伍的角色數,則後面的角色將會保持原位,每個輸入用','隔開\n如: 5,3,2, ,1",
+            "inputOrder": "請輸入順序: ",
+            "negativeIndex": "輸入的順序裡有小於1的數!",
+            "outOfRange": "輸入的順序數量超過隊伍的角色數!",
+            "sameIndex": "輸入的順序有重複的位置出現!",
+            "success": "更改順序成功!"
+        }
+    },
+    "entity": {
+        "entity": {
+            "print": {
+                "name": "%name%:",
+                "level": "= |stat.level|: %level%"
+            },
+            "debugPrint": {
+                "id": "= |stat.id|: %id%"
+            }
+        },
+        "ally": {
+            "checkLevelUp": "%name% 升到了 %level% 等! 有 %talentPoint% 點天賦點可分配!",
+            "print": {
+                "exp": "= |stat.exp|: %exp% / %expNext%",
+                "hp": "= |stat.hp|: %hp% / %hpMax%",
+                "mana": "= |stat.mana|: %mana% / %manaMax%",
+                "atk": "= |stat.atk|: %atk% (+%weaponAtk%)",
+                "defense": "= |stat.defense|: %defense% (+%armorDefense%)",
+                "luck": "= |stat.luck|: %luck%",
+                "talent": "= %talent%: %value%",
+                "equipments": "= 裝備:",
+                "weapon": "- |item.item.name| (%isTwoHand%) 等級: %level%",
+                "armor": "- |item.item.name| (%armorType%) 等級: %level%"
+            }
+        },
+        "race": {
+            "print": {
+                "name": "= |stat.name|: %name%",
+                "description": "%description%",
+                "strength": "= |stat.strength|: %strength%",
+                "vitality": "= |stat.vitality|: %vitality%",
+                "dexterity": "= |stat.dexterity|: %dexterity%",
+                "intelligence": "= |stat.intelligence|: %intelligence%"
+            },
+            "debugPrint": {
+                "id": "= |stat.id|: %id%",
+                "hpMaxBase": "= |stat.hpMaxBase|: %hpMaxBase%",
+                "manaMaxBase": "= |stat.manaMaxBase|: %manaMaxBase%",
+                "luckBase": "= |stat.luckBase|: %luckBase%"
+            }
+        },
+        "occupation": {
+            "print": {
+                "name": "= |stat.name|: %name%",
+                "description": "%description%",
+                "talentPointScale": "= |stat.talentPointScale|: %talentPointScale%"
+            },
+            "debugPrint": {
+                "id": "= |stat.id|: %id%",
+                "hpMaxScale": "= |stat.hpMaxScale|: %hpMaxScale%",
+                "manaMaxScale": "= |stat.manaMaxScale|: %manaMaxScale%",
+                "luckScale": "= |stat.luckScale|: %luckScale%"
+            }
+        }
+    },
+    "item": {
+        "item": {
+            "name": "【%rarity%】%name%",
+            "print": {
+                "name": "【%rarity%】%name%:"
+            },
+            "debugPrint": {
+                "itemType": "= |stat.itemType|: %itemType%",
+                "id": "= |stat.id|: %id%",
+                "buyPrice": "= |stat.buyPrice|: %buyPrice%",
+                "sellPrice": "= |stat.sellPrice|: %sellPrice%",
+                "stackable": "= |stat.stackable|: %stackable%"
+            }
+        },
+        "armor": {
+            "armorType": "%armorType% (%armorSlot%)",
+            "print": {
+                "armorType": "= |stat.armorType|: %armorType%)",
+                "level": "= |stat.level|: %level%",
+                "atk": "= |stat.atk|: %atk%",
+                "defense": "= |stat.defense|: %defense%",
+                "durability": "= |stat.durability|: %durability% / %durabilityMax%"
+            }
+        },
+        "weapon": {
+            "weaponType": "%weaponType% (%isTwoHand%)",
+            "print": {
+                "weaponType": "= |stat.weaponType|: %weaponType%",
+                "level": "= |stat.level|: %level%",
+                "atk": "= |stat.atk|: %atk%",
+                "defense": "= |stat.defense|: %defense%",
+                "comboRate": "= |stat.comboRate|: %comboRate%",
+                "critChance": "= |stat.critChance|: %critChance%",
+                "critDamage": "= |stat.critDamage|: %critDamage%",
+                "durability": "= |stat.durability|: %durability% / %durabilityMax%"
+            }
+        },
+        "material": {
+            "print": {
+                "description": "%description%"
+            }
+        },
+        "prop": {
+            "print": {
+                "description": "%description%"
+            }
+        }
+    },
+    "player": {
+        "printStats": {
+            "name": "= |stat.teamName|: %name%",
+            "gold": "= |stat.gold|: %gold%",
+            "distance": "= |stat.distance|: %distance%"
+        },
+        "printAllAllys": {
+            "info": "%slot%: %name% |stat.level|: %level%",
+            "inTeam": " (在隊伍)"
+        },
+        "inventory": {
+            "print": {
+                "name": "|stat.name|: %name%",
+                "id": "|stat.id|: %id%",
+                "amount": "|stat.amount|: %amount%"
+            }
+        },
+        "team": {
+            "print": {
+                "info": "%slot%: %name% |stat.level|: %level%",
+                "none": "%slot%: |stat.none|"
+            }
+        }
+    },
+    "stat": {
+        "ally": "角色",
+        "armorPositionName": {
+            "helmet": "頭盔",
+            "chestplate": "胸甲",
+            "leggings": "護腿",
+            "boots": "鞋子"
+        },
+        "armorType": "防具類型",
+        "atk": "攻擊力",
+        "amount": "數量",
+        "buyPrice": "購買價錢",
+        "base": "初始",
+        "comboRate": "連擊率",
+        "critChance": "爆擊機率",
+        "critDamage": "爆擊傷害",
+        "defense": "防禦力",
+        "distance": "旅行距離",
+        "durability": "耐久度",
+        "durabilityMax": "最大耐久度",
+        "exp": "經驗值",
+        "gold": "金錢",
+        "handName": {
+            "oneHand": "單手",
+            "twoHand": "雙手"
+        },
+        "hp": "血量",
+        "hpMax": "最大血量",
+        "hpMaxBase": "初始最大血量",
+        "hpMaxScale": "每級提升最大血量",
+        "id": "ID",
+        "inventory": "物品",
+        "itemType": "物品類型",
+        "level": "等級",
+        "luck": "幸運",
+        "luckBase": "初始幸運",
+        "luckScale": "每級提升幸運",
+        "mana": "魔力",
+        "manaMax": "最大魔力",
+        "manaMaxBase": "初始最大魔力",
+        "manaMaxScale": "每級提升最大魔力",
+        "max": "最大",
+        "name": "名字",
+        "none": "空",
+        "rarity": "稀有度",
+        "rarityName": {
+            "common": "普通",
+            "uncommon": "優秀",
+            "rare": "罕見",
+            "epic": "史詩",
+            "legendary": "傳說"
+        },
+        "scale": "每級提升",
+        "sellPrice": "出售價錢",
+        "stackable": "可堆疊",
+        "talentPointScale": "每級增加天賦點",
+        "talent": "天賦",
+        "talentName": {
+            "strength": "力量",
+            "vitality": "體力",
+            "dexterity": "靈巧",
+            "intelligence": "智力"
+        },
+        "team": "隊伍",
+        "teamName": "隊伍名稱",
+        "weaponType": "武器種類"
+    },
+    "dynamic": {
+        "ally": {
+            "twain": {
+                "name": "土淵"
+            }
+        },
+        "race": {
+            "human": {
+                "name": "人類",
+                "description": "善用頭腦而不是蠻力的種族"
+            }
+        },
+        "occupation": {
+            "magician": {
+                "name": "魔法師",
+                "description": "需要高智力才能勝任的職業,可施放各種強力魔法\n但自身血量不高,需要隊友掩護"
+            }
+        },
+        "craftArmor": {
+            "normal_helmet": {
+                "name": {
+                    "default": "普通頭盔"
+                },
+                "description": {
+                    "default": "可以保護你的頭"
+                }
+            }
+        },
+        "armor": {
+            "beginner_helmet": {
+                "name": {
+                    "default": "初始頭盔"
+                }
+            }
+        },
+        "craftWeapon": {
+            "sword": {
+                "name": {
+                    "default": "單手劍"
+                },
+                "description": {
+                    "default": "好用的武器"
+                }
+            }
+        },
+        "weapon": {
+            "beginner_sword": {
+                "name": {
+                    "default": "初始之劍"
+                }
+            },
+            "test": {
+                "name": {
+                    "default": "testt"
+                }
+            }
+        },
+        "material": {
+            "diamond": {
+                "name": {
+                    "default": "鑽石"
+                },
+                "description": {
+                    "common": "不夠晶瑩剔透,但也很好了",
+                    "legendary": "散發出七彩光芒,光可耀人"
+                }
+            }
+        },
+        "prop": {
+            "mana_potion": {
+                "name": {
+                    "common": "魔力藥水",
+                    "legendary": "魔力之泉"
+                },
+                "description": {
+                    "common": "一口喝掉,感覺恢復了些許魔力",
+                    "legendary": "魔力源源不絕的出來啊!!!"
+                }
+            }
+        },
+        "place": {
+            "bar": {
+                "name": {
+                    "default": "酒吧",
+                    "normal": "普通的酒吧",
+                    "rare": "666"
+                },
+                "description": {
+                    "default": "a place full of characters"
+                },
+                "opening": {
+                    "default": "You walked into a noisy tavern, full of chatter, laughter and alcohol"
+                }
+            },
+            "grass_road": {
+                "name": {
+                    "default": "草皮",
+                    "normal": "草皮",
+                    "rare": "666"
+                },
+                "description": {
+                    "default": "a place full of characters"
+                },
+                "opening": {
+                    "default": "You walked into a noisy tavern, full of chatter, laughter and alcohol",
+                    "rare": "666"
+                }
+            }
+        }
+    }
+}

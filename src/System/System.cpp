@@ -3,15 +3,20 @@
 #include <fstream>
 #include <filesystem>
 #include <json.hpp>
-#include "../System/Config.h"
+#include "../System/systemConfig.h"
 #include "I18n.h"
 #include "../Game/Game.h"
+#include "../Game/gameConfig.h"
 #include "Menu.h"
 
 void System::init() {
-	Config::instance().load(this->configPath);
-	I18n::instance().init(Config::instance().getCurrentLanguage(), Config::instance().getDefaultLanguage());
+	std::cout << "a";
+	systemConfig::instance().load(this->configPath);
+	std::cout << "b";
+	I18n::instance().init(systemConfig::instance().getCurrentLanguage(), systemConfig::instance().getDefaultLanguage());
+	std::cout << "c";
 	createNewPlayer();
+	std::cout << "d";
 }
 
 void System::systemMenu() {
@@ -135,7 +140,7 @@ void System::selectPlayer() {
 }
 
 void System::savePlayers() {
-	std::ofstream outFile(Config::instance().getPlayerFilePath());
+	std::ofstream outFile("a");
 	if (outFile.is_open()) {
 		ordered_json j, temp;
 
@@ -314,7 +319,7 @@ void System::selectLanguage() {
 	if (choice != static_cast<int>(I18n::instance().getLanguage().size())) {
 		const string language = I18n::instance().getLanguage()[choice].id;
 		I18n::instance().loadLanguage(language);
-		Config::instance().setCurrentLanguage(language);
+		systemConfig::instance().setCurrentLanguage(language);
 		//update config
 		try {
 			std::ifstream inFile(this->configPath);

@@ -9,9 +9,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="config.json" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utils\ChanceTable.cpp" />
     <ClCompile Include="Utils\JsonUtils.cpp" />
@@ -39,11 +36,12 @@
     <ClCompile Include="Player\Team.cpp" />
     <ClCompile Include="Statu\Status\FireStatu.cpp" />
     <ClCompile Include="Statu\Statu.cpp" />
-    <ClCompile Include="System\Config.cpp" />
+    <ClCompile Include="System\systemConfig.cpp" />
     <ClCompile Include="System\I18n.cpp" />
     <ClCompile Include="System\Menu.cpp" />
     <ClCompile Include="System\Sheet.cpp" />
     <ClCompile Include="System\System.cpp" />
+    <ClCompile Include="Game\gameConfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils\ChanceTable.h" />
@@ -73,12 +71,13 @@
     <ClInclude Include="Player\Team.h" />
     <ClInclude Include="Statu\Status\FireStatu.h" />
     <ClInclude Include="Statu\Statu.h" />
-    <ClInclude Include="System\Config.h" />
+    <ClInclude Include="System\systemConfig.h" />
     <ClInclude Include="System\Exceptions.hpp" />
     <ClInclude Include="System\GlobalVariable.h" />
     <ClInclude Include="System\I18n.h" />
     <ClInclude Include="System\Menu.h" />
     <ClInclude Include="System\Sheet.h" />
     <ClInclude Include="System\System.h" />
+    <ClInclude Include="Game\gameConfig.h" />
   </ItemGroup>
 </Project>

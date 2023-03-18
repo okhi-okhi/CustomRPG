@@ -12,7 +12,7 @@ void Player::printStats() const {
 
 void Player::printAllAllys() const {
 	using std::cout, std::endl, std::to_string;
-	const int lineCapacity = Config::instance().getLineCapacity();
+	const int lineCapacity = gameConfig::instance().getLineCapacity();
 	const int lineAmount = static_cast<int>(std::ceil(static_cast<float>(this->allAllys.size()) / static_cast<float>(lineCapacity)));
 
 	for (int i = 0; i < lineAmount; i++) {

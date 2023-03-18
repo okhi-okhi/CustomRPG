@@ -1,13 +1,13 @@
 #pragma once
 #include "../Item/Armor.h"
 #include "../Item/Weapon.h"
-#include "../System/Config.h"
+#include "../Game/gameConfig.h"
 
 class Equipment
 {
 private:
 	const int weaponCapacity = 2;
-	const int armorCapacity = static_cast<int>(Config::instance().getArmorSlots().size());
+	const int armorCapacity = static_cast<int>(gameConfig::instance().getArmorSlots().size());
 	std::vector<Weapon*> weapons;
 	std::vector<Armor*> armors;
 

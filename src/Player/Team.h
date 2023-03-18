@@ -1,11 +1,11 @@
 #pragma once
 #include "../Entity/Ally.h"
-#include "../System/Config.h"
+#include "../Game/gameConfig.h"
 
 class Team
 {
 private:
-	const int capacity = Config::instance().getTeamCapacity();
+	const int capacity = gameConfig::instance().getTeamCapacity();
 	std::vector<Ally*> team;
 	int allyNum;
 

@@ -1,5 +1,5 @@
 #include "Race.h"
-#include "../System/Config.h"
+#include "../Game/gameConfig.h"
 #include "../System/Exceptions.hpp"
 #include "../Utils/ChanceTable.h"
 #include "../Utils/JsonUtils.h"
@@ -18,7 +18,7 @@ Race::Race(const std::string& fileName)
 		this->manaMaxBase = static_cast<int>(readValue(j["manaMaxBase"]));
 		this->luckBase = static_cast<int>(readValue(j["luckBase"]));
 
-		for(const std::string& talent : Config::instance().getTalents()) {
+		for(const std::string& talent : gameConfig::instance().getTalents()) {
 			this->talents[talent] = static_cast<int>(readValue(j["talents"][talent]));
 		}
 	}

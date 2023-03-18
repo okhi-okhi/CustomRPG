@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Item.h"
 #include "../System/Exceptions.hpp"
-#include "../System/Config.h"
+#include "../game/gameConfig.h"
 #include "../Utils/Utilities.h"
 
 CraftArmor::CraftArmor(const std::string& fileName) {
@@ -14,7 +14,7 @@ CraftArmor::CraftArmor(const std::string& fileName) {
 		this->name = readString("name");
 		this->description = readString("description");
 
-		std::vector<std::string> armorPos = Config::instance().getArmorSlots();
+		std::vector<std::string> armorPos = gameConfig::instance().getArmorSlots();
 		if(std::find(armorPos.begin(), armorPos.end(), j["armorSlot"]) != armorPos.end()) {
 			this->armorSlot = j["armorSlot"];
 		} else {
@@ -33,9 +33,9 @@ std::string CraftArmor::getArmorSlotName(const std::string& armorSlot)
 
 int CraftArmor::getArmorSlotIndex() const
 {
-	for(int i = 0; i < Config::instance().getArmorSlots().size(); i++)
+	for(int i = 0; i < gameConfig::instance().getArmorSlots().size(); i++)
 	{
-		if(this->armorSlot == Config::instance().getArmorSlots()[i]) {
+		if(this->armorSlot == gameConfig::instance().getArmorSlots()[i]) {
 			return i;
 		}
 	}

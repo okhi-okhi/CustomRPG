@@ -1,5 +1,5 @@
 #include "Equipment.h"
-#include "../System/Config.h"
+#include "../Game/gameConfig.h"
 #include "../System/Exceptions.hpp"
 
 Equipment::Equipment()
@@ -11,7 +11,7 @@ Equipment::Equipment()
 		this->weapons.push_back(nullptr);
 	}
 
-	for (int i = 0; i < Config::instance().getArmorSlots().size(); i++) {
+	for (int i = 0; i < gameConfig::instance().getArmorSlots().size(); i++) {
 		this->armors.push_back(nullptr);
 	}
 }

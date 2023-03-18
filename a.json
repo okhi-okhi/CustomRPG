@@ -1,0 +1,20 @@
+{
+    "game": {
+        "nextPlaceNum": 3,
+        "teamCapacity": 3,
+        "lineCapacity": 3
+    },
+    "formula": null,
+    "talents": [
+        "strength",
+        "vitality",
+        "dexterity",
+        "intelligence"
+    ],
+    "armorSlots": [
+        "helmet",
+        "chestplate",
+        "leggings",
+        "boots"
+    ]
+}
