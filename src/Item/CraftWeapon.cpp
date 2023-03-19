@@ -15,7 +15,7 @@ CraftWeapon::CraftWeapon(const std::string& fileName) {
 		this->isTwoHand = j["isTwoHand"];
 	}
 	catch (json::exception& e) {
-		throw BadValueException(fileName, j, e.what());
+		throw BadValueException(fileName, e.what());
 	}
 }
 

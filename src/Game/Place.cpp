@@ -46,7 +46,7 @@ Place::Place(const std::string& fileName)
 		}
 	}
 	catch (json::exception& e) {
-		throw BadValueException(fileName, j, e.what());
+		throw BadValueException(fileName, e.what());
 	}
 }
 

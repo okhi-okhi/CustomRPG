@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "../System/GlobalVariable.h"
-#include "../System/I18n.h"
+#include "../I18n/I18n.h"
 #include "../Utils/ChanceTable.h"
 
 using json = nlohmann::json;

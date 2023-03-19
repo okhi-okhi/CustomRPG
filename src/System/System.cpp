@@ -3,20 +3,16 @@
 #include <fstream>
 #include <filesystem>
 #include <json.hpp>
-#include "../System/systemConfig.h"
-#include "I18n.h"
+#include "SystemConfig.h"
 #include "../Game/Game.h"
 #include "../Game/gameConfig.h"
+#include "../I18n/I18n.h"
 #include "Menu.h"
 
 void System::init() {
-	std::cout << "a";
-	systemConfig::instance().load(this->configPath);
-	std::cout << "b";
-	I18n::instance().init(systemConfig::instance().getCurrentLanguage(), systemConfig::instance().getDefaultLanguage());
-	std::cout << "c";
+	SystemConfig::instance().load(this->configPath);
+	I18n::instance().loadSystemI18n(SystemConfig::instance().getCurrentLanguage(), SystemConfig::instance().getDefaultLanguage());
 	createNewPlayer();
-	std::cout << "d";
 }
 
 void System::systemMenu() {
@@ -77,7 +73,7 @@ void System::settingMenu() {
 	using std::cout, std::endl;
 
 	Menu settingMenu("system.settingMenu");
-	settingMenu.addButton("selectLanguage", { {"language", I18n::instance().getCurrentLanguage().name} });
+	settingMenu.addButton("selectLanguage", { {"language", I18n::instance().getSystemI18n().getCurrentLanguage().name} });
 	settingMenu.addButton("quit");
 	settingMenu.print();
 
@@ -305,7 +301,7 @@ void System::selectLanguage() {
 	using json = nlohmann::json;
 	Menu selectLanguage("system.selectLanguage");
 
-	for (const auto& language : I18n::instance().getLanguage())
+	for (const auto& language : I18n::instance().getSystemI18n().getLanguages())
 	{
 		selectLanguage.addButton("language", { {"language", language.name} });
 	}
@@ -316,10 +312,10 @@ void System::selectLanguage() {
 
 	this->choice = selectLanguage.getInput();
 
-	if (choice != static_cast<int>(I18n::instance().getLanguage().size())) {
-		const string language = I18n::instance().getLanguage()[choice].id;
-		I18n::instance().loadLanguage(language);
-		systemConfig::instance().setCurrentLanguage(language);
+	if (choice != static_cast<int>(I18n::instance().getSystemI18n().getLanguages().size())) {
+		const string language = I18n::instance().getSystemI18n().getLanguages()[choice].id;
+		I18n::instance().getSystemI18n().loadLanguage(language);
+		SystemConfig::instance().setCurrentLanguage(language);
 		//update config
 		try {
 			std::ifstream inFile(this->configPath);
@@ -338,6 +334,6 @@ void System::selectLanguage() {
 		}
 
 		std::cout << I18n::instance().get("system.selectLanguage.success",
-			{ {"language", I18n::instance().getCurrentLanguage().name} }) << std::endl;
+			{ {"language", I18n::instance().getSystemI18n().getCurrentLanguage().name} }) << std::endl;
 	}
 }

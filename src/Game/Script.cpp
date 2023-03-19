@@ -25,7 +25,7 @@ Script::Script(std::string fileName)
 		}
 	}
 	catch (json::type_error& e) {
-		throw BadValueException(fileName, j, e.what());
+		throw BadValueException(fileName, e.what());
 	}
 }
 

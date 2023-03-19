@@ -5,7 +5,7 @@
 class Team
 {
 private:
-	const int capacity = gameConfig::instance().getTeamCapacity();
+	const int capacity = GameConfig::instance().getTeamCapacity();
 	std::vector<Ally*> team;
 	int allyNum;
 

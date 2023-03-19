@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <exception>
-#include "I18n.h"
+#include "../I18n/I18n.h"
 
 using std::string;
 
@@ -24,11 +24,10 @@ public:
 class BadValueException final : public std::exception {
 private:
     string file;
-    string json;
     string error;
 
 public:
-    explicit BadValueException(string file, string j, string error) :file(std::move(file)), json(std::move(j)), error(std::move(error))
+    explicit BadValueException(string file, string error) :file(std::move(file)), error(std::move(error))
     {
         std::cout << what() << std::endl;
         std::cout << this->error << std::endl;
@@ -36,7 +35,7 @@ public:
     }
 
     string what() {
-        return I18n::instance().get("system.exception.badValueFunction", { {"file", file}, {"json", json} });
+        return I18n::instance().get("system.exception.badValueFunction", { {"file", file} });
     }
 };
 

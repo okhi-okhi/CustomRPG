@@ -1,9 +1,9 @@
-#include "systemConfig.h"
+#include "SystemConfig.h"
 #include <fstream>
 #include <iostream>
 #include <json.hpp>
 
-void systemConfig::load(const std::string& fileName) {
+void SystemConfig::load(const std::string& fileName) {
 	using json = nlohmann::json;
 	using ordered_json = nlohmann::ordered_json;
 	std::ifstream inFile(fileName);
@@ -16,7 +16,7 @@ void systemConfig::load(const std::string& fileName) {
 			this->currentLanguage = j["system"]["currentLanguage"];
 		}
 		catch (json::exception& e) {
-			std::cout << "Conversion failed while reading " << fileName <<", json: "<< j << std::endl;
+			std::cout << "Conversion failed while reading " << fileName << std::endl;
 			std::cout << e.what() << std::endl;
 			inFile.close();
 			exit(2);
@@ -26,7 +26,7 @@ void systemConfig::load(const std::string& fileName) {
 	else
 	{
 		inFile.close();
-		std::cout << "Couldn't find " << fileName << ", will create one" << std::endl;
+		std::cout << "Couldn't find file: " << fileName << ", will create one" << std::endl;
 
 		std::ofstream outFile(fileName);
 		ordered_json j = {

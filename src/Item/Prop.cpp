@@ -20,7 +20,7 @@ Prop::Prop(const std::string& fileName)
 		this->description = readString(j["description"], "description");
 	}
 	catch (json::exception& e) {
-		throw BadValueException(fileName, j, e.what());
+		throw BadValueException(fileName, e.what());
 	}
 }
 

@@ -35,7 +35,7 @@
         },
         "exception": {
             "invalidFile": "Can't find file: %file%!",
-            "badValueFunction": "Conversion failed while reading %file%, json: %json%",
+            "badValueFunction": "Conversion failed while reading %file%",
             "outOfRange": "Index less than 0 or out of range! index: %index%, limit: %max%",
             "invBadAmount": "Amount provided when removing item is less than 1! amount: %amount%",
             "badChance": "If chanceTable contains '-1', the total chance cannot exceed 1. total chance: %totalChance%",

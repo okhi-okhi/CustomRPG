@@ -1,7 +1,7 @@
 ﻿#include "Menu.h"
 #include <iostream>
 #include "Exceptions.hpp"
-#include "I18n.h"
+#include "../I18n/I18n.h"
 
 void Menu::addDescription(const std::string& descKey)
 {

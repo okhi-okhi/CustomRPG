@@ -1,6 +1,6 @@
 #include "Inventory.h"
 #include <iostream>
-#include "../System/I18n.h"
+#include "../I18n/I18n.h"
 #include "../System/Exceptions.hpp"
 
 int Inventory::getItemSlot(const Item & item) const {

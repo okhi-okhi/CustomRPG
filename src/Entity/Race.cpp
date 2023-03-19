@@ -18,12 +18,12 @@ Race::Race(const std::string& fileName)
 		this->manaMaxBase = static_cast<int>(readValue(j["manaMaxBase"]));
 		this->luckBase = static_cast<int>(readValue(j["luckBase"]));
 
-		for(const std::string& talent : gameConfig::instance().getTalents()) {
+		for(const std::string& talent : GameConfig::instance().getTalents()) {
 			this->talents[talent] = static_cast<int>(readValue(j["talents"][talent]));
 		}
 	}
 	catch (json::exception& e) {
-		throw BadValueException(fileName, j, e.what());
+		throw BadValueException(fileName, e.what());
 	}
 }
 

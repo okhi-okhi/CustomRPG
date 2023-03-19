@@ -26,7 +26,7 @@ Weapon::Weapon(const std::string& fileName)
 		this->durability = j["durability"] == -1 ? this->durabilityMax : static_cast<int>(readValue(j["durability"]));
 	}
 	catch (json::exception& e) {
-		throw BadValueException(fileName, j, e.what());
+		throw BadValueException(fileName, e.what());
 	}
 }
 

@@ -2,7 +2,7 @@
 #include <string>
 #include "../Utils/Singleton.h"
 
-class systemConfig : public Singleton<systemConfig>
+class SystemConfig : public Singleton<SystemConfig>
 {
 private:
 	//system
@@ -10,7 +10,7 @@ private:
 	std::string currentLanguage;
 
 public:
-	explicit systemConfig(token) : defaultLanguage("en_US"), currentLanguage("en_US") {}
+	explicit SystemConfig(token) : defaultLanguage("en_US"), currentLanguage("en_US") {}
 
 	void load(const std::string& fileName);
 

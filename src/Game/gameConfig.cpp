@@ -4,7 +4,7 @@
 #include <json.hpp>
 #include "../System/Exceptions.hpp"
 
-void gameConfig::load(const std::string& fileName) {
+void GameConfig::load(const std::string& fileName) {
 	using json = nlohmann::json;
 	using ordered_json = nlohmann::ordered_json;
 	std::ifstream inFile(fileName);
@@ -30,7 +30,7 @@ void gameConfig::load(const std::string& fileName) {
 			this->armorSlots = j["armorSlots"].get<std::vector<std::string>>();
 		}
 		catch (json::exception& e) {
-			std::cout << "Conversion failed while reading " << fileName << ", json: " << j << std::endl;
+			std::cout << "Conversion failed while reading " << fileName << std::endl;
 			std::cout << e.what() << std::endl;
 			inFile.close();
 			exit(2);
@@ -60,7 +60,7 @@ void gameConfig::load(const std::string& fileName) {
 	}
 }
 
-const std::string& gameConfig::getFormula(const std::string& key) const
+const std::string& GameConfig::getFormula(const std::string& key) const
 {
 	if (this->formulas.contains(key)) {
 		return this->formulas.find(key)->second;

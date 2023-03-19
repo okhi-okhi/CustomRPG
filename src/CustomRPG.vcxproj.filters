@@ -36,12 +36,14 @@
     <ClCompile Include="Player\Team.cpp" />
     <ClCompile Include="Statu\Status\FireStatu.cpp" />
     <ClCompile Include="Statu\Statu.cpp" />
-    <ClCompile Include="System\systemConfig.cpp" />
-    <ClCompile Include="System\I18n.cpp" />
+    <ClCompile Include="System\SystemConfig.cpp" />
+    <ClCompile Include="I18n\I18n.cpp" />
     <ClCompile Include="System\Menu.cpp" />
     <ClCompile Include="System\Sheet.cpp" />
     <ClCompile Include="System\System.cpp" />
-    <ClCompile Include="Game\gameConfig.cpp" />
+    <ClCompile Include="Game\GameConfig.cpp" />
+    <ClCompile Include="I18n\I18nProvider.cpp" />
+    <ClCompile Include="System\PathProvider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils\ChanceTable.h" />
@@ -71,13 +73,15 @@
     <ClInclude Include="Player\Team.h" />
     <ClInclude Include="Statu\Status\FireStatu.h" />
     <ClInclude Include="Statu\Statu.h" />
-    <ClInclude Include="System\systemConfig.h" />
+    <ClInclude Include="System\SystemConfig.h" />
     <ClInclude Include="System\Exceptions.hpp" />
     <ClInclude Include="System\GlobalVariable.h" />
-    <ClInclude Include="System\I18n.h" />
+    <ClInclude Include="I18n\I18n.h" />
     <ClInclude Include="System\Menu.h" />
     <ClInclude Include="System\Sheet.h" />
     <ClInclude Include="System\System.h" />
-    <ClInclude Include="Game\gameConfig.h" />
+    <ClInclude Include="Game\GameConfig.h" />
+    <ClInclude Include="I18n\I18nProvider.h" />
+    <ClInclude Include="System\PathProvider.h" />
   </ItemGroup>
 </Project>

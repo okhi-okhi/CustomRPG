@@ -18,7 +18,7 @@ Occupation::Occupation(const std::string& fileName)
 		this->talentPointScale = static_cast<int>(readValue(j["talentPointScale"]));
 	}
 	catch (json::exception& e) {
-		throw BadValueException(fileName, j, e.what());
+		throw BadValueException(fileName, e.what());
 	}
 }
 

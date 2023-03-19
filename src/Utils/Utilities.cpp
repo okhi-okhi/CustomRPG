@@ -55,5 +55,12 @@ json Utils::readJsonFile(std::string fileName) {
 	if (!inFile.good()) {
 		throw InvalidFileException(fileName);
 	}
-	return json::parse(inFile);
+	try
+	{
+		return json::parse(inFile);
+	}
+	catch (json::parse_error& e)
+	{
+		throw BadValueException(fileName, e.what());
+	}
 }

@@ -33,7 +33,7 @@ Enemy::Enemy(const std::string& fileName, const int point)
 		this->faction = Faction::ENEMY;
 	}
 	catch (json::type_error& e) {
-		throw BadValueException(fileName, j, e.what());
+		throw BadValueException(fileName, e.what());
 	}
 }
 

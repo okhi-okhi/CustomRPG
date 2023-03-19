@@ -111,7 +111,7 @@ void Team::optimized() {
 
 void Team::print() const {
     using std::cout, std::endl, std::to_string;
-    const int lineCapacity = gameConfig::instance().getLineCapacity();
+    const int lineCapacity = GameConfig::instance().getLineCapacity();
     const int lineAmount = static_cast<int>(std::ceil(static_cast<float>(this->capacity) / static_cast<float>(lineCapacity)));
 
     for(int i = 0; i < lineAmount; i++) {

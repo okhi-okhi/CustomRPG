@@ -11,7 +11,7 @@ Equipment::Equipment()
 		this->weapons.push_back(nullptr);
 	}
 
-	for (int i = 0; i < gameConfig::instance().getArmorSlots().size(); i++) {
+	for (int i = 0; i < GameConfig::instance().getArmorSlots().size(); i++) {
 		this->armors.push_back(nullptr);
 	}
 }

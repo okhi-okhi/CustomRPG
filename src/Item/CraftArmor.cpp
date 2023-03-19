@@ -14,7 +14,7 @@ CraftArmor::CraftArmor(const std::string& fileName) {
 		this->name = readString("name");
 		this->description = readString("description");
 
-		std::vector<std::string> armorPos = gameConfig::instance().getArmorSlots();
+		std::vector<std::string> armorPos = GameConfig::instance().getArmorSlots();
 		if(std::find(armorPos.begin(), armorPos.end(), j["armorSlot"]) != armorPos.end()) {
 			this->armorSlot = j["armorSlot"];
 		} else {
@@ -22,7 +22,7 @@ CraftArmor::CraftArmor(const std::string& fileName) {
 		}
 	}
 	catch (json::exception& e) {
-		throw BadValueException(fileName, j, e.what());
+		throw BadValueException(fileName, e.what());
 	}
 }
 
@@ -33,9 +33,9 @@ std::string CraftArmor::getArmorSlotName(const std::string& armorSlot)
 
 int CraftArmor::getArmorSlotIndex() const
 {
-	for(int i = 0; i < gameConfig::instance().getArmorSlots().size(); i++)
+	for(int i = 0; i < GameConfig::instance().getArmorSlots().size(); i++)
 	{
-		if(this->armorSlot == gameConfig::instance().getArmorSlots()[i]) {
+		if(this->armorSlot == GameConfig::instance().getArmorSlots()[i]) {
 			return i;
 		}
 	}

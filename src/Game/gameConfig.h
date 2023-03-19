@@ -4,7 +4,7 @@
 #include <vector>
 #include "../Utils/Singleton.h"
 
-class gameConfig : public Singleton<gameConfig>
+class GameConfig : public Singleton<GameConfig>
 {
 private:
 	//game
@@ -19,7 +19,7 @@ private:
 	std::vector<std::string> armorSlots;
 
 public:
-	gameConfig(token) : nextPlaceNum(3), teamCapacity(3), lineCapacity(3) {}
+	GameConfig(token) : nextPlaceNum(3), teamCapacity(3), lineCapacity(3) {}
 
 	void load(const std::string& fileName);
 

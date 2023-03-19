@@ -1,7 +1,7 @@
 #include "Ally.h"
 #include <queue>
+#include "../game/GameConfig.h"
 #include "../System/Exceptions.hpp"
-#include "../game/gameConfig.h"
 #include "../Utils/ChanceTable.h"
 #include "../Utils/JsonUtils.h"
 #include "../Utils/Utilities.h"
@@ -39,7 +39,7 @@ Ally::Ally(const std::string& fileName) {
 		this->talents = race.getTalents();
 	}
 	catch (json::exception& e) {
-		throw BadValueException(fileName, j, e.what());
+		throw BadValueException(fileName, e.what());
 	}
 	updateStats();
 }
@@ -47,24 +47,24 @@ Ally::Ally(const std::string& fileName) {
 
 void Ally::updateStats()
 {
-	this->expNext = static_cast<int>(JsonUtils::readValueFromString(gameConfig::instance().getFormula("entity.expNext"), { {"level", this->level} }));
+	this->expNext = static_cast<int>(JsonUtils::readValueFromString(GameConfig::instance().getFormula("entity.expNext"), { {"level", this->level} }));
 
 	std::map <std::string, int> vars = this->talents;
 	vars["level"] = this->level;
 
-	this->hpMax = static_cast<int>(JsonUtils::readValueFromString(gameConfig::instance().getFormula("entity.hpMax"), vars))
+	this->hpMax = static_cast<int>(JsonUtils::readValueFromString(GameConfig::instance().getFormula("entity.hpMax"), vars))
 	+ this->level * this->occupation.getHpMaxScale() + this->race.getHpMaxBase();
 	this->hp = this->hpMax;
 
-	this->manaMax = static_cast<int>(JsonUtils::readValueFromString(gameConfig::instance().getFormula("entity.manaMax"), vars))
+	this->manaMax = static_cast<int>(JsonUtils::readValueFromString(GameConfig::instance().getFormula("entity.manaMax"), vars))
 		+ this->level * this->occupation.getManaMaxScale() + this->race.getManaMaxBase();
 	this->mana = this->manaMax;
 
-	this->atk = static_cast<int>(JsonUtils::readValueFromString(gameConfig::instance().getFormula("entity.atk"), vars));
+	this->atk = static_cast<int>(JsonUtils::readValueFromString(GameConfig::instance().getFormula("entity.atk"), vars));
 
-	this->defense = static_cast<int>(JsonUtils::readValueFromString(gameConfig::instance().getFormula("entity.defense"), vars));
+	this->defense = static_cast<int>(JsonUtils::readValueFromString(GameConfig::instance().getFormula("entity.defense"), vars));
 
-	this->luck = static_cast<int>(JsonUtils::readValueFromString(gameConfig::instance().getFormula("entity.luck"), vars))
+	this->luck = static_cast<int>(JsonUtils::readValueFromString(GameConfig::instance().getFormula("entity.luck"), vars))
 		+ this->level * this->occupation.getLuckScale() + this->race.getLuckBase();
 }
 
