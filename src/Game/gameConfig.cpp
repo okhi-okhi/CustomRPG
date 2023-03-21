@@ -1,4 +1,4 @@
-#include "gameConfig.h"
+#include "GameConfig.h"
 #include <fstream>
 #include <iostream>
 #include <json.hpp>

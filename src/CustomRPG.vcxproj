@@ -99,7 +99,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>DEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;_WINSOCK_DEPRECATED_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\include;..\raylib-master\src;..\raylib-master\src\external;..\raylib-master\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\raylib-master\src;..\raylib-master\src\external;..\raylib-master\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -118,7 +118,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>DEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;_WINSOCK_DEPRECATED_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\include;..\raylib-master\src;..\raylib-master\src\external;..\raylib-master\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\raylib-master\src;..\raylib-master\src\external;..\raylib-master\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -137,7 +137,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;_WINSOCK_DEPRECATED_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\include;..\raylib-master\src;..\raylib-master\src\external;..\raylib-master\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\raylib-master\src;..\raylib-master\src\external;..\raylib-master\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -161,7 +161,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;_WINSOCK_DEPRECATED_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\include;..\raylib-master\src;..\raylib-master\src\external;..\raylib-master\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\raylib-master\src;..\raylib-master\src\external;..\raylib-master\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -192,7 +192,7 @@
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\Place.h" />
     <ClInclude Include="Game\Script.h" />
-    <ClInclude Include="Game\gameConfig.h" />
+    <ClInclude Include="Game\GameConfig.h" />
     <ClInclude Include="I18n\I18n.h" />
     <ClInclude Include="I18n\I18nProvider.h" />
     <ClInclude Include="Item\Armor.h" />
@@ -213,7 +213,7 @@
     <ClInclude Include="System\PathProvider.h" />
     <ClInclude Include="System\Sheet.h" />
     <ClInclude Include="System\System.h" />
-    <ClInclude Include="System\systemConfig.h" />
+    <ClInclude Include="System\SystemConfig.h" />
     <ClInclude Include="Utils\ChanceTable.h" />
     <ClInclude Include="Utils\JsonUtils.h" />
     <ClInclude Include="Utils\Singleton.h" />
@@ -231,7 +231,7 @@
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\Place.cpp" />
     <ClCompile Include="Game\Script.cpp" />
-    <ClCompile Include="Game\gameConfig.cpp" />
+    <ClCompile Include="Game\GameConfig.cpp" />
     <ClCompile Include="I18n\I18n.cpp" />
     <ClCompile Include="I18n\I18nProvider.cpp" />
     <ClCompile Include="Item\Armor.cpp" />
@@ -250,7 +250,7 @@
     <ClCompile Include="System\PathProvider.cpp" />
     <ClCompile Include="System\Sheet.cpp" />
     <ClCompile Include="System\System.cpp" />
-    <ClCompile Include="System\systemConfig.cpp" />
+    <ClCompile Include="System\SystemConfig.cpp" />
     <ClCompile Include="Utils\ChanceTable.cpp" />
     <ClCompile Include="Utils\JsonUtils.cpp" />
     <ClCompile Include="Utils\Utilities.cpp" />
