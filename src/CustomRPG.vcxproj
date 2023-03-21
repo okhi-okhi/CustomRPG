@@ -192,7 +192,7 @@
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\Place.h" />
     <ClInclude Include="Game\Script.h" />
-    <ClInclude Include="Game\GameConfig.h" />
+    <ClInclude Include="Game\a.h" />
     <ClInclude Include="I18n\I18n.h" />
     <ClInclude Include="I18n\I18nProvider.h" />
     <ClInclude Include="Item\Armor.h" />
@@ -231,7 +231,7 @@
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\Place.cpp" />
     <ClCompile Include="Game\Script.cpp" />
-    <ClCompile Include="Game\GameConfig.cpp" />
+    <ClCompile Include="Game\a.cpp" />
     <ClCompile Include="I18n\I18n.cpp" />
     <ClCompile Include="I18n\I18nProvider.cpp" />
     <ClCompile Include="Item\Armor.cpp" />
