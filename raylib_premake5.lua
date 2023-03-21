@@ -88,7 +88,7 @@ project "raylib"
 
     platform_defines()
 
-    location "_build"
+    location "src"
     language "C"
     targetdir "_bin/%{cfg.buildcfg}"
 
