@@ -213,7 +213,7 @@
     <ClInclude Include="System\PathProvider.h" />
     <ClInclude Include="System\Sheet.h" />
     <ClInclude Include="System\System.h" />
-    <ClInclude Include="System\b.h" />
+    <ClInclude Include="System\SystemConfig.h" />
     <ClInclude Include="Utils\ChanceTable.h" />
     <ClInclude Include="Utils\JsonUtils.h" />
     <ClInclude Include="Utils\Singleton.h" />
@@ -250,7 +250,7 @@
     <ClCompile Include="System\PathProvider.cpp" />
     <ClCompile Include="System\Sheet.cpp" />
     <ClCompile Include="System\System.cpp" />
-    <ClCompile Include="System\b.cpp" />
+    <ClCompile Include="System\SystemConfig.cpp" />
     <ClCompile Include="Utils\ChanceTable.cpp" />
     <ClCompile Include="Utils\JsonUtils.cpp" />
     <ClCompile Include="Utils\Utilities.cpp" />

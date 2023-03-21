@@ -159,7 +159,7 @@
     <ClInclude Include="System\System.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="System\b.h">
+    <ClInclude Include="System\SystemConfig.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="Utils\ChanceTable.h">
@@ -266,7 +266,7 @@
     <ClCompile Include="System\System.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="System\b.cpp">
+    <ClCompile Include="System\SystemConfig.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="Utils\ChanceTable.cpp">
