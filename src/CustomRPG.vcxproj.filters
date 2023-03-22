@@ -90,7 +90,7 @@
     <ClInclude Include="Game\Game.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\b.h">
+    <ClInclude Include="Game\GameConfig.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Place.h">
