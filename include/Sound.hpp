@@ -135,22 +135,6 @@ class Sound : public ::Sound {
     }
 
     /**
-     * Play a sound (using multichannel buffer pool)
-     */
-    inline Sound& PlayMulti() {
-        ::PlaySoundMulti(*this);
-        return *this;
-    }
-
-    /**
-     * Stop any sound playing (using multichannel buffer pool)
-     */
-    inline Sound& StopMulti() {
-        ::StopSoundMulti();
-        return *this;
-    }
-
-    /**
      * Check if a sound is currently playing
      */
     inline bool IsPlaying() const {
@@ -212,13 +196,6 @@ class Sound : public ::Sound {
      */
     bool IsReady() const {
         return stream.buffer != nullptr;
-    }
-
-    /**
-     * Get number of sounds playing in the multichannel
-     */
-    int GetPlaying() {
-        return ::GetSoundsPlaying();
     }
 
  private:

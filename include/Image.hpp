@@ -96,7 +96,7 @@ class Image : public ::Image {
         set(other.Copy());
     }
 
-    Image(Image&& other) {
+    Image(Image&& other) noexcept {
         set(other);
 
         other.data = nullptr;

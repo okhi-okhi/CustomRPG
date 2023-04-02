@@ -111,14 +111,6 @@ class Model : public ::Model {
     }
 
     /**
-     * Unload model (but not meshes) from memory (RAM and/or VRAM)
-     */
-    inline Model& UnloadKeepMeshes() {
-        ::UnloadModelKeepMeshes(*this);
-        return *this;
-    }
-
-    /**
      * Set material for a mesh
      */
     inline Model& SetMeshMaterial(int meshId, int materialId) {

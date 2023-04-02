@@ -196,7 +196,7 @@ RLCPPAPI inline void OpenURL(const std::string& url) {
  */
 RLCPPAPI inline void UpdateCamera(const ::Camera& camera) {
     ::Camera* cameraPointer = (::Camera*)&camera;
-    ::UpdateCamera(cameraPointer);
+    ::UpdateCamera(cameraPointer, 0);
 }
 
 /**

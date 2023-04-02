@@ -34,7 +34,7 @@ class AudioStream : public ::AudioStream {
 
     AudioStream(const AudioStream&) = delete;
 
-    AudioStream(AudioStream&& other) {
+    AudioStream(AudioStream&& other) noexcept {
         set(other);
 
         other.buffer = nullptr;

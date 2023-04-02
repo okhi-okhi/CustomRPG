@@ -181,6 +181,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Utils\RaylibUtils.h" />
+    <ClInclude Include="Screen\Button.h" />
     <ClInclude Include="Entity\Ally.h" />
     <ClInclude Include="Entity\Enemy.h" />
     <ClInclude Include="Entity\Entity.h" />
@@ -205,6 +207,7 @@
     <ClInclude Include="Player\Inventory.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Player\Team.h" />
+    <ClInclude Include="Screen\Screen.h" />
     <ClInclude Include="Statu\Statu.h" />
     <ClInclude Include="Statu\Status\FireStatu.h" />
     <ClInclude Include="System\Exceptions.hpp" />
@@ -220,6 +223,8 @@
     <ClInclude Include="Utils\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Utils\RaylibUtils.cpp" />
+    <ClCompile Include="Screen\Button.cpp" />
     <ClCompile Include="Entity\Ally.cpp" />
     <ClCompile Include="Entity\Enemy.cpp" />
     <ClCompile Include="Entity\Entity.cpp" />
@@ -244,6 +249,7 @@
     <ClCompile Include="Player\Inventory.cpp" />
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Player\Team.cpp" />
+    <ClCompile Include="Screen\Screen.cpp" />
     <ClCompile Include="Statu\Statu.cpp" />
     <ClCompile Include="Statu\Status\FireStatu.cpp" />
     <ClCompile Include="System\Menu.cpp" />

@@ -1,15 +1,7 @@
-/*
-Raylib example file.
-This is an example main file for a simple raylib project.
-Use this as a starting point or replace it with your code.
-
-For a C++ project simply rename the file to .cpp and run premake 
-
-*/
-
-#include "raylib.h"
 #include "System/System.h"
 #include "Game/Game.h"
+#include "Screen/Screen.h"
+#include "Utils/RaylibUtils.h"
 
 int playerDistance = 0;
 int playerFame = 0;
@@ -17,23 +9,26 @@ menuStatus menuStatu = menuStatus::SYSTEM;
 
 int main ()
 {
-	// set up the window
-	InitWindow(1280, 800, "Hello Raylib");
-	
-	// game loop
-	while (!WindowShouldClose())
-	{
-		// drawing
-		BeginDrawing();
-		ClearBackground(BLACK);
+	raylib::Window window(0, 0, "CustomRPG");
 
-		DrawText("Hello Raylib", 200,200,20,WHITE);
-		
-		EndDrawing();
+	window.SetSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
+	window.ToggleFullscreen();
+	window.SetTargetFPS(144);
+
+	Screen test("Screens/test.png", "system.testScreen");
+	test.addButton(Button("Screens/basic_button.png", "test", Vector2(0.5, 0.7), 0.3));
+	
+	while (!window.ShouldClose())
+	{
+        window.BeginDrawing();
+        {
+			window.ClearBackground(WHITE);
+			test.draw();
+        }
+		window.EndDrawing();
 	}
 
-	// cleanup
-	CloseWindow();
+	window.Close();
 	return 0;
 }
 
