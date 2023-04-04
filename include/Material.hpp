@@ -26,7 +26,7 @@ class Material : public ::Material {
 
     Material(const Material&) = delete;
 
-    Material(Material&& other) {
+    Material(Material&& other) noexcept {
         set(other);
 
         other.maps = nullptr;

@@ -22,7 +22,7 @@ void Screen::draw() const
 
 	for(const auto& button : this->buttons)
 	{
-		button.draw();
+		button.draw(this->i18nKey);
 	}
 }
 

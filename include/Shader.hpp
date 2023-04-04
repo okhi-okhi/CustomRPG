@@ -29,7 +29,7 @@ class Shader : public ::Shader {
 
     Shader(const Shader&) = delete;
 
-    Shader(Shader&& other) {
+    Shader(Shader&& other) noexcept {
         set(other);
 
         other.id = 0;

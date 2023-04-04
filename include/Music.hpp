@@ -43,7 +43,7 @@ class Music : public ::Music {
 
     Music(const Music&) = delete;
 
-    Music(Music&& other) {
+    Music(Music&& other) noexcept {
         set(other);
 
         other.stream = {};

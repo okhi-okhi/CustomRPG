@@ -28,7 +28,7 @@ class Texture : public TextureUnmanaged {
     /**
      * Move constructor.
      */
-    Texture(Texture&& other) {
+    Texture(Texture&& other) noexcept {
         set(other);
 
         other.id = 0;

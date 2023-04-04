@@ -49,7 +49,7 @@ class Model : public ::Model {
 
     Model(const Model&) = delete;
 
-    Model(Model&& other) {
+    Model(Model&& other) noexcept {
         set(other);
 
         other.meshCount = 0;

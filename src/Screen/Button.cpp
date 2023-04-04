@@ -1,29 +1,36 @@
-#include "Button.h"
+﻿#include "Button.h"
+#include <iostream>
+#include "../I18n/I18n.h"
+#include "../I18n/FontProvider.h"
 #include "../System/PathProvider.h"
+#include "../System/SystemConfig.h"
 #include "../Utils/RaylibUtils.h"
-
-#define BUTTON_STATE_NUMS 2
 
 Button::Button(const std::string& fileName, const std::string& i18nKey, const Vector2 pos, const float zoomPercent)
 {
 	raylib::Image image(PathProvider::instance().getResourcesPath() + fileName);
-	const int btnWidth = RaylibUtils::getWindowWidth() * zoomPercent;
+	const int btnWidth = static_cast<int>(RaylibUtils::getWindowWidth() * zoomPercent);
 	image.Resize(btnWidth, btnWidth * (image.width / image.height));
 	this->spriteTexture = image;
 
 	this->i18nKey = i18nKey;
 
-	const float buttonHeight = static_cast<float>(this->spriteTexture.height) / BUTTON_STATE_NUMS;
-	this->pos = Vector2(RaylibUtils::getWindowWidth() * pos.x - spriteTexture.width / 2,
-		RaylibUtils::getWindowHeight() * pos.y - buttonHeight / 2);
+	this->position = Vector2(RaylibUtils::getWindowWidth() * pos.x - static_cast<float>(spriteTexture.width) / 2,
+		RaylibUtils::getWindowHeight() * pos.y - this->getButtonHeight() / 2);
 
 	buttonState = buttonState::IDLE;
 }
 
-void Button::draw() const
+void Button::draw(const std::string& i18nPrefix) const
 {
-	const float buttonHeight = static_cast<float>(this->spriteTexture.height) / BUTTON_STATE_NUMS;
-	const raylib::Rectangle sourceRec(0, static_cast<float>(this->buttonState) * buttonHeight,
-		spriteTexture.width, buttonHeight);
-	DrawTextureRec(this->spriteTexture, sourceRec, this->pos, WHITE);
+	const raylib::Rectangle sourceRec(0, static_cast<float>(this->buttonState) * this->getButtonHeight(),
+		static_cast<float>(this->spriteTexture.width), this->getButtonHeight());
+	DrawTextureRec(this->spriteTexture, sourceRec, this->position, WHITE);
+
+	std::string text = I18n::instance().get(i18nPrefix + "." + this->i18nKey);
+
+	DrawTextEx(static_cast<Font>(FontProvider::instance().get(i18nPrefix + "." + this->i18nKey)), text.c_str(), this->position, 100, 5, BLACK);
+	// RaylibUtils::drawTextBoxed(SystemConfig::instance().getDefaultFont(),
+	// 	I18n::instance().get(i18nPrefix + "." + this->i18nKey),
+	// 	Rectangle(this->position.x, this->position.y, this->spriteTexture.width, this->getButtonHeight()), 16, 1.0f, WHITE);
 }

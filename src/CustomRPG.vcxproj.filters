@@ -177,6 +177,7 @@
     <ClInclude Include="Screen\Screen.h" />
     <ClInclude Include="Screen\Button.h" />
     <ClInclude Include="Utils\RaylibUtils.h" />
+    <ClInclude Include="I18n\FontProvider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity\Ally.cpp">
@@ -287,5 +288,6 @@
     <ClCompile Include="Screen\Screen.cpp" />
     <ClCompile Include="Screen\Button.cpp" />
     <ClCompile Include="Utils\RaylibUtils.cpp" />
+    <ClCompile Include="I18n\FontProvider.cpp" />
   </ItemGroup>
 </Project>

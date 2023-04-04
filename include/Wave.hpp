@@ -48,7 +48,7 @@ class Wave : public ::Wave {
         set(other.Copy());
     }
 
-    Wave(Wave&& other) {
+    Wave(Wave&& other) noexcept {
         set(other);
 
         other.frameCount = 0;

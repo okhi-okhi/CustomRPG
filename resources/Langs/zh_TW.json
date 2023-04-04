@@ -1,7 +1,12 @@
 {
     "name": "繁體中文 (台灣)",
-    "test": "中文",
+    "font": "NotoSansTC-Medium.otf",
     "charWidthFix": "2",
+    "screen":{
+        "test":{
+            "button1": "終於成功了??"
+        }
+    },
     "menu": {
         "button": "%index%: %description%",
         "continue": "按下ENTER來繼續...",

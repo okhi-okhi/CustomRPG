@@ -35,7 +35,7 @@ class RenderTexture : public ::RenderTexture {
 
     RenderTexture(const RenderTexture&) = delete;
 
-    RenderTexture(RenderTexture&& other) {
+    RenderTexture(RenderTexture&& other) noexcept {
         set(other);
 
         other.id = 0;

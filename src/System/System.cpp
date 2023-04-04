@@ -5,14 +5,16 @@
 #include <json.hpp>
 #include "SystemConfig.h"
 #include "../Game/Game.h"
-#include "../Game/gameConfig.h"
+#include "../Game/GameConfig.h"
 #include "../I18n/I18n.h"
+#include "../I18n/FontProvider.h"
 #include "Menu.h"
 
 void System::init() {
 	SystemConfig::instance().load(this->configPath);
 	I18n::instance().loadSystemI18n(SystemConfig::instance().getCurrentLanguage(), SystemConfig::instance().getDefaultLanguage());
-	createNewPlayer();
+	FontProvider::instance().loadSystemFont(SystemConfig::instance().getCurrentLanguage(), SystemConfig::instance().getDefaultLanguage());
+	// createNewPlayer();
 }
 
 void System::systemMenu() {
@@ -73,7 +75,7 @@ void System::settingMenu() {
 	using std::cout, std::endl;
 
 	Menu settingMenu("system.settingMenu");
-	settingMenu.addButton("selectLanguage", { {"language", I18n::instance().getSystemI18n().getCurrentLanguage().name} });
+	settingMenu.addButton("selectLanguage", { {"language", I18n::instance().getSystemI18n().getCurrentLanguage().info.name} });
 	settingMenu.addButton("quit");
 	settingMenu.print();
 
@@ -334,6 +336,6 @@ void System::selectLanguage() {
 		}
 
 		std::cout << I18n::instance().get("system.selectLanguage.success",
-			{ {"language", I18n::instance().getSystemI18n().getCurrentLanguage().name} }) << std::endl;
+			{ {"language", I18n::instance().getSystemI18n().getCurrentLanguage().info.name} }) << std::endl;
 	}
 }

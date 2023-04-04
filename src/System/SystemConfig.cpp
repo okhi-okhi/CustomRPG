@@ -16,7 +16,7 @@ void SystemConfig::load(const std::string& fileName) {
 			this->currentLanguage = j["system"]["currentLanguage"];
 		}
 		catch (json::exception& e) {
-			std::cout << "Conversion failed while reading " << fileName << std::endl;
+			std::cout << "ERROR: Conversion failed while reading " << fileName << std::endl;
 			std::cout << e.what() << std::endl;
 			inFile.close();
 			exit(2);
@@ -26,14 +26,14 @@ void SystemConfig::load(const std::string& fileName) {
 	else
 	{
 		inFile.close();
-		std::cout << "Couldn't find file: " << fileName << ", will create one" << std::endl;
+		std::cout << "ERROR: Couldn't find file: " << fileName << ", will create one" << std::endl;
 
 		std::ofstream outFile(fileName);
 		ordered_json j = {
 			{"system",
 				{
 					{"defaultLanguage", this->defaultLanguage},
-					{"currentLanguage", this->currentLanguage}
+					{"currentLanguage", this->currentLanguage},
 				}
 			},
 		};

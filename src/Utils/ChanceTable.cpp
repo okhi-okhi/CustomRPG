@@ -1,9 +1,9 @@
 #include "ChanceTable.h"
 #include <fstream>
 #include <iostream>
-#include "../Utils/Utilities.h"
-#include "../System/Exceptions.hpp"
 #include "JsonUtils.h"
+#include "Utilities.h"
+#include "../System/Exceptions.hpp"
 #include "../System/GlobalVariable.h"
 
 ChanceTable::ChanceTable() {

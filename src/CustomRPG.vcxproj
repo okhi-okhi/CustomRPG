@@ -181,6 +181,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="I18n\FontProvider.h" />
     <ClInclude Include="Utils\RaylibUtils.h" />
     <ClInclude Include="Screen\Button.h" />
     <ClInclude Include="Entity\Ally.h" />
@@ -223,6 +224,7 @@
     <ClInclude Include="Utils\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="I18n\FontProvider.cpp" />
     <ClCompile Include="Utils\RaylibUtils.cpp" />
     <ClCompile Include="Screen\Button.cpp" />
     <ClCompile Include="Entity\Ally.cpp" />

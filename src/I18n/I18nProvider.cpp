@@ -3,20 +3,22 @@
 #include <filesystem>
 #include <iostream>
 #include <json.hpp>
-#include "../Utils/Utilities.h"
+#include "../System/PathProvider.h"
 
-void I18nProvider::init(const string& langsFilePaths, const string& currentLanguage, const string& defaultLanguage) {
+void I18nProvider::init(const string& resourcePath, const string& currentLanguage, const string& defaultLanguage)
+{
 	namespace fs = std::filesystem;
 
-	this->langsFilePaths = langsFilePaths;
-	for (const auto& langFile : fs::directory_iterator(this->langsFilePaths))
+	this->resourcePath = resourcePath;
+	for (const auto& langFile : fs::directory_iterator(this->resourcePath + PathProvider::instance().getLangsPath()))
 	{
 		string id = langFile.path().stem().string();
 		this->languages.emplace_back(id, getLanguageName(id));
 	}
 	if (!loadLanguage(currentLanguage)) {
-		std::cout << "Fallback to default language: "<< this->defaultLanguage.name << std::endl;
-		this->currentLanguage = this->defaultLanguage;
+		std::cout << "Can't load language: " << currentLanguage << std::endl;
+		std::cout << "Fallback to default language: "<< this->defaultLanguage.info.name << std::endl;
+		this->currentLanguage = std::move(this->defaultLanguage);
 	}
 	loadDefaultLanguage(defaultLanguage);
 }
@@ -25,7 +27,14 @@ string I18nProvider::getLanguageName(const string& fileName) const
 {
 	using json = nlohmann::json;
 
-	json j = Utils::readJsonFile(this->langsFilePaths + fileName);
+	std::ifstream inFile(this->resourcePath + PathProvider::instance().getLangsPath() + fileName + ".json");
+	if (!inFile.good())
+	{
+		std::cout << "Can't find file:" << this->resourcePath + PathProvider::instance().getLangsPath()
+			<< fileName << ".json" << std::endl;
+		exit(1);
+	}
+	json j = json::parse(inFile);
 	try {
 		return j["name"];
 	}
@@ -37,19 +46,20 @@ string I18nProvider::getLanguageName(const string& fileName) const
 	}
 }
 
-bool I18nProvider::loadLanguage(const string& fileName) {
+bool I18nProvider::loadLanguage(const string& fileName)
+{
 	using json = nlohmann::json;
 
-	std::ifstream inFile(this->langsFilePaths + fileName + ".json");
+	std::ifstream inFile(this->resourcePath + PathProvider::instance().getLangsPath() + fileName + ".json");
 	if (!inFile.good()) 
 	{
-		std::cout << "Couldn't find file:" << this->langsFilePaths
+		std::cout << "Can't find file:" << this->resourcePath + PathProvider::instance().getLangsPath()
 			<< fileName << ".json" << std::endl;
 		return false;
 	}
 	json j = json::parse(inFile);
 	try {
-		this->currentLanguage = Language(fileName, j["name"]);
+		this->currentLanguage.info = LanguageInfo(fileName, j["name"]);
 
 		j = j.flatten();
 		json j2;
@@ -59,7 +69,7 @@ bool I18nProvider::loadLanguage(const string& fileName) {
 			s.erase(0, 1);
 			j2[s] = item.value();
 		}
-		this->currentTranslation = j2.get<std::map<string, string>>();
+		this->currentLanguage.translation = j2.get<std::map<string, string>>();
 	}
 	catch (json::exception& e)
 	{
@@ -69,27 +79,37 @@ bool I18nProvider::loadLanguage(const string& fileName) {
 		return false;
 	}
 	inFile.close();
+
+	string str;
+	for(const auto& value : this->currentLanguage.translation | std::views::values)
+	{
+		str.append(value);
+	}
+	// this->currentLanguage.font = RaylibUtils::getContainTextFont(
+	// 	this->resourcePath + PathProvider::instance().getFontsPath(), str);
+
 	return true;
 }
 
-void I18nProvider::loadDefaultLanguage(const string& fileName) {
+void I18nProvider::loadDefaultLanguage(const string& fileName)
+{
 	using json = nlohmann::json;
-	std::ifstream inFile(this->langsFilePaths + fileName + ".json");
+	std::ifstream inFile(this->resourcePath + PathProvider::instance().getLangsPath() + fileName + ".json");
 	if (!inFile.good())
 	{
-		std::cout << "Couldn't find file:" << this->langsFilePaths
+		std::cout << "Can't find file:" << this->resourcePath + PathProvider::instance().getLangsPath()
 			<< fileName << ".json" << std::endl;
 		exit(1);
 	}
 	try {
 		json j = json::parse(inFile);
-		this->defaultLanguage = Language(fileName, j["name"]);
+		this->defaultLanguage.info = LanguageInfo(fileName, j["name"]);
 		j = j.flatten();
 		for (const auto& item : j.items())
 		{
 			std::string s = item.key();
 			s.erase(0, 1);
-			this->defaultTranslation[s] = item.value();
+			this->defaultLanguage.translation[s] = item.value();
 		}
 	}
 	catch (json::exception& e)
@@ -142,20 +162,22 @@ string I18nProvider::replaceArgInString(string str, const std::map<string, strin
 	return str;
 }
 
-string I18nProvider::get(const string& key) const {
-	if (this->currentTranslation.contains(key))
+string I18nProvider::get(const string& key) const
+{
+	if (this->currentLanguage.translation.contains(key))
 	{
-		return replaceKeyInString(this->currentTranslation.find(key)->second);
+		return replaceKeyInString(this->currentLanguage.translation.find(key)->second);
 	}
 	// std::cout << "ERROR! Invalid translate key: " << key << std::endl
 	// 	<< "Fallback to default language.";
 	return getFromDefault(key);
 }
 
-string I18nProvider::get(const string& key, const std::map<string, string>& args) const {
-	if (this->currentTranslation.contains(key)) 
+string I18nProvider::get(const string& key, const std::map<string, string>& args) const
+{
+	if (this->currentLanguage.translation.contains(key))
 	{
-		return replaceArgInString(replaceKeyInString(this->currentTranslation.find(key)->second), args);
+		return replaceArgInString(replaceKeyInString(this->currentLanguage.translation.find(key)->second), args);
 	}
 	// std::cout << "ERROR! Invalid translate key: " << key << std::endl
 	// 	<< "Fallback to default language.";
@@ -164,8 +186,8 @@ string I18nProvider::get(const string& key, const std::map<string, string>& args
 
 string I18nProvider::getFromDefault(const string& key) const
 {
-	if (this->defaultTranslation.contains(key)) {
-		return replaceKeyInString(this->defaultTranslation.find(key)->second);
+	if (this->defaultLanguage.translation.contains(key)) {
+		return replaceKeyInString(this->defaultLanguage.translation.find(key)->second);
 	}
 	// std::cout << "ERROR! Invalid translate in default language, key: " << key << std::endl;
 	return "Invalid";
@@ -173,9 +195,9 @@ string I18nProvider::getFromDefault(const string& key) const
 
 string I18nProvider::getFromDefault(const string& key, const std::map<string, string>& args) const
 {
-	if (this->defaultTranslation.contains(key))
+	if (this->defaultLanguage.translation.contains(key))
 	{
-		return replaceArgInString(replaceKeyInString(this->defaultTranslation.find(key)->second), args);
+		return replaceArgInString(replaceKeyInString(this->defaultLanguage.translation.find(key)->second), args);
 	}
 	// std::cout << "ERROR! Invalid translate in default language, key: " << key << std::endl;
 	return "Invalid";

@@ -30,7 +30,7 @@ class Mesh : public ::Mesh {
 
     Mesh(const Mesh&) = delete;
 
-    Mesh(Mesh&& other) {
+    Mesh(Mesh&& other) noexcept {
         set(other);
 
         other.vertexCount = 0;

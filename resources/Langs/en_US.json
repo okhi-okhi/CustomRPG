@@ -1,6 +1,12 @@
 {
     "name": "English (US)",
+    "font": "pixantiqua.ttf",
     "charWidthFix": "1",
+    "screen":{
+        "test":{
+            "button1": "中文"
+        }
+    },
     "menu":{
         "button": "%index%: %description%",
         "continue": "Press ENTER to continue...",

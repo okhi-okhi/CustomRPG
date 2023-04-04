@@ -4,7 +4,7 @@
 #include "../Utils/JsonUtils.h"
 #include "../Utils/Utilities.h"
 
-Material::Material(const std::string& fileName)
+CustomRPG::Material::Material(const std::string& fileName)
 {
 	using std::cout, std::endl;
 	json j = Utils::readJsonFile("Items/Materials/" + fileName);
@@ -24,11 +24,11 @@ Material::Material(const std::string& fileName)
 	}
 }
 
-Material* Material::clone()const {
+CustomRPG::Material* CustomRPG::Material::clone()const {
 	return new Material(*this);
 }
 
-ordered_json Material::getAsJson()const
+ordered_json CustomRPG::Material::getAsJson()const
 {
 	ordered_json j = Item::getAsJson();
 	j["description"] = this->description;
@@ -36,7 +36,7 @@ ordered_json Material::getAsJson()const
 	return j;
 }
 
-std::vector<std::string> Material::getDataKey() const
+std::vector<std::string> CustomRPG::Material::getDataKey() const
 {
 	std::vector<std::string> dataKey = Item::getDataKey();
 
@@ -45,7 +45,7 @@ std::vector<std::string> Material::getDataKey() const
 	return dataKey;
 }
 
-std::map<std::string, std::string> Material::getData() const
+std::map<std::string, std::string> CustomRPG::Material::getData() const
 {
 	std::map<std::string, std::string> data = Item::getData();
 
@@ -54,7 +54,7 @@ std::map<std::string, std::string> Material::getData() const
 	return data;
 }
 
-void Material::print()const
+void CustomRPG::Material::print()const
 {
 	using std::cout, std::endl;
 	Item::print();
@@ -62,14 +62,14 @@ void Material::print()const
 	cout << I18n::instance().get(prefix + "description", { {"description", this->getDescription()} }) << endl;
 }
 
-void Material::debugPrint() const
+void CustomRPG::Material::debugPrint() const
 {
 	using std::cout, std::endl;
 	Item::debugPrint();
 	print();
 }
 
-float Material::readValue(const json& j) const
+float CustomRPG::Material::readValue(const json& j) const
 {
 	if (j.is_number()) {
 		return JsonUtils::readValueFromNum(j);
@@ -83,7 +83,7 @@ float Material::readValue(const json& j) const
 	throw NoReadFunctionException(j);
 }
 
-std::string Material::readString(const json& j, const std::string& key) const
+std::string CustomRPG::Material::readString(const json& j, const std::string& key) const
 {
 	const std::string prefix = "dynamic.material." + this->id + "." + key + ".";
 	if (j.is_null()) {

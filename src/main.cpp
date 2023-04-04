@@ -1,4 +1,4 @@
-#include "System/System.h"
+﻿#include "System/System.h"
 #include "Game/Game.h"
 #include "Screen/Screen.h"
 #include "Utils/RaylibUtils.h"
@@ -15,8 +15,10 @@ int main ()
 	window.ToggleFullscreen();
 	window.SetTargetFPS(144);
 
-	Screen test("Screens/test.png", "system.testScreen");
-	test.addButton(Button("Screens/basic_button.png", "test", Vector2(0.5, 0.7), 0.3));
+	System::instance().init();
+
+	Screen test("Screens/test.png", "screen.test");
+	test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.5), 0.1f));
 	
 	while (!window.ShouldClose())
 	{
