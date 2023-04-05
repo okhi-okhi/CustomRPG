@@ -56,7 +56,8 @@ int* RaylibUtils::codepointRemoveDuplicates(const int* codepoints, const int cod
     return codepointsNoDups;
 }
 
-void RaylibUtils::drawTextBoxed(const raylib::Font& font, const std::string& text, const raylib::Rectangle& rec, const float& fontSize, const float& spacing, const raylib::Color& tint)
+// Draw text using font inside rectangle limits with support for text selection
+void RaylibUtils::drawTextBoxed(const raylib::Font& font, const std::string& text, const Rectangle rec, const float fontSize, const float spacing, const bool wordWrap, const Color tint)
 {
 	const int length = TextLength(text.c_str());  // Total length in bytes of the text, scanned by codepoints in loop
 
@@ -67,18 +68,17 @@ void RaylibUtils::drawTextBoxed(const raylib::Font& font, const std::string& tex
 
     // Word/character wrapping mechanism variables
     enum { MEASURE_STATE = 0, DRAW_STATE = 1 };
-    int state = MEASURE_STATE;
+    int state = wordWrap ? MEASURE_STATE : DRAW_STATE;
 
     int startLine = -1;         // Index where to begin drawing (where a line begins)
     int endLine = -1;           // Index where to stop drawing (where a line ends)
-    int lastk = -1;             // Holds last value of the character position
 
     for (int i = 0, k = 0; i < length; i++, k++)
     {
         // Get next codepoint from byte string and glyph index in font
         int codepointByteCount = 0;
-        int codepoint = GetCodepoint(&text[i], &codepointByteCount);
-        const int index = font.GetGlyphIndex(codepoint);
+        const int codepoint = GetCodepoint(&text[i], &codepointByteCount);
+        const int index = GetGlyphIndex(font, codepoint);
 
         // NOTE: Normally we exit the decoding sequence as soon as a bad byte is found (and return 0x3f)
         // but we need to draw all of the bad bytes using the '?' symbol moving one byte
@@ -108,51 +108,62 @@ void RaylibUtils::drawTextBoxed(const raylib::Font& font, const std::string& tex
                 if (i == endLine) endLine -= codepointByteCount;
                 if ((startLine + codepointByteCount) == endLine) endLine = (i - codepointByteCount);
 
-                state = ~state;
+                state = !state;
             }
-            else if (i + 1 == length)
+            else if ((i + 1) == length)
             {
                 endLine = i;
-                state = ~state;
+                state = !state;
             }
-            else if (codepoint == '\n') state = ~state;
+            else if (codepoint == '\n') state = !state;
 
             if (state == DRAW_STATE)
             {
                 textOffsetX = 0;
                 i = startLine;
                 glyphWidth = 0;
-
-                // Save character position when we switch states
-                const int tmp = lastk;
-                lastk = k - 1;
-                k = tmp;
             }
         }
         else
         {
-        	// When text overflows rectangle height limit, just stop drawing
-        	if ((textOffsetY + font.baseSize * scaleFactor) > rec.height) break;
-
-        	// Draw current character glyph
-        	if ((codepoint != ' ') && (codepoint != '\t'))
-        	{
-        		DrawTextCodepoint(font, codepoint, Vector2(rec.x + textOffsetX, rec.y + textOffsetY), fontSize, tint);
-        	}
-
-            if (i == endLine)
+            if (codepoint == '\n')
             {
-                textOffsetY += (font.baseSize + font.baseSize / 2) * scaleFactor;
+                if (!wordWrap)
+                {
+                    textOffsetY += (font.baseSize + static_cast<float>(font.baseSize) / 2) * scaleFactor;
+                    textOffsetX = 0;
+                }
+            }
+            else
+            {
+                if (!wordWrap && ((textOffsetX + glyphWidth) > rec.width))
+                {
+                    textOffsetY += (font.baseSize + static_cast<float>(font.baseSize) / 2) * scaleFactor;
+                    textOffsetX = 0;
+                }
+
+                // When text overflows rectangle height limit, just stop drawing
+                if ((textOffsetY + font.baseSize * scaleFactor) > rec.height) break;
+
+                // Draw current character glyph
+                if ((codepoint != ' ') && (codepoint != '\t'))
+                {
+                	DrawTextCodepoint(font, codepoint, Vector2(rec.x + textOffsetX, rec.y + textOffsetY), fontSize, tint);
+                }
+            }
+
+            if (wordWrap && (i == endLine))
+            {
+                textOffsetY += (font.baseSize + static_cast<float>(font.baseSize) / 2) * scaleFactor;
                 textOffsetX = 0;
                 startLine = endLine;
                 endLine = -1;
                 glyphWidth = 0;
-                k = lastk;
 
-                state = ~state;
+                state = !state;
             }
         }
 
-        textOffsetX += glyphWidth;
+        if ((textOffsetX != 0) || (codepoint != ' ')) textOffsetX += glyphWidth;  // avoid leading spaces
     }
 }

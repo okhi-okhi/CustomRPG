@@ -27,9 +27,9 @@ void Button::draw(const std::string& i18nPrefix) const
 	DrawTextureRec(this->spriteTexture, sourceRec, this->position, WHITE);
 
 	std::string text = I18n::instance().get(i18nPrefix + "." + this->i18nKey);
+	const raylib::Font *font = &FontProvider::instance().get(i18nPrefix + "." + this->i18nKey);
 
-	DrawTextEx(static_cast<Font>(FontProvider::instance().get(i18nPrefix + "." + this->i18nKey)), text.c_str(), this->position, 100, 5, BLACK);
-	// RaylibUtils::drawTextBoxed(SystemConfig::instance().getDefaultFont(),
-	// 	I18n::instance().get(i18nPrefix + "." + this->i18nKey),
-	// 	Rectangle(this->position.x, this->position.y, this->spriteTexture.width, this->getButtonHeight()), 16, 1.0f, WHITE);
+	RaylibUtils::drawTextBoxed(*font,
+		I18n::instance().get(i18nPrefix + "." + this->i18nKey),
+		Rectangle(this->position.x, this->position.y, static_cast<float>(this->spriteTexture.width), this->getButtonHeight()), 80, 0.0f, false, BLACK);
 }

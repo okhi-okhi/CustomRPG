@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <exception>
-#include "../I18n/I18n.h"
 
 using std::string;
 
@@ -17,7 +16,7 @@ public:
     }
 
     string what() {
-        return I18n::instance().get("system.exception.invalidFile", { {"file", file} });
+        return "Can't find file! file: " + this->file;
     }
 };
 
@@ -35,7 +34,7 @@ public:
     }
 
     string what() {
-        return I18n::instance().get("system.exception.badValueFunction", { {"file", file} });
+        return "Conversion failed while reading file! file: " + this->file;
     }
 };
 
@@ -52,9 +51,8 @@ public:
     }
 
     string what() {
-        return I18n::instance().get("system.exception.outOfRange",
-            { {"index", std::to_string(index)},
-			  {"max", std::to_string(max - 1)} });
+        return "Index less than 0 or out of range! index: "
+    		+ std::to_string(this->index) + ", limit: " + std::to_string(this->max-1);
     }
 };
 
@@ -70,8 +68,7 @@ public:
     }
 
     string what() {
-        using std::to_string;
-        return I18n::instance().get("system.exception.invBadAmount", { {"amount", to_string(amount)} });
+        return "Amount provided when removing item is less than 1! amount: " + std::to_string(this->amount);
     }
 };
 
@@ -87,8 +84,7 @@ public:
     }
 
     string what() {
-        using std::to_string;
-        return I18n::instance().get("system.exception.badChance", { {"totalChance", to_string(totalChance)} });
+        return "If chanceTable contains '-1', the total chance cannot exceed 1! total chance: " + std::to_string(this->totalChance);
     }
 };
 
@@ -104,7 +100,7 @@ public:
     }
 
     string what() {
-        return I18n::instance().get("system.exception.noReadFunction", { {"json", json} });
+        return "Can't read json! json: " + this->json;
     }
 };
 
@@ -120,7 +116,7 @@ public:
     }
 
     string what() {
-        return I18n::instance().get("system.exception.badString", { {"json", json} });
+        return "Can't convert json to value! json: " + this->json;
     }
 };
 
@@ -136,6 +132,6 @@ public:
     }
 
     string what() {
-        return I18n::instance().get("system.exception.invalidKey", { {"key", key} });
+        return "Can't find key! key:" + this->key;
     }
 };

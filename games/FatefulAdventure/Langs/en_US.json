@@ -38,15 +38,6 @@
             "language": "%language%",
             "quit": "return",
             "success": "Successfully switched language to %language%"
-        },
-        "exception": {
-            "invalidFile": "Can't find file: %file%!",
-            "badValueFunction": "Conversion failed while reading %file%",
-            "outOfRange": "Index less than 0 or out of range! index: %index%, limit: %max%",
-            "invBadAmount": "Amount provided when removing item is less than 1! amount: %amount%",
-            "badChance": "If chanceTable contains '-1', the total chance cannot exceed 1. total chance: %totalChance%",
-            "noReadFunction": "Can't read json: %json%",
-            "badString": "Can't convert json to value. json: %json%"
         }
     },
     "game": {

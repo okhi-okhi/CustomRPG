@@ -38,16 +38,6 @@
             "language": "%language%",
             "quit": "返回",
             "success": "成功將語言切換成 %language%"
-        },
-        "exception": {
-            "invalidFile": "找不到檔案: %file%!",
-            "badValueFunction": "當讀取 %file% 時轉換失敗",
-            "outOfRange": "索引值小於0或是超出上限! 索引值: %index%, 上限: %max%",
-            "invBadAmount": "移除物品時提供的數量小於1! 數量: %amount%",
-            "badChance": "如果 chanceTable 裡包含 '-1',機率總和就不能超過1, 機率總和: %totalChance%",
-            "noReadFunction": "無法讀取json: %json%",
-            "badString": "不能將json轉換成數值, json: %json%",
-            "invalidKey": "要求的關鍵字 %key% 不存在!"
         }
     },
     "game": {

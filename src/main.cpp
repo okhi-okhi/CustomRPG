@@ -2,6 +2,7 @@
 #include "Game/Game.h"
 #include "Screen/Screen.h"
 #include "Utils/RaylibUtils.h"
+#include "System/Exceptions.hpp"
 
 int playerDistance = 0;
 int playerFame = 0;
@@ -16,10 +17,8 @@ int main ()
 	window.SetTargetFPS(144);
 
 	System::instance().init();
-
 	Screen test("Screens/test.png", "screen.test");
 	test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.5), 0.1f));
-	
 	while (!window.ShouldClose())
 	{
         window.BeginDrawing();
