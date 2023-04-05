@@ -1,5 +1,6 @@
 #pragma once
 #include <raylib-cpp.hpp>
+#include "I18n.h"
 #include "../Utils/Singleton.h"
 
 struct FontsWrapper
@@ -15,10 +16,12 @@ private:
 	FontsWrapper gameFont;
 	raylib::Font defaultFont;
 
+	static raylib::Font loadFont(const Language& lang, const std::string& rootPath);
+
 public:
 	explicit FontProvider(token) { defaultFont = GetFontDefault(); }
-	void loadSystemFont(const std::string& currentLanguage, const std::string& defaultLanguage);
-	void loadGameFont(const std::string& currentLanguage, const std::string& defaultLanguage);
+	void loadSystemFont();
+	void loadGameFont();
 
 	const raylib::Font& get(const std::string& key) const;
 };

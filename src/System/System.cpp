@@ -13,7 +13,7 @@
 void System::init() {
 	SystemConfig::instance().load(this->configPath);
 	I18n::instance().loadSystemI18n(SystemConfig::instance().getCurrentLanguage(), SystemConfig::instance().getDefaultLanguage());
-	FontProvider::instance().loadSystemFont(SystemConfig::instance().getCurrentLanguage(), SystemConfig::instance().getDefaultLanguage());
+	FontProvider::instance().loadSystemFont();
 	// createNewPlayer();
 }
 

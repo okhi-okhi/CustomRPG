@@ -3,7 +3,6 @@
 #include "../I18n/I18n.h"
 #include "../I18n/FontProvider.h"
 #include "../System/PathProvider.h"
-#include "../System/SystemConfig.h"
 #include "../Utils/RaylibUtils.h"
 
 Button::Button(const std::string& fileName, const std::string& i18nKey, const Vector2 pos, const float zoomPercent)

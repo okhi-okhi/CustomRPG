@@ -12,14 +12,48 @@ int RaylibUtils::getWindowHeight()
 
 raylib::Font RaylibUtils::getContainTextFont(const std::string& fileName, const std::string& text)
 {
+    std::string str = text;
+    str.append("0123456789");
     int codepointCount = 0;
-    int* codepoints = LoadCodepoints(text.c_str(), &codepointCount);
+    int* codepoints = LoadCodepoints(str.c_str(), &codepointCount);
 
-    // Load font containing all the provided codepoint glyphs
-    raylib::Font font = LoadFontEx(fileName.c_str(), 64, codepoints, codepointCount);
+    int codepointsNoDupsCount = 0;
+    int* codepointsNoDups = codepointRemoveDuplicates(codepoints, codepointCount, &codepointsNoDupsCount);
+    UnloadCodepoints(codepoints);
+
+    raylib::Font font = LoadFontEx(fileName.c_str(), 64, codepointsNoDups, codepointsNoDupsCount);
     SetTextureFilter(font.texture, TEXTURE_FILTER_BILINEAR);
 
+    free(codepointsNoDups);
     return font;
+}
+
+int* RaylibUtils::codepointRemoveDuplicates(const int* codepoints, const int codepointCount, int* codepointsResultCount)
+{
+    int codepointsNoDupsCount = codepointCount;
+    const auto codepointsNoDups = static_cast<int*>(calloc(codepointCount, sizeof(int)));
+    memcpy(codepointsNoDups, codepoints, codepointCount * sizeof(int));
+
+    // Remove duplicates
+    for (int i = 0; i < codepointsNoDupsCount; i++)
+    {
+        for (int j = i + 1; j < codepointsNoDupsCount; j++)
+        {
+            if (codepointsNoDups[i] == codepointsNoDups[j])
+            {
+                for (int k = j; k < codepointsNoDupsCount; k++) codepointsNoDups[k] = codepointsNoDups[k + 1];
+
+                codepointsNoDupsCount--;
+                j--;
+            }
+        }
+    }
+
+    // NOTE: The size of codepointsNoDups is the same as original array but
+    // only required positions are filled (codepointsNoDupsCount)
+
+    *codepointsResultCount = codepointsNoDupsCount;
+    return codepointsNoDups;
 }
 
 void RaylibUtils::drawTextBoxed(const raylib::Font& font, const std::string& text, const raylib::Rectangle& rec, const float& fontSize, const float& spacing, const raylib::Color& tint)

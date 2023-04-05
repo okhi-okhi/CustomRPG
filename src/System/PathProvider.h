@@ -11,6 +11,7 @@ private:
 	std::string currentGamePath;
 	const std::string gamesPath = "games/";
 	const std::string gameLangPath = currentGamePath + langsPath;
+	const std::string gameFontPath = currentGamePath + fontsPath;
 
 	const std::string resourcesPath = "resources/";
 	const std::string systemLangPath = resourcesPath + langsPath;
@@ -26,6 +27,7 @@ public:
 	std::string getCurrentGamePath() const { return this->currentGamePath; }
 	std::string getGamesPath() const { return this->gamesPath; }
 	std::string getGameLangPath() const { return this->gameLangPath; }
+	std::string getGameFontPath() const { return this->gameFontPath; }
 
 	std::string getResourcesPath() const { return this->resourcesPath; }
 	std::string getSystemLangPath() const { return this->systemLangPath; }
