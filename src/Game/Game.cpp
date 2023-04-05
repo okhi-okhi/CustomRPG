@@ -1,11 +1,13 @@
 ﻿#include "Game.h"
 #include "Event.h"
-#include "../System/Exceptions.hpp"
-#include "gameConfig.h"
-#include "../System/Menu.h"
-#include "../System/Sheet.h"
+#include "GameConfig.h"
+#include "../I18n/FontProvider.h"
 #include "../Item/Material.h"
 #include "../Item/Prop.h"
+#include "../System/Exceptions.hpp"
+#include "../System/PathProvider.h"
+#include "../System/Menu.h"
+#include "../System/Sheet.h"
 #include "../Utils/Utilities.h"
 
 void Game::init(Player& player)
@@ -13,22 +15,10 @@ void Game::init(Player& player)
 	using std::cout, std::endl;
 	this->player = &player;
 
-	Weapon w("beginner_sword");
-	Weapon w2("test");
-	Sheet s(w.getDataKey());
-	s.addItem(w.getData());
-	s.addItem(w2.getData());
-	for(const auto& row : s.getSheetText())
-	{
-		cout << row << endl;
-	}
-	// Ally a("twain");
-	// a.print();
-	// a.modifyStat("level", 10);
-	// a.updateStats();
-	// cout << endl;
-	// a.print();
-	
+	PathProvider::instance().setCurrentGamePath("FatefulAdventure");
+	GameConfig::instance().load(PathProvider::instance().getCurrentGamePath() + PathProvider::instance().getConfigPath());
+	I18n::instance().loadGameI18n(GameConfig::instance().getCurrentLanguage(), GameConfig::instance().getDefaultLanguage());
+	FontProvider::instance().loadGameFont();
 }
 
 void Game::gameMenu() {

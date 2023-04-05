@@ -5,7 +5,6 @@
 class SystemConfig : public Singleton<SystemConfig>
 {
 private:
-	//system
 	std::string defaultLanguage;
 	std::string currentLanguage;
 
@@ -14,7 +13,6 @@ public:
 
 	void load(const std::string& fileName);
 
-	//system
 	const std::string& getDefaultLanguage() const { return this->defaultLanguage; }
 	const std::string& getCurrentLanguage() const { return this->currentLanguage; }
 

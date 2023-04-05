@@ -1,10 +1,9 @@
 {
-    "armorSlots": [
-        "helmet",
-        "chestplate",
-        "leggings",
-        "boots"
-    ],
+    "currentLanguage": "zh_TW",
+    "defaultLanguage": "en_US",
+    "lineCapacity": 3,
+    "nextPlaceNum": 3,
+    "teamCapacity": 5,
     "formula": {
         "entity": {
             "atk": "strength + 3",
@@ -15,15 +14,16 @@
             "manaMax": "intelligence*5"
         }
     },
-    "game": {
-        "lineCapacity": 3,
-        "nextPlaceNum": 3,
-        "teamCapacity": 5
-    },
     "talents": [
         "strength",
         "vitality",
         "dexterity",
         "intelligence"
+    ],
+    "armorSlots": [
+        "helmet",
+        "chestplate",
+        "leggings",
+        "boots"
     ]
 }

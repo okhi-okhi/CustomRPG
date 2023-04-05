@@ -7,7 +7,9 @@
 class GameConfig : public Singleton<GameConfig>
 {
 private:
-	//game
+	std::string defaultLanguage;
+	std::string currentLanguage;
+
 	int nextPlaceNum;
 	int teamCapacity;
 	int lineCapacity;
@@ -19,11 +21,13 @@ private:
 	std::vector<std::string> armorSlots;
 
 public:
-	GameConfig(token) : nextPlaceNum(3), teamCapacity(3), lineCapacity(3) {}
+	explicit GameConfig(token) : defaultLanguage("en_US"), currentLanguage("en_US"), nextPlaceNum(3), teamCapacity(3), lineCapacity(3) {}
 
 	void load(const std::string& fileName);
 
-	//game
+	const std::string& getDefaultLanguage() const { return this->defaultLanguage; }
+	const std::string& getCurrentLanguage() const { return this->currentLanguage; }
+
 	const int& getNextPlaceNum() const { return this->nextPlaceNum; }
 	const int& getTeamCapacity() const { return this->teamCapacity; }
 	const int& getLineCapacity() const { return this->lineCapacity; }

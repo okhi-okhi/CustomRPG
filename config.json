@@ -1,7 +1,4 @@
 {
-    "system": {
-        "currentLanguage": "zh_TW",
-        "defaultLanguage": "en_US",
-        "defaultFont": "NotoSansTC-Medium.otf"
-    }
+    "currentLanguage": "zh_TW",
+    "defaultLanguage": "en_US"
 }

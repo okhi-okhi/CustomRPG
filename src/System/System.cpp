@@ -3,15 +3,16 @@
 #include <fstream>
 #include <filesystem>
 #include <json.hpp>
+#include "PathProvider.h"
 #include "SystemConfig.h"
+#include "Menu.h"
 #include "../Game/Game.h"
 #include "../Game/GameConfig.h"
 #include "../I18n/I18n.h"
 #include "../I18n/FontProvider.h"
-#include "Menu.h"
 
 void System::init() {
-	SystemConfig::instance().load(this->configPath);
+	SystemConfig::instance().load(PathProvider::instance().getConfigPath());
 	I18n::instance().loadSystemI18n(SystemConfig::instance().getCurrentLanguage(), SystemConfig::instance().getDefaultLanguage());
 	FontProvider::instance().loadSystemFont();
 	// createNewPlayer();
@@ -320,13 +321,13 @@ void System::selectLanguage() {
 		SystemConfig::instance().setCurrentLanguage(language);
 		//update config
 		try {
-			std::ifstream inFile(this->configPath);
+			std::ifstream inFile(PathProvider::instance().getConfigPath());
 			json j = json::parse(inFile);
 			ordered_json j2;
 			j2["system"]["currentLanguage"] = language;
 			j.update(j2, true);
 			inFile.close();
-			std::ofstream outFile(this->configPath);
+			std::ofstream outFile(PathProvider::instance().getConfigPath());
 			outFile << j.dump(4);
 			outFile.close();
 		}

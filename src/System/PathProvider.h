@@ -5,6 +5,7 @@
 class PathProvider : public Singleton<PathProvider>
 {
 private:
+	const std::string configPath = "config.json";
 	const std::string langsPath = "Langs/";
 	const std::string fontsPath = "Fonts/";
 
@@ -19,8 +20,9 @@ private:
 
 public:
 	explicit PathProvider(token){}
-	void setCurrentGamePath(const std::string& path) { this->currentGamePath = path; }
+	void setCurrentGamePath(const std::string& path) { this->currentGamePath = gamesPath + path + '/'; }
 
+	std::string getConfigPath() const { return this->configPath; }
 	std::string getLangsPath() const { return this->langsPath; }
 	std::string getFontsPath() const { return this->fontsPath; }
 

@@ -4,8 +4,6 @@
 
 class System : public Singleton<System>{
 private:
-	std::string resourcesPath = "resources/";
-	std::string configPath = "config.json";
 	int choice;
 	bool playing;
 

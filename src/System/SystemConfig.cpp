@@ -9,11 +9,10 @@ void SystemConfig::load(const std::string& fileName) {
 	std::ifstream inFile(fileName);
 
 	if (inFile.good()) {
-
 		json j = json::parse(inFile, nullptr, true, true);
 		try {
-			this->defaultLanguage = j["system"]["defaultLanguage"];
-			this->currentLanguage = j["system"]["currentLanguage"];
+			this->defaultLanguage = j["defaultLanguage"];
+			this->currentLanguage = j["currentLanguage"];
 		}
 		catch (json::exception& e) {
 			std::cout << "ERROR: Conversion failed while reading " << fileName << std::endl;
@@ -30,12 +29,8 @@ void SystemConfig::load(const std::string& fileName) {
 
 		std::ofstream outFile(fileName);
 		ordered_json j = {
-			{"system",
-				{
-					{"defaultLanguage", this->defaultLanguage},
-					{"currentLanguage", this->currentLanguage},
-				}
-			},
+			{"defaultLanguage", this->defaultLanguage},
+			{"currentLanguage", this->currentLanguage},
 		};
 		outFile << j.dump(4);
 		outFile.close();
