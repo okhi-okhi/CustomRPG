@@ -18,7 +18,9 @@ int main ()
 
 	System::instance().init();
 	Screen test("Screens/test.png", "screen.test");
-	test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.5), 0.1f));
+	test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.2), 0.1f, 45.0f, textAlign::LEFT, BLACK, 1.0f));
+	test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.5), 0.1f, 45.0f, textAlign::CENTER, BLACK, 1.0f));
+	test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.8), 0.1f, 45.0f, textAlign::RIGHT, BLACK, 1.0f));
 	while (!window.ShouldClose())
 	{
         window.BeginDrawing();

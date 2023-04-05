@@ -16,6 +16,6 @@ public:
 
 	void addButton(const Button& button);
 
-	void draw() const;
+	void draw();
 };
 
