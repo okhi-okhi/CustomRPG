@@ -1,0 +1,38 @@
+#include "Picture.h"
+#include "../System/Exceptions.hpp"
+#include "../System/PathProvider.h"
+#include "../Utils/RaylibUtils.h"
+
+Picture::Picture(const std::string& fileName, const Vector2 position, const int textureFrameNum, const float zoomPercent)
+{
+	raylib::Image image(PathProvider::instance().getResourcesPath() + fileName);
+	const int realWidth = static_cast<int>(RaylibUtils::getWindowWidth() * zoomPercent);
+	image.Resize(realWidth, realWidth * (image.width / image.height));
+	this->spriteTexture = image;
+
+	this->textureFrameNum = textureFrameNum;
+
+	this->position = Vector2(RaylibUtils::getWindowWidth() * position.x - static_cast<float>(spriteTexture.width) / 2,
+		RaylibUtils::getWindowHeight() * position.y - this->getHeight() / 2);
+
+	this->currentFrame = 0;
+}
+
+void Picture::draw() const
+{
+	const raylib::Rectangle sourceRec(0, static_cast<float>(this->currentFrame) * this->getHeight(),
+		static_cast<float>(this->spriteTexture.width), this->getHeight());
+	DrawTextureRec(this->spriteTexture, sourceRec, this->position, WHITE);
+}
+
+void Picture::setCurrentFrame(const int frame)
+{
+	if(frame < this->textureFrameNum)
+	{
+		this->currentFrame = frame;
+	}
+	else
+	{
+		throw OutOfRangeException(frame, this->textureFrameNum);
+	}
+}

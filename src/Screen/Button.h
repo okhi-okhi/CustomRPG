@@ -1,8 +1,7 @@
 #pragma once
 #include <string>
 #include <raylib-cpp.hpp>
-
-#define BUTTON_STATE_NUMS 2
+#include "Picture.h"
 
 enum class buttonState
 {
@@ -20,10 +19,8 @@ enum class textAlign
 class Button
 {
 private:
-	Texture2D spriteTexture;
+	Picture texture;
 	std::string i18nKey;
-	Vector2 buttonPosition;
-	buttonState buttonState;
 
 	float fontSize;
 	textAlign textAlign;
@@ -32,15 +29,14 @@ private:
 
 public:
 	Button() = default;
-	Button(const std::string& fileName, const std::string& i18nKey, Vector2 buttonPos, float zoomPercent, float fontSize = 32.0f, enum textAlign textAlign = textAlign::LEFT, raylib::Color textColor = BLACK, float textSpacing = 1.0f);
+	Button(const Picture& texture, const std::string& i18nKey, float fontSize = 32.0f, enum textAlign textAlign = textAlign::LEFT, raylib::Color textColor = BLACK, float textSpacing = 1.0f);
 
 	void draw(const std::string& i18nPrefix);
 
-	const Texture2D& getSpriteTexture() const { return this->spriteTexture; }
+	const Picture& getTexture() const { return this->texture; }
 	const std::string& getI18nKey() const { return this->i18nKey; }
-	const Vector2& getButtonPosition() const { return this->buttonPosition; }
-	const enum buttonState& getButtonState() const { return this->buttonState; }
-	float getButtonHeight() const { return static_cast<float>(this->spriteTexture.height) / BUTTON_STATE_NUMS; }
+	buttonState getButtonState() const { return static_cast<buttonState>(this->texture.getCurrentFrame()); }
+	float getButtonHeight() const { return this->texture.getHeight(); }
 
 	const float& getFontSize() const { return this->fontSize; }
 	const enum textAlign& getTextAlign() const { return this->textAlign; }

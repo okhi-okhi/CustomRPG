@@ -1,26 +1,38 @@
-﻿#include "System/System.h"
+﻿#include "System/Exceptions.hpp"
+#include "System/System.h"
 #include "Game/Game.h"
 #include "Screen/Screen.h"
 #include "Utils/RaylibUtils.h"
-#include "System/Exceptions.hpp"
+#include "System/PathProvider.h"
 
 int playerDistance = 0;
 int playerFame = 0;
 menuStatus menuStatu = menuStatus::SYSTEM;
 
-int main ()
+void windowSetup(raylib::Window& window)
 {
-	raylib::Window window(0, 0, "CustomRPG");
-
 	window.SetSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
 	window.ToggleFullscreen();
+
+	const raylib::Image icon(PathProvider::instance().getResourcesPath() + "Images/Icons/icon_main.png");
+	window.SetIcon(icon);
+
 	window.SetTargetFPS(144);
+}
+
+int main()
+{
+	SetTraceLogLevel(LOG_ALL);
+	raylib::Window window(0, 0, "CustomRPG");
+
+	windowSetup(window);
 
 	System::instance().init();
 	Screen test("Screens/test.png", "screen.test");
-	test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.2), 0.1f, 45.0f, textAlign::LEFT, BLACK, 1.0f));
-	test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.5), 0.1f, 45.0f, textAlign::CENTER, BLACK, 1.0f));
-	test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.8), 0.1f, 45.0f, textAlign::RIGHT, BLACK, 1.0f));
+	test.addButton(Button(Picture("Screens/basic_button.png", Vector2(0.5f, 0.2f), 2, 0.1f), "button1", 45.0f, textAlign::LEFT, BLACK, 1.0f));
+	// test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.5), 0.1f, 45.0f, textAlign::CENTER, BLACK, 1.0f));
+	// test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.8), 0.1f, 45.0f, textAlign::RIGHT, BLACK, 1.0f));
+
 	while (!window.ShouldClose())
 	{
         window.BeginDrawing();

@@ -148,7 +148,7 @@
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>raylib.lib;winmm.lib;kernel32.lib;opengl32.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -172,7 +172,7 @@
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>raylib.lib;winmm.lib;kernel32.lib;opengl32.lib;gdi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -182,6 +182,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="I18n\FontProvider.h" />
+    <ClInclude Include="Screen\Picture.h" />
+    <ClInclude Include="Screen\Text.h" />
     <ClInclude Include="Utils\RaylibUtils.h" />
     <ClInclude Include="Screen\Button.h" />
     <ClInclude Include="Entity\Ally.h" />
@@ -225,6 +227,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="I18n\FontProvider.cpp" />
+    <ClCompile Include="Screen\Picture.cpp" />
+    <ClCompile Include="Screen\Text.cpp" />
     <ClCompile Include="Utils\RaylibUtils.cpp" />
     <ClCompile Include="Screen\Button.cpp" />
     <ClCompile Include="Entity\Ally.cpp" />
