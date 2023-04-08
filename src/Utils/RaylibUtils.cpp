@@ -2,12 +2,20 @@
 
 int RaylibUtils::getWindowWidth()
 {
-	return GetMonitorWidth(GetCurrentMonitor());
+    if(IsWindowFullscreen())
+    {
+        return GetMonitorWidth(GetCurrentMonitor());
+    }
+	return GetScreenWidth();
 }
 
 int RaylibUtils::getWindowHeight()
 {
-	return GetMonitorHeight(GetCurrentMonitor());
+    if (IsWindowFullscreen())
+    {
+        return GetMonitorHeight(GetCurrentMonitor());
+    }
+    return GetScreenHeight();
 }
 
 raylib::Font RaylibUtils::getContainTextFont(const std::string& fileName, const std::string& text)

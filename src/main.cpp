@@ -23,15 +23,17 @@ void windowSetup(raylib::Window& window)
 int main()
 {
 	SetTraceLogLevel(LOG_ALL);
-	raylib::Window window(0, 0, "CustomRPG");
+	raylib::Window window(1920, 1080, "CustomRPG");
 
 	windowSetup(window);
 
 	System::instance().init();
 	Screen test("Screens/test.png", "screen.test");
-	test.addButton(Button(Picture("Screens/basic_button.png", Vector2(0.5f, 0.2f), 2, 0.1f), "button1", 45.0f, textAlign::LEFT, BLACK, 1.0f));
+	test.addButton(Button(Picture("Screens/basic_button.png", Vector2(0.5f, 0.2f), 2, 0.1f), "screen.test.button1", 0.03f, textAlign::RIGHT, BLACK, 0.0f));
 	// test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.5), 0.1f, 45.0f, textAlign::CENTER, BLACK, 1.0f));
 	// test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.8), 0.1f, 45.0f, textAlign::RIGHT, BLACK, 1.0f));
+
+	Text text("screen.test.button1", Vector2(0.5f, 0.3f), 0.05f, textAlign::CENTER, BLACK, 0.0f);
 
 	while (!window.ShouldClose())
 	{
@@ -39,6 +41,7 @@ int main()
         {
 			window.ClearBackground(WHITE);
 			test.draw();
+			text.draw();
         }
 		window.EndDrawing();
 	}

@@ -4,7 +4,7 @@
     "charWidthFix": "2",
     "screen":{
         "test":{
-            "button1": "[文字]"
+            "button1": "▙▙▙▙▙"
         }
     },
     "menu": {

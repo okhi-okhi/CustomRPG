@@ -1,7 +1,6 @@
 #pragma once
-#include <string>
-#include <raylib-cpp.hpp>
 #include "Picture.h"
+#include "Text.h"
 
 enum class buttonState
 {
@@ -9,23 +8,11 @@ enum class buttonState
 	HOVER
 };
 
-enum class textAlign
-{
-	LEFT = 0,
-	CENTER,
-	RIGHT
-};
-
 class Button
 {
 private:
 	Picture texture;
-	std::string i18nKey;
-
-	float fontSize;
-	textAlign textAlign;
-	raylib::Color textColor;
-	float textSpacing;
+	Text text;
 
 public:
 	Button() = default;
@@ -34,13 +21,8 @@ public:
 	void draw(const std::string& i18nPrefix);
 
 	const Picture& getTexture() const { return this->texture; }
-	const std::string& getI18nKey() const { return this->i18nKey; }
+	const Text& getI18nKey() const { return this->text; }
 	buttonState getButtonState() const { return static_cast<buttonState>(this->texture.getCurrentFrame()); }
 	float getButtonHeight() const { return this->texture.getHeight(); }
-
-	const float& getFontSize() const { return this->fontSize; }
-	const enum textAlign& getTextAlign() const { return this->textAlign; }
-	const raylib::Color& getTextColor() const { return this->textColor; }
-	const float& getTextSpacing() const { return this->textSpacing; }
 };
 
