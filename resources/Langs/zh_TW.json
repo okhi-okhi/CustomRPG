@@ -5,6 +5,7 @@
     "screen":{
         "test":{
             "button1": "▙▙▙▙▙",
+            "button2": "asdsf: %aa%, %bb%, %cc%",
             "text1": "abs: %aa%, %bb%, %cc%"
         }
     },

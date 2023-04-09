@@ -181,6 +181,7 @@
     <ClInclude Include="Screen\Picture.h" />
     <ClInclude Include="Screen\Text.h" />
     <ClInclude Include="Screen\TextArg.h" />
+    <ClInclude Include="Screen\ButtonArg.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity\Ally.cpp">
@@ -296,5 +297,6 @@
     <ClCompile Include="Screen\Text.cpp" />
     <ClCompile Include="Screen\TextArg.cpp" />
     <ClCompile Include="Utils\LambdaUtil.hpp" />
+    <ClCompile Include="Screen\ButtonArg.cpp" />
   </ItemGroup>
 </Project>

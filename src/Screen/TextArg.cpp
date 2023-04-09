@@ -1,10 +1,6 @@
 #include "TextArg.h"
-
-#include <iostream>
-
 #include "../I18n/FontProvider.h"
 #include "../I18n/I18n.h"
-#include "../Utils/LambdaUtil.hpp"
 #include "../Utils/RaylibUtils.h"
 
 TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argTypes>& args, Vector2 pos, const float fontSize,
@@ -20,11 +16,10 @@ TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argType
 	this->spacing = spacing;
 
 	this->font = &FontProvider::instance().get(i18nKey);
-
-	this->oldTextSize = Vector2(0.0f, 0.0f);
+	this->startPos = Vector2(0.0f, 0.0f);
 }
 
-void TextArg::draw() const
+void TextArg::draw()
 {
 	std::map<std::string, std::string> newArgs;
 	for (const auto& [fst, snd] : args)
@@ -44,23 +39,26 @@ void TextArg::draw() const
 	}
 
 	const std::string text = I18n::instance().get(i18nKey, newArgs);
-	const Vector2 textSize = MeasureTextEx(*font, text.c_str(), this->fontSize, this->spacing);
-	const float posY = this->position.y - textSize.y / 2;
-
-	Vector2 startPos;
-	switch (align)
+	if(this->text != text)
 	{
-	case textAlign::LEFT:
-		startPos = Vector2(this->position.x, posY);
-		break;
+		const Vector2 textSize = MeasureTextEx(*font, text.c_str(), this->fontSize, this->spacing);
+		const float posY = this->position.y - textSize.y / 2;
 
-	case textAlign::CENTER:
-		startPos = Vector2(this->position.x - textSize.x / 2, posY);
-		break;
+		switch (align)
+		{
+		case textAlign::LEFT:
+			this->startPos = Vector2(this->position.x, posY);
+			break;
 
-	case textAlign::RIGHT:
-		startPos = Vector2(this->position.x - textSize.x, posY);
-		break;
+		case textAlign::CENTER:
+			this->startPos = Vector2(this->position.x - textSize.x / 2, posY);
+			break;
+
+		case textAlign::RIGHT:
+			this->startPos = Vector2(this->position.x - textSize.x, posY);
+			break;
+		}
+		this->text = text;
 	}
-	raylib::DrawTextEx(*this->font, text, startPos, this->fontSize, this->spacing, this->color);
+	raylib::DrawTextEx(*this->font, text, this->startPos, this->fontSize, this->spacing, this->color);
 }

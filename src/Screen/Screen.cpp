@@ -16,13 +16,22 @@ void Screen::addButton(const Button& button)
 	this->buttons.push_back(button);
 }
 
+void Screen::addButton(const ButtonArg& buttonArg)
+{
+	this->buttonArgs.push_back(buttonArg);
+}
+
 void Screen::draw()
 {
 	DrawTexture(this->backGround, 0, 0, WHITE);
 
 	for(auto& button : this->buttons)
 	{
-		button.draw(this->i18nKey);
+		button.draw();
+	}
+	for(auto& buttonArg : this->buttonArgs)
+	{
+		buttonArg.draw();
 	}
 }
 

@@ -34,7 +34,7 @@ Text::Text(const std::string& i18nKey, Vector2 pos, const float fontSize,
 	}
 }
 
-void Text::draw() const
+void Text::draw()
 {
 	raylib::DrawTextEx(*this->font, this->text, this->position, this->fontSize, this->spacing, this->color);
 }

@@ -4,7 +4,6 @@
 #include "Screen/Screen.h"
 #include "Utils/RaylibUtils.h"
 #include "System/PathProvider.h"
-#include "Screen/TextArg.h"
 
 int playerDistance = 0;
 int playerFame = 0;
@@ -18,7 +17,7 @@ void windowSetup(raylib::Window& window)
 	const raylib::Image icon(PathProvider::instance().getResourcesPath() + "Images/Icons/icon_main.png");
 	window.SetIcon(icon);
 
-	window.SetTargetFPS(144);
+	window.SetTargetFPS(60);
 }
 
 int main()
@@ -29,16 +28,18 @@ int main()
 	windowSetup(window);
 
 	System::instance().init();
+	std::string a = "asdv";
+	float b = 87.0f;
+	int c = 777;
+
 	Screen test("Screens/test.png", "screen.test");
-	test.addButton(Button(Picture("Screens/basic_button.png", Vector2(0.5f, 0.2f), 2, 0.1f), "screen.test.button1", 0.03f, textAlign::CENTER, BLACK, 0.0f));
+	test.addButton(Button("Screens/basic_button.png", Vector2(0.5f, 0.2f), 0.1f, "screen.test.button1", 0.03f, textAlign::CENTER, BLACK, 0.0f));
+	test.addButton(ButtonArg("Screens/basic_button.png", Vector2(0.5f, 0.8f), 0.1f, "screen.test.button2", { {"aa", &a}, {"bb", &b}, {"cc", &c} }, 0.03f, textAlign::CENTER, BLACK, 0.0f));
 	// test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.5), 0.1f, 45.0f, textAlign::CENTER, BLACK, 1.0f));
 	// test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.8), 0.1f, 45.0f, textAlign::RIGHT, BLACK, 1.0f));
 
 	// Text text("screen.test.button1", Vector2(0.5f, 0.3f), 0.05f, textAlign::CENTER, BLACK, 0.0f);
-	std::string a = "asdv";
-	float b = 87.0f;
-	int c = 777;
-	TextArg textArg("screen.test.text1", { {"aa", &a}, {"bb", &b}, {"cc", &c}}, Vector2(0.5f, 0.3f), 0.05f, textAlign::CENTER, BLACK, 0.0f);
+	TextArg textArg("screen.test.text1", { {"aa", &a}, {"bb", &b}, {"cc", &c}}, Vector2(0.5f, 0.6f), 0.05f, textAlign::CENTER, BLACK, 0.0f);
 
 	while (!window.ShouldClose())
 	{

@@ -9,14 +9,13 @@ private:
 	std::string i18nKey;
 	std::map<std::string, argTypes> args;
 	textAlign align;
-
-	Vector2 oldTextSize;
+	Vector2 startPos;
 
 public:
 	TextArg() = default;
 	TextArg(const std::string& i18nKey, const std::map<std::string, argTypes>& args, Vector2 pos, float fontSize = 0.03f,
 		textAlign align = textAlign::LEFT, raylib::Color color = BLACK, float spacing = 1.0f);
 
-	void draw() const override;
+	void draw() override;
 };
 

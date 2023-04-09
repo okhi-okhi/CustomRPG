@@ -12,10 +12,8 @@ enum class textAlign
 
 class Text
 {
-private:
-	std::string text;
-
 protected:
+	std::string text;
 	Vector2 position;
 
 	float fontSize;
@@ -30,7 +28,7 @@ public:
 		textAlign align = textAlign::LEFT, raylib::Color color = BLACK, float spacing = 1.0f);
 	virtual ~Text() = default;
 
-	virtual void draw() const;
+	virtual void draw();
 
 	void setPosition(const Vector2 pos) { this->position = pos; }
 
