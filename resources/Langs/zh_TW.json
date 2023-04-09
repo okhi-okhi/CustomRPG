@@ -4,7 +4,8 @@
     "charWidthFix": "2",
     "screen":{
         "test":{
-            "button1": "▙▙▙▙▙"
+            "button1": "▙▙▙▙▙",
+            "text1": "abs: %aa%, %bb%, %cc%"
         }
     },
     "menu": {

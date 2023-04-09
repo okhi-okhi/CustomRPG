@@ -14,6 +14,8 @@ class Text
 {
 private:
 	std::string text;
+
+protected:
 	Vector2 position;
 
 	float fontSize;
@@ -24,12 +26,11 @@ private:
 
 public:
 	Text() = default;
-	// explicit Text(const std::string& i18nKey, float fontSize = 0.03f,
-	// 	raylib::Color color = BLACK, float spacing = 1.0f);
 	explicit Text(const std::string& i18nKey, Vector2 pos, float fontSize = 0.03f,
 		textAlign align = textAlign::LEFT, raylib::Color color = BLACK, float spacing = 1.0f);
+	virtual ~Text() = default;
 
-	void draw() const;
+	virtual void draw() const;
 
 	void setPosition(const Vector2 pos) { this->position = pos; }
 

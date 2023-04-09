@@ -180,6 +180,7 @@
     <ClInclude Include="I18n\FontProvider.h" />
     <ClInclude Include="Screen\Picture.h" />
     <ClInclude Include="Screen\Text.h" />
+    <ClInclude Include="Screen\TextArg.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity\Ally.cpp">
@@ -293,5 +294,7 @@
     <ClCompile Include="I18n\FontProvider.cpp" />
     <ClCompile Include="Screen\Picture.cpp" />
     <ClCompile Include="Screen\Text.cpp" />
+    <ClCompile Include="Screen\TextArg.cpp" />
+    <ClCompile Include="Utils\LambdaUtil.hpp" />
   </ItemGroup>
 </Project>
