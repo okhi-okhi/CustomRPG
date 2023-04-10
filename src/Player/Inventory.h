@@ -14,8 +14,8 @@ public:
 
     std::pair<Item*, int> operator[](int index) const;
     
-    void addItem(Item& item);
-    void addItem(Item& item, int amount);
+    void addItem(const Item& item);
+    void addItem(const Item& item, int amount);
 
     bool removeItem(const std::string& id);
     bool removeItem(const std::string& id, int amount);

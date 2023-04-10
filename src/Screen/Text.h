@@ -2,6 +2,7 @@
 #include <Color.hpp>
 #include <Font.hpp>
 #include <map>
+#include "Element.h"
 
 enum class textAlign
 {
@@ -10,13 +11,13 @@ enum class textAlign
 	RIGHT
 };
 
-class Text
+class Text : public Element
 {
 protected:
 	std::string text;
-	Vector2 position;
 
 	float fontSize;
+	textAlign align;
 	raylib::Color color;
 	float spacing;
 
@@ -24,17 +25,17 @@ protected:
 
 public:
 	Text() = default;
-	explicit Text(const std::string& i18nKey, Vector2 pos, float fontSize = 0.03f,
+	explicit Text(const std::string& i18nKey, raylib::Vector2 pos, float fontSize = 0.03f,
 		textAlign align = textAlign::LEFT, raylib::Color color = BLACK, float spacing = 1.0f);
-	virtual ~Text() = default;
 
-	virtual void draw();
+	void draw() override;
+	Text* clone() const override;
 
-	void setPosition(const Vector2 pos) { this->position = pos; }
+	void setPosition(const raylib::Vector2 pos) { this->position = pos; }
 
 	const std::string& getText() const { return this->text; }
-	const Vector2& getPosition() const { return this->position; }
 	const float& getFontSize() const { return this->fontSize; }
+	const textAlign& getAlign() const { return this->align; }
 	const raylib::Color& getColor() const { return this->color; }
 	const float& getSpacing() const { return this->spacing; }
 };

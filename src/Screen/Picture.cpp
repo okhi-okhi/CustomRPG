@@ -3,7 +3,8 @@
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
-Picture::Picture(const std::string& fileName, const Vector2 position, const int textureFrameNum, const float zoomPercent)
+Picture::Picture(const std::string& fileName, const Vector2 position,
+	const int textureFrameNum, const float zoomPercent)
 {
 	raylib::Image image(PathProvider::instance().getResourcesPath() + fileName);
 	const int realWidth = static_cast<int>(RaylibUtils::getWindowWidth() * zoomPercent);
@@ -18,11 +19,16 @@ Picture::Picture(const std::string& fileName, const Vector2 position, const int 
 	this->currentFrame = 0;
 }
 
-void Picture::draw() const
+void Picture::draw()
 {
 	const raylib::Rectangle sourceRec(0, static_cast<float>(this->currentFrame) * this->getHeight(),
 		static_cast<float>(this->spriteTexture.width), this->getHeight());
 	DrawTextureRec(this->spriteTexture, sourceRec, this->position, WHITE);
+}
+
+Picture* Picture::clone() const
+{
+	return new Picture(*this);
 }
 
 void Picture::setCurrentFrame(const int frame)

@@ -1,7 +1,8 @@
 #pragma once
-#include "Image.hpp"
+#include <Image.hpp>
+#include "Element.h"
 
-class Picture
+class Picture : public Element
 {
 private:
 	Texture2D spriteTexture;
@@ -14,7 +15,8 @@ public:
 	Picture() = default;
 	Picture(const std::string& fileName, Vector2 position, int textureFrameNum, float zoomPercent);
 
-	void draw() const;
+	void draw() override;
+	Picture* clone() const override;
 
 	void setCurrentFrame(int frame);
 

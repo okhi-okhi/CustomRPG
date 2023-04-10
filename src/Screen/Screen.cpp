@@ -11,27 +11,28 @@ Screen::Screen(const std::string& bgFileName, const std::string& i18nKey)
 	this->i18nKey = i18nKey;
 }
 
-void Screen::addButton(const Button& button)
+void Screen::addElement(const Element& element)
 {
-	this->buttons.push_back(button);
+	this->elements.push_back(element.clone());
 }
 
-void Screen::addButton(const ButtonArg& buttonArg)
-{
-	this->buttonArgs.push_back(buttonArg);
-}
+// void Screen::addButton(const Button& button)
+// {
+// 	this->buttons.push_back(button);
+// }
+//
+// void Screen::addButton(const ButtonArg& buttonArg)
+// {
+// 	this->buttonArgs.push_back(buttonArg);
+// }
 
-void Screen::draw()
+void Screen::draw() const
 {
 	DrawTexture(this->backGround, 0, 0, WHITE);
 
-	for(auto& button : this->buttons)
+	for(const auto& element : this->elements)
 	{
-		button.draw();
-	}
-	for(auto& buttonArg : this->buttonArgs)
-	{
-		buttonArg.draw();
+		element->draw();
 	}
 }
 

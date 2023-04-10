@@ -39,7 +39,7 @@ void Equipment::replaceEquipment(Armor& armor, const int index) {
 	this->armors[index] = &armor;
 }
 
-void Equipment::removeWeapon(int index)
+void Equipment::removeWeapon(const int index)
 {
 	if (index < 0 || index >= weaponCapacity + armorCapacity) {
 		throw OutOfRangeException(index, weaponCapacity + armorCapacity);

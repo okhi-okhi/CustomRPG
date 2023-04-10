@@ -5,8 +5,8 @@
 #include "../Utils/RaylibUtils.h"
 
 Button::Button(const std::string& fileName, const Vector2 position, const float zoomPercent,
-				const std::string& i18nKey, const float fontSize, const textAlign textAlign,
-				const raylib::Color textColor, const float textSpacing)
+	const std::string& i18nKey, const float fontSize, const textAlign textAlign,
+	const raylib::Color textColor, const float textSpacing)
 {
 	this->texture = Picture(fileName, position, 2, zoomPercent);
 
@@ -26,6 +26,11 @@ void Button::draw()
 
 	this->texture.draw();
 	this->text.draw();
+}
+
+Button* Button::clone() const
+{
+	return new Button(*this);
 }
 
 Vector2 Button::getTextPos(const textAlign textAlign) const

@@ -21,11 +21,11 @@ std::pair<Item*, int> Inventory::operator[](const int index) const
     return this->items[index];
 }
 
-void Inventory::addItem(Item& item) {
+void Inventory::addItem(const Item& item) {
     addItem(item, 1);
 }
 
-void Inventory::addItem(Item& item, const int amount) {
+void Inventory::addItem(const Item& item, const int amount) {
     if (amount < 1) {
         throw InvBadAmountException(amount);
     }
@@ -35,13 +35,13 @@ void Inventory::addItem(Item& item, const int amount) {
             this->items[slot].second += amount;
         }
         else {
-            this->items.emplace_back(&item, amount);
+            this->items.emplace_back(item.clone(), amount);
             this->itemNums++;
         }
     }
     else {
         for (int i = 0; i < amount; i++) {
-            this->items.emplace_back(&item, 1);
+            this->items.emplace_back(item.clone(), 1);
             this->itemNums++;
         }
     }
@@ -103,6 +103,7 @@ bool Inventory::removeItem(const int index, const int amount)
         return false;
     }
     else if(this->items[index].second == amount) {
+        delete this->items[index].first;
         items.erase(items.begin() + index);
         this->itemNums--;
         return true;

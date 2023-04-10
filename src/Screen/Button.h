@@ -8,7 +8,7 @@ enum class buttonState
 	HOVER
 };
 
-class Button
+class Button : public Element
 {
 private:
 	Text text;
@@ -20,9 +20,9 @@ public:
 	Button(const std::string& fileName, Vector2 position, float zoomPercent,
 		const std::string& i18nKey, float fontSize = 32.0f, textAlign textAlign = textAlign::LEFT,
 		raylib::Color textColor = BLACK, float textSpacing = 1.0f);
-	virtual ~Button() = default;
 
-	virtual void draw();
+	void draw() override;
+	Button* clone() const override;
 
 	Vector2 getTextPos(textAlign textAlign) const;
 

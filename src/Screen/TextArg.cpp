@@ -3,8 +3,9 @@
 #include "../I18n/I18n.h"
 #include "../Utils/RaylibUtils.h"
 
-TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argTypes>& args, Vector2 pos, const float fontSize,
-                 const textAlign align, const raylib::Color color, const float spacing)
+TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argTypes>& args,
+	const raylib::Vector2 pos, const float fontSize,
+	const textAlign align, const raylib::Color color, const float spacing)
 {
 	this->i18nKey = i18nKey;
 	this->args = args;
@@ -61,4 +62,9 @@ void TextArg::draw()
 		this->text = text;
 	}
 	raylib::DrawTextEx(*this->font, text, this->startPos, this->fontSize, this->spacing, this->color);
+}
+
+TextArg* TextArg::clone() const
+{
+	return new TextArg(*this);
 }

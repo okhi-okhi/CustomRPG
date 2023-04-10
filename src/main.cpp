@@ -33,13 +33,13 @@ int main()
 	int c = 777;
 
 	Screen test("Screens/test.png", "screen.test");
-	test.addButton(Button("Screens/basic_button.png", Vector2(0.5f, 0.2f), 0.1f, "screen.test.button1", 0.03f, textAlign::CENTER, BLACK, 0.0f));
-	test.addButton(ButtonArg("Screens/basic_button.png", Vector2(0.5f, 0.8f), 0.1f, "screen.test.button2", { {"aa", &a}, {"bb", &b}, {"cc", &c} }, 0.03f, textAlign::CENTER, BLACK, 0.0f));
+	test.addElement(Button("Screens/basic_button.png", Vector2(0.5f, 0.2f), 0.1f, "screen.test.button1", 0.03f, textAlign::CENTER, BLACK, 0.0f));
+	test.addElement(ButtonArg("Screens/basic_button.png", Vector2(0.5f, 0.8f), 0.1f, "screen.test.button2", { {"aa", &a}, {"bb", &b}, {"cc", &c} }, 0.03f, textAlign::CENTER, BLACK, 0.0f));
 	// test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.5), 0.1f, 45.0f, textAlign::CENTER, BLACK, 1.0f));
 	// test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.8), 0.1f, 45.0f, textAlign::RIGHT, BLACK, 1.0f));
 
 	// Text text("screen.test.button1", Vector2(0.5f, 0.3f), 0.05f, textAlign::CENTER, BLACK, 0.0f);
-	TextArg textArg("screen.test.text1", { {"aa", &a}, {"bb", &b}, {"cc", &c}}, Vector2(0.5f, 0.6f), 0.05f, textAlign::CENTER, BLACK, 0.0f);
+	test.addElement(TextArg("screen.test.text1", { {"aa", &a}, {"bb", &b}, {"cc", &c}}, Vector2(0.5f, 0.6f), 0.05f, textAlign::CENTER, BLACK, 0.0f));
 
 	while (!window.ShouldClose())
 	{
@@ -47,7 +47,6 @@ int main()
         {
 			window.ClearBackground(WHITE);
 			test.draw();
-			textArg.draw();
 			b++;
         }
 		window.EndDrawing();
@@ -60,16 +59,16 @@ int main()
 // #include <windows.h>
 // #include "System/System.h"
 // #include "Game/Game.h"
-
+//
 // int playerDistance = 0;
 // int playerFame = 0;
 // menuStatus menuStatu = menuStatus::SYSTEM;
-
+//
 // int main()
 // {
 // 	SetConsoleOutputCP(65001);
 // 	System::instance().init();
-
+//
 // 	while (System::instance().getPlaying())
 // 	{
 // 		switch (menuStatu)
@@ -92,7 +91,7 @@ int main()
 // 		case menuStatus::INV:
 // 			Game::instance().inventoryMenu();
 // 			break;
-		
+// 		
 // 		default:
 // 			break;
 // 		}

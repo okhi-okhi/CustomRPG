@@ -14,5 +14,8 @@ public:
 		raylib::Color textColor = BLACK, float textSpacing = 1.0f);
 
 	void draw() override;
+	ButtonArg* clone() const override;
+
+	const TextArg& getText() const { return this->text; }
 };
 

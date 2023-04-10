@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <filesystem>
-#include <json.hpp>
 #include "PathProvider.h"
 #include "SystemConfig.h"
 #include "Menu.h"
@@ -15,7 +14,7 @@ void System::init() {
 	SystemConfig::instance().load(PathProvider::instance().getConfigPath());
 	I18n::instance().loadSystemI18n(SystemConfig::instance().getCurrentLanguage(), SystemConfig::instance().getDefaultLanguage());
 	FontProvider::instance().loadSystemFont();
-	// createNewPlayer();
+	//createNewPlayer();
 }
 
 void System::systemMenu() {
