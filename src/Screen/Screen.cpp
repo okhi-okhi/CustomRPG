@@ -2,13 +2,9 @@
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
-Screen::Screen(const std::string& bgFileName, const std::string& i18nKey)
+Screen::Screen(const std::string& i18nKey)
 {
-	raylib::Image bgImage(PathProvider::instance().getResourcesPath() + bgFileName);
-	bgImage.Resize(RaylibUtils::getWindowWidth(), RaylibUtils::getWindowHeight());
-	this->backGround = bgImage;
-
-	this->i18nKey = i18nKey;
+	this->i18nKey = "screen." + i18nKey;
 }
 
 void Screen::addElement(const Element& element)
@@ -28,8 +24,6 @@ void Screen::addElement(const Element& element)
 
 void Screen::draw() const
 {
-	DrawTexture(this->backGround, 0, 0, WHITE);
-
 	for(const auto& element : this->elements)
 	{
 		element->draw();

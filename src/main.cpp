@@ -35,10 +35,6 @@ int main()
 	Screen test("Screens/test.png", "screen.test");
 	test.addElement(Button("Screens/basic_button.png", Vector2(0.5f, 0.2f), 0.1f, "screen.test.button1", 0.03f, textAlign::CENTER, BLACK, 0.0f));
 	test.addElement(ButtonArg("Screens/basic_button.png", Vector2(0.5f, 0.8f), 0.1f, "screen.test.button2", { {"aa", &a}, {"bb", &b}, {"cc", &c} }, 0.03f, textAlign::CENTER, BLACK, 0.0f));
-	// test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.5), 0.1f, 45.0f, textAlign::CENTER, BLACK, 1.0f));
-	// test.addButton(Button("Screens/basic_button.png", "button1", Vector2(0.5, 0.8), 0.1f, 45.0f, textAlign::RIGHT, BLACK, 1.0f));
-
-	// Text text("screen.test.button1", Vector2(0.5f, 0.3f), 0.05f, textAlign::CENTER, BLACK, 0.0f);
 	test.addElement(TextArg("screen.test.text1", { {"aa", &a}, {"bb", &b}, {"cc", &c}}, Vector2(0.5f, 0.6f), 0.05f, textAlign::CENTER, BLACK, 0.0f));
 
 	while (!window.ShouldClose())

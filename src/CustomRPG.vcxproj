@@ -181,6 +181,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Screen\Screens\MainScreen.h" />
     <ClInclude Include="Screen\Element.h" />
     <ClInclude Include="Screen\ButtonArg.h" />
     <ClInclude Include="I18n\FontProvider.h" />
@@ -229,6 +230,7 @@
     <ClInclude Include="Utils\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Screen\Screens\MainScreen.cpp" />
     <ClCompile Include="Screen\Element.cpp" />
     <ClCompile Include="Screen\ButtonArg.cpp" />
     <ClCompile Include="I18n\FontProvider.cpp" />

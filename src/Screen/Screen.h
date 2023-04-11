@@ -1,17 +1,17 @@
 #pragma once
+#include <string>
 #include <vector>
-#include "ButtonArg.h"
+#include "Element.h"
 
 class Screen
 {
-private:
-	Texture2D backGround;
+protected:
 	std::string i18nKey;
 	std::vector<Element*> elements;
 
 public:
 	Screen() = default;
-	explicit Screen(const std::string& bgFileName, const std::string& i18nKey);
+	explicit Screen(const std::string& i18nKey);
 
 	void addElement(const Element& element);
 
