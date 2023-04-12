@@ -184,6 +184,7 @@
     <ClInclude Include="Screen\ButtonArg.h" />
     <ClInclude Include="Screen\Element.h" />
     <ClInclude Include="Screen\Screens\MainScreen.h" />
+    <ClInclude Include="Screen\FullPicture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity\Ally.cpp">
@@ -302,5 +303,6 @@
     <ClCompile Include="Screen\ButtonArg.cpp" />
     <ClCompile Include="Screen\Element.cpp" />
     <ClCompile Include="Screen\Screens\MainScreen.cpp" />
+    <ClCompile Include="Screen\FullPicture.cpp" />
   </ItemGroup>
 </Project>

@@ -3,12 +3,13 @@
 #include "../I18n/I18n.h"
 #include "../Utils/RaylibUtils.h"
 
-Text::Text(const std::string& i18nKey, const raylib::Vector2 pos, const float fontSize,
-           const textAlign align, const raylib::Color color, const float spacing) : Element(pos)
+Text::Text(const std::string& i18nKey, const raylib::Vector2 pos,
+	const float fontSize, const textAlign align, const raylib::Color color,
+	const float spacing) : Element(elementTypes::TEXT, pos)
 {
 	this->text = I18n::instance().get(i18nKey);
 
-	this->fontSize = fontSize * RaylibUtils::getWindowHeight();
+	this->fontSize = fontSize * static_cast<float>(RaylibUtils::getWindowHeight());
 	this->align = align;
 	this->color = color;
 	this->spacing = spacing;

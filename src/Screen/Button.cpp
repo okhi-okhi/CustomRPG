@@ -8,6 +8,7 @@ Button::Button(const std::string& fileName, const Vector2 position, const float 
 	const std::string& i18nKey, const float fontSize, const textAlign textAlign,
 	const raylib::Color textColor, const float textSpacing)
 {
+	this->elementType = elementTypes::BUTTON;
 	this->texture = Picture(fileName, position, 2, zoomPercent);
 
 	this->text = Text(i18nKey, this->getTextPos(textAlign), fontSize, textAlign, textColor, textSpacing);

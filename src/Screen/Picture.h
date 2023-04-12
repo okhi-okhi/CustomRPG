@@ -4,11 +4,9 @@
 
 class Picture : public Element
 {
-private:
+protected:
 	Texture2D spriteTexture;
-	Vector2 position;
 	int textureFrameNum;
-
 	int currentFrame;
 
 public:
@@ -21,8 +19,7 @@ public:
 	void setCurrentFrame(int frame);
 
 	const Texture2D& getSpriteTexture() const { return this->spriteTexture; }
-	const Vector2& getPosition() const { return this->position; }
-	float getHeight() const { return static_cast<float>(this->spriteTexture.height) / this->textureFrameNum; }
+	float getHeight() const { return static_cast<float>(this->spriteTexture.height) / static_cast<float>(this->textureFrameNum); }
 	const int& getCurrentFrame() const { return this->currentFrame; }
 };
 

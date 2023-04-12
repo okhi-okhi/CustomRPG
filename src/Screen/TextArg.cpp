@@ -7,6 +7,7 @@ TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argType
 	const raylib::Vector2 pos, const float fontSize,
 	const textAlign align, const raylib::Color color, const float spacing)
 {
+	this->elementType = elementTypes::TEXT_ARG;
 	this->i18nKey = i18nKey;
 	this->args = args;
 	this->position = Vector2(pos.x * RaylibUtils::getWindowWidth(), pos.y * RaylibUtils::getWindowHeight());

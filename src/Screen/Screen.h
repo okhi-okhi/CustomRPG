@@ -16,5 +16,8 @@ public:
 	void addElement(const Element& element);
 
 	void draw() const;
+
+	const std::string& getI18nKey() const { return this->i18nKey; }
+	const std::vector<Element*>& getElements() const { return this->elements; }
 };
 

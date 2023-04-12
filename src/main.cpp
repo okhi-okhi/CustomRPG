@@ -1,7 +1,9 @@
 ﻿#include "System/Exceptions.hpp"
 #include "System/System.h"
 #include "Game/Game.h"
-#include "Screen/Screen.h"
+#include "Screen/Screens/MainScreen.h"
+#include "Screen/ButtonArg.h"
+#include "Screen/TextArg.h"
 #include "Utils/RaylibUtils.h"
 #include "System/PathProvider.h"
 
@@ -32,18 +34,14 @@ int main()
 	float b = 87.0f;
 	int c = 777;
 
-	Screen test("Screens/test.png", "screen.test");
-	test.addElement(Button("Screens/basic_button.png", Vector2(0.5f, 0.2f), 0.1f, "screen.test.button1", 0.03f, textAlign::CENTER, BLACK, 0.0f));
-	test.addElement(ButtonArg("Screens/basic_button.png", Vector2(0.5f, 0.8f), 0.1f, "screen.test.button2", { {"aa", &a}, {"bb", &b}, {"cc", &c} }, 0.03f, textAlign::CENTER, BLACK, 0.0f));
-	test.addElement(TextArg("screen.test.text1", { {"aa", &a}, {"bb", &b}, {"cc", &c}}, Vector2(0.5f, 0.6f), 0.05f, textAlign::CENTER, BLACK, 0.0f));
+	MainScreen mainScreen;
 
 	while (!window.ShouldClose())
 	{
         window.BeginDrawing();
         {
 			window.ClearBackground(WHITE);
-			test.draw();
-			b++;
+			mainScreen.draw();
         }
 		window.EndDrawing();
 	}
