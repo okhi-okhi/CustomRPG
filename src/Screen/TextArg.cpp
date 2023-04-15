@@ -19,18 +19,31 @@ TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argType
 
 	this->font = &FontProvider::instance().get(i18nKey);
 	this->startPos = Vector2(0.0f, 0.0f);
+
+	update();
 }
 
 void TextArg::draw()
 {
+	update();
+	raylib::DrawTextEx(*this->font, text, this->startPos, this->fontSize, this->spacing, this->color);
+}
+
+TextArg* TextArg::clone() const
+{
+	return new TextArg(*this);
+}
+
+void TextArg::update()
+{
 	std::map<std::string, std::string> newArgs;
 	for (const auto& [fst, snd] : args)
 	{
-		if(snd.index() == 2)
+		if (snd.index() == 2)
 		{
 			newArgs.emplace(fst, *std::get<std::string*>(snd));
 		}
-		else if(snd.index() == 1)
+		else if (snd.index() == 1)
 		{
 			newArgs.emplace(fst, std::to_string(*std::get<float*>(snd)));
 		}
@@ -39,10 +52,11 @@ void TextArg::draw()
 			newArgs.emplace(fst, std::to_string(*std::get<int*>(snd)));
 		}
 	}
+	const std::string newText = I18n::instance().get(i18nKey, newArgs);
 
-	const std::string text = I18n::instance().get(i18nKey, newArgs);
-	if(this->text != text)
+	if (this->text != newText)
 	{
+		this->text = newText;
 		const Vector2 textSize = MeasureTextEx(*font, text.c_str(), this->fontSize, this->spacing);
 		const float posY = this->position.y - textSize.y / 2;
 
@@ -60,12 +74,5 @@ void TextArg::draw()
 			this->startPos = Vector2(this->position.x - textSize.x, posY);
 			break;
 		}
-		this->text = text;
 	}
-	raylib::DrawTextEx(*this->font, text, this->startPos, this->fontSize, this->spacing, this->color);
-}
-
-TextArg* TextArg::clone() const
-{
-	return new TextArg(*this);
 }

@@ -185,6 +185,7 @@
     <ClInclude Include="Screen\Element.h" />
     <ClInclude Include="Screen\Screens\MainScreen.h" />
     <ClInclude Include="Screen\FullPicture.h" />
+    <ClInclude Include="Screen\ScreenManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity\Ally.cpp">
@@ -304,5 +305,6 @@
     <ClCompile Include="Screen\Element.cpp" />
     <ClCompile Include="Screen\Screens\MainScreen.cpp" />
     <ClCompile Include="Screen\FullPicture.cpp" />
+    <ClCompile Include="Screen\ScreenManager.cpp" />
   </ItemGroup>
 </Project>

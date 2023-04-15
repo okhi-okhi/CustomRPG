@@ -16,15 +16,7 @@ Button::Button(const std::string& fileName, const Vector2 position, const float 
 
 void Button::draw()
 {
-	if (CheckCollisionPointRec(GetMousePosition(), raylib::Rectangle(this->texture.getPosition().x, this->texture.getPosition().y, static_cast<float>(this->texture.getSpriteTexture().width), this->getButtonHeight())))
-	{
-		this->texture.setCurrentFrame(static_cast<int>(buttonState::HOVER));
-	}
-	else
-	{
-		this->texture.setCurrentFrame(static_cast<int>(buttonState::IDLE));
-	}
-
+	update();
 	this->texture.draw();
 	this->text.draw();
 }
@@ -34,9 +26,21 @@ Button* Button::clone() const
 	return new Button(*this);
 }
 
+void Button::update()
+{
+	if (CheckCollisionPointRec(GetMousePosition(), raylib::Rectangle(this->texture.getPosition().x, this->texture.getPosition().y, static_cast<float>(this->texture.getSpriteTexture().width), this->getButtonHeight())))
+	{
+		this->texture.setCurrentFrame(static_cast<int>(buttonState::HOVER));
+	}
+	else if (this->texture.getCurrentFrame() == static_cast<int>(buttonState::HOVER))
+	{
+		this->texture.setCurrentFrame(static_cast<int>(buttonState::IDLE));
+	}
+}
+
 Vector2 Button::getTextPos(const textAlign textAlign) const
 {
-	Vector2 textPos;
+	Vector2 textPos(0.0f, 0.0f);
 	const float textY = this->texture.getPosition().y + this->getButtonHeight() / 2;
 	switch (textAlign)
 	{

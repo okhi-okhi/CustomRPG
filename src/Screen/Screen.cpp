@@ -1,4 +1,7 @@
 #include "Screen.h"
+
+#include <iostream>
+
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
@@ -11,16 +14,6 @@ void Screen::addElement(const Element& element)
 {
 	this->elements.push_back(element.clone());
 }
-
-// void Screen::addButton(const Button& button)
-// {
-// 	this->buttons.push_back(button);
-// }
-//
-// void Screen::addButton(const ButtonArg& buttonArg)
-// {
-// 	this->buttonArgs.push_back(buttonArg);
-// }
 
 void Screen::draw() const
 {

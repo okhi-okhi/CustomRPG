@@ -19,6 +19,8 @@ public:
 	void draw() override;
 	TextArg* clone() const override;
 
+	void update();
+
 	const std::string& getI18nKey() const { return this->i18nKey; }
 	const std::map<std::string, argTypes>& getArgs() const { return this->args; }
 	const raylib::Vector2& getStartPos() const { return this->startPos; }

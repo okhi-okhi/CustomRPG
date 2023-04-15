@@ -30,17 +30,12 @@ int main()
 	windowSetup(window);
 
 	System::instance().init();
-	std::string a = "asdv";
-	float b = 87.0f;
-	int c = 777;
 
 	MainScreen mainScreen;
-
 	while (!window.ShouldClose())
 	{
         window.BeginDrawing();
         {
-			window.ClearBackground(WHITE);
 			mainScreen.draw();
         }
 		window.EndDrawing();

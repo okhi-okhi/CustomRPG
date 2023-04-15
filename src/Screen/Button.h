@@ -24,6 +24,7 @@ public:
 	void draw() override;
 	Button* clone() const override;
 
+	void update();
 	Vector2 getTextPos(textAlign textAlign) const;
 
 	const Picture& getTexture() const { return this->texture; }

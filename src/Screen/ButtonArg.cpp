@@ -13,15 +13,7 @@ ButtonArg::ButtonArg(const std::string& fileName, const Vector2 position, const 
 
 void ButtonArg::draw()
 {
-	if (CheckCollisionPointRec(GetMousePosition(), raylib::Rectangle(this->texture.getPosition().x, this->texture.getPosition().y, static_cast<float>(this->texture.getSpriteTexture().width), this->getButtonHeight())))
-	{
-		this->texture.setCurrentFrame(static_cast<int>(buttonState::HOVER));
-	}
-	else
-	{
-		this->texture.setCurrentFrame(static_cast<int>(buttonState::IDLE));
-	}
-
+	update();
 	this->texture.draw();
 	this->text.draw();
 }
