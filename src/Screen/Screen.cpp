@@ -1,12 +1,10 @@
 #include "Screen.h"
-
-#include <iostream>
-
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
-Screen::Screen(const std::string& i18nKey)
+Screen::Screen(const screenTypes screenType, const std::string& i18nKey)
 {
+	this->screenType = screenType;
 	this->i18nKey = "screen." + i18nKey;
 }
 

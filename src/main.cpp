@@ -1,9 +1,6 @@
-﻿#include "System/Exceptions.hpp"
-#include "System/System.h"
+﻿#include "System/System.h"
 #include "Game/Game.h"
-#include "Screen/Screens/MainScreen.h"
-#include "Screen/ButtonArg.h"
-#include "Screen/TextArg.h"
+#include "Screen/ScreenManager.h"
 #include "Utils/RaylibUtils.h"
 #include "System/PathProvider.h"
 
@@ -30,13 +27,13 @@ int main()
 	windowSetup(window);
 
 	System::instance().init();
+	ScreenManager::instance().addScreen(screenTypes::MAIN);
 
-	MainScreen mainScreen;
 	while (!window.ShouldClose())
 	{
         window.BeginDrawing();
         {
-			mainScreen.draw();
+			ScreenManager::instance().draw();
         }
 		window.EndDrawing();
 	}

@@ -6,14 +6,15 @@
 #include "SystemConfig.h"
 #include "Menu.h"
 #include "../Game/Game.h"
-#include "../Game/GameConfig.h"
 #include "../I18n/I18n.h"
 #include "../I18n/FontProvider.h"
+#include "../Screen/ScreenManager.h"
 
 void System::init() {
 	SystemConfig::instance().load(PathProvider::instance().getConfigPath());
 	I18n::instance().loadSystemI18n(SystemConfig::instance().getCurrentLanguage(), SystemConfig::instance().getDefaultLanguage());
 	FontProvider::instance().loadSystemFont();
+	ScreenManager::instance().init();
 	//createNewPlayer();
 }
 
