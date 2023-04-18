@@ -7,5 +7,7 @@ public:
 	MainScreen();
 
 	Screen* clone() const override;
+
+	static void test();
 };
 

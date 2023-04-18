@@ -6,12 +6,12 @@
 
 Button::Button(const std::string& fileName, const Vector2 position, const float zoomPercent,
 	const std::string& i18nKey, const float fontSize, const textAlign textAlign,
-	const raylib::Color textColor, const float textSpacing)
+	const raylib::Color textColor, const float textSpacing, const std::function<void()>& function)
 {
 	this->elementType = elementTypes::BUTTON;
 	this->texture = Picture(fileName, position, 2, zoomPercent);
-
 	this->text = Text(i18nKey, this->getTextPos(textAlign), fontSize, textAlign, textColor, textSpacing);
+	this->clickFun = function;
 }
 
 void Button::draw()
@@ -31,6 +31,10 @@ void Button::update()
 	if (CheckCollisionPointRec(GetMousePosition(), raylib::Rectangle(this->texture.getPosition().x, this->texture.getPosition().y, static_cast<float>(this->texture.getSpriteTexture().width), this->getButtonHeight())))
 	{
 		this->texture.setCurrentFrame(static_cast<int>(buttonState::HOVER));
+		if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+		{
+			this->clickFun();
+		}
 	}
 	else if (this->texture.getCurrentFrame() == static_cast<int>(buttonState::HOVER))
 	{

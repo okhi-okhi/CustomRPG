@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include "Picture.h"
 #include "Text.h"
 
@@ -14,12 +15,13 @@ private:
 	Text text;
 protected:
 	Picture texture;
+	std::function<void()> clickFun;
 
 public:
 	Button() = default;
 	Button(const std::string& fileName, Vector2 position, float zoomPercent,
-		const std::string& i18nKey, float fontSize = 32.0f, textAlign textAlign = textAlign::LEFT,
-		raylib::Color textColor = BLACK, float textSpacing = 1.0f);
+		const std::string& i18nKey, float fontSize, textAlign textAlign,
+		raylib::Color textColor, float textSpacing, const std::function<void()>& function);
 
 	void draw() override;
 	Button* clone() const override;
