@@ -17,27 +17,26 @@ Text::Text(const std::string& i18nKey, const raylib::Vector2 pos,
 	this->font = &FontProvider::instance().get(i18nKey);
 
 	const Vector2 textSize = MeasureTextEx(*font, text.c_str(), this->fontSize, this->spacing);
-	const float posY = this->position.y - textSize.y / 2;
+	this->hitbox.y = getPosition().y - textSize.y / 2;
 
 	switch (this->align)
 	{
 	case textAlign::LEFT:
-		this->position = Vector2(this->position.x, posY);
 		break;
 
 	case textAlign::CENTER:
-		this->position = Vector2(this->position.x - textSize.x / 2, posY);
+		this->hitbox.x = this->hitbox.x - textSize.x / 2;
 		break;
 
 	case textAlign::RIGHT:
-		this->position = Vector2(this->position.x - textSize.x, posY);
+		this->hitbox.x = this->hitbox.x - textSize.x;
 		break;
 	}
 }
 
 void Text::draw()
 {
-	raylib::DrawTextEx(*this->font, this->text, this->position, this->fontSize, this->spacing, this->color);
+	raylib::DrawTextEx(*this->font, this->text, getPosition(), this->fontSize, this->spacing, this->color);
 }
 
 Text* Text::clone() const

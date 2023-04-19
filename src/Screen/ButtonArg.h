@@ -6,6 +6,7 @@ class ButtonArg final : public Button
 {
 private:
 	TextArg text;
+
 public:
 	ButtonArg() = default;
 	ButtonArg(const std::string& fileName, Vector2 position, float zoomPercent,

@@ -1,5 +1,5 @@
 #pragma once
-#include <Vector2.hpp>
+#include <Rectangle.hpp>
 
 enum class elementTypes
 {
@@ -15,7 +15,7 @@ class Element
 {
 protected:
 	elementTypes elementType;
-	raylib::Vector2 position;
+	raylib::Rectangle hitbox;
 
 public:
 	Element() : elementType(elementTypes::PICTURE) {}
@@ -26,6 +26,7 @@ public:
 	virtual Element* clone() const = 0;
 
 	const elementTypes& getElementType() const { return this->elementType; }
-	const raylib::Vector2& getPosition() const { return this->position; }
+	raylib::Vector2 getPosition() const { return Vector2(this->hitbox.x, hitbox.y); }
+	const raylib::Rectangle& getHitbox() const { return this->hitbox; }
 };
 

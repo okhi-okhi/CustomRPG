@@ -16,6 +16,7 @@ private:
 protected:
 	Picture texture;
 	std::function<void()> clickFun;
+	std::vector<raylib::Rectangle> reserveRec;
 
 public:
 	Button() = default;

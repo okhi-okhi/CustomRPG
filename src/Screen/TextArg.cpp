@@ -10,7 +10,7 @@ TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argType
 	this->elementType = elementTypes::TEXT_ARG;
 	this->i18nKey = i18nKey;
 	this->args = args;
-	this->position = Vector2(pos.x * RaylibUtils::getWindowWidth(), pos.y * RaylibUtils::getWindowHeight());
+	this->hitbox = Rectangle(pos.x * RaylibUtils::getWindowWidth(), pos.y * RaylibUtils::getWindowHeight(), 0, 0);
 
 	this->fontSize = fontSize * RaylibUtils::getWindowHeight();
 	this->align = align;
@@ -58,20 +58,19 @@ void TextArg::update()
 	{
 		this->text = newText;
 		const Vector2 textSize = MeasureTextEx(*font, text.c_str(), this->fontSize, this->spacing);
-		const float posY = this->position.y - textSize.y / 2;
+		this->startPos.y = getPosition().y - textSize.y / 2;
 
 		switch (align)
 		{
 		case textAlign::LEFT:
-			this->startPos = Vector2(this->position.x, posY);
 			break;
 
 		case textAlign::CENTER:
-			this->startPos = Vector2(this->position.x - textSize.x / 2, posY);
+			this->startPos.x = this->hitbox.x - textSize.x / 2;
 			break;
 
 		case textAlign::RIGHT:
-			this->startPos = Vector2(this->position.x - textSize.x, posY);
+			this->startPos.x = this->hitbox.x - textSize.x;
 			break;
 		}
 	}

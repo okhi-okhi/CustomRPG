@@ -31,7 +31,7 @@ public:
 	void draw() override;
 	Text* clone() const override;
 
-	void setPosition(const raylib::Vector2 pos) { this->position = pos; }
+	void setPosition(const raylib::Vector2 pos) { this->hitbox.x = pos.x; this->hitbox.y = pos.y; }
 
 	const std::string& getText() const { return this->text; }
 	const float& getFontSize() const { return this->fontSize; }

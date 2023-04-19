@@ -11,11 +11,11 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 	const int realWidth = static_cast<int>(RaylibUtils::getWindowWidth() * zoomPercent);
 	image.Resize(realWidth, realWidth * (image.width / image.height));
 	this->spriteTexture = image;
-
+		
 	this->textureFrameNum = textureFrameNum;
 
-	this->position = Vector2(RaylibUtils::getWindowWidth() * position.x - static_cast<float>(spriteTexture.width) / 2,
-		RaylibUtils::getWindowHeight() * position.y - this->getHeight() / 2);
+	this->hitbox = Rectangle(RaylibUtils::getWindowWidth() * position.x - static_cast<float>(spriteTexture.width) / 2,
+		RaylibUtils::getWindowHeight() * position.y - this->getHeight() / 2, spriteTexture.width, this->getHeight());
 
 	this->currentFrame = 0;
 }
@@ -24,7 +24,7 @@ void Picture::draw()
 {
 	const raylib::Rectangle sourceRec(0, static_cast<float>(this->currentFrame) * this->getHeight(),
 		static_cast<float>(this->spriteTexture.width), this->getHeight());
-	DrawTextureRec(this->spriteTexture, sourceRec, this->position, WHITE);
+	DrawTextureRec(this->spriteTexture, sourceRec, getPosition(), WHITE);
 }
 
 Picture* Picture::clone() const

@@ -47,3 +47,25 @@ void ScreenManager::draw() const
 		currentScreen->draw();
 	}
 }
+
+void ScreenManager::updateHitbox()
+{
+	for(int i=0; i < this->currentScreens.size(); i++)
+	{
+		for(int j=0; j < this->currentScreens[i]->getElements().size(); j++)
+		{
+			Element* element = this->currentScreens[i]->getElements()[j];
+			if(element->getElementType() == elementTypes::BUTTON ||
+				element->getElementType() == elementTypes::BUTTON_ARG)
+			{
+				for(int k = j; k < this->currentScreens[i]->getElements().size(); k++)
+				{
+					if(this->currentScreens[i]->getElements()[k]->getHitbox())
+					{
+						
+					}
+				}
+			}
+		}
+	}
+}
