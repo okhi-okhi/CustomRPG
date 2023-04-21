@@ -13,6 +13,12 @@ void Screen::addElement(const Element& element)
 	this->elements.push_back(element.clone());
 }
 
+void Screen::addButton(const Button& button)
+{
+	addElement(button);
+	this->buttons.emplace_back(this->elements.size(), button.clone());
+}
+
 void Screen::draw() const
 {
 	for(const auto& element : this->elements)

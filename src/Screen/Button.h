@@ -28,8 +28,10 @@ public:
 	Button* clone() const override;
 
 	void update();
-	Vector2 getTextPos(textAlign textAlign) const;
+	void checkCollision(raylib::Rectangle hitbox);
+	void addReserveRec(raylib::Rectangle hitbox);
 
+	Vector2 getTextPos(textAlign textAlign) const;
 	const Picture& getTexture() const { return this->texture; }
 	const Text& getI18nKey() const { return this->text; }
 	buttonState getButtonState() const { return static_cast<buttonState>(this->texture.getCurrentFrame()); }

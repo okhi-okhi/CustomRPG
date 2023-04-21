@@ -42,6 +42,18 @@ void Button::update()
 	}
 }
 
+void Button::checkCollision(raylib::Rectangle hitbox)
+{
+	if (CheckCollisionRecs(this->hitbox, hitbox)) {
+		addReserveRec(hitbox);
+	}
+}
+
+void Button::addReserveRec(raylib::Rectangle hitbox)
+{
+	this->reserveRec.push_back(hitbox);
+}
+
 Vector2 Button::getTextPos(const textAlign textAlign) const
 {
 	Vector2 textPos(0.0f, 0.0f);

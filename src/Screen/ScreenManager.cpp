@@ -22,6 +22,7 @@ void ScreenManager::addScreen(const screenTypes& screen)
 			this->currentScreens.push_back(storeScreen);
 		}
 	}
+	updateHitbox();
 }
 
 void ScreenManager::removeScreen(const screenTypes& screen)
@@ -33,6 +34,7 @@ void ScreenManager::removeScreen(const screenTypes& screen)
 			this->currentScreens.erase(currentScreens.begin() + i);
 		}
 	}
+	updateHitbox();
 }
 
 void ScreenManager::clear()
@@ -52,18 +54,18 @@ void ScreenManager::updateHitbox()
 {
 	for(int i=0; i < this->currentScreens.size(); i++)
 	{
-		for(int j=0; j < this->currentScreens[i]->getElements().size(); j++)
+		for(int j=0; j < this->currentScreens[i]->getButtons().size(); j++)
 		{
-			Element* element = this->currentScreens[i]->getElements()[j];
-			if(element->getElementType() == elementTypes::BUTTON ||
-				element->getElementType() == elementTypes::BUTTON_ARG)
+			const auto [index, btn] = this->currentScreens[i]->getButtons()[j];
+			for(int k=j; k < this->currentScreens[i]->getElements().size(); k++)
 			{
-				for(int k = j; k < this->currentScreens[i]->getElements().size(); k++)
+				btn->checkCollision(this->currentScreens[i]->getElements()[k]->getHitbox());
+			}
+			for(int l=i; l < this->currentScreens.size(); l++)
+			{
+				for (int m = 0; m < this->currentScreens[l]->getButtons().size(); m++)
 				{
-					if(this->currentScreens[i]->getElements()[k]->getHitbox())
-					{
-						
-					}
+					btn->checkCollision(this->currentScreens[l]->getElements()[m]->getHitbox());
 				}
 			}
 		}
