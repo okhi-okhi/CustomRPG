@@ -1,9 +1,13 @@
 #include "ScreenManager.h"
+
+#include <iostream>
+
 #include "Screens/MainScreen.h"
 
 void ScreenManager::init()
 {
 	this->allScreens.push_back(MainScreen().clone());
+	updateHitbox();
 }
 
 void ScreenManager::addScreen(const screenTypes& screen)
@@ -50,18 +54,18 @@ void ScreenManager::draw() const
 	}
 }
 
-void ScreenManager::updateHitbox()
+void ScreenManager::updateHitbox() const
 {
 	for(int i=0; i < this->currentScreens.size(); i++)
 	{
 		for(int j=0; j < this->currentScreens[i]->getButtons().size(); j++)
 		{
 			const auto [index, btn] = this->currentScreens[i]->getButtons()[j];
-			for(int k=j; k < this->currentScreens[i]->getElements().size(); k++)
+			for(int k = index +1; k < this->currentScreens[i]->getElements().size(); k++)
 			{
 				btn->checkCollision(this->currentScreens[i]->getElements()[k]->getHitbox());
 			}
-			for(int l=i; l < this->currentScreens.size(); l++)
+			for(int l=i+1; l < this->currentScreens.size(); l++)
 			{
 				for (int m = 0; m < this->currentScreens[l]->getButtons().size(); m++)
 				{

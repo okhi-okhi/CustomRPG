@@ -12,6 +12,7 @@ Button::Button(const std::string& fileName, const Vector2 position, const float 
 	this->texture = Picture(fileName, position, 2, zoomPercent);
 	this->text = Text(i18nKey, this->getTextPos(textAlign), fontSize, textAlign, textColor, textSpacing);
 	this->clickFun = function;
+	this->hitbox = this->texture.getHitbox();
 }
 
 void Button::draw()
@@ -28,8 +29,20 @@ Button* Button::clone() const
 
 void Button::update()
 {
-	if (CheckCollisionPointRec(GetMousePosition(), raylib::Rectangle(this->texture.getPosition().x, this->texture.getPosition().y, static_cast<float>(this->texture.getSpriteTexture().width), this->getButtonHeight())))
+	if (CheckCollisionPointRec(GetMousePosition(), this->hitbox))
 	{
+		for(const auto& rec : this->reserveRec)
+		{
+			if(CheckCollisionPointRec(GetMousePosition(), rec))
+			{
+				if (this->texture.getCurrentFrame() == static_cast<int>(buttonState::HOVER))
+				{
+					this->texture.setCurrentFrame(static_cast<int>(buttonState::IDLE));
+				}
+				return;
+			}
+		}
+
 		this->texture.setCurrentFrame(static_cast<int>(buttonState::HOVER));
 		if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 		{
@@ -42,14 +55,14 @@ void Button::update()
 	}
 }
 
-void Button::checkCollision(raylib::Rectangle hitbox)
+void Button::checkCollision(const raylib::Rectangle hitbox)
 {
 	if (CheckCollisionRecs(this->hitbox, hitbox)) {
 		addReserveRec(hitbox);
 	}
 }
 
-void Button::addReserveRec(raylib::Rectangle hitbox)
+void Button::addReserveRec(const raylib::Rectangle hitbox)
 {
 	this->reserveRec.push_back(hitbox);
 }

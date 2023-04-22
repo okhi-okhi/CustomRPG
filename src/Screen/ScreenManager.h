@@ -18,7 +18,7 @@ public:
 
 	void draw() const;
 
-	void updateHitbox();
+	void updateHitbox() const;
 
 	const std::vector<Screen*>& getCurrentScreens() const { return this->currentScreens; }
 };
