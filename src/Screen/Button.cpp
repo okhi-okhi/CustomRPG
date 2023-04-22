@@ -1,4 +1,5 @@
 ﻿#include "Button.h"
+#include "ScreenManager.h"
 #include "../I18n/I18n.h"
 #include "../I18n/FontProvider.h"
 #include "../System/PathProvider.h"
@@ -6,13 +7,15 @@
 
 Button::Button(const std::string& fileName, const Vector2 position, const float zoomPercent,
 	const std::string& i18nKey, const float fontSize, const textAlign textAlign,
-	const raylib::Color textColor, const float textSpacing, const std::function<void()>& function)
+	const raylib::Color textColor, const float textSpacing, const std::function<void()>& function,
+	const std::string& clickSound)
 {
 	this->elementType = elementTypes::BUTTON;
 	this->texture = Picture(fileName, position, 2, zoomPercent);
 	this->text = Text(i18nKey, this->getTextPos(textAlign), fontSize, textAlign, textColor, textSpacing);
 	this->clickFun = function;
 	this->hitbox = this->texture.getHitbox();
+	this->clickSound = LoadSound((PathProvider::instance().getSystemSoundsPath() + clickSound).c_str());
 }
 
 void Button::draw()
@@ -44,8 +47,9 @@ void Button::update()
 		}
 
 		this->texture.setCurrentFrame(static_cast<int>(buttonState::HOVER));
-		if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+		if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
+			PlaySound(this->clickSound);
 			this->clickFun();
 		}
 	}

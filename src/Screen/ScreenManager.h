@@ -7,6 +7,7 @@ class ScreenManager : public Singleton<ScreenManager>
 private:
 	std::vector<Screen*> allScreens;
 	std::vector<Screen*> currentScreens;
+
 public:
 	explicit ScreenManager(token) {}
 

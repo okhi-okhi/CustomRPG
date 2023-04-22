@@ -1,7 +1,9 @@
 #pragma once
 #include <functional>
+#include <Sound.hpp>
 #include "Picture.h"
 #include "Text.h"
+#include "../../System/PathProvider.h"
 
 enum class buttonState
 {
@@ -15,14 +17,16 @@ private:
 	Text text;
 protected:
 	Picture texture;
+	Sound clickSound;
 	std::function<void()> clickFun;
 	std::vector<raylib::Rectangle> reserveRec;
 
 public:
 	Button() = default;
 	Button(const std::string& fileName, Vector2 position, float zoomPercent,
-		const std::string& i18nKey, float fontSize, textAlign textAlign,
-		raylib::Color textColor, float textSpacing, const std::function<void()>& function);
+	       const std::string& i18nKey, float fontSize, textAlign textAlign,
+	       raylib::Color textColor, float textSpacing, const std::function<void()>& function,
+	       const std::string& clickSound = "button_click.wav");
 
 	void draw() override;
 	Button* clone() const override;

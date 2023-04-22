@@ -1,7 +1,4 @@
 #include "ScreenManager.h"
-
-#include <iostream>
-
 #include "Screens/MainScreen.h"
 
 void ScreenManager::init()

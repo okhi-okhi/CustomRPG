@@ -13,7 +13,7 @@ void windowSetup(raylib::Window& window)
 	window.SetSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
 	window.ToggleFullscreen();
 
-	const raylib::Image icon(PathProvider::instance().getResourcesPath() + "Images/Icons/icon_main.png");
+	const raylib::Image icon(PathProvider::instance().getResourcesPath() + "Textures/Images/Icons/icon_main.png");
 	window.SetIcon(icon);
 
 	window.SetTargetFPS(60);
@@ -23,12 +23,12 @@ int main()
 {
 	SetTraceLogLevel(LOG_ALL);
 	raylib::Window window(1920, 1080, "CustomRPG");
+	InitAudioDevice();
 
 	windowSetup(window);
 
 	System::instance().init();
 	ScreenManager::instance().addScreen(screenTypes::MAIN);
-
 	while (!window.ShouldClose())
 	{
         window.BeginDrawing();
@@ -37,7 +37,7 @@ int main()
         }
 		window.EndDrawing();
 	}
-
+	CloseAudioDevice();
 	window.Close();
 	return 0;
 }

@@ -8,6 +8,9 @@ private:
 	const std::string configPath = "config.json";
 	const std::string langsPath = "Langs/";
 	const std::string fontsPath = "Fonts/";
+	const std::string soundsPath = "Sounds/";
+	const std::string texturesPath = "Textures/";
+
 	const std::string screensPath = "Screens/";
 
 	std::string currentGamePath;
@@ -18,7 +21,9 @@ private:
 	const std::string resourcesPath = "resources/";
 	const std::string systemLangPath = resourcesPath + langsPath;
 	const std::string systemFontPath = resourcesPath + fontsPath;
-	const std::string systemScreensPath = resourcesPath + screensPath;
+	const std::string systemSoundsPath = resourcesPath + soundsPath;
+	const std::string systemTexturesPath = resourcesPath + texturesPath;
+	const std::string systemScreensPath = resourcesPath + texturesPath + screensPath;
 
 public:
 	explicit PathProvider(token){}
@@ -37,6 +42,8 @@ public:
 	std::string getResourcesPath() const { return this->resourcesPath; }
 	std::string getSystemLangPath() const { return this->systemLangPath; }
 	std::string getSystemFontPath() const { return this->systemFontPath; }
+	std::string getSystemTexturesPath() const { return this->systemTexturesPath; }
+	std::string getSystemSoundsPath() const { return this->systemSoundsPath; }
 	std::string getSystemScreensPath() const { return this->systemScreensPath; }
 };
 
