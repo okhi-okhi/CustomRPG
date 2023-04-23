@@ -5,12 +5,12 @@
 #include <json.hpp>
 #include "../System/PathProvider.h"
 
-void I18nProvider::init(const string& resourcePath, const string& currentLanguage, const string& defaultLanguage)
+void I18nProvider::init(const string& langsFolder, const string& currentLanguage, const string& defaultLanguage)
 {
 	namespace fs = std::filesystem;
 
-	this->resourcePath = resourcePath;
-	for (const auto& langFile : fs::directory_iterator(this->resourcePath + PathProvider::instance().getLangsPath()))
+	this->langsFolder = langsFolder;
+	for (const auto& langFile : fs::directory_iterator(this->langsFolder))
 	{
 		string id = langFile.path().stem().string();
 		this->languages.emplace_back(id, getLanguageName(id));
@@ -27,10 +27,10 @@ string I18nProvider::getLanguageName(const string& fileName) const
 {
 	using json = nlohmann::json;
 
-	std::ifstream inFile(this->resourcePath + PathProvider::instance().getLangsPath() + fileName + ".json");
+	std::ifstream inFile(this->langsFolder + fileName + ".json");
 	if (!inFile.good())
 	{
-		std::cout << "Can't find file:" << this->resourcePath + PathProvider::instance().getLangsPath()
+		std::cout << "Can't find file:" << this->langsFolder
 			<< fileName << ".json" << std::endl;
 		exit(1);
 	}
@@ -50,10 +50,10 @@ bool I18nProvider::loadLanguage(const string& fileName)
 {
 	using json = nlohmann::json;
 
-	std::ifstream inFile(this->resourcePath + PathProvider::instance().getLangsPath() + fileName + ".json");
+	std::ifstream inFile(this->langsFolder + fileName + ".json");
 	if (!inFile.good()) 
 	{
-		std::cout << "Can't find file:" << this->resourcePath + PathProvider::instance().getLangsPath()
+		std::cout << "Can't find file:" << this->langsFolder
 			<< fileName << ".json" << std::endl;
 		return false;
 	}
@@ -86,7 +86,7 @@ bool I18nProvider::loadLanguage(const string& fileName)
 		str.append(value);
 	}
 	// this->currentLanguage.font = RaylibUtils::getContainTextFont(
-	// 	this->resourcePath + PathProvider::instance().getFontsPath(), str);
+	// 	this->langsFolder + PathProvider::instance().getFontsPath(), str);
 
 	return true;
 }
@@ -94,10 +94,10 @@ bool I18nProvider::loadLanguage(const string& fileName)
 void I18nProvider::loadDefaultLanguage(const string& fileName)
 {
 	using json = nlohmann::json;
-	std::ifstream inFile(this->resourcePath + PathProvider::instance().getLangsPath() + fileName + ".json");
+	std::ifstream inFile(this->langsFolder + fileName + ".json");
 	if (!inFile.good())
 	{
-		std::cout << "Can't find file:" << this->resourcePath + PathProvider::instance().getLangsPath()
+		std::cout << "Can't find file:" << this->langsFolder
 			<< fileName << ".json" << std::endl;
 		exit(1);
 	}

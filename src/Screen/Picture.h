@@ -10,7 +10,7 @@ protected:
 	int currentFrame;
 
 public:
-	Picture() = default;
+	Picture() : spriteTexture(), textureFrameNum(0), currentFrame(0) {}
 	Picture(const std::string& fileName, Vector2 position, int textureFrameNum, float zoomPercent);
 
 	void draw() override;

@@ -2,48 +2,40 @@
 #include <string>
 #include "../Utils/Singleton.h"
 
+enum class resourcesFolder
+{
+	LANGS,
+	FONTS,
+	SOUNDS,
+	TEXTURES,
+};
+
 class PathProvider : public Singleton<PathProvider>
 {
 private:
+	//Global path
 	const std::string configPath = "config.json";
-	const std::string langsPath = "Langs/";
-	const std::string fontsPath = "Fonts/";
-	const std::string soundsPath = "Sounds/";
-	const std::string texturesPath = "Textures/";
-
-	const std::string screensPath = "Screens/";
-
-	std::string currentGamePath;
 	const std::string gamesPath = "games/";
-	const std::string gameLangPath = currentGamePath + langsPath;
-	const std::string gameFontPath = currentGamePath + fontsPath;
-
 	const std::string resourcesPath = "resources/";
-	const std::string systemLangPath = resourcesPath + langsPath;
-	const std::string systemFontPath = resourcesPath + fontsPath;
-	const std::string systemSoundsPath = resourcesPath + soundsPath;
-	const std::string systemTexturesPath = resourcesPath + texturesPath;
-	const std::string systemScreensPath = resourcesPath + texturesPath + screensPath;
+	std::string currentGamePath;
+	//Folders
+	const std::string langsFolder = "langs/";
+	const std::string fontsFolder = "fonts/";
+	const std::string soundsFolder = "sounds/";
+	const std::string texturesFolder = "textures/";
 
 public:
 	explicit PathProvider(token){}
 	void setCurrentGamePath(const std::string& path) { this->currentGamePath = gamesPath + path + '/'; }
 
+	std::string getFolder(resourcesFolder folder) const;
+	std::string getFromSystem(resourcesFolder folder) const;
+	std::string getFromGame(resourcesFolder folder) const;
+	std::string get(resourcesFolder folder, const std::string& fileName) const;
+
 	std::string getConfigPath() const { return this->configPath; }
-	std::string getLangsPath() const { return this->langsPath; }
-	std::string getFontsPath() const { return this->fontsPath; }
-	std::string getScreensPath() const { return this->screensPath; }
-
-	std::string getCurrentGamePath() const { return this->currentGamePath; }
 	std::string getGamesPath() const { return this->gamesPath; }
-	std::string getGameLangPath() const { return this->gameLangPath; }
-	std::string getGameFontPath() const { return this->gameFontPath; }
-
 	std::string getResourcesPath() const { return this->resourcesPath; }
-	std::string getSystemLangPath() const { return this->systemLangPath; }
-	std::string getSystemFontPath() const { return this->systemFontPath; }
-	std::string getSystemTexturesPath() const { return this->systemTexturesPath; }
-	std::string getSystemSoundsPath() const { return this->systemSoundsPath; }
-	std::string getSystemScreensPath() const { return this->systemScreensPath; }
+	std::string getCurrentGamePath() const { return this->currentGamePath; }
 };
 

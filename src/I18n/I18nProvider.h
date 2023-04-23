@@ -23,7 +23,7 @@ struct Language {
 class I18nProvider
 {
 private:
-	string resourcePath;
+	string langsFolder;
 	std::vector<LanguageInfo> languages;
 
 	Language defaultLanguage;
@@ -35,7 +35,7 @@ private:
 
 public:
 	explicit I18nProvider() = default;
-	void init(const string& resourcePath, const string& currentLanguage, const string& defaultLanguage);
+	void init(const string& langsFolder, const string& currentLanguage, const string& defaultLanguage);
 
 	bool loadLanguage(const string& fileName);
 	void loadDefaultLanguage(const string& fileName);

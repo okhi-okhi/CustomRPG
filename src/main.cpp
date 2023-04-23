@@ -13,7 +13,7 @@ void windowSetup(raylib::Window& window)
 	window.SetSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
 	window.ToggleFullscreen();
 
-	const raylib::Image icon(PathProvider::instance().getResourcesPath() + "Textures/Images/Icons/icon_main.png");
+	const raylib::Image icon(PathProvider::instance().getResourcesPath() + "textures/icons/icon_main.png");
 	window.SetIcon(icon);
 
 	window.SetTargetFPS(60);

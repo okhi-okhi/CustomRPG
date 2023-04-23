@@ -15,7 +15,7 @@ Button::Button(const std::string& fileName, const Vector2 position, const float 
 	this->text = Text(i18nKey, this->getTextPos(textAlign), fontSize, textAlign, textColor, textSpacing);
 	this->clickFun = function;
 	this->hitbox = this->texture.getHitbox();
-	this->clickSound = LoadSound((PathProvider::instance().getSystemSoundsPath() + clickSound).c_str());
+	this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, clickSound).c_str());
 }
 
 void Button::draw()

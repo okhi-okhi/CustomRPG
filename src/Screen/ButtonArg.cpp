@@ -11,7 +11,7 @@ ButtonArg::ButtonArg(const std::string& fileName, const Vector2 position, const 
 	this->text = TextArg(i18nKey, args, this->getTextPos(textAlign), fontSize, textAlign, textColor, textSpacing);
 	this->clickFun = function;
 	this->hitbox = this->texture.getHitbox();
-	this->clickSound = LoadSound((PathProvider::instance().getSystemSoundsPath() + clickSound).c_str());
+	this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, clickSound).c_str());
 }
 
 void ButtonArg::draw()

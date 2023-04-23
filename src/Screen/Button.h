@@ -19,10 +19,10 @@ protected:
 	Picture texture;
 	Sound clickSound;
 	std::function<void()> clickFun;
-	std::vector<raylib::Rectangle> reserveRec;
+	std::vector<raylib::Rectangle> reserveRec{};
 
 public:
-	Button() = default;
+	Button() : texture(), clickSound() {}
 	Button(const std::string& fileName, Vector2 position, float zoomPercent,
 	       const std::string& i18nKey, float fontSize, textAlign textAlign,
 	       raylib::Color textColor, float textSpacing, const std::function<void()>& function,
