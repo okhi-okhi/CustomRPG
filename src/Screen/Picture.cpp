@@ -9,7 +9,7 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 	this->elementType = elementTypes::PICTURE;
 	raylib::Image image(PathProvider::instance().get(resourcesFolder::TEXTURES, fileName));
 	const int realWidth = static_cast<int>(RaylibUtils::getWindowWidth() * zoomPercent);
-	image.Resize(realWidth, realWidth * (image.width / image.height));
+	image.Resize(realWidth, realWidth * static_cast<float>(image.height) / static_cast<float>(image.width));
 	this->spriteTexture = image;
 		
 	this->textureFrameNum = textureFrameNum;
