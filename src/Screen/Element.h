@@ -8,6 +8,7 @@ enum class elementTypes
 	TEXT,
 	TEXT_ARG,
 	BUTTON,
+	BUTTON_TEXT,
 	BUTTON_ARG
 };
 
