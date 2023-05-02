@@ -191,6 +191,7 @@
     <ClInclude Include="Screen\Picture.h" />
     <ClInclude Include="Screen\Text.h" />
     <ClInclude Include="Screen\TextArg.h" />
+    <ClInclude Include="Screen\ScrollList.h" />
     <ClInclude Include="Utils\RaylibUtils.h" />
     <ClInclude Include="Screen\Button.h" />
     <ClInclude Include="Entity\Ally.h" />
@@ -243,7 +244,7 @@
     <ClCompile Include="Screen\Picture.cpp" />
     <ClCompile Include="Screen\Text.cpp" />
     <ClCompile Include="Screen\TextArg.cpp" />
-    <ClCompile Include="Utils\LambdaUtil.hpp" />
+    <ClCompile Include="Screen\ScrollList.cpp" />
     <ClCompile Include="Utils\RaylibUtils.cpp" />
     <ClCompile Include="Screen\Button.cpp" />
     <ClCompile Include="Entity\Ally.cpp" />

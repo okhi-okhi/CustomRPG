@@ -9,7 +9,8 @@ enum class elementTypes
 	TEXT_ARG,
 	BUTTON,
 	BUTTON_TEXT,
-	BUTTON_ARG
+	BUTTON_ARG,
+	SCROLL_LIST
 };
 
 class Element

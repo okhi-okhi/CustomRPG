@@ -3,18 +3,25 @@
 #include "../I18n/I18n.h"
 #include "../Utils/RaylibUtils.h"
 
-Text::Text(const std::string& i18nKey, const raylib::Vector2 pos,
-	const float fontSize, const textAlign align, const raylib::Color color,
-	const float spacing) : Element(elementTypes::TEXT, pos)
+Text::Text(const std::string& i18nKey, const raylib::Vector2 pos, const float fontSize,
+	const textAlign align, const raylib::Color color, const float spacing) :
+	Text(I18n::instance().get(i18nKey), pos, fontSize, align, color, spacing, &FontProvider::instance().get(i18nKey))
 {
-	this->text = I18n::instance().get(i18nKey);
+	
+}
+
+Text::Text(const std::string& text, const raylib::Vector2 pos,
+	const float fontSize, const textAlign align, const raylib::Color color,
+	const float spacing, const raylib::Font* font) : Element(elementTypes::TEXT, pos)
+{
+	this->text = text;
 
 	this->fontSize = fontSize * static_cast<float>(RaylibUtils::getWindowHeight());
 	this->align = align;
 	this->color = color;
 	this->spacing = spacing;
 
-	this->font = &FontProvider::instance().get(i18nKey);
+	this->font = font;
 
 	const Vector2 textSize = MeasureTextEx(*font, text.c_str(), this->fontSize, this->spacing);
 	this->hitbox.y = getPosition().y - textSize.y / 2;

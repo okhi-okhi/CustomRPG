@@ -11,7 +11,7 @@ FullPicture::FullPicture(const std::string& fileName, const int textureFrameNum)
 	this->spriteTexture = image;
 
 	this->textureFrameNum = textureFrameNum;
-	this->hitbox = Rectangle(0.0f, 0.0f, spriteTexture.width, this->getHeight());
+	this->hitbox = Rectangle(0.0f, 0.0f, static_cast<float>(spriteTexture.width), this->getHeight());
 	this->currentFrame = 0;
 }
 

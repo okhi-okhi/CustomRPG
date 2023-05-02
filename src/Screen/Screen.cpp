@@ -16,7 +16,7 @@ void Screen::addElement(const Element& element)
 void Screen::addButton(const Button& button)
 {
 	Button* ptr = button.clone();
-	this->buttons.emplace_back(this->elements.size(), ptr);
+	this->buttons.emplace_back(static_cast<int>(this->elements.size()), ptr);
 	this->elements.push_back(ptr);
 }
 

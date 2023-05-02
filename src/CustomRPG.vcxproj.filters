@@ -187,6 +187,7 @@
     <ClInclude Include="Screen\FullPicture.h" />
     <ClInclude Include="Screen\ScreenManager.h" />
     <ClInclude Include="Screen\ButtonText.h" />
+    <ClInclude Include="Screen\ScrollList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity\Ally.cpp">
@@ -301,12 +302,12 @@
     <ClCompile Include="Screen\Picture.cpp" />
     <ClCompile Include="Screen\Text.cpp" />
     <ClCompile Include="Screen\TextArg.cpp" />
-    <ClCompile Include="Utils\LambdaUtil.hpp" />
     <ClCompile Include="Screen\ButtonArg.cpp" />
     <ClCompile Include="Screen\Element.cpp" />
     <ClCompile Include="Screen\Screens\MainScreen.cpp" />
     <ClCompile Include="Screen\FullPicture.cpp" />
     <ClCompile Include="Screen\ScreenManager.cpp" />
     <ClCompile Include="Screen\ButtonText.cpp" />
+    <ClCompile Include="Screen\ScrollList.cpp" />
   </ItemGroup>
 </Project>
