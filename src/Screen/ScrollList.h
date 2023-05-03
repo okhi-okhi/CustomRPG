@@ -5,16 +5,18 @@
 class ScrollList : public Element
 {
 private:
-	std::vector<Button> items;
 	int itemCapacity;
-	bool scrollable;
-	int currentIndex;
+	std::vector<Button> items;
 	Button scrollBar;
 	Button scrollBackground;
+	bool scrollable;
+	int currentIndex;
 
 public:
 	ScrollList() : itemCapacity(0), scrollable(false), currentIndex(-1) {}
-	ScrollList(const std::string& itemTexture, const std::vector<Text>& itemsText, Vector2 position,
-		int itemCapacity, const std::string& scrollBar, const std::string& scrollBackground);
+	ScrollList(const std::string& background, Rectangle backgroundBounds,
+		const std::string& itemTexture, Vector2 bounds,
+		const std::vector<Text>& itemsText, int itemCapacity,
+		const std::string& scrollBar, const std::string& scrollBackground);
 };
 
