@@ -29,6 +29,7 @@ int main()
 
 	System::instance().init();
 	ScreenManager::instance().addScreen(screenTypes::MAIN);
+
 	while (!window.ShouldClose())
 	{
         window.BeginDrawing();

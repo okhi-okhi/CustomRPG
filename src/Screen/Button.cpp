@@ -15,6 +15,16 @@ Button::Button(const std::string& fileName, const Vector2 position, const float 
 	this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, clickSound).c_str());
 }
 
+Button::Button(const std::string& tileImage, const Vector2 position, const float tileZoomPercent, const Vector2 tileNumBounds,
+	const std::function<void()>& function, const std::string& clickSound)
+{
+	this->elementType = elementTypes::BUTTON;
+	this->texture = Picture(tileImage, position, 2, tileZoomPercent, tileNumBounds);
+	this->clickFun = function;
+	this->hitbox = this->texture.getHitbox();
+	this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, clickSound).c_str());
+}
+
 void Button::draw()
 {
 	update();

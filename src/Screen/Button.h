@@ -24,6 +24,10 @@ public:
 		const std::function<void()>& function,
 		const std::string& clickSound = "button_click.wav");
 
+	Button(const std::string& tileImage, Vector2 position, float tileZoomPercent,
+		Vector2 tileNumBounds, const std::function<void()>& function,
+		const std::string& clickSound = "button_click.wav");
+
 	void draw() override;
 	Button* clone() const override;
 

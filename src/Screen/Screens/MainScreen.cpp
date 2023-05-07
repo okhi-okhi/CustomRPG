@@ -14,6 +14,7 @@ MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 	addButton(ButtonText("screens/button_1.png", Vector2(0.5f, 0.3f), 0.2f, "screen.test.button1", 0.03f, textAlign::CENTER, WHITE, 0.0f, test));
 	addButton(ButtonText("screens/button_1.png", Vector2(0.5f, 0.5f), 0.2f, "screen.test.button1", 0.03f, textAlign::CENTER, WHITE, 0.0f, test));
 	addButton(ButtonText("screens/button_1.png", Vector2(0.5f, 0.7f), 0.2f, "screen.test.button1", 0.03f, textAlign::CENTER, WHITE, 0.0f, test));
+	addButton(Button("screens/button_tile_1.png", Vector2(0.5f, 0.5f), 0.05f, Vector2(2.5f, 2.0f), test));
 }
 
 Screen* MainScreen::clone() const
