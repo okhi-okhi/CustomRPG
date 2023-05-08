@@ -7,6 +7,7 @@
 int playerDistance = 0;
 int playerFame = 0;
 menuStatus menuStatu = menuStatus::SYSTEM;
+float zoomPercent = 1.0f;
 
 void windowSetup(raylib::Window& window)
 {
@@ -26,7 +27,7 @@ int main()
 	InitAudioDevice();
 
 	windowSetup(window);
-
+	
 	System::instance().init();
 	ScreenManager::instance().addScreen(screenTypes::MAIN);
 

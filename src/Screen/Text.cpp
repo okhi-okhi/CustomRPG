@@ -16,7 +16,7 @@ Text::Text(const std::string& text, const raylib::Vector2 pos,
 {
 	this->text = text;
 
-	this->fontSize = fontSize * static_cast<float>(RaylibUtils::getWindowHeight());
+	this->fontSize = RaylibUtils::getRealLength(fontSize);
 	this->align = align;
 	this->color = color;
 	this->spacing = spacing;

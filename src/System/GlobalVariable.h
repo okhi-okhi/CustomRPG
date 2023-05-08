@@ -10,3 +10,4 @@ enum class menuStatus {
 extern int playerDistance;
 extern int playerFame;
 extern menuStatus menuStatu;
+extern float zoomPercent;

@@ -6,6 +6,9 @@ namespace RaylibUtils
 	int getWindowWidth();
 	int getWindowHeight();
 
+	float getRealLength(float length);
+	Vector2 getRealLength(Vector2 length);
+
 	raylib::Font getContainTextFont(const std::string& fileName, const std::string& text);
 	int* codepointRemoveDuplicates(const int* codepoints, int codepointCount, int* codepointsResultCount);
 

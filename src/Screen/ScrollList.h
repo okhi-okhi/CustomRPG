@@ -5,10 +5,11 @@
 class ScrollList : public Element
 {
 private:
-	int itemCapacity;
+	Picture background;
 	std::vector<Button> items;
 	Button scrollBar;
 	Button scrollBackground;
+	int itemCapacity;
 	bool scrollable;
 	int currentIndex;
 

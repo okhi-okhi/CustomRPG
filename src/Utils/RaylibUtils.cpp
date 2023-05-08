@@ -1,4 +1,5 @@
 #include "RaylibUtils.h"
+#include "../System/GlobalVariable.h"
 
 int RaylibUtils::getWindowWidth()
 {
@@ -16,6 +17,18 @@ int RaylibUtils::getWindowHeight()
         return GetMonitorHeight(GetCurrentMonitor());
     }
     return GetScreenHeight();
+}
+
+float RaylibUtils::getRealLength(const float length)
+{
+    return length * zoomPercent;
+}
+
+Vector2 RaylibUtils::getRealLength(Vector2 length)
+{
+	length.x *= zoomPercent;
+	length.y *= zoomPercent;
+	return length;
 }
 
 raylib::Font RaylibUtils::getContainTextFont(const std::string& fileName, const std::string& text)

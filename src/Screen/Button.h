@@ -20,12 +20,12 @@ protected:
 
 public:
 	Button() : clickSound() {}
-	Button(const std::string& fileName, Vector2 position, float zoomPercent,
+	Button(const std::string& fileName, Vector2 position, int width,
 		const std::function<void()>& function,
 		const std::string& clickSound = "button_click.wav");
 
-	Button(const std::string& tileImage, Vector2 position, float tileZoomPercent,
-		Vector2 tileNumBounds, const std::function<void()>& function,
+	Button(const std::string& tileImage, Vector2 position, int tileWidth,
+		Vector2 tiledBounds, const std::function<void()>& function,
 		const std::string& clickSound = "button_click.wav");
 
 	void draw() override;
@@ -35,7 +35,7 @@ public:
 	void checkCollision(raylib::Rectangle hitbox);
 	void addReserveRec(raylib::Rectangle hitbox);
 
-	Vector2 getTextPos(textAlign textAlign) const;
+	// Vector2 getTextPos(textAlign textAlign) const;
 	const Picture& getTexture() const { return this->texture; }
 	buttonState getButtonState() const { return static_cast<buttonState>(this->texture.getCurrentFrame()); }
 	float getButtonHeight() const { return this->texture.getHeight(); }

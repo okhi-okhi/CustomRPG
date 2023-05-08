@@ -11,9 +11,9 @@ protected:
 
 public:
 	Picture() : spriteTexture(), textureFrameNum(0), currentFrame(0) {}
-	Picture(const std::string& fileName, Vector2 position, int textureFrameNum, float zoomPercent);
+	Picture(const std::string& fileName, Vector2 position, int textureFrameNum, int width);
 	Picture(const std::string& fileName, Vector2 position,
-		int textureFrameNum, float tileZoomPercent, Vector2 tileNumBounds);
+		int textureFrameNum, int tileWidth, Vector2 tiledBounds);
 
 	void draw() override;
 	Picture* clone() const override;

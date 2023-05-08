@@ -10,9 +10,9 @@ TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argType
 	this->elementType = elementTypes::TEXT_ARG;
 	this->i18nKey = i18nKey;
 	this->args = args;
-	this->hitbox = Rectangle(pos.x * RaylibUtils::getWindowWidth(), pos.y * RaylibUtils::getWindowHeight(), 0, 0);
+	this->hitbox = Rectangle(RaylibUtils::getRealLength(pos.x), RaylibUtils::getRealLength(pos.y), 0, 0);
 
-	this->fontSize = fontSize * RaylibUtils::getWindowHeight();
+	this->fontSize = RaylibUtils::getRealLength(fontSize);
 	this->align = align;
 	this->color = color;
 	this->spacing = spacing;
