@@ -24,7 +24,7 @@ Text::Text(const std::string& text, const raylib::Vector2 pos,
 	this->font = font;
 
 	const Vector2 textSize = MeasureTextEx(*font, text.c_str(), this->fontSize, this->spacing);
-	this->hitbox.y = getPosition().y - textSize.y / 2;
+	this->position.y -= textSize.y / 2;
 
 	switch (this->align)
 	{
@@ -32,18 +32,18 @@ Text::Text(const std::string& text, const raylib::Vector2 pos,
 		break;
 
 	case textAlign::CENTER:
-		this->hitbox.x = this->hitbox.x - textSize.x / 2;
+		this->position.x -= textSize.x / 2;
 		break;
 
 	case textAlign::RIGHT:
-		this->hitbox.x = this->hitbox.x - textSize.x;
+		this->position.x -= textSize.x;
 		break;
 	}
 }
 
 void Text::draw()
 {
-	raylib::DrawTextEx(*this->font, this->text, getPosition(), this->fontSize, this->spacing, this->color);
+	raylib::DrawTextEx(*this->font, this->text, this->position, this->fontSize, this->spacing, this->color);
 }
 
 Text* Text::clone() const

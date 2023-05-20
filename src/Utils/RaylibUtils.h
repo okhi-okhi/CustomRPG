@@ -8,6 +8,9 @@ namespace RaylibUtils
 
 	float getRealLength(float length);
 	Vector2 getRealLength(Vector2 length);
+	Rectangle getRealLength(Rectangle length);
+
+	bool checkCollisionPointRecs(const raylib::Vector2& point, const std::vector<raylib::Rectangle>& recs);
 
 	raylib::Font getContainTextFont(const std::string& fileName, const std::string& text);
 	int* codepointRemoveDuplicates(const int* codepoints, int codepointCount, int* codepointsResultCount);

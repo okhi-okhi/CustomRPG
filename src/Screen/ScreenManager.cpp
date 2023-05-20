@@ -59,16 +59,16 @@ void ScreenManager::updateHitbox() const
 {
 	for(int i=0; i < this->currentScreens.size(); i++)
 	{
-		for(int j=0; j < this->currentScreens[i]->getButtons().size(); j++)
+		for(int j=0; j < this->currentScreens[i]->getClickableElements().size(); j++)
 		{
-			const auto [index, btn] = this->currentScreens[i]->getButtons()[j];
+			const auto [index, btn] = this->currentScreens[i]->getClickableElements()[j];
 			for(int k = index +1; k < this->currentScreens[i]->getElements().size(); k++)
 			{
 				btn->checkCollision(this->currentScreens[i]->getElements()[k]->getHitbox());
 			}
 			for(int l=i+1; l < this->currentScreens.size(); l++)
 			{
-				for (int m = 0; m < this->currentScreens[l]->getButtons().size(); m++)
+				for (int m = 0; m < this->currentScreens[l]->getClickableElements().size(); m++)
 				{
 					btn->checkCollision(this->currentScreens[l]->getElements()[m]->getHitbox());
 				}

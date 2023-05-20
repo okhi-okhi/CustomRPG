@@ -8,7 +8,6 @@ class TextArg final : public Text
 private:
 	std::string i18nKey;
 	std::map<std::string, argTypes> args;
-	raylib::Vector2 startPos;
 
 public:
 	TextArg() = default;
@@ -23,6 +22,5 @@ public:
 
 	const std::string& getI18nKey() const { return this->i18nKey; }
 	const std::map<std::string, argTypes>& getArgs() const { return this->args; }
-	const raylib::Vector2& getStartPos() const { return this->startPos; }
 };
 

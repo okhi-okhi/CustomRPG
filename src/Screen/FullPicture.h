@@ -1,7 +1,7 @@
 #pragma once
 #include "Picture.h"
 
-class FullPicture : public Picture
+class FullPicture final : public Picture
 {
 public:
 	FullPicture() = default;

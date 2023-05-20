@@ -38,18 +38,16 @@ Button* Button::clone() const
 
 void Button::update()
 {
-	if (CheckCollisionPointRec(GetMousePosition(), this->hitbox))
+	using RaylibUtils::checkCollisionPointRecs;
+	if (checkCollisionPointRecs(GetMousePosition(), this->hitbox))
 	{
-		for(const auto& rec : this->reserveRec)
+		if(checkCollisionPointRecs(GetMousePosition(), this->reserveRec))
 		{
-			if(CheckCollisionPointRec(GetMousePosition(), rec))
+			if (this->texture.getCurrentFrame() == static_cast<int>(buttonState::HOVER))
 			{
-				if (this->texture.getCurrentFrame() == static_cast<int>(buttonState::HOVER))
-				{
-					this->texture.setCurrentFrame(static_cast<int>(buttonState::IDLE));
-				}
-				return;
+				this->texture.setCurrentFrame(static_cast<int>(buttonState::IDLE));
 			}
+			return;
 		}
 
 		this->texture.setCurrentFrame(static_cast<int>(buttonState::HOVER));
@@ -65,17 +63,6 @@ void Button::update()
 	}
 }
 
-void Button::checkCollision(const raylib::Rectangle hitbox)
-{
-	if (CheckCollisionRecs(this->hitbox, hitbox)) {
-		addReserveRec(hitbox);
-	}
-}
-
-void Button::addReserveRec(const raylib::Rectangle hitbox)
-{
-	this->reserveRec.push_back(hitbox);
-}
 
 // Vector2 Button::getTextPos(const textAlign textAlign) const
 // {

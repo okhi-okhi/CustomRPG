@@ -1,8 +1,9 @@
 #include "ButtonText.h"
 
-ButtonText::ButtonText(const std::string& fileName, Vector2 position, int width, const std::string& i18nKey,
-                       float fontSize, textAlign textAlign, raylib::Color textColor, float textSpacing,
-                       const std::function<void()>& function, const std::string& clickSound) :
+ButtonText::ButtonText(const std::string& fileName, const Vector2 position, const int width,
+	const std::string& i18nKey, const float fontSize, const textAlign textAlign,
+	const raylib::Color textColor, const float textSpacing,
+	const std::function<void()>& function, const std::string& clickSound) :
 	Button(fileName, position, width, function, clickSound)
 {
 	this->elementType = elementTypes::BUTTON_TEXT;

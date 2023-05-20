@@ -31,6 +31,28 @@ Vector2 RaylibUtils::getRealLength(Vector2 length)
 	return length;
 }
 
+Rectangle RaylibUtils::getRealLength(Rectangle length)
+{
+    length.x *= zoomPercent;
+	length.y *= zoomPercent;
+	length.width *= zoomPercent;
+	length.height *= zoomPercent;
+	return length;
+}
+
+bool RaylibUtils::checkCollisionPointRecs(const raylib::Vector2& point,
+    const std::vector<raylib::Rectangle>& recs)
+{
+    for (const auto& rec : recs)
+    {
+    	if (CheckCollisionPointRec(point, rec))
+    	{
+    		return true;
+		}
+	}
+	return false;
+}
+
 raylib::Font RaylibUtils::getContainTextFont(const std::string& fileName, const std::string& text)
 {
     std::string str = text;

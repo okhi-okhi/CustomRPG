@@ -3,6 +3,7 @@
 #include <Sound.hpp>
 #include "Picture.h"
 #include "Text.h"
+#include "Clickable.h"
 
 enum class buttonState
 {
@@ -10,13 +11,12 @@ enum class buttonState
 	HOVER
 };
 
-class Button : public Element
+class Button : public Clickable
 {
 protected:
 	Picture texture;
 	Sound clickSound;
 	std::function<void()> clickFun;
-	std::vector<raylib::Rectangle> reserveRec{};
 
 public:
 	Button() : clickSound() {}
@@ -32,8 +32,6 @@ public:
 	Button* clone() const override;
 
 	void update();
-	void checkCollision(raylib::Rectangle hitbox);
-	void addReserveRec(raylib::Rectangle hitbox);
 
 	// Vector2 getTextPos(textAlign textAlign) const;
 	const Picture& getTexture() const { return this->texture; }

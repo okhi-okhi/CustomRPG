@@ -10,7 +10,7 @@ TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argType
 	this->elementType = elementTypes::TEXT_ARG;
 	this->i18nKey = i18nKey;
 	this->args = args;
-	this->hitbox = Rectangle(RaylibUtils::getRealLength(pos.x), RaylibUtils::getRealLength(pos.y), 0, 0);
+	this->position = RaylibUtils::getRealLength(pos);
 
 	this->fontSize = RaylibUtils::getRealLength(fontSize);
 	this->align = align;
@@ -18,7 +18,6 @@ TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argType
 	this->spacing = spacing;
 
 	this->font = &FontProvider::instance().get(i18nKey);
-	this->startPos = Vector2(0.0f, 0.0f);
 
 	update();
 }
@@ -26,7 +25,7 @@ TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argType
 void TextArg::draw()
 {
 	update();
-	raylib::DrawTextEx(*this->font, text, this->startPos, this->fontSize, this->spacing, this->color);
+	raylib::DrawTextEx(*this->font, text, this->position, this->fontSize, this->spacing, this->color);
 }
 
 TextArg* TextArg::clone() const
@@ -58,7 +57,7 @@ void TextArg::update()
 	{
 		this->text = newText;
 		const Vector2 textSize = MeasureTextEx(*font, text.c_str(), this->fontSize, this->spacing);
-		this->startPos.y = getPosition().y - textSize.y / 2;
+		this->position.y -= textSize.y / 2;
 
 		switch (align)
 		{
@@ -66,11 +65,11 @@ void TextArg::update()
 			break;
 
 		case textAlign::CENTER:
-			this->startPos.x = this->hitbox.x - textSize.x / 2;
+			this->position.x -= textSize.x / 2;
 			break;
 
 		case textAlign::RIGHT:
-			this->startPos.x = this->hitbox.x - textSize.x;
+			this->position.x -= textSize.x;
 			break;
 		}
 	}

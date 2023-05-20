@@ -15,8 +15,13 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 		
 	this->textureFrameNum = textureFrameNum;
 
-	this->hitbox = Rectangle(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
-		RaylibUtils::getRealLength(position.y) - this->getHeight() / 2, static_cast<float>(spriteTexture.width), this->getHeight());
+	this->position = Vector2(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
+							 RaylibUtils::getRealLength(position.y) - this->getHeight() / 2);
+
+	this->hitbox.emplace_back(
+		Rectangle(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
+				  RaylibUtils::getRealLength(position.y) - this->getHeight() / 2,
+				  static_cast<float>(spriteTexture.width), this->getHeight()));
 
 	this->currentFrame = 0;
 }
@@ -50,8 +55,13 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 
 	this->textureFrameNum = textureFrameNum;
 
-	this->hitbox = Rectangle(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2.0f,
-		RaylibUtils::getRealLength(position.y) - this->getHeight() / 2, static_cast<float>(spriteTexture.width), this->getHeight());
+	this->position = Vector2(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
+							 RaylibUtils::getRealLength(position.y) - this->getHeight() / 2);
+
+	this->hitbox.emplace_back(
+		Rectangle(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
+				  RaylibUtils::getRealLength(position.y) - this->getHeight() / 2,
+				  static_cast<float>(spriteTexture.width), this->getHeight()));
 
 	this->currentFrame = 0;
 }
@@ -60,7 +70,7 @@ void Picture::draw()
 {
 	const raylib::Rectangle sourceRec(0, static_cast<float>(this->currentFrame) * this->getHeight(),
 		static_cast<float>(this->spriteTexture.width), this->getHeight());
-	DrawTextureRec(this->spriteTexture, sourceRec, getPosition(), WHITE);
+	DrawTextureRec(this->spriteTexture, sourceRec, this->position, WHITE);
 }
 
 Picture* Picture::clone() const

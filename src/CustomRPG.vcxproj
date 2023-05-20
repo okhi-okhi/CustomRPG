@@ -181,6 +181,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Screen\Clickable.h" />
     <ClInclude Include="Screen\ButtonText.h" />
     <ClInclude Include="Screen\ScreenManager.h" />
     <ClInclude Include="Screen\FullPicture.h" />
@@ -234,6 +235,7 @@
     <ClInclude Include="Utils\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Screen\Clickable.cpp" />
     <ClCompile Include="Screen\ButtonText.cpp" />
     <ClCompile Include="Screen\ScreenManager.cpp" />
     <ClCompile Include="Screen\FullPicture.cpp" />

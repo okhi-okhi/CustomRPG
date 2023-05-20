@@ -1,49 +1,45 @@
 #include "ScrollList.h"
 #include "../Utils/RaylibUtils.h"
 
-ScrollList::ScrollList(const std::string& background, const Rectangle bounds,
-	const int itemCapacity, const std::string& itemTexture,
+ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
 	const std::vector<Text>& itemsText,
-	const std::string& scrollBar, const std::string& scrollBackground)
+	const std::string& itemTexture, const std::string& scrollBar,
+	const std::string& scrollBackground)
 {
-	constexpr int spacing = 16;
-	constexpr float tileImageZoomPercent = 0.05f;
+	constexpr int tileImageWidth = 64;
+
 	this->currentIndex = 0;
 	this->itemCapacity = itemCapacity;
+
+	//this->hitbox = RaylibUtils::getRealLength(Rectangle(bounds.x - bounds.width / 2, bounds.y - bounds.height / 2, bounds.width, bounds.height));
 
 	if(itemsText.size() < itemCapacity)
 	{
 		constexpr int scrollBarWidth = 32;
-		this->hitbox = raylib::Rectangle(RaylibUtils::getWindowWidth()*bounds.x,
-			RaylibUtils::getWindowHeight() * bounds.y,
-			RaylibUtils::getWindowHeight() * bounds.width + scrollBarWidth,
-			RaylibUtils::getWindowHeight() * bounds.height);
+		this->scrollable = true;
+		//TODO scrollBar and scrollBarBackground
+
 	} else {
-		this->hitbox = raylib::Rectangle(RaylibUtils::getWindowWidth() * bounds.x,
-			RaylibUtils::getWindowHeight() * bounds.y,
-			RaylibUtils::getWindowHeight() * bounds.width,
-			RaylibUtils::getWindowHeight() * bounds.height);
+		this->scrollable = false;
 	}
-	int buttonHeight = (this->hitbox.height - (this->itemCapacity + 1) * spacing) / this->itemCapacity;
 
-	const int realTileWidth = static_cast<int>(RaylibUtils::getWindowWidth() * tileImageZoomPercent);
-	// Vector2 backgroundTileNum(this->hitbox.width / realTileWidth,
-	// 	this->hitbox.width / realTileWidth * );
-	// this->background = Picture(background, Vector2(bounds.x, bounds.y), 1, tileImageZoomPercent, );
-
-	int buttonY = this->hitbox.y;
+	const int buttonHeight = bounds.height / this->itemCapacity;
+	int buttonY = bounds.y - bounds.height/2 + static_cast<float>(buttonHeight) /2;
 	for (int i = 0; i < itemsText.size(); i++)
 	{
-		buttonY += spacing;
-		//this->items.emplace(Vector2(this->hitbox.x + spacing, buttonY));
+		this->items.emplace_back(itemTexture, Vector2(bounds.x, buttonY), tileImageWidth, 
+			Vector2(bounds.width, buttonHeight), select);
 		buttonY += buttonHeight;
 	}
-	//TODO scrollBar and scrollBarBackground
+
+	for (const auto& item : this->items)
+	{
+		this->hitbox.insert(this->hitbox.begin(), item.getHitbox().begin(), item.getHitbox().end());
+	}
 }
 
 void ScrollList::draw()
 {
-	//TODO draw background
 	for (auto& item : this->items)
 	{
 		item.draw();
@@ -54,4 +50,10 @@ void ScrollList::draw()
 ScrollList* ScrollList::clone() const
 {
 	return new ScrollList(*this);
+}
+
+void ScrollList::select()
+{
+	int a = 0;
+	a++;
 }

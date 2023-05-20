@@ -13,10 +13,10 @@ void Screen::addElement(const Element& element)
 	this->elements.push_back(element.clone());
 }
 
-void Screen::addButton(const Button& button)
+void Screen::addClickable(const Clickable& clickable)
 {
-	Button* ptr = button.clone();
-	this->buttons.emplace_back(static_cast<int>(this->elements.size()), ptr);
+	Clickable* ptr = clickable.clone();
+	this->clickableElements.emplace_back(static_cast<int>(this->elements.size()), ptr);
 	this->elements.push_back(ptr);
 }
 

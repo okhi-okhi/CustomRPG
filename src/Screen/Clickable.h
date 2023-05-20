@@ -1,0 +1,17 @@
+#pragma once
+#include <vector>
+#include "Element.h"
+
+class Clickable : public Element
+{
+protected:
+	std::vector<raylib::Rectangle> reserveRec{};
+
+public:
+	void draw() override;
+	Clickable* clone() const override;
+
+	virtual void checkCollision(const std::vector<raylib::Rectangle>& recs);
+	virtual void addReserveRec(raylib::Rectangle hitbox);
+};
+

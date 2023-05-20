@@ -2,25 +2,25 @@
 #include <vector>
 #include "Button.h"
 
-class ScrollList : public Element
+class ScrollList final : public Clickable
 {
 private:
-	Picture background;
-	std::vector<Button> items;
-	Button scrollBar;
-	Button scrollBackground;
 	int itemCapacity;
 	bool scrollable;
 	int currentIndex;
+	std::vector<Button> items;
+	Button scrollBar;
+	Button scrollBackground;
 
 public:
 	ScrollList() : itemCapacity(0), scrollable(false), currentIndex(-1) {}
-	ScrollList(const std::string& background, Rectangle bounds,
-		int itemCapacity, const std::string& itemTexture,
-		const std::vector<Text>& itemsText,
-		const std::string& scrollBar, const std::string& scrollBackground);
+	ScrollList(Rectangle bounds, int itemCapacity, const std::vector<Text>& itemsText,
+		const std::string& itemTexture, const std::string& scrollBar,
+		const std::string& scrollBackground);
 
 	void draw() override;
 	ScrollList* clone() const override;
+
+	static void select();
 };
 
