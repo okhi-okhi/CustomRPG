@@ -3,16 +3,27 @@
 #include "../I18n/I18n.h"
 #include "../Utils/RaylibUtils.h"
 
+Text::Text(const std::string& i18nKey, const float fontSize, const textAlign align,
+           const raylib::Color color, const float spacing) :
+	Text(i18nKey, Vector2(0, 0), fontSize, align, color, spacing)
+{
+}
+
 Text::Text(const std::string& i18nKey, const raylib::Vector2 pos, const float fontSize,
-	const textAlign align, const raylib::Color color, const float spacing) :
+           const textAlign align, const raylib::Color color, const float spacing) :
 	Text(I18n::instance().get(i18nKey), pos, fontSize, align, color, spacing, &FontProvider::instance().get(i18nKey))
 {
-	
+}
+
+Text::Text(const std::string& text, const float fontSize, const textAlign align,
+           const raylib::Color color, const float spacing, const raylib::Font* font) :
+	Text(text, Vector2(0, 0), fontSize, align, color, spacing, font)
+{
 }
 
 Text::Text(const std::string& text, const raylib::Vector2 pos,
-	const float fontSize, const textAlign align, const raylib::Color color,
-	const float spacing, const raylib::Font* font) : Element(elementTypes::TEXT, pos)
+           const float fontSize, const textAlign align, const raylib::Color color,
+           const float spacing, const raylib::Font* font) : Element(elementTypes::TEXT, pos)
 {
 	this->text = text;
 
@@ -23,30 +34,34 @@ Text::Text(const std::string& text, const raylib::Vector2 pos,
 
 	this->font = font;
 
-	const Vector2 textSize = MeasureTextEx(*font, text.c_str(), this->fontSize, this->spacing);
-	this->position.y -= textSize.y / 2;
-
-	switch (this->align)
-	{
-	case textAlign::LEFT:
-		break;
-
-	case textAlign::CENTER:
-		this->position.x -= textSize.x / 2;
-		break;
-
-	case textAlign::RIGHT:
-		this->position.x -= textSize.x;
-		break;
-	}
+	Text::updatePosition();
 }
 
 void Text::draw()
 {
-	raylib::DrawTextEx(*this->font, this->text, this->position, this->fontSize, this->spacing, this->color);
+	raylib::DrawTextEx(*this->font, this->text, this->startPosition, this->fontSize, this->spacing, this->color);
 }
 
 Text* Text::clone() const
 {
 	return new Text(*this);
+}
+
+void Text::updatePosition()
+{
+	const Vector2 textSize = MeasureTextEx(*this->font, this->text.c_str(), this->fontSize, this->spacing);
+
+	this->startPosition.y = this->position.y - textSize.y / 2;
+	switch (this->align)
+	{
+	case textAlign::LEFT:
+		this->startPosition.x = this->position.x;
+		break;
+	case textAlign::CENTER:
+		this->startPosition.x = this->position.x - textSize.x / 2;
+		break;
+	case textAlign::RIGHT:
+		this->startPosition.x = this->position.x - textSize.x;
+		break;
+	}
 }

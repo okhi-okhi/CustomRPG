@@ -9,10 +9,8 @@ private:
 
 public:
 	ButtonArg() = default;
-	ButtonArg(const std::string& fileName, Vector2 position, int width,
-		const std::string& i18nKey, const std::map<std::string, argTypes>& args,
-		float fontSize, textAlign textAlign, raylib::Color textColor,
-		float textSpacing, const std::function<void()>& function,
+	ButtonArg(Vector2 position, const Picture& texture, const TextArg& text,
+		const std::function<void()>& function,
 		const std::string& clickSound = "button_click.wav");
 
 	void draw() override;

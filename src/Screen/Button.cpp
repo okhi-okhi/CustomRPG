@@ -1,25 +1,20 @@
 ﻿#include "Button.h"
+
+#include <iostream>
+
 #include "ScreenManager.h"
 #include "../I18n/I18n.h"
 #include "../I18n/FontProvider.h"
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
-Button::Button(const std::string& fileName, const Vector2 position, const int width,
+Button::Button(const Vector2 position, const Picture& texture,
 	const std::function<void()>& function, const std::string& clickSound)
 {
 	this->elementType = elementTypes::BUTTON;
-	this->texture = Picture(fileName, position, 2, width);
-	this->clickFun = function;
-	this->hitbox = this->texture.getHitbox();
-	this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, clickSound).c_str());
-}
-
-Button::Button(const std::string& tileImage, const Vector2 position, const int tileWidth, const Vector2 tiledBounds,
-	const std::function<void()>& function, const std::string& clickSound)
-{
-	this->elementType = elementTypes::BUTTON;
-	this->texture = Picture(tileImage, position, 2, tileWidth, tiledBounds);
+	this->position = position;
+	this->texture = texture;
+	this->texture.setPosition(position);
 	this->clickFun = function;
 	this->hitbox = this->texture.getHitbox();
 	this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, clickSound).c_str());
@@ -34,6 +29,13 @@ void Button::draw()
 Button* Button::clone() const
 {
 	return new Button(*this);
+}
+
+void Button::updatePosition()
+{
+	this->texture.updatePosition();
+	this->hitbox = this->texture.getHitbox();
+	Clickable::updatePosition();
 }
 
 void Button::update()

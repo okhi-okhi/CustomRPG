@@ -3,8 +3,12 @@
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
-Picture::Picture(const std::string& fileName, const Vector2 position,
-	const int textureFrameNum, int width)
+Picture::Picture(const std::string& fileName, const int textureFrameNum, const int width) :
+	Picture(fileName, Vector2(0, 0), textureFrameNum, width)
+{
+}
+
+Picture::Picture(const std::string& fileName, const Vector2 position, const int textureFrameNum, int width)
 {
 	this->elementType = elementTypes::PICTURE;
 
@@ -15,8 +19,8 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 		
 	this->textureFrameNum = textureFrameNum;
 
-	this->position = Vector2(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
-							 RaylibUtils::getRealLength(position.y) - this->getHeight() / 2);
+	this->position = position;
+	Picture::updatePosition();
 
 	this->hitbox.emplace_back(
 		Rectangle(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
@@ -24,6 +28,11 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 				  static_cast<float>(spriteTexture.width), this->getHeight()));
 
 	this->currentFrame = 0;
+}
+
+Picture::Picture(const std::string& fileName, const int textureFrameNum, const int tileWidth, const Vector2 tiledBounds) :
+	Picture(fileName, Vector2(0, 0), textureFrameNum, tileWidth, tiledBounds)
+{
 }
 
 Picture::Picture(const std::string& fileName, const Vector2 position,
@@ -55,8 +64,8 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 
 	this->textureFrameNum = textureFrameNum;
 
-	this->position = Vector2(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
-							 RaylibUtils::getRealLength(position.y) - this->getHeight() / 2);
+	this->position = position;
+	Picture::updatePosition();
 
 	this->hitbox.emplace_back(
 		Rectangle(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
@@ -76,6 +85,15 @@ void Picture::draw()
 Picture* Picture::clone() const
 {
 	return new Picture(*this);
+}
+
+void Picture::updatePosition()
+{
+	this->position = Vector2(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
+		RaylibUtils::getRealLength(position.y) - this->getHeight() / 2);
+	this->hitbox.emplace_back(
+		Rectangle(this->position.x, this->position.y,
+			static_cast<float>(spriteTexture.width), this->getHeight()));
 }
 
 void Picture::setCurrentFrame(const int frame)

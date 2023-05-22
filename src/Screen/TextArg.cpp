@@ -25,12 +25,17 @@ TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argType
 void TextArg::draw()
 {
 	update();
-	raylib::DrawTextEx(*this->font, text, this->position, this->fontSize, this->spacing, this->color);
+	raylib::DrawTextEx(*this->font, text, this->startPosition, this->fontSize, this->spacing, this->color);
 }
 
 TextArg* TextArg::clone() const
 {
 	return new TextArg(*this);
+}
+
+void TextArg::updatePosition()
+{
+	Text::updatePosition();
 }
 
 void TextArg::update()
@@ -56,21 +61,6 @@ void TextArg::update()
 	if (this->text != newText)
 	{
 		this->text = newText;
-		const Vector2 textSize = MeasureTextEx(*font, text.c_str(), this->fontSize, this->spacing);
-		this->position.y -= textSize.y / 2;
-
-		switch (align)
-		{
-		case textAlign::LEFT:
-			break;
-
-		case textAlign::CENTER:
-			this->position.x -= textSize.x / 2;
-			break;
-
-		case textAlign::RIGHT:
-			this->position.x -= textSize.x;
-			break;
-		}
+		updatePosition();
 	}
 }

@@ -9,5 +9,6 @@ public:
 
 	void draw() override;
 	FullPicture* clone() const override;
+	void updatePosition() override;
 };
 

@@ -28,6 +28,12 @@ public:
 
 	virtual void draw() = 0;
 	virtual Element* clone() const = 0;
+	virtual void updatePosition() = 0;
+
+	void setPosition(const raylib::Vector2 pos) {
+		this->position = pos;
+		updatePosition();
+	}
 
 	const elementTypes& getElementType() const { return this->elementType; }
 	const raylib::Vector2& getPosition() const { return this->position; }

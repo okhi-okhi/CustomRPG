@@ -2,18 +2,18 @@
 #include "../Utils/RaylibUtils.h"
 
 ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
-	const std::vector<Text>& itemsText,
+	const std::vector<std::string>& itemsText, float fontSize, textAlign textAlign, raylib::Color textColor,
+	float textSpacing, const std::vector<const raylib::Font*>& itemsFont,
 	const std::string& itemTexture, const std::string& scrollBar,
 	const std::string& scrollBackground)
 {
 	constexpr int tileImageWidth = 64;
 
+	this->startIndex = 0;
 	this->currentIndex = 0;
-	this->itemCapacity = itemCapacity;
+	this->itemCapacity = itemsText.size() < itemCapacity ? itemsText.size() : itemCapacity;
 
-	//this->hitbox = RaylibUtils::getRealLength(Rectangle(bounds.x - bounds.width / 2, bounds.y - bounds.height / 2, bounds.width, bounds.height));
-
-	if(itemsText.size() < itemCapacity)
+	if(itemsText.size() > itemCapacity)
 	{
 		constexpr int scrollBarWidth = 32;
 		this->scrollable = true;
@@ -23,12 +23,19 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
 		this->scrollable = false;
 	}
 
-	const int buttonHeight = bounds.height / this->itemCapacity;
-	int buttonY = bounds.y - bounds.height/2 + static_cast<float>(buttonHeight) /2;
 	for (int i = 0; i < itemsText.size(); i++)
 	{
-		this->items.emplace_back(itemTexture, Vector2(bounds.x, buttonY), tileImageWidth, 
-			Vector2(bounds.width, buttonHeight), select);
+		this->itemsText.emplace_back(itemsText[i], Vector2(0, 0), fontSize,
+			textAlign, textColor, textSpacing, itemsFont[i]);
+	}
+
+	const float buttonHeight = bounds.height / static_cast<float>(this->itemCapacity);
+	float buttonY = bounds.y - bounds.height/2 + static_cast<float>(buttonHeight)/2;
+	Picture itemBg(itemTexture, 2, tileImageWidth, Vector2(bounds.width, buttonHeight));
+	for (int i = 0; i < this->itemCapacity; i++)
+	{
+		this->items.emplace_back(Vector2(bounds.x, buttonY), itemBg,
+			Text(itemsText[i], fontSize, textAlign, textColor, textSpacing, itemsFont[i]), select);
 		buttonY += buttonHeight;
 	}
 
@@ -43,6 +50,32 @@ void ScrollList::draw()
 	for (auto& item : this->items)
 	{
 		item.draw();
+	}
+
+	const int wheelMove = GetMouseWheelMove();
+	if(wheelMove != 0)
+	{
+		if(this->scrollable)
+		{
+			if(wheelMove > 0)
+			{
+				if(this->startIndex > 0)
+				{
+					this->startIndex--;
+				}
+			}
+			else
+			{
+				if(this->startIndex + this->itemCapacity < this->itemsText.size())
+				{
+					this->startIndex++;
+				}
+			}
+			for(int i = 0; i<this->itemCapacity; i++)
+			{
+				this->items[i].setText(this->itemsText[this->startIndex+i]);
+			}
+		}
 	}
 	//TODO draw scrollBar and scrollBarBackground
 }

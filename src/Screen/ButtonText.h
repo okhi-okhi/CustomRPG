@@ -8,13 +8,14 @@ private:
 	Text text;
 public:
 	ButtonText() = default;
-	ButtonText(const std::string& fileName, Vector2 position, int width,
-		const std::string& i18nKey, float fontSize, textAlign textAlign,
-		raylib::Color textColor, float textSpacing, const std::function<void()>& function,
+	ButtonText(Vector2 position, const Picture& texture, const Text& text,
+		const std::function<void()>& function,
 		const std::string& clickSound = "button_click.wav");
 
 	void draw() override;
 	ButtonText* clone() const override;
+
+	void setText(const Text& text);
 
 	const Text& getText() const { return this->text; }
 };

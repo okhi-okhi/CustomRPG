@@ -11,12 +11,15 @@ protected:
 
 public:
 	Picture() : spriteTexture(), textureFrameNum(0), currentFrame(0) {}
+	Picture(const std::string& fileName, int textureFrameNum, int width);
 	Picture(const std::string& fileName, Vector2 position, int textureFrameNum, int width);
+	Picture(const std::string& fileName, int textureFrameNum, int tileWidth, Vector2 tiledBounds);
 	Picture(const std::string& fileName, Vector2 position,
 		int textureFrameNum, int tileWidth, Vector2 tiledBounds);
 
 	void draw() override;
 	Picture* clone() const override;
+	void updatePosition() override;
 
 	void setCurrentFrame(int frame);
 

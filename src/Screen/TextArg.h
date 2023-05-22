@@ -17,6 +17,7 @@ public:
 
 	void draw() override;
 	TextArg* clone() const override;
+	void updatePosition() override;
 
 	void update();
 

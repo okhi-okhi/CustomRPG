@@ -20,16 +20,13 @@ protected:
 
 public:
 	Button() : clickSound() {}
-	Button(const std::string& fileName, Vector2 position, int width,
+	Button(Vector2 position, const Picture& texture,
 		const std::function<void()>& function,
-		const std::string& clickSound = "button_click.wav");
-
-	Button(const std::string& tileImage, Vector2 position, int tileWidth,
-		Vector2 tiledBounds, const std::function<void()>& function,
 		const std::string& clickSound = "button_click.wav");
 
 	void draw() override;
 	Button* clone() const override;
+	void updatePosition() override;
 
 	void update();
 

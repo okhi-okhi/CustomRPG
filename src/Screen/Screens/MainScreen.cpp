@@ -7,21 +7,32 @@
 #include "../ScrollList.h"
 #include "../../System/PathProvider.h"
 #include "../../System/GlobalVariable.h"
+#include "../../I18n/FontProvider.h"
 
 MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 {
 	addElement(FullPicture("screens/main/background.png", 1));
 	addElement(Picture("screens/main/title.png", Vector2(960, 108), 1, 960));
-	addClickable(ButtonText("screens/button_1.png", Vector2(960, 324), 384, "screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f, test));
-	addClickable(ButtonText("screens/button_1.png", Vector2(960, 540), 384, "screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f, test));
-	addClickable(ButtonText("screens/button_1.png", Vector2(960, 756), 384, "screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f, test));
-	addClickable(Button("screens/button_tile_1.png", Vector2(960, 540), 196, Vector2(588, 392), test));
 
-	Text t("screen.test.button2", Vector2(960, 540), 32, textAlign::CENTER, BLACK, 1.0f);
-	std::vector<Text> vt;
-	vt.push_back(t);
-	vt.push_back(t);
-	addClickable(ScrollList(Rectangle(960, 540, 1000, 500), 2, vt, "screens/button_tile_1.png", "a", "b"));
+	Picture buttonBg("screens/button_1.png", 2, 384);
+	addClickable(ButtonText(Vector2(960, 324), buttonBg, Text("screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f), test));
+	addClickable(ButtonText(Vector2(960, 540), buttonBg, Text("screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f), test));
+	addClickable(ButtonText(Vector2(960, 756), buttonBg, Text("screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f), test));
+
+	// Picture buttonTile("screens/button_tile_1.png", 2, 64, Vector2(400, 500));
+	// addClickable(Button(Vector2(960, 540), buttonTile, test));
+	// addElement(TextArg("screen.test.button2", { {"aa", &playerDistance} }, Vector2(960, 324)));
+
+	std::vector<std::string> vt;
+	vt.emplace_back("screen.test.button1");
+	vt.emplace_back("screen.test.button2");
+	vt.emplace_back("screen.test.button3");
+	vt.emplace_back("screen.test.button4");
+	const std::vector<const raylib::Font*> vf = { &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2") };
+	std::cout << "s";
+
+	addClickable(ScrollList(Rectangle(960, 540, 1000, 500), 3, vt,
+		32, textAlign::CENTER, WHITE, 0, vf, "screens/button_tile_1.png", "a", "b"));
 }
 
 Screen* MainScreen::clone() const

@@ -1,4 +1,5 @@
 #include "Clickable.h"
+#include "ScreenManager.h"
 
 void Clickable::checkCollision(const std::vector<raylib::Rectangle>& recs)
 {
@@ -26,4 +27,9 @@ void Clickable::draw()
 Clickable* Clickable::clone() const
 {
 	return new Clickable(*this);
+}
+
+void Clickable::updatePosition()
+{
+	ScreenManager::instance().updateHitbox();
 }
