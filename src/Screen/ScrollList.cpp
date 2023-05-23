@@ -1,4 +1,7 @@
 #include "ScrollList.h"
+
+#include <iostream>
+
 #include "../Utils/RaylibUtils.h"
 
 ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
@@ -11,12 +14,18 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
 
 	this->startIndex = 0;
 	this->currentIndex = 0;
-	this->itemCapacity = itemsText.size() < itemCapacity ? itemsText.size() : itemCapacity;
+	this->itemCapacity = itemsText.size() < itemCapacity ? static_cast<int>(itemsText.size()) : itemCapacity;
 
 	if(itemsText.size() > itemCapacity)
 	{
-		constexpr int scrollBarWidth = 32;
+		constexpr float scrollBarWidth = 32;
+
 		this->scrollable = true;
+		const float scrollBarHeight = bounds.height / static_cast<float>(itemsText.size()) * itemCapacity;
+		this->scrollBar = Picture(scrollBar,
+			Vector2(bounds.x + (bounds.width + scrollBarWidth)/2, bounds.y - bounds.height/2 + scrollBarHeight / 2),
+			2, 32, Vector2(scrollBarWidth, scrollBarHeight));
+		std::cout << this->scrollBar.getPosition().x<<" y : "<<this->scrollBar.getPosition().y<<std::endl;
 		//TODO scrollBar and scrollBarBackground
 
 	} else {
@@ -52,7 +61,7 @@ void ScrollList::draw()
 		item.draw();
 	}
 
-	const int wheelMove = GetMouseWheelMove();
+	const int wheelMove = static_cast<int>(GetMouseWheelMove());
 	if(wheelMove != 0)
 	{
 		if(this->scrollable)
@@ -77,6 +86,7 @@ void ScrollList::draw()
 			}
 		}
 	}
+	this->scrollBar.draw();
 	//TODO draw scrollBar and scrollBarBackground
 }
 

@@ -22,17 +22,16 @@ MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 	// Picture buttonTile("screens/button_tile_1.png", 2, 64, Vector2(400, 500));
 	// addClickable(Button(Vector2(960, 540), buttonTile, test));
 	// addElement(TextArg("screen.test.button2", { {"aa", &playerDistance} }, Vector2(960, 324)));
-
+	
 	std::vector<std::string> vt;
 	vt.emplace_back("screen.test.button1");
 	vt.emplace_back("screen.test.button2");
 	vt.emplace_back("screen.test.button3");
 	vt.emplace_back("screen.test.button4");
 	const std::vector<const raylib::Font*> vf = { &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2") };
-	std::cout << "s";
-
+	
 	addClickable(ScrollList(Rectangle(960, 540, 1000, 500), 3, vt,
-		32, textAlign::CENTER, WHITE, 0, vf, "screens/button_tile_1.png", "a", "b"));
+		32, textAlign::CENTER, WHITE, 0, vf, "screens/button_tile_1.png", "screens/scroll_bar.png", "b"));
 }
 
 Screen* MainScreen::clone() const

@@ -11,11 +11,11 @@ private:
 	int currentIndex;
 	std::vector<Text> itemsText;
 	std::vector<ButtonText> items;
-	Button scrollBar;
-	Button scrollBackground;
+	Picture scrollBar;
+	Picture scrollBackground;
 
 public:
-	ScrollList() : itemCapacity(0), scrollable(false), currentIndex(-1) {}
+	ScrollList() : itemCapacity(0), scrollable(false), startIndex(0), currentIndex(-1) {}
 	ScrollList(Rectangle bounds, int itemCapacity,
 		const std::vector<std::string>& itemsText,
 		float fontSize, textAlign textAlign, raylib::Color textColor, float textSpacing,

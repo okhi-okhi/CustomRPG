@@ -12,7 +12,7 @@ Picture::Picture(const std::string& fileName, const Vector2 position, const int 
 {
 	this->elementType = elementTypes::PICTURE;
 
-	width = RaylibUtils::getRealLength(width);
+	width = static_cast<int>(RaylibUtils::getRealLength(width));
 	raylib::Image image(PathProvider::instance().get(resourcesFolder::TEXTURES, fileName));
 	image.Resize(width, static_cast<int>(width * static_cast<float>(image.height) / static_cast<float>(image.width)));
 	this->spriteTexture = image;
@@ -40,7 +40,7 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 {
 	this->elementType = elementTypes::PICTURE;
 
-	tileWidth = RaylibUtils::getRealLength(tileWidth);
+	tileWidth = static_cast<int>(RaylibUtils::getRealLength(tileWidth));
 	raylib::Image image(PathProvider::instance().get(resourcesFolder::TEXTURES, fileName));
 	image.ResizeNN(tileWidth, static_cast<int>(tileWidth * static_cast<float>(image.height) / static_cast<float>(image.width)));
 
@@ -50,9 +50,9 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 	raylib::Image tiledImage = GenImageColor(static_cast<int>(tiledBounds.x), static_cast<int>(tiledBounds.y * textureFrameNum), BLANK);
 	for(int frame = 0; frame < textureFrameNum; frame++)
 	{
-		for (float y = tiledBounds.y * frame; y < tiledBounds.y * (frame + 1); y += imageFrameHeight)
+		for (int y = tiledBounds.y * frame; y < tiledBounds.y * (frame + 1); y += imageFrameHeight)
 		{
-			for (float x = 0; x < tiledBounds.x; x += image.width)
+			for (int x = 0; x < tiledBounds.x; x += image.width)
 			{
 				tiledImage.Draw(image,
 					Rectangle(0, imageFrameHeight * frame, static_cast<float>(image.width), static_cast<float>(imageFrameHeight)),
@@ -91,6 +91,7 @@ void Picture::updatePosition()
 {
 	this->position = Vector2(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
 		RaylibUtils::getRealLength(position.y) - this->getHeight() / 2);
+	this->hitbox.clear();
 	this->hitbox.emplace_back(
 		Rectangle(this->position.x, this->position.y,
 			static_cast<float>(spriteTexture.width), this->getHeight()));
