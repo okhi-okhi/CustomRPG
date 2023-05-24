@@ -50,13 +50,13 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 	raylib::Image tiledImage = GenImageColor(static_cast<int>(tiledBounds.x), static_cast<int>(tiledBounds.y * textureFrameNum), BLANK);
 	for(int frame = 0; frame < textureFrameNum; frame++)
 	{
-		for (int y = tiledBounds.y * frame; y < tiledBounds.y * (frame + 1); y += imageFrameHeight)
+		for (int y = static_cast<int>(tiledBounds.y) * frame; y < static_cast<int>(tiledBounds.y) * (frame + 1); y += imageFrameHeight)
 		{
-			for (int x = 0; x < tiledBounds.x; x += image.width)
+			for (int x = 0; x < static_cast<int>(tiledBounds.x); x += image.width)
 			{
 				tiledImage.Draw(image,
-					Rectangle(0, imageFrameHeight * frame, static_cast<float>(image.width), static_cast<float>(imageFrameHeight)),
-					Rectangle(x, y, static_cast<float>(image.width), static_cast<float>(imageFrameHeight)), WHITE);
+					Rectangle(0, static_cast<float>(imageFrameHeight * frame), static_cast<float>(image.width), static_cast<float>(imageFrameHeight)),
+					Rectangle(static_cast<float>(x), static_cast<float>(y), static_cast<float>(image.width), static_cast<float>(imageFrameHeight)), WHITE);
 			}
 		}
 	}
@@ -68,7 +68,7 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 	Picture::updatePosition();
 
 	this->hitbox.emplace_back(
-		Rectangle(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
+		Rectangle(RaylibUtils::getRealLength(position.x - tiledBounds.x / 2),
 				  RaylibUtils::getRealLength(position.y) - this->getHeight() / 2,
 				  static_cast<float>(spriteTexture.width), this->getHeight()));
 
@@ -79,7 +79,7 @@ void Picture::draw()
 {
 	const raylib::Rectangle sourceRec(0, static_cast<float>(this->currentFrame) * this->getHeight(),
 		static_cast<float>(this->spriteTexture.width), this->getHeight());
-	DrawTextureRec(this->spriteTexture, sourceRec, this->position, WHITE);
+	DrawTextureRec(this->spriteTexture, sourceRec, this->originPos, WHITE);
 }
 
 Picture* Picture::clone() const
@@ -89,11 +89,11 @@ Picture* Picture::clone() const
 
 void Picture::updatePosition()
 {
-	this->position = Vector2(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
+	this->originPos = Vector2(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
 		RaylibUtils::getRealLength(position.y) - this->getHeight() / 2);
 	this->hitbox.clear();
 	this->hitbox.emplace_back(
-		Rectangle(this->position.x, this->position.y,
+		Rectangle(originPos.x, originPos.y,
 			static_cast<float>(spriteTexture.width), this->getHeight()));
 }
 

@@ -19,6 +19,7 @@ class Element
 protected:
 	elementTypes elementType;
 	raylib::Vector2 position;
+	raylib::Vector2 originPos;
 	std::vector<raylib::Rectangle> hitbox;
 
 public:
@@ -35,8 +36,14 @@ public:
 		updatePosition();
 	}
 
+	void addPosition(const raylib::Vector2 pos) {
+		this->position += pos;
+		updatePosition();
+	}
+
 	const elementTypes& getElementType() const { return this->elementType; }
 	const raylib::Vector2& getPosition() const { return this->position; }
+	const raylib::Vector2& getOriginPos() const { return this->originPos; }
 	const std::vector<raylib::Rectangle>& getHitbox() const { return this->hitbox; }
 };
 

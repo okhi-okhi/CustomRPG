@@ -39,7 +39,7 @@ Text::Text(const std::string& text, const raylib::Vector2 pos,
 
 void Text::draw()
 {
-	raylib::DrawTextEx(*this->font, this->text, this->startPosition, this->fontSize, this->spacing, this->color);
+	raylib::DrawTextEx(*this->font, this->text, this->originPos, this->fontSize, this->spacing, this->color);
 }
 
 Text* Text::clone() const
@@ -51,17 +51,17 @@ void Text::updatePosition()
 {
 	const Vector2 textSize = MeasureTextEx(*this->font, this->text.c_str(), this->fontSize, this->spacing);
 
-	this->startPosition.y = this->position.y - textSize.y / 2;
+	this->originPos.y = this->position.y - textSize.y / 2;
 	switch (this->align)
 	{
 	case textAlign::LEFT:
-		this->startPosition.x = this->position.x;
+		this->originPos.x = this->position.x;
 		break;
 	case textAlign::CENTER:
-		this->startPosition.x = this->position.x - textSize.x / 2;
+		this->originPos.x = this->position.x - textSize.x / 2;
 		break;
 	case textAlign::RIGHT:
-		this->startPosition.x = this->position.x - textSize.x;
+		this->originPos.x = this->position.x - textSize.x;
 		break;
 	}
 }

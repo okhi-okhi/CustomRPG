@@ -71,6 +71,9 @@ void ScrollList::draw()
 				if(this->startIndex > 0)
 				{
 					this->startIndex--;
+					this->scrollBar.addPosition(
+						Vector2(0,
+							-this->scrollBar.getSpriteTexture().height/this->itemCapacity));
 				}
 			}
 			else
@@ -78,14 +81,20 @@ void ScrollList::draw()
 				if(this->startIndex + this->itemCapacity < this->itemsText.size())
 				{
 					this->startIndex++;
+					this->scrollBar.addPosition(
+					Vector2(0,
+						this->scrollBar.getSpriteTexture().height / this->itemCapacity));
 				}
 			}
 			for(int i = 0; i<this->itemCapacity; i++)
 			{
 				this->items[i].setText(this->itemsText[this->startIndex+i]);
 			}
+
+			
 		}
 	}
+
 	this->scrollBar.draw();
 	//TODO draw scrollBar and scrollBarBackground
 }

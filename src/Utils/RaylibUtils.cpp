@@ -24,6 +24,11 @@ float RaylibUtils::getRealLength(const float length)
     return length * zoomPercent;
 }
 
+float RaylibUtils::getRealLength(const int length)
+{
+    return static_cast<float>(length) * zoomPercent;
+}
+
 Vector2 RaylibUtils::getRealLength(Vector2 length)
 {
 	length.x *= zoomPercent;

@@ -25,7 +25,7 @@ TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argType
 void TextArg::draw()
 {
 	update();
-	raylib::DrawTextEx(*this->font, text, this->startPosition, this->fontSize, this->spacing, this->color);
+	raylib::DrawTextEx(*this->font, text, this->originPos, this->fontSize, this->spacing, this->color);
 }
 
 TextArg* TextArg::clone() const

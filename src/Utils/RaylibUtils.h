@@ -7,6 +7,7 @@ namespace RaylibUtils
 	int getWindowHeight();
 
 	float getRealLength(float length);
+	float getRealLength(int length);
 	Vector2 getRealLength(Vector2 length);
 	Rectangle getRealLength(Rectangle length);
 

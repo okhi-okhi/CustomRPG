@@ -16,8 +16,10 @@ Button::Button(const Vector2 position, const Picture& texture,
 	this->texture = texture;
 	this->texture.setPosition(position);
 	this->clickFun = function;
-	this->hitbox = this->texture.getHitbox();
 	this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, clickSound).c_str());
+
+	this->hitbox = this->texture.getHitbox();
+	this->originPos = this->texture.getOriginPos();
 }
 
 void Button::draw()
