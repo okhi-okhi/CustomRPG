@@ -10,8 +10,12 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
 	const std::string& itemTexture, const std::string& scrollBar,
 	const std::string& scrollBackground)
 {
+	using RaylibUtils::getRealLength;
 	constexpr int tileImageWidth = 64;
 
+	this->position = getRealLength(Vector2(bounds.x, bounds.y));
+	this->bounds = Rectangle(getRealLength(bounds.x - bounds.width/2), getRealLength(bounds.y - bounds.height / 2),
+		getRealLength(bounds.width), getRealLength(bounds.height));
 	this->startIndex = 0;
 	this->currentIndex = 0;
 	this->itemCapacity = itemsText.size() < itemCapacity ? static_cast<int>(itemsText.size()) : itemCapacity;
@@ -66,14 +70,13 @@ void ScrollList::draw()
 	{
 		if(this->scrollable)
 		{
+			int moveY = 0;
 			if(wheelMove > 0)
 			{
 				if(this->startIndex > 0)
 				{
 					this->startIndex--;
-					this->scrollBar.addPosition(
-						Vector2(0,
-							-this->scrollBar.getSpriteTexture().height/this->itemCapacity));
+					moveY = -this->bounds.height / this->itemsText.size();
 				}
 			}
 			else
@@ -81,17 +84,14 @@ void ScrollList::draw()
 				if(this->startIndex + this->itemCapacity < this->itemsText.size())
 				{
 					this->startIndex++;
-					this->scrollBar.addPosition(
-					Vector2(0,
-						this->scrollBar.getSpriteTexture().height / this->itemCapacity));
+					moveY = this->bounds.height / this->itemsText.size();
 				}
 			}
 			for(int i = 0; i<this->itemCapacity; i++)
 			{
 				this->items[i].setText(this->itemsText[this->startIndex+i]);
 			}
-
-			
+			this->scrollBar.addPosition(Vector2(0, moveY));
 		}
 	}
 

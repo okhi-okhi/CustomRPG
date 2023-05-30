@@ -5,6 +5,7 @@
 class ScrollList final : public Clickable
 {
 private:
+	raylib::Rectangle bounds;
 	int itemCapacity;
 	bool scrollable;
 	int startIndex;

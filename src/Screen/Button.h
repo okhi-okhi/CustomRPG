@@ -28,9 +28,8 @@ public:
 	Button* clone() const override;
 	void updatePosition() override;
 
-	void update();
+	virtual void update();
 
-	// Vector2 getTextPos(textAlign textAlign) const;
 	const Picture& getTexture() const { return this->texture; }
 	buttonState getButtonState() const { return static_cast<buttonState>(this->texture.getCurrentFrame()); }
 	float getButtonHeight() const { return this->texture.getHeight(); }
