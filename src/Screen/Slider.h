@@ -12,13 +12,13 @@ private:
 	int maxValue;
 	bool horizontal;
 
+	float stepPerValue;
+
 	void barDrag();
 	void backgroundClick();
 
 public:
-	Slider() : value(-1), minValue(0), maxValue(0), horizontal(false) {}
-	Slider(Rectangle bounds, const std::string& bar, const std::string& background,
-		int minValue, int maxValue, bool horizontal);
+	Slider() : value(-1), minValue(0), maxValue(0), horizontal(false), stepPerValue(0) {}
 	Slider(Rectangle bounds, const std::string& bar, const std::string& background,
 		int barLength, int minValue, int maxValue, bool horizontal);
 

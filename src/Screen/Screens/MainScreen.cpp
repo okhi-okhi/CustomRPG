@@ -6,6 +6,7 @@
 #include "../ButtonHold.h"
 #include "../TextArg.h"
 #include "../ScrollList.h"
+#include "../Slider.h"
 #include "../../System/PathProvider.h"
 #include "../../System/GlobalVariable.h"
 #include "../../I18n/FontProvider.h"
@@ -34,7 +35,9 @@ MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 	addClickable(ScrollList(Rectangle(960, 540, 1000, 500), 2, vt,
 		32, textAlign::CENTER, WHITE, 0, vf, "screens/button_tile_1.png", "screens/scroll_bar.png", "b"));
 
-	//addClickable(ButtonHold(Vector2(960, 800), buttonBg, test));
+	//addClickable(Slider(Rectangle(960, 540, 500, 32), "screens/scroll_bar.png", "screens/button_tile_1.png", 64, 0, 100, true));
+
+	addClickable(ButtonHold(Vector2(960, 800), buttonBg, test));
 }
 
 Screen* MainScreen::clone() const

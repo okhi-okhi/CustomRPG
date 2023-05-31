@@ -36,6 +36,16 @@ public:
 		updatePosition();
 	}
 
+	void setPositionX(const float posX) {
+		this->position.x = posX;
+		updatePosition();
+	}
+
+	void setPositionY(const float posY) {
+		this->position.y = posY;
+		updatePosition();
+	}
+
 	void addPosition(const raylib::Vector2 pos) {
 		this->position += pos;
 		updatePosition();

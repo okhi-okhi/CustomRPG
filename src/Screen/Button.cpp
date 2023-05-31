@@ -1,7 +1,4 @@
 ﻿#include "Button.h"
-
-#include <iostream>
-
 #include "ScreenManager.h"
 #include "../I18n/I18n.h"
 #include "../I18n/FontProvider.h"
@@ -12,9 +9,9 @@ Button::Button(const Vector2 position, const Picture& texture,
 	const std::function<void()>& function, const std::string& clickSound)
 {
 	this->elementType = elementTypes::BUTTON;
-	this->position = position;
+	this->position = RaylibUtils::getRealLength(position);
 	this->texture = texture;
-	this->texture.setPosition(position);
+	this->texture.setPosition(this->position);
 	this->clickFun = function;
 	this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, clickSound).c_str());
 

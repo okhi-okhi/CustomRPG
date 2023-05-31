@@ -19,13 +19,13 @@ Picture::Picture(const std::string& fileName, const Vector2 position, const int 
 		
 	this->textureFrameNum = textureFrameNum;
 
-	this->position = position;
+	this->position = RaylibUtils::getRealLength(position);
 	Picture::updatePosition();
 
-	this->hitbox.emplace_back(
-		Rectangle(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
-				  RaylibUtils::getRealLength(position.y) - this->getHeight() / 2,
-				  static_cast<float>(spriteTexture.width), this->getHeight()));
+	// this->hitbox.emplace_back(
+	// 	Rectangle(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
+	// 			  RaylibUtils::getRealLength(position.y) - this->getHeight() / 2,
+	// 			  static_cast<float>(spriteTexture.width), this->getHeight()));
 
 	this->currentFrame = 0;
 }
@@ -64,13 +64,13 @@ Picture::Picture(const std::string& fileName, const Vector2 position,
 
 	this->textureFrameNum = textureFrameNum;
 
-	this->position = position;
+	this->position = RaylibUtils::getRealLength(position);
 	Picture::updatePosition();
 
-	this->hitbox.emplace_back(
-		Rectangle(RaylibUtils::getRealLength(position.x - tiledBounds.x / 2),
-				  RaylibUtils::getRealLength(position.y) - this->getHeight() / 2,
-				  static_cast<float>(spriteTexture.width), this->getHeight()));
+	// this->hitbox.emplace_back(
+	// 	Rectangle(RaylibUtils::getRealLength(position.x - tiledBounds.x / 2),
+	// 			  RaylibUtils::getRealLength(position.y) - this->getHeight() / 2,
+	// 			  static_cast<float>(spriteTexture.width), this->getHeight()));
 
 	this->currentFrame = 0;
 }
@@ -89,8 +89,8 @@ Picture* Picture::clone() const
 
 void Picture::updatePosition()
 {
-	this->originPos = Vector2(RaylibUtils::getRealLength(position.x) - static_cast<float>(spriteTexture.width) / 2,
-		RaylibUtils::getRealLength(position.y) - this->getHeight() / 2);
+	this->originPos = Vector2(position.x - static_cast<float>(spriteTexture.width) / 2,
+		position.y - this->getHeight() / 2);
 	this->hitbox.clear();
 	this->hitbox.emplace_back(
 		Rectangle(originPos.x, originPos.y,
