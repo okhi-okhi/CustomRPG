@@ -14,5 +14,9 @@ public:
 
 	virtual void checkCollision(const std::vector<raylib::Rectangle>& recs);
 	virtual void addReserveRec(raylib::Rectangle hitbox);
+
+	void clearReserveRec() { this->reserveRec.clear(); }
+
+	const std::vector<raylib::Rectangle>& getReserveRec() const { return this->reserveRec; }
 };
 

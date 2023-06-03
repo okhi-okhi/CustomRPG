@@ -44,27 +44,22 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
 
 	const float buttonHeight = bounds.height / static_cast<float>(this->itemCapacity);
 	float buttonY = bounds.y - bounds.height/2 + static_cast<float>(buttonHeight)/2;
-	Picture itemBg(itemTexture, 2, tileImageWidth, Vector2(bounds.width, buttonHeight));
+	const Picture itemBg(itemTexture, 2, tileImageWidth, Vector2(bounds.width, buttonHeight));
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
-		this->items.emplace_back(Vector2(bounds.x, buttonY), itemBg,
-			Text(itemsText[i], fontSize, textAlign, textColor, textSpacing, itemsFont[i]), select);
+		this->items.push_back(ButtonText(Vector2(bounds.x, buttonY), itemBg,
+			Text(itemsText[i], fontSize, textAlign, textColor, textSpacing, itemsFont[i]), select).clone());
 		buttonY += buttonHeight;
 	}
 
 	for (const auto& item : this->items)
 	{
-		this->hitbox.insert(this->hitbox.begin(), item.getHitbox().begin(), item.getHitbox().end());
+		this->clickables.push_back(item);
 	}
 }
 
 void ScrollList::draw()
 {
-	for (auto& item : this->items)
-	{
-		item.draw();
-	}
-
 	const int wheelMove = static_cast<int>(GetMouseWheelMove());
 	if(wheelMove != 0)
 	{
@@ -89,7 +84,7 @@ void ScrollList::draw()
 			}
 			for(int i = 0; i<this->itemCapacity; i++)
 			{
-				this->items[i].setText(this->itemsText[this->startIndex+i]);
+				this->items[i]->setText(this->itemsText[this->startIndex+i]);
 			}
 			this->scrollBar.addPosition(Vector2(0, moveY));
 		}
@@ -102,6 +97,14 @@ void ScrollList::draw()
 ScrollList* ScrollList::clone() const
 {
 	return new ScrollList(*this);
+}
+
+void ScrollList::updatePosition()
+{
+	for (const auto& item : this->items)
+	{
+		item->updatePosition();
+	}
 }
 
 void ScrollList::select()

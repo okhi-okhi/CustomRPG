@@ -1,8 +1,8 @@
 #pragma once
-#include <vector>
 #include "ButtonText.h"
+#include "ClickableGroup.h"
 
-class ScrollList final : public Clickable
+class ScrollList final : public ClickableGroup
 {
 private:
 	raylib::Rectangle bounds;
@@ -11,7 +11,7 @@ private:
 	int startIndex;
 	int currentIndex;
 	std::vector<Text> itemsText;
-	std::vector<ButtonText> items;
+	std::vector<ButtonText*> items;
 	Picture scrollBar;
 	Picture scrollBackground;
 
@@ -26,6 +26,7 @@ public:
 
 	void draw() override;
 	ScrollList* clone() const override;
+	void updatePosition() override;
 
 	static void select();
 };

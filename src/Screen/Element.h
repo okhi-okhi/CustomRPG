@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <Rectangle.hpp>
 #include <vector>
 
@@ -11,7 +12,8 @@ enum class elementTypes
 	BUTTON,
 	BUTTON_TEXT,
 	BUTTON_ARG,
-	SCROLL_LIST
+	SCROLL_LIST,
+	SLIDER
 };
 
 class Element

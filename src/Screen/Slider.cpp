@@ -9,39 +9,40 @@ Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string
 {
 	using RaylibUtils::getRealLength;
 	constexpr int tileWidth = 32;
+	this->elementType = elementTypes::SLIDER;
 
-	this->position = getRealLength(Vector2(bounds.x, bounds.y));
-	this->bounds = Rectangle(getRealLength(bounds.x - bounds.width / 2), getRealLength(bounds.y - bounds.height / 2),
-		getRealLength(bounds.width), getRealLength(bounds.height));
-	if(horizontal)
+	this->background = Button(Vector2(bounds.x, bounds.y),
+		Picture(background, 2, tileWidth, Vector2(bounds.width, bounds.height)),
+		[this] { backgroundClick(); }).clone();
+
+	this->position = this->background->getPosition();
+	this->bounds = this->background->getHitbox()[0];
+
+	this->minValue = minValue;
+	this->maxValue = maxValue;
+	this->horizontal = horizontal;
+
+	if(this->horizontal)
 	{
 		this->bar = ButtonHold(Vector2( this->bounds.x + static_cast<float>(barLength)/2, bounds.y ),
-			Picture(bar, 2, tileWidth, Vector2( barLength, bounds.height)), [this] { barDrag(); });
+			Picture(bar, 2, tileWidth, Vector2( barLength, bounds.height)), [this] { barDrag(); }).clone();
 
 		this->stepPerValue = this->bounds.width / static_cast<float>(this->maxValue - this->minValue);
 	}
 	else
 	{
 		this->bar = ButtonHold(Vector2(bounds.x, this->bounds.y + static_cast<float>(barLength)/2),
-			Picture(bar, 2, tileWidth, Vector2(bounds.width,barLength)), [this] { barDrag(); });
+			Picture(bar, 2, tileWidth, Vector2(bounds.width,barLength)), [this] { barDrag(); }).clone();
 
 		this->stepPerValue = this->bounds.height / static_cast<float>(this->maxValue - this->minValue);
 	}
-	this->background = Button(Vector2(bounds.x, bounds.y),
-		Picture(background, 1, tileWidth, Vector2(bounds.width, bounds.height)),
-		[this] { backgroundClick(); });
 
-	this->minValue = minValue;
-	this->maxValue = maxValue;
-	this->horizontal = horizontal;
-
-	//this->hitbox.
+	this->clickables.push_back(this->background);
+	this->clickables.push_back(this->bar);
 }
 
 void Slider::draw()
 {
-	this->background.draw();
-	this->bar.draw();
 }
 
 Slider* Slider::clone() const
@@ -54,15 +55,15 @@ void Slider::barDrag()
 {
 	if(this->horizontal)
 	{
-		this->bar.setPositionX(GetMouseX());
+		this->bar->setPositionX(GetMouseX());
 	}
 	else
 	{
-		this->bar.setPositionY(GetMouseY());
+		this->bar->setPositionY(GetMouseY());
 	}
 }
 
 void Slider::backgroundClick()
 {
-	std::cout << "a";
+	//std::cout << this->background->getPosition().x;
 }

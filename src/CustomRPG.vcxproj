@@ -181,6 +181,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Screen\ClickableGroup.h" />
     <ClInclude Include="Screen\ButtonHold.h" />
     <ClInclude Include="Screen\Clickable.h" />
     <ClInclude Include="Screen\ButtonText.h" />
@@ -237,6 +238,7 @@
     <ClInclude Include="Utils\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Screen\ClickableGroup.cpp" />
     <ClCompile Include="Screen\ButtonHold.cpp" />
     <ClCompile Include="Screen\Clickable.cpp" />
     <ClCompile Include="Screen\ButtonText.cpp" />

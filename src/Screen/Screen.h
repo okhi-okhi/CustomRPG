@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include "Clickable.h"
-#include "Element.h"
+#include "ClickableGroup.h"
 
 enum class screenTypes
 {
@@ -22,8 +22,9 @@ public:
 	explicit Screen(screenTypes screenType, const std::string& i18nKey);
 	virtual ~Screen() = default;
 
-	void addElement(const Element& element);
-	void addClickable(const Clickable& clickable);
+	void addElement(Element* element);
+	void addElement(Clickable* clickable);
+	void addElement(ClickableGroup* clickableGroup);
 
 	void draw() const;
 	virtual Screen* clone() const = 0;

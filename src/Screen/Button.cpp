@@ -1,4 +1,7 @@
 ﻿#include "Button.h"
+
+#include <iostream>
+
 #include "ScreenManager.h"
 #include "../I18n/I18n.h"
 #include "../I18n/FontProvider.h"
@@ -32,14 +35,14 @@ Button* Button::clone() const
 
 void Button::updatePosition()
 {
-	this->texture.updatePosition();
+	this->texture.setPosition(this->position);
 	this->hitbox = this->texture.getHitbox();
 	Clickable::updatePosition();
 }
 
 void Button::update()
 {
-	using RaylibUtils::checkCollisionPointRecs;
+	using RaylibUtils::checkCollisionPointRecs, std::cout;
 	if (checkCollisionPointRecs(GetMousePosition(), this->hitbox))
 	{
 		if(checkCollisionPointRecs(GetMousePosition(), this->reserveRec))
@@ -50,7 +53,6 @@ void Button::update()
 			}
 			return;
 		}
-
 		this->texture.setCurrentFrame(static_cast<int>(buttonState::HOVER));
 		if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{

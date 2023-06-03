@@ -191,6 +191,7 @@
     <ClInclude Include="Screen\Clickable.h" />
     <ClInclude Include="Screen\ButtonHold.h" />
     <ClInclude Include="Screen\Slider.h" />
+    <ClInclude Include="Screen\ClickableGroup.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity\Ally.cpp">
@@ -315,5 +316,6 @@
     <ClCompile Include="Screen\Clickable.cpp" />
     <ClCompile Include="Screen\ButtonHold.cpp" />
     <ClCompile Include="Screen\Slider.cpp" />
+    <ClCompile Include="Screen\ClickableGroup.cpp" />
   </ItemGroup>
 </Project>

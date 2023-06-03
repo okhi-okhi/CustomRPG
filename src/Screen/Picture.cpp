@@ -89,8 +89,8 @@ Picture* Picture::clone() const
 
 void Picture::updatePosition()
 {
-	this->originPos = Vector2(position.x - static_cast<float>(spriteTexture.width) / 2,
-		position.y - this->getHeight() / 2);
+	this->originPos = 
+		Vector2(position.x - static_cast<float>(spriteTexture.width) / 2,position.y - this->getHeight() / 2);
 	this->hitbox.clear();
 	this->hitbox.emplace_back(
 		Rectangle(originPos.x, originPos.y,
