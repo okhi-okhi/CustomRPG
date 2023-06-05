@@ -45,15 +45,15 @@ void TextArg::update()
 	{
 		if (snd.index() == 2)
 		{
-			newArgs.emplace(fst, *std::get<std::string*>(snd));
+			newArgs.emplace(fst, *std::get<const std::string*>(snd));
 		}
 		else if (snd.index() == 1)
 		{
-			newArgs.emplace(fst, std::to_string(*std::get<float*>(snd)));
+			newArgs.emplace(fst, std::to_string(*std::get<const float*>(snd)));
 		}
 		else
 		{
-			newArgs.emplace(fst, std::to_string(*std::get<int*>(snd)));
+			newArgs.emplace(fst, std::to_string(*std::get<const int*>(snd)));
 		}
 	}
 	const std::string newText = I18n::instance().get(i18nKey, newArgs);

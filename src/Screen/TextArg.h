@@ -2,7 +2,7 @@
 #include <variant>
 #include "Text.h"
 
-using argTypes = std::variant<int*, float*, std::string*>;
+using argTypes = std::variant<const int*, const float*, const std::string*>;
 class TextArg final : public Text
 {
 private:

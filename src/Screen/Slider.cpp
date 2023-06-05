@@ -5,7 +5,7 @@
 #include "../Utils/RaylibUtils.h"
 
 Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string& background,
-               const int barLength, const int minValue, const int maxValue, const bool horizontal)
+               const int barLength, int* value, const int minValue, const int maxValue, const bool horizontal)
 {
 	using RaylibUtils::getRealLength;
 	constexpr int tileWidth = 32;
@@ -13,36 +13,65 @@ Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string
 
 	this->background = Button(Vector2(bounds.x, bounds.y),
 		Picture(background, 2, tileWidth, Vector2(bounds.width, bounds.height)),
-		[this] { backgroundClick(); }).clone();
+		[this] { backgroundClick(); });
 
-	this->position = this->background->getPosition();
-	this->bounds = this->background->getHitbox()[0];
+	this->position = this->background.getPosition();
+	this->bounds = this->background.getHitbox()[0];
 
 	this->minValue = minValue;
 	this->maxValue = maxValue;
+	this->value = value;
 	this->horizontal = horizontal;
 
 	if(this->horizontal)
 	{
 		this->bar = ButtonHold(Vector2( this->bounds.x + static_cast<float>(barLength)/2, bounds.y ),
-			Picture(bar, 2, tileWidth, Vector2( barLength, bounds.height)), [this] { barDrag(); }).clone();
+			Picture(bar, 2, tileWidth, Vector2( barLength, bounds.height)), [this] { barDrag(); });
 
-		this->stepPerValue = this->bounds.width / static_cast<float>(this->maxValue - this->minValue);
+		this->stepPerValue = (this->bounds.width - this->bar.getHitbox()[0].width) / static_cast<float>(this->maxValue - this->minValue);
 	}
 	else
 	{
 		this->bar = ButtonHold(Vector2(bounds.x, this->bounds.y + static_cast<float>(barLength)/2),
-			Picture(bar, 2, tileWidth, Vector2(bounds.width,barLength)), [this] { barDrag(); }).clone();
+			Picture(bar, 2, tileWidth, Vector2(bounds.width,barLength)), [this] { barDrag(); });
 
-		this->stepPerValue = this->bounds.height / static_cast<float>(this->maxValue - this->minValue);
+		this->stepPerValue = (this->bounds.height - this->bar.getHitbox()[0].height) / static_cast<float>(this->maxValue - this->minValue);
 	}
 
-	this->clickables.push_back(this->background);
-	this->clickables.push_back(this->bar);
+	this->clickables.push_back(&this->background);
+	this->clickables.push_back(&this->bar);
 }
 
 void Slider::draw()
 {
+	if(this->dragging)
+	{
+		if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+		{
+			//this->bar.setState(buttonState::HOVER);
+			barDrag();
+		}
+		else
+		{
+			this->dragging = false;
+		}
+	}
+	if (this->horizontal)
+	{
+		if (minValue <= *this->value && *this->value <= this->maxValue)
+		{
+			this->bar.setPositionX(this->bounds.x + this->bar.getHitbox()[0].width / 2 +
+			(*this->value - this->minValue) * this->stepPerValue);
+		}
+	}
+	else
+	{
+		if (minValue <= *this->value && *this->value <= this->maxValue)
+		{
+			this->bar.setPositionY(this->bounds.y + this->bar.getHitbox()[0].height / 2 +
+			(*this->value - this->minValue) * this->stepPerValue);
+		}
+	}
 }
 
 Slider* Slider::clone() const
@@ -53,17 +82,47 @@ Slider* Slider::clone() const
 
 void Slider::barDrag()
 {
+	this->dragging = true;
 	if(this->horizontal)
 	{
-		this->bar->setPositionX(GetMouseX());
+		if(GetMouseX() <= this->bounds.x)
+		{
+			*this->value = this->minValue;
+		}
+		else if(GetMouseX() >= this->bounds.x + this->bounds.width)
+		{
+			*this->value = this->maxValue;
+		}
+		else
+		{
+			*this->value = static_cast<int>((GetMouseX() - this->bounds.x) / this->stepPerValue);
+		}
 	}
 	else
 	{
-		this->bar->setPositionY(GetMouseY());
+		if (GetMouseY() <= this->bounds.y)
+		{
+			*this->value = this->minValue;
+		}
+		else if (GetMouseY() >= this->bounds.y + this->bounds.height)
+		{
+			*this->value = this->maxValue;
+		}
+		else
+		{
+			*this->value = static_cast<int>((GetMouseY() - this->bounds.y) / this->stepPerValue);
+		}
 	}
 }
 
 void Slider::backgroundClick()
 {
-	//std::cout << this->background->getPosition().x;
+	if (this->horizontal)
+	{
+		*this->value = static_cast<int>((GetMouseX() - this->bounds.x) / this->stepPerValue);
+	}
+	else
+	{
+		*this->value = static_cast<int>((GetMouseY() - this->bounds.y) / this->stepPerValue);
+	}
 }

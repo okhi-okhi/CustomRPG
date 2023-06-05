@@ -23,7 +23,6 @@ MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 
 	// Picture buttonTile("screens/button_tile_1.png", 2, 64, Vector2(400, 500));
 	// addClickable(Button(Vector2(960, 540), buttonTile, test));
-	//addElement(TextArg("screen.test.button2", { {"aa", &playerDistance} }, Vector2(960, 324)));
 	
 	std::vector<std::string> vt;
 	vt.emplace_back("screen.test.button1");
@@ -36,8 +35,9 @@ MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 	// 	32, textAlign::CENTER, WHITE, 0, vf, "screens/button_tile_1.png", "screens/scroll_bar.png", "b"));
 	
 	//addElement(ButtonText(Vector2(960, 700), buttonBg, Text("screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f), test));
-
-	addElement(new Slider(Rectangle(960, 540, 500, 32), "screens/scroll_bar.png", "screens/button_tile_1.png", 64, 0, 100, true));
+	Slider* slider = new Slider(Rectangle(960, 540, 500, 32), "screens/scroll_bar.png", "screens/button_tile_1.png", 64, &playerDistance, 0, 10, true);
+	addElement(slider);
+	addElement(new TextArg("screen.test.button2", { {"aa", &playerDistance} }, Vector2(960, 324)));
 }
 
 Screen* MainScreen::clone() const

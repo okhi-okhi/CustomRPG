@@ -30,6 +30,8 @@ public:
 
 	virtual void update();
 
+	void setState(buttonState buttonState) { this->texture.setCurrentFrame(static_cast<int>(buttonState)); }
+
 	const Picture& getTexture() const { return this->texture; }
 	buttonState getButtonState() const { return static_cast<buttonState>(this->texture.getCurrentFrame()); }
 	float getButtonHeight() const { return this->texture.getHeight(); }

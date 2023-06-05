@@ -36,6 +36,7 @@ Button* Button::clone() const
 void Button::updatePosition()
 {
 	this->texture.setPosition(this->position);
+	this->originPos = this->texture.getOriginPos();
 	this->hitbox = this->texture.getHitbox();
 	Clickable::updatePosition();
 }
