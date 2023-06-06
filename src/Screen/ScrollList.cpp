@@ -7,8 +7,8 @@
 ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
 	const std::vector<std::string>& itemsText, float fontSize, textAlign textAlign, raylib::Color textColor,
 	float textSpacing, const std::vector<const raylib::Font*>& itemsFont,
-	const std::string& itemTexture, const std::string& scrollBar,
-	const std::string& scrollBackground)
+	const std::string& itemTexture, const std::string& sliderBar,
+	const std::string& sliderBackground)
 {
 	using RaylibUtils::getRealLength;
 	constexpr int tileImageWidth = 64;
@@ -25,12 +25,10 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
 		constexpr float scrollBarWidth = 32;
 
 		this->scrollable = true;
-		const float scrollBarHeight = bounds.height / static_cast<float>(itemsText.size()) * itemCapacity;
-		this->scrollBar = Picture(scrollBar,
-			Vector2(bounds.x + (bounds.width + scrollBarWidth)/2, bounds.y - bounds.height/2 + scrollBarHeight / 2),
-			2, 32, Vector2(scrollBarWidth, scrollBarHeight));
-		std::cout << this->scrollBar.getPosition().x<<" y : "<<this->scrollBar.getPosition().y<<std::endl;
-		//TODO scrollBar and scrollBarBackground
+		const float barHeight = bounds.height / static_cast<float>(itemsText.size()) * itemCapacity;
+		std::cout << "Slider creating" << std::endl;
+		this->slider = Slider(Rectangle(bounds.x + bounds.width, bounds.y, scrollBarWidth, bounds.height),
+			sliderBar, sliderBackground, barHeight, &this->startIndex, 0, itemsText.size() - itemCapacity, false);
 
 	} else {
 		this->scrollable = false;
@@ -47,15 +45,26 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
 	const Picture itemBg(itemTexture, 2, tileImageWidth, Vector2(bounds.width, buttonHeight));
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
-		this->items.push_back(ButtonText(Vector2(bounds.x, buttonY), itemBg,
-			Text(itemsText[i], fontSize, textAlign, textColor, textSpacing, itemsFont[i]), select).clone());
+		this->items.emplace_back(Vector2(bounds.x, buttonY), itemBg,
+			Text(itemsText[i], fontSize, textAlign, textColor, textSpacing, itemsFont[i]), select);
 		buttonY += buttonHeight;
 	}
-
-	for (const auto& item : this->items)
+	std::cout << "a" << std::endl;
+	for (auto& item : this->items)
 	{
-		this->clickables.push_back(item);
+		this->clickables.push_back(&item);
 	}
+	//this->clickables.insert(this->clickables.end(), this->slider.getClickables().begin(), this->slider.getClickables().end());
+	// for(auto& clickable : this->slider.getClickables())
+	// {
+	// 	std::cout << "b: "<< &clickable << std::endl;
+	// 	this->clickables.push_back(clickable);
+	// }
+	std::cout << "b: "<< &this->slider.getBar() << std::endl;
+	this->clickables.push_back(&this->slider.getBar());
+	std::cout << "b: " << &this->slider.getBackground() << std::endl;
+	this->clickables.push_back(&this->slider.getBackground());
+	std::cout << "ScrollList created" << std::endl;
 }
 
 void ScrollList::draw()
@@ -71,7 +80,6 @@ void ScrollList::draw()
 				if(this->startIndex > 0)
 				{
 					this->startIndex--;
-					moveY = -this->bounds.height / this->itemsText.size();
 				}
 			}
 			else
@@ -79,19 +87,15 @@ void ScrollList::draw()
 				if(this->startIndex + this->itemCapacity < this->itemsText.size())
 				{
 					this->startIndex++;
-					moveY = this->bounds.height / this->itemsText.size();
 				}
 			}
 			for(int i = 0; i<this->itemCapacity; i++)
 			{
-				this->items[i]->setText(this->itemsText[this->startIndex+i]);
+				this->items[i].setText(this->itemsText[this->startIndex+i]);
 			}
-			this->scrollBar.addPosition(Vector2(0, moveY));
 		}
 	}
-
-	this->scrollBar.draw();
-	//TODO draw scrollBar and scrollBarBackground
+	this->slider.draw();
 }
 
 ScrollList* ScrollList::clone() const
@@ -101,9 +105,9 @@ ScrollList* ScrollList::clone() const
 
 void ScrollList::updatePosition()
 {
-	for (const auto& item : this->items)
+	for (auto& item : this->items)
 	{
-		item->updatePosition();
+		item.updatePosition();
 	}
 }
 

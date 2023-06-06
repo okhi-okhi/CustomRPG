@@ -27,8 +27,10 @@ void Screen::addElement(ClickableGroup* clickableGroup)
 	this->elements.push_back(clickableGroup);
 	for(const auto& clickable : clickableGroup->getClickables())
 	{
+		std::cout << "Adding clickable: " << &*clickable << std::endl;
 		this->elements.push_back(clickable);
 		this->clickableElements.emplace_back(static_cast<int>(this->elements.size()) - 1, clickable);
+		std::cout << "Clickable added" << std::endl;
 	}
 }
 

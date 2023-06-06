@@ -20,9 +20,6 @@ MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 	addElement(new ButtonText(Vector2(960, 324), buttonBg, Text("screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f), test));
 	addElement(new ButtonText(Vector2(960, 540), buttonBg, Text("screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f), test));
 	addElement(new ButtonText(Vector2(960, 756), buttonBg, Text("screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f), test));
-
-	// Picture buttonTile("screens/button_tile_1.png", 2, 64, Vector2(400, 500));
-	// addClickable(Button(Vector2(960, 540), buttonTile, test));
 	
 	std::vector<std::string> vt;
 	vt.emplace_back("screen.test.button1");
@@ -30,14 +27,19 @@ MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 	vt.emplace_back("screen.test.button3");
 	vt.emplace_back("screen.test.button4");
 	const std::vector<const raylib::Font*> vf = { &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2") };
-	
-	// addElement(ScrollList(Rectangle(960, 540, 1000, 500), 2, vt,
-	// 	32, textAlign::CENTER, WHITE, 0, vf, "screens/button_tile_1.png", "screens/scroll_bar.png", "b"));
-	
-	//addElement(ButtonText(Vector2(960, 700), buttonBg, Text("screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f), test));
-	Slider* slider = new Slider(Rectangle(960, 540, 500, 32), "screens/scroll_bar.png", "screens/button_tile_1.png", 64, &playerDistance, 0, 10, true);
-	addElement(slider);
-	addElement(new TextArg("screen.test.button2", { {"aa", &playerDistance} }, Vector2(960, 324)));
+	std::cout << "ScrollList creating" << std::endl;
+	ScrollList* scrollList = new ScrollList(Rectangle(960, 540, 1000, 500), 2, vt,
+		32, textAlign::CENTER, WHITE, 0, vf, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png");
+	addElement(scrollList);
+	for (auto& clickable : scrollList->getSlider().getClickables())
+	{
+		std::cout << "ads: " << static_cast<int>(clickable->getElementType()) << std::endl;
+	}
+	std::cout << "adds: " << static_cast<int>(scrollList->getSlider().getClickables()[0]->getElementType()) << std::endl;
+
+	// Slider* slider = new Slider(Rectangle(960, 540, 500, 32), "screens/scroll_bar.png", "screens/button_tile_1.png", 64, &playerDistance, 0, 10, true);
+	// addElement(slider);
+	// addElement(new TextArg("screen.test.button2", { {"aa", &playerDistance} }, Vector2(960, 324)));
 }
 
 Screen* MainScreen::clone() const

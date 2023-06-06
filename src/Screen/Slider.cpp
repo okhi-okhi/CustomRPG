@@ -23,23 +23,26 @@ Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string
 	this->value = value;
 	this->horizontal = horizontal;
 
-	if(this->horizontal)
+	if (this->horizontal)
 	{
-		this->bar = ButtonHold(Vector2( this->bounds.x + static_cast<float>(barLength)/2, bounds.y ),
-			Picture(bar, 2, tileWidth, Vector2( barLength, bounds.height)), [this] { barDrag(); });
+		this->bar = ButtonHold(Vector2(this->bounds.x + static_cast<float>(barLength) / 2, bounds.y),
+			Picture(bar, 2, tileWidth, Vector2(barLength, bounds.height)), [this] { barDrag(); });
 
-		this->stepPerValue = (this->bounds.width - this->bar.getHitbox()[0].width) / static_cast<float>(this->maxValue - this->minValue);
+		this->displayValueSpacing = (this->bounds.width - this->bar.getHitbox()[0].width) / static_cast<float>(this->maxValue - this->minValue);
+		this->valueSpacing = this->bounds.width / static_cast<float>(this->maxValue - this->minValue + 1);
 	}
 	else
 	{
 		this->bar = ButtonHold(Vector2(bounds.x, this->bounds.y + static_cast<float>(barLength)/2),
 			Picture(bar, 2, tileWidth, Vector2(bounds.width,barLength)), [this] { barDrag(); });
 
-		this->stepPerValue = (this->bounds.height - this->bar.getHitbox()[0].height) / static_cast<float>(this->maxValue - this->minValue);
+		this->displayValueSpacing = (this->bounds.height - this->bar.getHitbox()[0].height) / static_cast<float>(this->maxValue - this->minValue);
+		this->valueSpacing = this->bounds.height / static_cast<float>(this->maxValue - this->minValue + 1);
 	}
 
 	this->clickables.push_back(&this->background);
 	this->clickables.push_back(&this->bar);
+	std::cout << "Slider created" << std::endl;
 }
 
 void Slider::draw()
@@ -61,7 +64,7 @@ void Slider::draw()
 		if (minValue <= *this->value && *this->value <= this->maxValue)
 		{
 			this->bar.setPositionX(this->bounds.x + this->bar.getHitbox()[0].width / 2 +
-			(*this->value - this->minValue) * this->stepPerValue);
+			(*this->value - this->minValue) * this->displayValueSpacing);
 		}
 	}
 	else
@@ -69,7 +72,7 @@ void Slider::draw()
 		if (minValue <= *this->value && *this->value <= this->maxValue)
 		{
 			this->bar.setPositionY(this->bounds.y + this->bar.getHitbox()[0].height / 2 +
-			(*this->value - this->minValue) * this->stepPerValue);
+			(*this->value - this->minValue) * this->displayValueSpacing);
 		}
 	}
 }
@@ -95,7 +98,7 @@ void Slider::barDrag()
 		}
 		else
 		{
-			*this->value = static_cast<int>((GetMouseX() - this->bounds.x) / this->stepPerValue);
+			*this->value = static_cast<int>((GetMouseX() - this->bounds.x) / this->valueSpacing);
 		}
 	}
 	else
@@ -110,19 +113,20 @@ void Slider::barDrag()
 		}
 		else
 		{
-			*this->value = static_cast<int>((GetMouseY() - this->bounds.y) / this->stepPerValue);
+			*this->value = static_cast<int>((GetMouseY() - this->bounds.y) / this->valueSpacing);
 		}
 	}
 }
 
 void Slider::backgroundClick()
 {
+	using std::cout, std::endl;
 	if (this->horizontal)
 	{
-		*this->value = static_cast<int>((GetMouseX() - this->bounds.x) / this->stepPerValue);
+		*this->value = this->minValue + static_cast<int>((GetMouseX() - this->bounds.x) / this->valueSpacing);
 	}
 	else
 	{
-		*this->value = static_cast<int>((GetMouseY() - this->bounds.y) / this->stepPerValue);
+		*this->value = this->minValue + static_cast<int>((GetMouseY() - this->bounds.y) / this->valueSpacing);
 	}
 }
