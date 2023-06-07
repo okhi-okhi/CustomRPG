@@ -2,7 +2,7 @@
 #include "ButtonHold.h"
 #include "ClickableGroup.h"
 
-class Slider : public ClickableGroup
+class Slider final : public ClickableGroup
 {
 private:
 	raylib::Rectangle bounds;
@@ -24,6 +24,7 @@ public:
 	Slider() : bar(nullptr), background(nullptr), value(nullptr), minValue(0), maxValue(0), horizontal(false), dragging(false), displayValueSpacing(0), valueSpacing(0) {}
 	Slider(Rectangle bounds, const std::string& bar, const std::string& background,
 		int barLength, int* value, int minValue, int maxValue, bool horizontal);
+	//~Slider() override;
 
 	void draw() override;
 	Slider* clone() const override;

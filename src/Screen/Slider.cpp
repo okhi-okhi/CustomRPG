@@ -45,6 +45,12 @@ Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string
 	this->clickables.push_back(this->bar);
 }
 
+// Slider::~Slider()
+// {
+// 	delete bar;
+// 	delete background;
+// }
+
 void Slider::draw()
 {
 	if(this->dragging)
