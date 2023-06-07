@@ -11,11 +11,11 @@ private:
 	int startIndex;
 	int currentIndex;
 	std::vector<Text> itemsText;
-	std::vector<ButtonText> items;
-	Slider slider;
+	std::vector<ButtonText*> items;
+	Slider* slider;
 
 public:
-	ScrollList() : itemCapacity(0), scrollable(false), startIndex(0), currentIndex(-1) {}
+	ScrollList() : itemCapacity(0), scrollable(false), startIndex(0), currentIndex(-1), slider(nullptr) {}
 	ScrollList(Rectangle bounds, int itemCapacity,
 		const std::vector<std::string>& itemsText,
 		float fontSize, textAlign textAlign, raylib::Color textColor, float textSpacing,
@@ -29,6 +29,6 @@ public:
 
 	static void select();
 
-	const Slider& getSlider() const { return this->slider; }
+	const Slider* getSlider() const { return this->slider; }
 };
 
