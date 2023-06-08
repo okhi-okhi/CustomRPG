@@ -28,8 +28,8 @@ MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 	vt.emplace_back("screen.test.button4");
 	const std::vector<const raylib::Font*> vf = { &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2") };
 
-	ScrollList* scrollList = new ScrollList(Rectangle(960, 540, 1000, 500), 2, vt,
-		32, textAlign::CENTER, WHITE, 0, vf, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png");
+	auto* scrollList = new ScrollList(Rectangle(960, 540, 1000, 500), 2, vt,
+	                                  32, textAlign::CENTER, WHITE, 0, vf, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png");
 	addElement(scrollList);
 
 	// Slider* slider = new Slider(Rectangle(960, 540, 500, 32), "screens/scroll_bar.png", "screens/button_tile_1.png", 64, &playerDistance, 0, 10, true);

@@ -15,7 +15,7 @@ Button::Button(const Vector2 position, const Picture& texture,
 	this->position = RaylibUtils::getRealLength(position);
 	this->texture = texture;
 	this->texture.setPosition(this->position);
-	this->clickFun = function;
+	this->function = function;
 	this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, clickSound).c_str());
 
 	this->hitbox = this->texture.getHitbox();
@@ -58,7 +58,7 @@ void Button::update()
 		if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
 			PlaySound(this->clickSound);
-			this->clickFun();
+			this->function();
 		}
 	}
 	else if (this->texture.getCurrentFrame() == static_cast<int>(buttonState::HOVER))

@@ -11,24 +11,28 @@ private:
 	int startIndex;
 	int currentIndex;
 	std::vector<Text> itemsText;
-	std::vector<ButtonText*> items;
-	Slider* slider;
+	std::vector<ButtonText> items;
+	Slider slider;
 
 public:
-	ScrollList() : itemCapacity(0), scrollable(false), startIndex(0), currentIndex(-1), slider(nullptr) {}
+	ScrollList() : itemCapacity(0), scrollable(false), startIndex(0), currentIndex(-1){}
 	ScrollList(Rectangle bounds, int itemCapacity,
-		const std::vector<std::string>& itemsText,
-		float fontSize, textAlign textAlign, raylib::Color textColor, float textSpacing,
-		const std::vector<const raylib::Font*>& itemsFont,
-		const std::string& itemTexture, const std::string& sliderBar,
-		const std::string& sliderBackground);
+	           const std::vector<std::string>& itemsText,
+	           float fontSize, textAlign textAlign, raylib::Color textColor, float textSpacing,
+	           const std::vector<const raylib::Font*>& itemsFont,
+	           const std::string& itemTexture, const std::string& sliderBar,
+	           const std::string& sliderBackground);
+	// ~ScrollList() override
+	// {
+	// 	delete this->slider;
+	// }
+
+	void updateClickables() override;
 
 	void draw() override;
 	ScrollList* clone() const override;
 	void updatePosition() override;
 
 	static void select();
-
-	const Slider* getSlider() const { return this->slider; }
 };
 

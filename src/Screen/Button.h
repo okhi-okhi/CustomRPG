@@ -16,7 +16,7 @@ class Button : public Clickable
 protected:
 	Picture texture;
 	Sound clickSound;
-	std::function<void()> clickFun;
+	std::function<void()> function;
 
 public:
 	Button() : clickSound() {}
@@ -31,6 +31,7 @@ public:
 	virtual void update();
 
 	void setState(buttonState buttonState) { this->texture.setCurrentFrame(static_cast<int>(buttonState)); }
+	void setFunction(const std::function<void()>& function) { this->function = function; }
 
 	const Picture& getTexture() const { return this->texture; }
 	buttonState getButtonState() const { return static_cast<buttonState>(this->texture.getCurrentFrame()); }

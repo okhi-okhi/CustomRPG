@@ -16,3 +16,8 @@ void ClickableGroup::updatePosition()
 		clickable->updatePosition();
 	}
 }
+
+void ClickableGroup::updateClickables()
+{
+	this->clickables.clear();
+}

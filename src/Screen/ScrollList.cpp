@@ -25,9 +25,10 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
 		constexpr float scrollBarWidth = 32;
 
 		this->scrollable = true;
-		const int barHeight = this->bounds.height / static_cast<float>(itemsText.size()) * itemCapacity;
-		this->slider = new Slider(Rectangle(this->bounds.x + this->bounds.width + scrollBarWidth/2, this->position.y, scrollBarWidth, this->bounds.height),
+		const int barHeight = bounds.height / static_cast<float>(itemsText.size()) * itemCapacity;
+		this->slider = Slider(Rectangle(bounds.x + bounds.width / 2 + scrollBarWidth / 2, bounds.y, scrollBarWidth, bounds.height),
 			sliderBar, sliderBackground, barHeight, &this->startIndex, 0, static_cast<int>(itemsText.size()) - itemCapacity, false);
+
 	} else {
 		this->scrollable = false;
 	}
@@ -43,17 +44,24 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity,
 	const Picture itemBg(itemTexture, 2, tileImageWidth, Vector2(bounds.width, buttonHeight));
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
-		this->items.push_back(new ButtonText(Vector2(bounds.x, buttonY), itemBg,
-			Text(itemsText[i], fontSize, textAlign, textColor, textSpacing, itemsFont[i]), select));
+		this->items.emplace_back(Vector2(bounds.x, buttonY), itemBg,
+		                         Text(itemsText[i], fontSize, textAlign, textColor, textSpacing, itemsFont[i]), select);
 		buttonY += buttonHeight;
 	}
+	updateClickables();
+}
+
+void ScrollList::updateClickables()
+{
+	ClickableGroup::updateClickables();
 	for (auto& item : this->items)
+	{
+		this->clickables.push_back(&item);
+	}
+	for (auto& item : this->slider.getClickables())
 	{
 		this->clickables.push_back(item);
 	}
-	this->clickables.insert(this->clickables.end(), this->slider->getClickables().begin(), this->slider->getClickables().end());
-
-	std::cout<< this->slider->getPosition().x<<std::endl;
 }
 
 void ScrollList::draw()
@@ -82,26 +90,28 @@ void ScrollList::draw()
 	}
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
-		this->items[i]->setText(this->itemsText[this->startIndex + i]);
+		this->items[i].setText(this->itemsText[this->startIndex + i]);
 	}
-	this->slider->draw();
+	if(this->scrollable)
+	{
+		this->slider.draw();
+	}
 }
 
 ScrollList* ScrollList::clone() const
 {
-	return new ScrollList(*this);
+	return new ScrollList();
 }
 
 void ScrollList::updatePosition()
 {
-	for (const auto& item : this->items)
+	for (auto& item : this->items)
 	{
-		item->updatePosition();
+		item.updatePosition();
 	}
 }
 
 void ScrollList::select()
 {
 	int a = 0;
-	a++;
 }

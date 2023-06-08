@@ -11,12 +11,12 @@ Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string
 	constexpr int tileWidth = 32;
 	this->elementType = elementTypes::SLIDER;
 
-	this->background = new Button(Vector2(bounds.x, bounds.y),
+	this->background = Button(Vector2(bounds.x, bounds.y),
 		Picture(background, 2, tileWidth, Vector2(bounds.width, bounds.height)),
 		[this] { backgroundClick(); });
 
-	this->position = this->background->getPosition();
-	this->bounds = this->background->getHitbox()[0];
+	this->position = this->background.getPosition();
+	this->bounds = this->background.getHitbox()[0];
 
 	this->minValue = minValue;
 	this->maxValue = maxValue;
@@ -26,30 +26,37 @@ Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string
 
 	if (this->horizontal)
 	{
-		this->bar = new ButtonHold(Vector2(this->bounds.x + static_cast<float>(barLength) / 2, bounds.y),
+		this->bar = ButtonHold(Vector2(this->bounds.x + static_cast<float>(barLength) / 2, bounds.y),
 			Picture(bar, 2, tileWidth, Vector2(barLength, bounds.height)), [this] { barDrag(); });
 
-		this->displayValueSpacing = (this->bounds.width - this->bar->getHitbox()[0].width) / static_cast<float>(this->maxValue - this->minValue);
+		this->displayValueSpacing = (this->bounds.width - this->bar.getHitbox()[0].width) / static_cast<float>(this->maxValue - this->minValue);
 		this->valueSpacing = this->bounds.width / static_cast<float>(this->maxValue - this->minValue + 1);
 	}
 	else
 	{
-		this->bar = new ButtonHold(Vector2(bounds.x, this->bounds.y + static_cast<float>(barLength)/2),
+		this->bar = ButtonHold(Vector2(bounds.x, this->bounds.y + static_cast<float>(barLength)/2),
 			Picture(bar, 2, tileWidth, Vector2(bounds.width,barLength)), [this] { barDrag(); });
 
-		this->displayValueSpacing = (this->bounds.height - this->bar->getHitbox()[0].height) / static_cast<float>(this->maxValue - this->minValue);
+		this->displayValueSpacing = (this->bounds.height - this->bar.getHitbox()[0].height) / static_cast<float>(this->maxValue - this->minValue);
 		this->valueSpacing = this->bounds.height / static_cast<float>(this->maxValue - this->minValue + 1);
 	}
-
-	this->clickables.push_back(this->background);
-	this->clickables.push_back(this->bar);
+	updateClickables();
 }
 
-// Slider::~Slider()
-// {
-// 	delete bar;
-// 	delete background;
-// }
+Slider& Slider::operator=(Slider other)
+{
+	swap(*this, other);
+	this->bar.setFunction([this] { barDrag(); });
+	this->background.setFunction([this] { backgroundClick(); });
+	return *this;
+}
+
+void Slider::updateClickables()
+{
+	ClickableGroup::updateClickables();
+	this->clickables.push_back(&this->background);
+	this->clickables.push_back(&this->bar);
+}
 
 void Slider::draw()
 {
@@ -57,7 +64,6 @@ void Slider::draw()
 	{
 		if(IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 		{
-			//this->bar.setState(buttonState::HOVER);
 			barDrag();
 		}
 		else
@@ -69,7 +75,7 @@ void Slider::draw()
 	{
 		if (minValue <= *this->value && *this->value <= this->maxValue)
 		{
-			this->bar->setPositionX(this->bounds.x + this->bar->getHitbox()[0].width / 2 +
+			this->bar.setPositionX(this->bounds.x + this->bar.getHitbox()[0].width / 2 +
 			(*this->value - this->minValue) * this->displayValueSpacing);
 		}
 	}
@@ -77,17 +83,16 @@ void Slider::draw()
 	{
 		if (minValue <= *this->value && *this->value <= this->maxValue)
 		{
-			this->bar->setPositionY(this->bounds.y + this->bar->getHitbox()[0].height / 2 +
-			(*this->value - this->minValue) * this->displayValueSpacing);
+			this->bar.setPositionY(this->bounds.y + this->bar.getHitbox()[0].height / 2 +
+				(*this->value - this->minValue) * this->displayValueSpacing);
 		}
 	}
 }
 
 Slider* Slider::clone() const
 {
-	return new Slider(*this);
+	return new Slider();
 }
-
 
 void Slider::barDrag()
 {
@@ -124,7 +129,7 @@ void Slider::barDrag()
 	}
 }
 
-void Slider::backgroundClick()
+void Slider::backgroundClick() const
 {
 	using std::cout, std::endl;
 	if (this->horizontal)
@@ -135,4 +140,21 @@ void Slider::backgroundClick()
 	{
 		*this->value = this->minValue + static_cast<int>((GetMouseY() - this->bounds.y) / this->valueSpacing);
 	}
+}
+
+void swap(Slider& first, Slider& second) noexcept
+{
+	using std::swap;
+	swap(first.position, second.position);
+	swap(first.bounds, second.bounds);
+	swap(first.background, second.background);
+	swap(first.bar, second.bar);
+	swap(first.value, second.value);
+	swap(first.minValue, second.minValue);
+	swap(first.maxValue, second.maxValue);
+	swap(first.horizontal, second.horizontal);
+	swap(first.dragging, second.dragging);
+	swap(first.displayValueSpacing, second.displayValueSpacing);
+	swap(first.valueSpacing, second.valueSpacing);
+	first.updateClickables();
 }

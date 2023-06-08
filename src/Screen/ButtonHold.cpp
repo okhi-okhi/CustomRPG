@@ -32,7 +32,7 @@ void ButtonHold::update()
 		this->texture.setCurrentFrame(static_cast<int>(buttonState::HOVER));
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 		{
-			this->clickFun();
+			this->function();
 		}
 	}
 	else if (this->texture.getCurrentFrame() == static_cast<int>(buttonState::HOVER))
