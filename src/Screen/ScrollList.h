@@ -22,15 +22,10 @@ public:
 	           const std::vector<const raylib::Font*>& itemsFont,
 	           const std::string& itemTexture, const std::string& sliderBar,
 	           const std::string& sliderBackground);
-	// ~ScrollList() override
-	// {
-	// 	delete this->slider;
-	// }
 
 	void updateClickables() override;
 
 	void draw() override;
-	ScrollList* clone() const override;
 	void updatePosition() override;
 
 	static void select();

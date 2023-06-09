@@ -25,7 +25,6 @@ public:
 		const std::string& clickSound = "button_click.wav");
 
 	void draw() override;
-	Button* clone() const override;
 	void updatePosition() override;
 
 	virtual void update();

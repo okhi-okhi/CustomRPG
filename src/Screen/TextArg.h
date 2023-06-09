@@ -16,7 +16,6 @@ public:
 		raylib::Color color = BLACK, float spacing = 1.0f);
 
 	void draw() override;
-	TextArg* clone() const override;
 	void updatePosition() override;
 
 	void update();

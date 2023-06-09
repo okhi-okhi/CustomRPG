@@ -42,11 +42,6 @@ void Text::draw()
 	raylib::DrawTextEx(*this->font, this->text, this->originPos, this->fontSize, this->spacing, this->color);
 }
 
-Text* Text::clone() const
-{
-	return new Text(*this);
-}
-
 void Text::updatePosition()
 {
 	const Vector2 textSize = MeasureTextEx(*this->font, this->text.c_str(), this->fontSize, this->spacing);

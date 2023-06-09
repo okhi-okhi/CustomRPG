@@ -28,11 +28,6 @@ void Button::draw()
 	this->texture.draw();
 }
 
-Button* Button::clone() const
-{
-	return new Button(*this);
-}
-
 void Button::updatePosition()
 {
 	this->texture.setPosition(this->position);

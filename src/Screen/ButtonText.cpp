@@ -16,11 +16,6 @@ void ButtonText::draw()
 	this->text.draw();
 }
 
-ButtonText* ButtonText::clone() const
-{
-	return new ButtonText(*this);
-}
-
 void ButtonText::setText(const Text& text)
 {
 	const Vector2 position = this->text.getPosition();

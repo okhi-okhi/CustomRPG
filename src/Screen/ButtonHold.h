@@ -10,7 +10,6 @@ public:
 		Button(position, texture, function, "button_click.wav") {}
 
 	void draw() override;
-	ButtonHold* clone() const override;
 
 	void update() override;
 };

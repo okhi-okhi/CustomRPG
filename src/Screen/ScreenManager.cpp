@@ -7,7 +7,7 @@ void ScreenManager::init()
 {
 	zoomPercent = static_cast<float>(RaylibUtils::getWindowWidth()) / 1920.0f;
 
-	this->allScreens.push_back(MainScreen().clone());
+	this->allScreens.push_back(new MainScreen());
 	updateHitbox();
 }
 

@@ -24,11 +24,6 @@ void Clickable::draw()
 {
 }
 
-Clickable* Clickable::clone() const
-{
-	return new Clickable(*this);
-}
-
 void Clickable::updatePosition()
 {
 	ScreenManager::instance().updateHitbox();

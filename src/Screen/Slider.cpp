@@ -43,13 +43,18 @@ Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string
 	updateClickables();
 }
 
-Slider::Slider(const Slider& other) : bounds(other.bounds), bar(other.bar),
-	background(other.background), value(other.value),
-	minValue(other.minValue), maxValue(other.maxValue),
-	horizontal(other.horizontal), dragging(other.dragging),
-	displayValueSpacing(other.displayValueSpacing), valueSpacing(other.valueSpacing)
+Slider::Slider(const Slider& other) : ClickableGroup(other),
+	bounds(other.bounds),
+	bar(other.bar),
+	background(other.background),
+	value(other.value),
+	minValue(other.minValue),
+	maxValue(other.maxValue),
+	horizontal(other.horizontal),
+	dragging(other.dragging),
+	displayValueSpacing(other.displayValueSpacing),
+	valueSpacing(other.valueSpacing)
 {
-	this->position = other.position;
 	updateClickables();
 }
 
@@ -64,6 +69,8 @@ void Slider::updateClickables()
 	ClickableGroup::updateClickables();
 	this->clickables.push_back(&this->background);
 	this->clickables.push_back(&this->bar);
+	this->bar.setFunction([this] { barDrag(); });
+	this->background.setFunction([this] { backgroundClick(); });
 }
 
 void Slider::draw()
@@ -95,11 +102,6 @@ void Slider::draw()
 				(*this->value - this->minValue) * this->displayValueSpacing);
 		}
 	}
-}
-
-Slider* Slider::clone() const
-{
-	return new Slider(*this);
 }
 
 void Slider::barDrag()
@@ -150,10 +152,11 @@ void Slider::backgroundClick() const
 	}
 }
 
-void swap(Slider& first, Slider second) noexcept
+void swap(Slider& first, Slider& second) noexcept
 {
 	using std::swap;
-	swap(first.position, second.position);
+	swap(static_cast<ClickableGroup&>(first), static_cast<ClickableGroup&>(second));
+
 	swap(first.bounds, second.bounds);
 	swap(first.background, second.background);
 	swap(first.bar, second.bar);
@@ -164,7 +167,6 @@ void swap(Slider& first, Slider second) noexcept
 	swap(first.dragging, second.dragging);
 	swap(first.displayValueSpacing, second.displayValueSpacing);
 	swap(first.valueSpacing, second.valueSpacing);
+
 	first.updateClickables();
-	first.bar.setFunction([&first] { first.barDrag(); });
-	first.background.setFunction([&first] { first.backgroundClick(); });
 }

@@ -6,8 +6,6 @@ class MainScreen final : public Screen
 public:
 	MainScreen();
 
-	Screen* clone() const override;
-
 	static void test();
 };
 

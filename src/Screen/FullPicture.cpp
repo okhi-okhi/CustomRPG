@@ -21,11 +21,6 @@ void FullPicture::draw()
 	Picture::draw();
 }
 
-FullPicture* FullPicture::clone() const
-{
-	return new FullPicture(*this);
-}
-
 void FullPicture::updatePosition()
 {
 	Picture::updatePosition();

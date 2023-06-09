@@ -10,11 +10,6 @@ void ButtonHold::draw()
 	this->texture.draw();
 }
 
-ButtonHold* ButtonHold::clone() const
-{
-	return new ButtonHold(*this);
-}
-
 void ButtonHold::update()
 {
 	using RaylibUtils::checkCollisionPointRecs;

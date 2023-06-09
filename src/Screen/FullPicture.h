@@ -8,7 +8,6 @@ public:
 	FullPicture(const std::string& fileName, int textureFrameNum);
 
 	void draw() override;
-	FullPicture* clone() const override;
 	void updatePosition() override;
 };
 

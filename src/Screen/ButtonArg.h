@@ -14,7 +14,6 @@ public:
 		const std::string& clickSound = "button_click.wav");
 
 	void draw() override;
-	ButtonArg* clone() const override;
 
 	const TextArg& getText() const { return this->text; }
 };

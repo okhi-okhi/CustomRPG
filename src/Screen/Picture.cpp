@@ -72,11 +72,6 @@ void Picture::draw()
 	DrawTextureRec(this->spriteTexture, sourceRec, this->originPos, WHITE);
 }
 
-Picture* Picture::clone() const
-{
-	return new Picture(*this);
-}
-
 void Picture::updatePosition()
 {
 	this->originPos = 

@@ -15,8 +15,3 @@ void ButtonArg::draw()
 	Button::draw();
 	this->text.draw();
 }
-
-ButtonArg* ButtonArg::clone() const
-{
-	return new ButtonArg(*this);
-}

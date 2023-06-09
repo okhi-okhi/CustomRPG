@@ -18,7 +18,6 @@ public:
 		int textureFrameNum, int tileWidth, Vector2 tiledBounds);
 
 	void draw() override;
-	Picture* clone() const override;
 	void updatePosition() override;
 
 	void setCurrentFrame(int frame);

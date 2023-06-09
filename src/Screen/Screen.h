@@ -27,7 +27,6 @@ public:
 	void addElement(ClickableGroup* clickableGroup);
 
 	void draw() const;
-	virtual Screen* clone() const = 0;
 
 	const screenTypes& getScreenType() const { return this->screenType; }
 	const std::string& getI18nKey() const { return this->i18nKey; }

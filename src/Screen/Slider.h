@@ -29,12 +29,11 @@ public:
 	~Slider() override = default;
 
 	Slider& operator=(Slider other);
-	friend void swap(Slider& first, Slider second) noexcept;
+	friend void swap(Slider& first, Slider& second) noexcept;
 
 	void updateClickables() override;
 
 	void draw() override;
-	Slider* clone() const override;
 
 	const raylib::Rectangle& getBounds() const { return this->bounds; }
 	const ButtonHold& getBar() const { return this->bar; }

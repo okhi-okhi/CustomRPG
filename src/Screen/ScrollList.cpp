@@ -98,11 +98,6 @@ void ScrollList::draw()
 	}
 }
 
-ScrollList* ScrollList::clone() const
-{
-	return new ScrollList();
-}
-
 void ScrollList::updatePosition()
 {
 	for (auto& item : this->items)

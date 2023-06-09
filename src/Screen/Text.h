@@ -35,7 +35,6 @@ public:
 		textAlign align, raylib::Color color, float spacing, const raylib::Font* font);
 
 	void draw() override;
-	Text* clone() const override;
 	void updatePosition() override;
 
 	const std::string& getText() const { return this->text; }

@@ -13,7 +13,6 @@ public:
 		const std::string& clickSound = "button_click.wav");
 
 	void draw() override;
-	ButtonText* clone() const override;
 
 	void setText(const Text& text);
 

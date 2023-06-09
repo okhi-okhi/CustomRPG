@@ -28,11 +28,6 @@ void TextArg::draw()
 	raylib::DrawTextEx(*this->font, text, this->originPos, this->fontSize, this->spacing, this->color);
 }
 
-TextArg* TextArg::clone() const
-{
-	return new TextArg(*this);
-}
-
 void TextArg::updatePosition()
 {
 	Text::updatePosition();
