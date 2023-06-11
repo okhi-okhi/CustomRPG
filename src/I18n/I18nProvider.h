@@ -1,4 +1,5 @@
 #pragma once
+#include <Font.hpp>
 #include <string>
 #include <vector>
 #include <map>
@@ -8,8 +9,9 @@ using std::string;
 struct LanguageInfo {
 	string id;
 	string name;
+	raylib::Font font;
 	LanguageInfo() = default;
-	LanguageInfo(string id, string name) : id(std::move(id)), name(std::move(name)) {}
+	LanguageInfo(string id, string name, raylib::Font font) : id(std::move(id)), name(std::move(name)), font(std::move(font)) {}
 };
 
 struct Language {
@@ -24,6 +26,7 @@ class I18nProvider
 {
 private:
 	string langsFolder;
+	string fontsFolder;
 	std::vector<LanguageInfo> languages;
 
 	Language defaultLanguage;
@@ -31,11 +34,11 @@ private:
 
 	string replaceKeyInString(string str) const;
 	string replaceArgInString(string str, const std::map<string, string>& args) const;
-	string getLanguageName(const string& fileName) const;
+	LanguageInfo getLanguageInfo(const string& fileName) const;
 
 public:
 	explicit I18nProvider() = default;
-	void init(const string& langsFolder, const string& currentLanguage, const string& defaultLanguage);
+	void init(const string& resourceFolder, const string& currentLanguage, const string& defaultLanguage);
 
 	bool loadLanguage(const string& fileName);
 	void loadDefaultLanguage(const string& fileName);

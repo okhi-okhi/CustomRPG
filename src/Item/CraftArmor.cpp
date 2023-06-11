@@ -5,7 +5,7 @@
 #include "../game/gameConfig.h"
 #include "../Utils/Utilities.h"
 
-CraftArmor::CraftArmor(const std::string& fileName) {
+CraftArmor::CraftArmor(const string& fileName) {
 	using json = nlohmann::json;
 	json j = Utils::readJsonFile("Items/CraftArmor/" + fileName);
 
@@ -14,8 +14,9 @@ CraftArmor::CraftArmor(const std::string& fileName) {
 		this->name = readString("name");
 		this->description = readString("description");
 
-		std::vector<std::string> armorPos = GameConfig::instance().getArmorSlots();
-		if(std::find(armorPos.begin(), armorPos.end(), j["armorSlot"]) != armorPos.end()) {
+		std::vector<string> armorPos = GameConfig::instance().getArmorSlots();
+
+		if(std::ranges::find(armorPos, j["armorSlot"].get<string>()) != armorPos.end()) {
 			this->armorSlot = j["armorSlot"];
 		} else {
 			throw InvalidKeyException(j["armorSlot"]);
@@ -26,7 +27,7 @@ CraftArmor::CraftArmor(const std::string& fileName) {
 	}
 }
 
-std::string CraftArmor::getArmorSlotName(const std::string& armorSlot)
+string CraftArmor::getArmorSlotName(const std::string& armorSlot)
 {
 	return I18n::instance().get("stat.armorSlotName." + armorSlot);
 }
@@ -43,7 +44,7 @@ int CraftArmor::getArmorSlotIndex() const
 }
 
 
-std::string CraftArmor::readString(const std::string& key) const
+string CraftArmor::readString(const string& key) const
 {
 	return "dynamic.craftArmor." + this->id + "." + key;
 }

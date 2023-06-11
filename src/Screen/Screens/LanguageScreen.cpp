@@ -1,0 +1,67 @@
+#include "LanguageScreen.h"
+#include <fstream>
+#include "../ScreenManager.h"
+#include "../ScrollList.h"
+#include "../../I18n/I18n.h"
+#include "../../System/PathProvider.h"
+#include "../../System/SystemConfig.h"
+#include "../../Utils/Utilities.h"
+#include "../../Utils/RaylibUtils.h"
+
+LanguageScreen::LanguageScreen() : Screen(screenTypes::LANGUAGE, "language")
+{
+	addElement(new Picture("screens/setting/background.png", Vector2(960, 540), 1, 540));
+
+	int idx = 0;
+	int currentLangIdx = 0;
+	std::vector<std::string> languages;
+	std::vector<const raylib::Font*> fonts;
+	for (const auto& language : I18n::instance().getSystemI18n().getLanguages())
+	{
+		languages.push_back(I18n::instance().get("screen.language.language", { {"language", language.name} }));
+		fonts.push_back(&language.font);
+		if(language.id == I18n::instance().getSystemI18n().getCurrentLanguage().info.id)
+		{
+			currentLangIdx = idx;
+		}
+		idx++;
+	}
+	const auto languageList = new ScrollList(Rectangle(960, 540, 400, 600), 8, currentLangIdx, languages,
+	                                         32, textAlign::CENTER, WHITE, 0, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png");
+	addElement(languageList);
+
+	const int* i = &languageList->getCurrentIndex();
+	addElement(new ButtonText(Vector2(960, 770), Picture("screens/button_1.png", 2, 384),
+		Text("screen.language.button1", 48, textAlign::CENTER, WHITE, 0.0f), [i] { changeLanguage(i); }));
+}
+
+void LanguageScreen::changeLanguage(const int* index)
+{
+	const string selectLanguage = I18n::instance().getSystemI18n().getLanguages()[*index].id;
+	if(I18n::instance().getSystemI18n().getCurrentLanguage().info.id != selectLanguage)
+	{
+		I18n::instance().getSystemI18n().loadLanguage(selectLanguage);
+		SystemConfig::instance().setCurrentLanguage(selectLanguage);
+		try {
+			std::ifstream inFile(PathProvider::instance().getConfigPath());
+			json j = json::parse(inFile);
+			nlohmann::ordered_json j2;
+			j2["system"]["currentLanguage"] = selectLanguage;
+			j.update(j2, true);
+			inFile.close();
+			std::ofstream outFile(PathProvider::instance().getConfigPath());
+			outFile << j.dump(4);
+			outFile.close();
+		}
+		catch (json::exception& e)
+		{
+			std::cout << e.what();
+		}
+	}
+	closeLanguage();
+}
+
+void LanguageScreen::closeLanguage()
+{
+	ScreenManager::instance().removeScreen(screenTypes::LANGUAGE);
+}

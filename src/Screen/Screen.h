@@ -7,6 +7,8 @@
 enum class screenTypes
 {
 	MAIN = 0,
+	SETTING,
+	LANGUAGE,
 };
 
 class Screen

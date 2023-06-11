@@ -84,6 +84,8 @@ void Slider::draw()
 		else
 		{
 			this->dragging = false;
+			this->bar.setState(buttonState::IDLE);
+			this->bar.setLockState(false);
 		}
 	}
 	if (this->horizontal)
@@ -106,7 +108,12 @@ void Slider::draw()
 
 void Slider::barDrag()
 {
-	this->dragging = true;
+	if(!this->dragging)
+	{
+		this->dragging = true;
+		this->bar.setState(buttonState::HOVER);
+		this->bar.setLockState(true);
+	}
 	if(this->horizontal)
 	{
 		if(GetMouseX() <= this->bounds.x)

@@ -1,5 +1,7 @@
 #include "ScreenManager.h"
 #include "Screens/MainScreen.h"
+#include "Screens/SettingScreen.h"
+#include "Screens/LanguageScreen.h"
 #include "../Utils/RaylibUtils.h"
 #include "../System/GlobalVariable.h"
 
@@ -8,6 +10,8 @@ void ScreenManager::init()
 	zoomPercent = static_cast<float>(RaylibUtils::getWindowWidth()) / 1920.0f;
 
 	this->allScreens.push_back(new MainScreen());
+	this->allScreens.push_back(new SettingScreen());
+	this->allScreens.push_back(new LanguageScreen());
 	updateHitbox();
 }
 
@@ -69,9 +73,9 @@ void ScreenManager::updateHitbox() const
 			}
 			for(int l = i+1; l < this->currentScreens.size(); l++)
 			{
-				for (int m = 0; m < this->currentScreens[l]->getClickableElements().size(); m++)
+				for (const auto& element : this->currentScreens[l]->getElements())
 				{
-					btn->checkCollision(this->currentScreens[l]->getElements()[m]->getHitbox());
+					btn->checkCollision(element->getHitbox());
 				}
 			}
 		}

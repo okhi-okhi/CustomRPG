@@ -3,10 +3,25 @@
     "font": "NotoSansTC-Medium.otf",
     "charWidthFix": "2",
     "screen":{
+        "main":{
+            "button1": "開始遊戲",
+            "button2": "設定",
+            "button3": "離開遊戲"
+        },
+        "setting":{
+            "button1": "語言",
+            "button2": "返回"
+        },
+        "language":{
+            "language": "%language%",
+            "button1": "完成"
+        },
         "test":{
-            "button1": "▙▙▙▙▙",
-            "button2": "asdsf: %aa%, %bb%, %cc%",
-            "text1": "abs: %aa%, %bb%, %cc%"
+            "text1": "我是選項1",
+            "text2": "我是選項2",
+            "text3": "我是選項3",
+            "text4": "我是選項4",
+            "text5": "english777"
         }
     },
     "menu": {

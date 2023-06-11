@@ -6,8 +6,11 @@
 
 void ButtonHold::draw()
 {
-	update();
 	this->texture.draw();
+	if (!this->lockState)
+	{
+		update();
+	}
 }
 
 void ButtonHold::update()

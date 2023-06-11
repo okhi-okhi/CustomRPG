@@ -7,6 +7,7 @@
 #include "../TextArg.h"
 #include "../ScrollList.h"
 #include "../Slider.h"
+#include "../ScreenManager.h"
 #include "../../System/PathProvider.h"
 #include "../../System/GlobalVariable.h"
 #include "../../I18n/FontProvider.h"
@@ -17,28 +18,30 @@ MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 	addElement(new Picture("screens/main/title.png", Vector2(960, 108), 1, 960));
 
 	const Picture buttonBg("screens/button_1.png", 2, 384);
-	addElement(new ButtonText(Vector2(960, 324), buttonBg, Text("screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f), test));
-	addElement(new ButtonText(Vector2(960, 540), buttonBg, Text("screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f), test));
-	addElement(new ButtonText(Vector2(960, 756), buttonBg, Text("screen.test.button1", 32, textAlign::CENTER, WHITE, 0.0f), test));
+	addElement(new ButtonText(Vector2(960, 324), buttonBg, Text("screen.main.button1", 48, textAlign::CENTER, WHITE, 0.0f), test));
+	addElement(new ButtonText(Vector2(960, 540), buttonBg, Text("screen.main.button2", 48, textAlign::CENTER, WHITE, 0.0f), openSetting));
+	addElement(new ButtonText(Vector2(960, 756), buttonBg, Text("screen.main.button3", 48, textAlign::CENTER, WHITE, 0.0f), CloseWindow));
 	
-	std::vector<std::string> vt;
-	vt.emplace_back("screen.test.button1");
-	vt.emplace_back("screen.test.button2");
-	vt.emplace_back("screen.test.button3");
-	vt.emplace_back("screen.test.button4");
-	vt.emplace_back("addas");
-	const std::vector<const raylib::Font*> vf = { &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2"), &FontProvider::instance().get("screen.test.button2") };
-
-	auto* scrollList = new ScrollList(Rectangle(960, 540, 1000, 500), 2, vt,
-	                                  32, textAlign::CENTER, WHITE, 0, vf, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png");
-	addElement(scrollList);
-
-	// Slider* slider = new Slider(Rectangle(960, 540, 500, 32), "screens/scroll_bar.png", "screens/button_tile_1.png", 64, &playerDistance, 0, 10, true);
-	// addElement(slider);
-	// addElement(new TextArg("screen.test.button2", { {"aa", &playerDistance} }, Vector2(960, 324)));
+	// std::vector<std::string> vt;
+	// vt.emplace_back("screen.test.text1");
+	// vt.emplace_back("screen.test.text2");
+	// vt.emplace_back("screen.test.text3");
+	// vt.emplace_back("screen.test.text4");
+	// vt.emplace_back("screen.test.text5");
+	//
+	// auto* scrollList = new ScrollList(Rectangle(960, 540, 1000, 500), 2, vt,
+	//                                   32, textAlign::CENTER, WHITE, 0, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png");
+	// addElement(scrollList);
+	//
+	// addElement(new TextArg("screen.test.button2", { {"aa", &scrollList->getCurrentIndex()}}, Vector2(960, 324)));
 }
 
 void MainScreen::test()
 {
 	playerDistance++;
+}
+
+void MainScreen::openSetting()
+{
+	ScreenManager::instance().addScreen(screenTypes::SETTING);
 }

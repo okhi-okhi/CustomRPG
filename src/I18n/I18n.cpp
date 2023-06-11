@@ -4,12 +4,12 @@
 
 void I18n::loadSystemI18n(const string& currentLanguage, const string& defaultLanguage)
 {
-	systemI18n.init(PathProvider::instance().getFromSystem(resourcesFolder::LANGS) , currentLanguage, defaultLanguage);
+	systemI18n.init(PathProvider::instance().getResourcesPath() , currentLanguage, defaultLanguage);
 }
 
 void I18n::loadGameI18n(const string& currentLanguage, const string& defaultLanguage)
 {
-	gameI18n.init(PathProvider::instance().getFromGame(resourcesFolder::LANGS), currentLanguage, defaultLanguage);
+	gameI18n.init(PathProvider::instance().getGamesPath(), currentLanguage, defaultLanguage);
 }
 
 string I18n::get(const string& key) const

@@ -3,8 +3,18 @@
     "font": "pixantiqua.ttf",
     "charWidthFix": "1",
     "screen":{
-        "test":{
-            "button1": "中文"
+        "main":{
+            "button1": "Start game",
+            "button2": "Setting",
+            "button3": "Quit game"
+        },
+        "setting":{
+            "button1": "Select language",
+            "button2": "return"
+        },
+        "language":{
+            "language": "%language%",
+            "button1": "done"
         }
     },
     "menu":{

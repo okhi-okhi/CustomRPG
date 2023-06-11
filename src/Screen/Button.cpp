@@ -17,6 +17,7 @@ Button::Button(const Vector2 position, const Picture& texture,
 	this->texture.setPosition(this->position);
 	this->function = function;
 	this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, clickSound).c_str());
+	this->lockState = false;
 
 	this->hitbox = this->texture.getHitbox();
 	this->originPos = this->texture.getOriginPos();
@@ -24,8 +25,11 @@ Button::Button(const Vector2 position, const Picture& texture,
 
 void Button::draw()
 {
-	update();
 	this->texture.draw();
+	if (!this->lockState)
+	{
+		update();
+	}
 }
 
 void Button::updatePosition()

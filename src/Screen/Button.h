@@ -17,9 +17,10 @@ protected:
 	Picture texture;
 	Sound clickSound;
 	std::function<void()> function;
+	bool lockState;
 
 public:
-	Button() : clickSound() {}
+	Button() : clickSound(), lockState(false) {}
 	Button(Vector2 position, const Picture& texture,
 		const std::function<void()>& function,
 		const std::string& clickSound = "button_click.wav");
@@ -30,6 +31,7 @@ public:
 	virtual void update();
 
 	void setState(buttonState buttonState) { this->texture.setCurrentFrame(static_cast<int>(buttonState)); }
+	void setLockState(const bool lockState) { this->lockState = lockState; }
 	void setFunction(const std::function<void()>& function) { this->function = function; }
 
 	const Picture& getTexture() const { return this->texture; }

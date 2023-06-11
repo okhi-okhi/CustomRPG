@@ -181,6 +181,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Screen\Screens\LanguageScreen.h" />
     <ClInclude Include="Screen\ClickableGroup.h" />
     <ClInclude Include="Screen\ButtonHold.h" />
     <ClInclude Include="Screen\Clickable.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Screen\TextArg.h" />
     <ClInclude Include="Screen\ScrollList.h" />
     <ClInclude Include="Screen\Slider.h" />
+    <ClInclude Include="Screen\Screens\SettingScreen.h" />
     <ClInclude Include="Utils\RaylibUtils.h" />
     <ClInclude Include="Screen\Button.h" />
     <ClInclude Include="Entity\Ally.h" />
@@ -238,6 +240,7 @@
     <ClInclude Include="Utils\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Screen\Screens\LanguageScreen.cpp" />
     <ClCompile Include="Screen\ClickableGroup.cpp" />
     <ClCompile Include="Screen\ButtonHold.cpp" />
     <ClCompile Include="Screen\Clickable.cpp" />
@@ -253,6 +256,7 @@
     <ClCompile Include="Screen\TextArg.cpp" />
     <ClCompile Include="Screen\ScrollList.cpp" />
     <ClCompile Include="Screen\Slider.cpp" />
+    <ClCompile Include="Screen\Screens\SettingScreen.cpp" />
     <ClCompile Include="Utils\RaylibUtils.cpp" />
     <ClCompile Include="Screen\Button.cpp" />
     <ClCompile Include="Entity\Ally.cpp" />

@@ -7,5 +7,6 @@ public:
 	MainScreen();
 
 	static void test();
+	static void openSetting();
 };
 

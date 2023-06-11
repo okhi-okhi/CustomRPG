@@ -4,16 +4,18 @@
 #include <iostream>
 #include <json.hpp>
 #include "../System/PathProvider.h"
+#include "../Utils/RaylibUtils.h"
 
-void I18nProvider::init(const string& langsFolder, const string& currentLanguage, const string& defaultLanguage)
+void I18nProvider::init(const string& resourceFolder, const string& currentLanguage, const string& defaultLanguage)
 {
 	namespace fs = std::filesystem;
 
-	this->langsFolder = langsFolder;
+	this->langsFolder = resourceFolder + PathProvider::instance().getFolder(resourcesFolder::LANGS);
+	this->fontsFolder = resourceFolder + PathProvider::instance().getFolder(resourcesFolder::FONTS);
 	for (const auto& langFile : fs::directory_iterator(this->langsFolder))
 	{
 		string id = langFile.path().stem().string();
-		this->languages.emplace_back(id, getLanguageName(id));
+		this->languages.emplace_back(getLanguageInfo(id));
 	}
 	if (!loadLanguage(currentLanguage)) {
 		std::cout << "Can't load language: " << currentLanguage << std::endl;
@@ -23,7 +25,7 @@ void I18nProvider::init(const string& langsFolder, const string& currentLanguage
 	loadDefaultLanguage(defaultLanguage);
 }
 
-string I18nProvider::getLanguageName(const string& fileName) const
+LanguageInfo I18nProvider::getLanguageInfo(const string& fileName) const
 {
 	using json = nlohmann::json;
 
@@ -36,13 +38,15 @@ string I18nProvider::getLanguageName(const string& fileName) const
 	}
 	json j = json::parse(inFile);
 	try {
-		return j["name"];
+		return {fileName, j["name"],
+			RaylibUtils::getContainTextFont(
+				this->fontsFolder + j["font"].get<string>(), j["name"])};
 	}
 	catch (json::exception& e)
 	{
 		std::cout << "ERROR! Conversion failed while reading " << fileName << std::endl;
 		std::cout << e.what() << std::endl;
-		return "Invalid";
+		return { "Invalid", "Invalid", raylib::Font()};
 	}
 }
 
@@ -59,7 +63,8 @@ bool I18nProvider::loadLanguage(const string& fileName)
 	}
 	json j = json::parse(inFile);
 	try {
-		this->currentLanguage.info = LanguageInfo(fileName, j["name"]);
+		this->currentLanguage.info = LanguageInfo(fileName, j["name"],
+			RaylibUtils::getContainTextFont(this->fontsFolder + j["font"].get<string>(), j["name"]));
 
 		j = j.flatten();
 		json j2;
@@ -85,8 +90,6 @@ bool I18nProvider::loadLanguage(const string& fileName)
 	{
 		str.append(value);
 	}
-	// this->currentLanguage.font = RaylibUtils::getContainTextFont(
-	// 	this->langsFolder + PathProvider::instance().getFontsPath(), str);
 
 	return true;
 }
@@ -103,7 +106,8 @@ void I18nProvider::loadDefaultLanguage(const string& fileName)
 	}
 	try {
 		json j = json::parse(inFile);
-		this->defaultLanguage.info = LanguageInfo(fileName, j["name"]);
+		this->defaultLanguage.info = LanguageInfo(fileName, j["name"],
+			RaylibUtils::getContainTextFont(this->fontsFolder + j["font"].get<string>(), j["name"]));
 		j = j.flatten();
 		for (const auto& item : j.items())
 		{
