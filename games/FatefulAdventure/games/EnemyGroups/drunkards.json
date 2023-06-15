@@ -1,0 +1,10 @@
+{
+    "spawnNum": 3,
+    "randomEnemies":{
+        "drunkard": 0.8,
+        "angry_drunkard": 0.2
+    },
+    "certainEnemies":{
+        "drunkard": 1
+    }
+}

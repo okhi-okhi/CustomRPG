@@ -12,7 +12,7 @@ private:
 	static float readValue(const json& j);
 
 public:
-	EnemyGroup();
+	EnemyGroup() : spawnNum(0) {}
 	explicit EnemyGroup(const std::string& fileName);
 
 	void debugPrint() const;

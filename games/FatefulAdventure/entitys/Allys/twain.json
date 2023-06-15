@@ -1,0 +1,14 @@
+{
+    "name": null,
+    "level": 1,
+    "race": "human",
+    "occupation": "magician",
+    "modifyValue":{
+        "hpMax": -5,
+        "manaMax": 10,
+        "talents":{
+            "vitality": -3,
+            "intelligence": 5
+        }
+    }
+}

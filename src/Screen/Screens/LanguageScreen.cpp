@@ -46,7 +46,7 @@ void LanguageScreen::changeLanguage(const int* index)
 			std::ifstream inFile(PathProvider::instance().getConfigPath());
 			json j = json::parse(inFile);
 			nlohmann::ordered_json j2;
-			j2["system"]["currentLanguage"] = selectLanguage;
+			j2["currentLanguage"] = selectLanguage;
 			j.update(j2, true);
 			inFile.close();
 			std::ofstream outFile(PathProvider::instance().getConfigPath());

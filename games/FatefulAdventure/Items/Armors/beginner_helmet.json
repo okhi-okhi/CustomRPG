@@ -1,0 +1,34 @@
+{
+    "name": null,
+    "buyPrice": 100,
+    "sellPrice": 10,
+    "rarity": {"1": 0.2, "2": 0.1, "5": 0.5},
+    "weaponType": "normal_helmet",
+    "level": {"min": 1, "max": 50},
+    "atk": {"expect": 5, "floatingRange": 10}, 
+    "defense": {"min": 1, "max": 100},
+    "durability": -1,
+    "durabilityMax": {"1": "level*10+5", "2": "level*10+15", "5": "level*100+150"},
+    "canUpgrade": true,
+    "upgrade":{
+        "maxUpgradeTime": 5,
+        "default":{
+            "cost":{
+                "gold": "10*level",
+                "evil_eye": "0.5*level"
+            },
+            "gain":{
+                "atk": 10
+            }
+        },
+        "3":{
+            "cost":{
+                "gold": "30*level",
+                "overwrite": true
+            },
+            "gain":{
+                "defense": 20
+            }
+        }
+    }
+}

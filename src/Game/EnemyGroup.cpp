@@ -4,11 +4,6 @@
 #include "../Utils/JsonUtils.h"
 #include "../Utils/Utilities.h"
 
-EnemyGroup::EnemyGroup() {
-	spawnNum = 0;
-	randomEnemies = ChanceTable();
-}
-
 EnemyGroup::EnemyGroup(const std::string& fileName)
 {
 	json j = Utils::readJsonFile("Games/EnemyGroups/" + fileName);

@@ -28,7 +28,7 @@ public:
 	explicit Text(const std::string& i18nKey, float fontSize,
 		textAlign align, raylib::Color color, float spacing);
 	explicit Text(const std::string& i18nKey, raylib::Vector2 pos, float fontSize,
-	              textAlign align, raylib::Color color, float spacing);
+		textAlign align, raylib::Color color, float spacing);
 	explicit Text(const std::string& text, float fontSize,
 		textAlign align, raylib::Color color, float spacing, const raylib::Font* font);
 	explicit Text(const std::string& text, raylib::Vector2 pos, float fontSize,

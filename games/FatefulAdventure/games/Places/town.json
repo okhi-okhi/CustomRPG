@@ -1,0 +1,38 @@
+{
+    "name": "town",
+    "minDistance": 0,
+    "description": "a place full of characters",
+    "opening": "You walked into a noisy tavern, full of chatter, laughter and alcohol",
+    "neighbours":{
+        "bar": 0.1,
+        "inn": -1
+    },
+    "events":{
+        "enemy": 0,
+        "shop": 0,
+        "script": 1
+    },
+    "enemyGroups":[
+        {
+            "chance": 0.5,
+            "number": 2,
+            "enemy":{
+                "drunkard": 0.8,
+                "angry_drunkard": 0.2
+            }
+        },
+        {
+            "chance": 0.5,
+            "number": 3,
+            "enemy":{
+                "goblin_axe": 0.8,
+                "goblin_bow": 0.2
+            }
+        }
+    ],
+    "scripts":{
+        "bar_fight": 0.3,
+        "bar_chat": 0.7
+    }
+}
+

@@ -1,0 +1,12 @@
+{
+    "name": null,
+    "description": null,
+    "comboRate": 0.1,
+    "isTwoHand": false,
+    "recipe":{
+        
+    },
+    "passives":{
+        "big_slash": 1
+    }
+}

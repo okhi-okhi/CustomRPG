@@ -16,13 +16,13 @@ private:
 	FontsWrapper gameFont;
 	raylib::Font defaultFont;
 
-	static void loadFont(const Language& lang, const std::string& rootPath, raylib::Font& result);
+	static void loadFont(const Language& lang, const string& rootPath, raylib::Font& result);
 
 public:
 	explicit FontProvider(token) { defaultFont = GetFontDefault(); }
 	void loadSystemFont();
 	void loadGameFont();
 
-	const raylib::Font& get(const std::string& key) const;
+	const raylib::Font& get(const string& key) const;
 };
 

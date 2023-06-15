@@ -19,7 +19,7 @@ private:
 	virtual std::string readString(const json& j, const std::string& key) const override;
 
 public:
-	Armor() : Item(), level(0), atk(0), defense(0), durability(0),
+	Armor() : level(0), atk(0), defense(0), durability(0),
 		durabilityMax(0), isEquipped(false) { this->itemType = itemTypes::ARMOR; }
 	Armor(const std::string& id, const std::string& name, const int& buyPrice,
 	      const int& sellPrice, const enum rarity& rarity, const std::string& armorType,

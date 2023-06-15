@@ -1,0 +1,32 @@
+{
+    "scnario": "bar fighting",
+    "options":[
+        { 
+            "text": "Drive him away, tell him to go",
+            "resultText": "The old man drew out his cane and magically snatched your wallet as punishment.",
+            "rewards":{
+                "exp": -10,
+                "gold": -10,
+                "statPoint": 0
+            }
+        },
+        { 
+            "text": "Give him some food",
+            "resultText": "The old man gratefully accepted the food and shared his experience with you.",
+            "rewards":{
+                "exp": 10,
+                "gold": -5,
+                "statPoint": 0
+            }
+        },
+        { 
+            "text": "Ask him about the history of the neighborhood",
+            "resultText": "The old man talks about her experiences and the history of the place, but it doesn't take long before you realize she's talking nonsense.",
+            "rewards":{
+                "exp": -5,
+                "gold": 0,
+                "statPoint": 0
+            }
+        }
+    ]
+}

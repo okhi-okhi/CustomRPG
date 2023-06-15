@@ -1,0 +1,10 @@
+{
+    "spawnNum": 3,
+    "randomEnemies":{
+        "goblin_axe": 0.8,
+        "goblin_bow": 0.2
+    },
+    "certainEnemies":{
+        "goblin_axe": 3
+    }
+}

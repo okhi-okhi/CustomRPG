@@ -1,7 +1,6 @@
 {
     "name": "繁體中文 (台灣)",
     "font": "NotoSansTC-Medium.otf",
-    "charWidthFix": "2",
     "screen":{
         "main":{
             "button1": "開始遊戲",
@@ -18,7 +17,7 @@
         },
         "test":{
             "text1": "我是選項1",
-            "text2": "我是選項2",
+            "text2": "玩家距離: %distance%",
             "text3": "我是選項3",
             "text4": "我是選項4",
             "text5": "english777"
@@ -296,7 +295,7 @@
     "dynamic": {
         "ally": {
             "twain": {
-                "name": "土淵"
+                "name": "土溫"
             }
         },
         "race": {

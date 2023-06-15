@@ -1,0 +1,35 @@
+{
+    "name": null,
+    "minDistance": 1,
+    "description": null,
+    "opening": null,
+    "neighbours": {
+        "town": 0.6,
+        "inn": 0.3,
+        "grass_road": 0.1
+    },
+    "events": {
+        "enemy": "distance * 0.1",
+        "shop": 0,
+        "script": 0.9
+    },
+    "enemyGroups": {
+        "drunkards": 0.5,
+        "goblins": 0.5
+    },
+    "scripts": {
+        "bar_fight": 0.3,
+        "bar_chat": 0.7
+    },
+    "modifyGroups": [
+        {
+            "fameCondition": 10,
+            "distanceCondition": 5,
+            "neighbours": {
+                "town": 1,
+                "inn": 0,
+                "grass_road": 0
+            }
+        }
+    ]
+}

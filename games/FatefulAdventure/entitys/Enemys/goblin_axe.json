@@ -1,0 +1,33 @@
+{
+    "name": null,
+    "level": {"min": 1, "max": 20},
+    "hpMax": "20+level*0.5",
+    "manaMax": "10+level*0.5",
+    "atk": "10+level*0.3",
+    "defense": 5,
+    "dropExp": "20+level*4",
+    "dropGold": "5+level",
+    "talent": {
+        "strength": "level",
+        "stamina": "level*1.5",
+        "dexterity": "level*0.5",
+        "intelligence": 1
+    },
+    "attackTypes":{
+        "normal": 0.9,
+        "skill": 0.1
+    },
+    "skills":{
+        "roar": 1
+    },
+    "dropItems":{
+        "weapon":{
+            "broken_axe": 0.05
+        },
+        "armor":{
+            "broken_head": 0.01,
+            "broken_boots": 0.02
+        }
+    }
+}
+

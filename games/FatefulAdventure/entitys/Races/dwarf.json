@@ -1,0 +1,16 @@
+{
+    "name": "dwarf",
+    "description": "A race that excels at using intelligence against enemies rather than brute force.",
+    "hpMax": {"base": 20, "scale": 5},
+    "manaMax": {"base": 30, "scale": 3},
+    "luck": {"base": 1, "scale": 0.5},
+    "talents": {
+        "strength": 1,
+        "stamina": 5,
+        "dexterity": 1,
+        "intelligence": 1
+    },
+    "passive":{
+        "inspiration": 2
+    }
+}

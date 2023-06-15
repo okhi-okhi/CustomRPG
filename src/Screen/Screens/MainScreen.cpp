@@ -36,6 +36,14 @@ MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 	// addElement(new TextArg("screen.test.button2", { {"aa", &scrollList->getCurrentIndex()}}, Vector2(960, 324)));
 }
 
+// MainScreen::~MainScreen()
+// {
+// 	for (auto& element : this->elements)
+// 	{
+// 		delete element;
+// 	}
+// }
+
 void MainScreen::test()
 {
 	playerDistance++;

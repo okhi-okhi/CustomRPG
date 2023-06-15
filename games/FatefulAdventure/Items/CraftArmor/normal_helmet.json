@@ -1,0 +1,11 @@
+{
+    "name": null,
+    "description": null,
+    "armorPosition": 1,
+    "recipe":{
+        
+    },
+    "passives":{
+        "protect": 1
+    }
+}

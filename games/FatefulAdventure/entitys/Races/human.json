@@ -1,0 +1,16 @@
+{
+    "name": null,
+    "description": null,
+    "hpMaxBase":  20,
+    "manaMaxBase": 30,
+    "luckBase": 2,
+    "talents": {
+        "strength": 1,
+        "vitality": 1,
+        "dexterity": 2,
+        "intelligence": 3
+    },
+    "passive":{
+        "inspiration": 2
+    }
+}
