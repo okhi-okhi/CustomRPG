@@ -8,11 +8,19 @@ class ButtonText final : public ElementGroup
 private:
 	shared_ptr<Button> button;
 	shared_ptr<Text> text;
+
 public:
 	ButtonText() = default;
 	ButtonText(Vector2 position, const Button& button, const Text& text);
+	ButtonText(const ButtonText& other) = default;
+	ButtonText(ButtonText&& other) noexcept : ButtonText() { swap(*this, other); }
+	~ButtonText() override = default;
+
+	ButtonText& operator=(ButtonText other);
+	friend void swap(ButtonText& first, ButtonText& second) noexcept;
 
 	void draw() override;
+	void updatePosition() override;
 	void updateChildren() override;
 
 	void setText(const Text& _text);

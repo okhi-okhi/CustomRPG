@@ -1,4 +1,5 @@
 #include "Picture.h"
+#include "ScreenManager.h"
 #include "../System/Exceptions.hpp"
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
@@ -80,6 +81,7 @@ void Picture::updatePosition()
 	this->hitbox.emplace_back(
 		Rectangle(originPos.x, originPos.y,
 			static_cast<float>(spriteTexture.width), this->getHeight()));
+	ScreenManager::instance().updateHitbox();
 }
 
 void Picture::setCurrentFrame(const int frame)

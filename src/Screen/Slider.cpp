@@ -40,7 +40,7 @@ Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string
 		this->displayValueSpacing = (this->bounds.height - this->bar->getHitbox()[0].height) / static_cast<float>(this->maxValue - this->minValue);
 		this->valueSpacing = this->bounds.height / static_cast<float>(this->maxValue - this->minValue + 1);
 	}
-	updateChildren();
+
 	this->children.push_back(this->background);
 	this->children.push_back(this->bar);
 }
@@ -69,6 +69,8 @@ Slider& Slider::operator=(Slider other)
 void Slider::updateChildren()
 {
 	ElementGroup::updateChildren();
+	this->children.push_back(this->background);
+	this->children.push_back(this->bar);
 	this->bar->setFunction([this] { barDrag(); });
 	this->background->setFunction([this] { backgroundClick(); });
 }
@@ -103,6 +105,20 @@ void Slider::draw()
 			this->bar->setPositionY(this->bounds.y + this->bar->getHitbox()[0].height / 2 +
 				(*this->value - this->minValue) * this->displayValueSpacing);
 		}
+	}
+}
+
+void Slider::updatePosition()
+{
+	this->background->setPosition(this->position);
+	this->bounds = this->background->getHitbox()[0];
+	if(this->horizontal)
+	{
+		this->bar->setPositionY(this->bounds.y);
+	}
+	else
+	{
+		this->bar->setPositionX(this->bounds.x);
 	}
 }
 
@@ -162,8 +178,11 @@ void Slider::backgroundClick() const
 void swap(Slider& first, Slider& second) noexcept
 {
 	using std::swap;
+	swap(static_cast<ElementGroup&>(first), static_cast<ElementGroup&>(second));
 
 	swap(first.bounds, second.bounds);
+	swap(first.bar, second.bar);
+	swap(first.background, second.background);
 	swap(first.value, second.value);
 	swap(first.minValue, second.minValue);
 	swap(first.maxValue, second.maxValue);

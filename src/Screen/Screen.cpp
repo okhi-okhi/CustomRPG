@@ -11,24 +11,27 @@ Screen::Screen(const screenTypes screenType, const std::string& i18nKey)
 	this->i18nKey = "screen." + i18nKey;
 }
 
-void Screen::addElement(Element* element)
+void Screen::addElement(const shared_ptr<Element>& element)
 {
 	this->elements.push_back(element);
 }
 
-void Screen::addElement(Clickable* clickable)
+void Screen::addButton(const shared_ptr<Button>& button)
 {
-	this->elements.push_back(clickable);
-	this->clickableElements.emplace_back(static_cast<int>(this->elements.size()) - 1, clickable);
+	this->elements.push_back(button);
+	this->buttons.emplace_back(static_cast<int>(this->elements.size()) - 1, button);
 }
 
-void Screen::addElement(ClickableGroup* clickableGroup)
+void Screen::addElementGroup(const shared_ptr<ElementGroup>& elementGroup)
 {
-	this->elements.push_back(clickableGroup);
-	for(const auto& clickable : clickableGroup->getClickables())
+	this->elements.push_back(elementGroup);
+	for(const auto& child : elementGroup->getChildren())
 	{
-		this->elements.push_back(clickable);
-		this->clickableElements.emplace_back(static_cast<int>(this->elements.size()) - 1, clickable);
+		this->elements.push_back(child);
+		if (child->getElementType() == elementTypes::BUTTON)
+		{
+			this->buttons.emplace_back(static_cast<int>(this->elements.size()) - 1, dynamic_pointer_cast<Button>(child));
+		}
 	}
 }
 

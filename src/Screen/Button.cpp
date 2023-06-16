@@ -42,7 +42,7 @@ void Button::updatePosition()
 	this->texture.setPosition(this->position);
 	this->originPos = this->texture.getOriginPos();
 	this->hitbox = this->texture.getHitbox();
-	Element::updatePosition();
+	ScreenManager::instance().updateHitbox();
 }
 
 void Button::update()

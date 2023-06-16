@@ -9,9 +9,9 @@ void ScreenManager::init()
 {
 	zoomPercent = static_cast<float>(RaylibUtils::getWindowWidth()) / 1920.0f;
 
-	this->allScreens.push_back(new MainScreen());
-	this->allScreens.push_back(new SettingScreen());
-	this->allScreens.push_back(new LanguageScreen());
+	this->allScreens.push_back(make_shared<MainScreen>());
+	this->allScreens.push_back(make_shared<SettingScreen>());
+	this->allScreens.push_back(make_shared<LanguageScreen>());
 	updateHitbox();
 }
 
@@ -63,9 +63,9 @@ void ScreenManager::updateHitbox() const
 {
 	for(int i=0; i < this->currentScreens.size(); i++)
 	{
-		for(int j=0; j < this->currentScreens[i]->getClickableElements().size(); j++)
+		for(int j=0; j < this->currentScreens[i]->getButtons().size(); j++)
 		{
-			const auto [index, btn] = this->currentScreens[i]->getClickableElements()[j];
+			const auto [index, btn] = this->currentScreens[i]->getButtons()[j];
 			btn->clearReserveRec();
 			for(int k = index+1; k < this->currentScreens[i]->getElements().size(); k++)
 			{

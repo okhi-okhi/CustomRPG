@@ -4,11 +4,11 @@
 
 SettingScreen::SettingScreen() : Screen(screenTypes::SETTING, "setting")
 {
-	addElement(new Picture("screens/setting/background.png", Vector2(960, 540), 1, 540));
+	addElement(make_shared<Picture>("screens/setting/background.png", Vector2(960, 540), 1, 540));
 
 	const Picture buttonBg("screens/button_1.png", 2, 384);
-	addElement(new ButtonText(Vector2(960, 540), buttonBg, Text("screen.setting.button1", 48, textAlign::CENTER, WHITE, 0.0f), openLanguage));
-	addElement(new ButtonText(Vector2(960, 720), buttonBg, Text("screen.setting.button2", 48, textAlign::CENTER, WHITE, 0.0f), closeSetting));
+	addElementGroup(make_shared<ButtonText>(Vector2(960, 540), Button(buttonBg, openLanguage), Text("screen.setting.button1", 48, textAlign::CENTER, WHITE, 0.0f)));
+	addElementGroup(make_shared<ButtonText>(Vector2(960, 720), Button(buttonBg, closeSetting), Text("screen.setting.button2", 48, textAlign::CENTER, WHITE, 0.0f)));
 }
 
 void SettingScreen::openLanguage()

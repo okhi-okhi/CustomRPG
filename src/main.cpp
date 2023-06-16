@@ -8,6 +8,7 @@ int playerDistance = 0;
 int playerFame = 0;
 menuStatus menuStatu = menuStatus::SYSTEM;
 float zoomPercent = 1.0f;
+bool running = true;
 
 void windowSetup(raylib::Window& window)
 {
@@ -31,7 +32,7 @@ int main()
 	System::instance().init();
 	ScreenManager::instance().addScreen(screenTypes::MAIN);
 
-	while (!window.ShouldClose())
+	while (!window.ShouldClose() && running)
 	{
         window.BeginDrawing();
         {

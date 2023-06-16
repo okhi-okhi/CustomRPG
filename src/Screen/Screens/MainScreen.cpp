@@ -1,26 +1,21 @@
 #include "MainScreen.h"
 #include <iostream>
 #include "../FullPicture.h"
-#include "../ButtonArg.h"
 #include "../ButtonText.h"
-#include "../ButtonHold.h"
 #include "../TextArg.h"
 #include "../ScrollList.h"
-#include "../Slider.h"
 #include "../ScreenManager.h"
-#include "../../System/PathProvider.h"
 #include "../../System/GlobalVariable.h"
-#include "../../I18n/FontProvider.h"
 
 MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 {
-	addElement(new FullPicture("screens/main/background.png", 1));
-	addElement(new Picture("screens/main/title.png", Vector2(960, 108), 1, 960));
+	addElement(make_shared<FullPicture>("screens/main/background.png", 1));
+	addElement(make_shared<Picture>("screens/main/title.png", Vector2(960, 108), 1, 960));
 
 	const Picture buttonBg("screens/button_1.png", 2, 384);
-	addElement(new ButtonText(Vector2(960, 324), buttonBg, Text("screen.main.button1", 48, textAlign::CENTER, WHITE, 0.0f), test));
-	addElement(new ButtonText(Vector2(960, 540), buttonBg, Text("screen.main.button2", 48, textAlign::CENTER, WHITE, 0.0f), openSetting));
-	addElement(new ButtonText(Vector2(960, 756), buttonBg, Text("screen.main.button3", 48, textAlign::CENTER, WHITE, 0.0f), CloseWindow));
+	addElementGroup(make_shared<ButtonText>(Vector2(960, 324), Button(buttonBg, test), Text("screen.main.button1", 48, textAlign::CENTER, WHITE, 0.0f)));
+	addElementGroup(make_shared<ButtonText>(Vector2(960, 540), Button(buttonBg, openSetting), Text("screen.main.button2", 48, textAlign::CENTER, WHITE, 0.0f)));
+	addElementGroup(make_shared<ButtonText>(Vector2(960, 756), Button(buttonBg, closeWindow), Text("screen.main.button3", 48, textAlign::CENTER, WHITE, 0.0f)));
 	
 	// std::vector<std::string> vt;
 	// vt.emplace_back("screen.test.text1");
@@ -36,14 +31,6 @@ MainScreen::MainScreen() : Screen(screenTypes::MAIN, "main")
 	// addElement(new TextArg("screen.test.button2", { {"aa", &scrollList->getCurrentIndex()}}, Vector2(960, 324)));
 }
 
-// MainScreen::~MainScreen()
-// {
-// 	for (auto& element : this->elements)
-// 	{
-// 		delete element;
-// 	}
-// }
-
 void MainScreen::test()
 {
 	playerDistance++;
@@ -52,4 +39,9 @@ void MainScreen::test()
 void MainScreen::openSetting()
 {
 	ScreenManager::instance().addScreen(screenTypes::SETTING);
+}
+
+void MainScreen::closeWindow()
+{
+	running = false;
 }

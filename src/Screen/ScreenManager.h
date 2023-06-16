@@ -5,8 +5,8 @@
 class ScreenManager : public Singleton<ScreenManager>
 {
 private:
-	std::vector<Screen*> allScreens;
-	std::vector<Screen*> currentScreens;
+	std::vector<shared_ptr<Screen>> allScreens;
+	std::vector<shared_ptr<Screen>> currentScreens;
 
 public:
 	explicit ScreenManager(token) {}
@@ -21,6 +21,6 @@ public:
 
 	void updateHitbox() const;
 
-	const std::vector<Screen*>& getCurrentScreens() const { return this->currentScreens; }
+	const std::vector<shared_ptr<Screen>>& getCurrentScreens() const { return this->currentScreens; }
 };
 

@@ -46,19 +46,6 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 	this->currentIndex = currentIndex;
 	this->itemCapacity = itemsText.size() < itemCapacity ? static_cast<int>(itemsText.size()) : itemCapacity;
 
-	if(itemsText.size() > itemCapacity)
-	{
-		constexpr float scrollBarWidth = 32;
-
-		this->scrollable = true;
-		const int barHeight = static_cast<int>(bounds.height / static_cast<float>(itemsText.size()) * static_cast<float>(itemCapacity));
-		this->slider = std::make_shared<Slider>(Rectangle(bounds.x + bounds.width / 2 + scrollBarWidth / 2, bounds.y, scrollBarWidth, bounds.height),
-			sliderBar, sliderBackground, barHeight, &this->startIndex, 0, static_cast<int>(itemsText.size()) - itemCapacity, false);
-
-	} else {
-		this->scrollable = false;
-	}
-
 	for (int i = 0; i < itemsText.size(); i++)
 	{
 		this->itemsText.emplace_back(itemsText[i], Vector2(0, 0), fontSize,
@@ -74,6 +61,18 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 		                         Text(itemsText[i], fontSize, textAlign, textColor, textSpacing, itemsFont[i])));
 		buttonY += buttonHeight;
 	}
+
+	if(itemsText.size() > this->itemCapacity)
+	{
+		this->scrollable = true;
+		const int barHeight = static_cast<int>(bounds.height / static_cast<float>(itemsText.size()) * static_cast<float>(itemCapacity));
+		this->slider = std::make_shared<Slider>(Rectangle(bounds.x + bounds.width / 2 + scrollBarWidth / 2, bounds.y, scrollBarWidth, bounds.height),
+			sliderBar, sliderBackground, barHeight, &this->startIndex, 0, static_cast<int>(itemsText.size()) - itemCapacity, false);
+	}
+	else {
+		this->scrollable = false;
+	}
+
 	updateChildren();
 }
 
@@ -105,9 +104,12 @@ void ScrollList::updateChildren()
 		this->children.push_back(item);
 		index++;
 	}
-	for (auto& item : this->slider->getChildren())
+	if(this->scrollable)
 	{
-		this->children.push_back(item);
+		for (auto& item : this->slider->getChildren())
+		{
+			this->children.push_back(item);
+		}
 	}
 }
 
@@ -152,9 +154,16 @@ void ScrollList::draw()
 
 void ScrollList::updatePosition()
 {
-	for (auto& item : this->items)
+	if(this->scrollable)
 	{
-		item->updatePosition();
+		this->slider->setPosition(Vector2(this->bounds.x + this->bounds.width + scrollBarWidth / 2, this->position.y));
+	}
+	const int buttonHeight = this->items[0]->getButton()->getHitbox()[0].height;
+	float buttonY = this->bounds.y + static_cast<float>(buttonHeight) / 2;
+	for (int i = 0; i < this->itemCapacity; i++)
+	{
+		this->items[i]->setPosition(Vector2(this->position.x, buttonY));
+		buttonY += buttonHeight;
 	}
 }
 
@@ -166,7 +175,7 @@ void ScrollList::select(const int index)
 void swap(ScrollList& first, ScrollList& second) noexcept
 {
 	using std::swap;
-	//swap(static_cast<ElementGroup&>(first), static_cast<ElementGroup&>(second));
+	swap(static_cast<ElementGroup&>(first), static_cast<ElementGroup&>(second));
 
 	swap(first.bounds, second.bounds);
 	swap(first.itemCapacity, second.itemCapacity);

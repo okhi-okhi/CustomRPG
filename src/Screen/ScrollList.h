@@ -14,6 +14,8 @@ private:
 	std::vector<shared_ptr<ButtonText>> items;
 	shared_ptr<Slider> slider;
 
+	const float scrollBarWidth = 32;
+
 public:
 	ScrollList() : itemCapacity(0), scrollable(false), startIndex(0), currentIndex(-1){}
 	ScrollList(Rectangle bounds, int itemCapacity, int currentIndex,
@@ -34,10 +36,9 @@ public:
 	ScrollList& operator=(ScrollList other);
 	friend void swap(ScrollList& first, ScrollList& second) noexcept;
 
-	void updateChildren() override;
-
 	void draw() override;
 	void updatePosition() override;
+	void updateChildren() override;
 
 	void select(int index);
 

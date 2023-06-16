@@ -31,9 +31,9 @@ public:
 	Slider& operator=(Slider other);
 	friend void swap(Slider& first, Slider& second) noexcept;
 
-	void updateChildren() override;
-
 	void draw() override;
+	void updatePosition() override;
+	void updateChildren() override;
 
 	const raylib::Rectangle& getBounds() const { return this->bounds; }
 	const shared_ptr<ButtonHold>& getBar() const { return this->bar; }

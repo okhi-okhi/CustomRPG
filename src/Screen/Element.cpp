@@ -8,7 +8,11 @@ Element::Element(const elementTypes elementType, const raylib::Vector2 pos)
 	this->position = RaylibUtils::getRealLength(pos);
 }
 
-void Element::updatePosition()
+void swap(Element& first, Element& second) noexcept
 {
-	ScreenManager::instance().updateHitbox();
+	using std::swap;
+	swap(first.elementType, second.elementType);
+	swap(first.position, second.position);
+	swap(first.originPos, second.originPos);
+	swap(first.hitbox, second.hitbox);
 }

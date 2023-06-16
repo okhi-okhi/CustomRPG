@@ -10,8 +10,8 @@
 
 LanguageScreen::LanguageScreen() : Screen(screenTypes::LANGUAGE, "language")
 {
-	addElement(new Picture("screens/setting/background.png", Vector2(960, 540), 1, 540));
-
+	addElement(make_shared<Picture>("screens/setting/background.png", Vector2(960, 540), 1, 540));
+	
 	int idx = 0;
 	int currentLangIdx = 0;
 	std::vector<std::string> languages;
@@ -26,13 +26,15 @@ LanguageScreen::LanguageScreen() : Screen(screenTypes::LANGUAGE, "language")
 		}
 		idx++;
 	}
-	const auto languageList = new ScrollList(Rectangle(960, 540, 400, 600), 8, currentLangIdx, languages,
-	                                         32, textAlign::CENTER, WHITE, 0, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png");
-	addElement(languageList);
-
+	const auto languageList =
+		make_shared<ScrollList>(Rectangle(960, 540, 400, 600), 8, currentLangIdx, languages,
+			32.0f, textAlign::CENTER, WHITE, 0.0f, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png");
+	addElementGroup(languageList);
+	
 	const int* i = &languageList->getCurrentIndex();
-	addElement(new ButtonText(Vector2(960, 770), Picture("screens/button_1.png", 2, 384),
-		Text("screen.language.button1", 48, textAlign::CENTER, WHITE, 0.0f), [i] { changeLanguage(i); }));
+	addElementGroup(make_shared<ButtonText>(Vector2(960, 770),
+		Button(Picture("screens/button_1.png", 2, 384), [i] { changeLanguage(i); }),
+		Text("screen.language.button1", 48, textAlign::CENTER, WHITE, 0.0f)));
 }
 
 void LanguageScreen::changeLanguage(const int* index)

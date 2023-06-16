@@ -2,8 +2,6 @@
 #include <functional>
 #include <Sound.hpp>
 #include "Picture.h"
-#include "Text.h"
-#include "Clickable.h"
 
 enum class buttonState
 {

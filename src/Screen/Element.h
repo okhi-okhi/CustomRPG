@@ -27,10 +27,16 @@ protected:
 public:
 	Element() : elementType(elementTypes::PICTURE) {}
 	explicit Element(elementTypes elementType, raylib::Vector2 pos);
+	Element(const Element& other) = default;
+	Element(Element&& other) noexcept : Element() { swap(*this, other); }
 	virtual ~Element() = default;
 
+	Element& operator=(const Element& other) = default;
+	Element& operator=(Element&& other) = default;
+	friend void swap(Element& first, Element& second) noexcept;
+
 	virtual void draw() = 0;
-	virtual void updatePosition();
+	virtual void updatePosition() = 0;
 
 	void setPosition(const raylib::Vector2 pos) {
 		this->position = pos;
