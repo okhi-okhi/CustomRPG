@@ -2,7 +2,7 @@
 #include "ButtonText.h"
 #include "Slider.h"
 
-class ScrollList final : public ClickableGroup
+class ScrollList final : public ElementGroup
 {
 private:
 	raylib::Rectangle bounds;
@@ -11,8 +11,8 @@ private:
 	int startIndex;
 	int currentIndex;
 	std::vector<Text> itemsText;
-	std::vector<ButtonText> items;
-	Slider slider;
+	std::vector<shared_ptr<ButtonText>> items;
+	shared_ptr<Slider> slider;
 
 public:
 	ScrollList() : itemCapacity(0), scrollable(false), startIndex(0), currentIndex(-1){}
@@ -34,7 +34,7 @@ public:
 	ScrollList& operator=(ScrollList other);
 	friend void swap(ScrollList& first, ScrollList& second) noexcept;
 
-	void updateClickables() override;
+	void updateChildren() override;
 
 	void draw() override;
 	void updatePosition() override;
@@ -47,7 +47,7 @@ public:
 	const int& getStartIndex() const { return this->startIndex; }
 	const int& getCurrentIndex() const { return this->currentIndex; }
 	const std::vector<Text>& getItemsText() { return this->itemsText; }
-	const std::vector<ButtonText>& getItems() { return this->items; }
-	const Slider& getSlider() const { return this->slider; }
+	const std::vector<shared_ptr<ButtonText>>& getItems() { return this->items; }
+	const shared_ptr<Slider>& getSlider() const { return this->slider; }
 };
 

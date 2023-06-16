@@ -1,21 +1,23 @@
 #pragma once
 #include "Text.h"
 #include "Button.h"
+#include "ElementGroup.h"
 
-class ButtonText : public Button
+class ButtonText final : public ElementGroup
 {
 private:
-	Text text;
+	shared_ptr<Button> button;
+	shared_ptr<Text> text;
 public:
 	ButtonText() = default;
-	ButtonText(Vector2 position, const Picture& texture, const Text& text,
-		const std::function<void()>& function,
-		const std::string& clickSound = "button_click.wav");
+	ButtonText(Vector2 position, const Button& button, const Text& text);
 
 	void draw() override;
+	void updateChildren() override;
 
-	void setText(const Text& text);
+	void setText(const Text& _text);
 
-	const Text& getText() const { return this->text; }
+	const shared_ptr<Button>& getButton() const { return this->button; }
+	const shared_ptr<Text>& getText() const { return this->text; }
 };
 

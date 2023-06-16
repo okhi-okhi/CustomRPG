@@ -23,6 +23,11 @@ Button::Button(const Vector2 position, const Picture& texture,
 	this->originPos = this->texture.getOriginPos();
 }
 
+Button::Button(const Picture& texture, const std::function<void()>& function, const std::string& clickSound) :
+	Button(Vector2(0, 0), texture, function, clickSound)
+{
+}
+
 void Button::draw()
 {
 	this->texture.draw();
@@ -37,7 +42,7 @@ void Button::updatePosition()
 	this->texture.setPosition(this->position);
 	this->originPos = this->texture.getOriginPos();
 	this->hitbox = this->texture.getHitbox();
-	Clickable::updatePosition();
+	Element::updatePosition();
 }
 
 void Button::update()
@@ -66,25 +71,16 @@ void Button::update()
 	}
 }
 
-
-// Vector2 Button::getTextPos(const textAlign textAlign) const
-// {
-// 	Vector2 textPos(0.0f, 0.0f);
-// 	const float textY = this->texture.getPosition().y + this->getButtonHeight() / 2;
-// 	switch (textAlign)
-// 	{
-// 	case textAlign::LEFT:
-// 		textPos = Vector2(this->texture.getPosition().x, textY);
-// 		break;
-//
-// 	case textAlign::CENTER:
-// 		textPos = Vector2(this->texture.getPosition().x + static_cast<float>(this->texture.getSpriteTexture().width) / 2, textY);
-// 		break;
-//
-// 	case textAlign::RIGHT:
-// 		textPos = Vector2(this->texture.getPosition().x + this->texture.getSpriteTexture().width, textY);
-// 		break;
-// 	}
-//
-// 	return textPos;
-// }
+void Button::checkCollision(const std::vector<raylib::Rectangle>& recs)
+{
+	for (const auto& rec : recs)
+	{
+		for (const auto& hitbox : this->hitbox)
+		{
+			if (CheckCollisionRecs(rec, hitbox))
+			{
+					addReserveRec(rec);
+			}
+		}
+	}
+}

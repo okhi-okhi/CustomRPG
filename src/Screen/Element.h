@@ -30,7 +30,7 @@ public:
 	virtual ~Element() = default;
 
 	virtual void draw() = 0;
-	virtual void updatePosition() = 0;
+	virtual void updatePosition();
 
 	void setPosition(const raylib::Vector2 pos) {
 		this->position = pos;

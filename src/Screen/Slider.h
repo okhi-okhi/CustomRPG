@@ -1,13 +1,13 @@
 #pragma once
 #include "ButtonHold.h"
-#include "ClickableGroup.h"
+#include "ElementGroup.h"
 
-class Slider final : public ClickableGroup
+class Slider final : public ElementGroup
 {
 private:
 	raylib::Rectangle bounds;
-	ButtonHold bar;
-	Button background;
+	shared_ptr<ButtonHold> bar;
+	shared_ptr<Button> background;
 	int* value;
 	int minValue;
 	int maxValue;
@@ -31,11 +31,11 @@ public:
 	Slider& operator=(Slider other);
 	friend void swap(Slider& first, Slider& second) noexcept;
 
-	void updateClickables() override;
+	void updateChildren() override;
 
 	void draw() override;
 
 	const raylib::Rectangle& getBounds() const { return this->bounds; }
-	const ButtonHold& getBar() const { return this->bar; }
-	const Button& getBackground() const { return this->background; }
+	const shared_ptr<ButtonHold>& getBar() const { return this->bar; }
+	const shared_ptr<Button>& getBackground() const { return this->background; }
 };

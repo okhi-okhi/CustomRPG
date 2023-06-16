@@ -11,18 +11,21 @@ enum class buttonState
 	HOVER
 };
 
-class Button : public Clickable
+class Button : public Element
 {
 protected:
 	Picture texture;
 	Sound clickSound;
 	std::function<void()> function;
 	bool lockState;
+	std::vector<raylib::Rectangle> reserveRec;
 
 public:
 	Button() : clickSound(), lockState(false) {}
 	Button(Vector2 position, const Picture& texture,
 		const std::function<void()>& function,
+		const std::string& clickSound = "button_click.wav");
+	Button(const Picture& texture, const std::function<void()>& function,
 		const std::string& clickSound = "button_click.wav");
 
 	void draw() override;
@@ -30,12 +33,16 @@ public:
 
 	virtual void update();
 
+	void checkCollision(const std::vector<raylib::Rectangle>& recs);
 	void setState(buttonState buttonState) { this->texture.setCurrentFrame(static_cast<int>(buttonState)); }
-	void setLockState(const bool lockState) { this->lockState = lockState; }
-	void setFunction(const std::function<void()>& function) { this->function = function; }
+	void setLockState(const bool _lockState) { this->lockState = _lockState; }
+	void setFunction(const std::function<void()>& _function) { this->function = _function; }
+	void addReserveRec(const raylib::Rectangle hitbox) { this->reserveRec.push_back(hitbox); }
+	void clearReserveRec() { this->reserveRec.clear(); }
 
 	const Picture& getTexture() const { return this->texture; }
 	buttonState getButtonState() const { return static_cast<buttonState>(this->texture.getCurrentFrame()); }
 	float getButtonHeight() const { return this->texture.getHeight(); }
+	const std::vector<raylib::Rectangle>& getReserveRec() const { return this->reserveRec; }
 };
 

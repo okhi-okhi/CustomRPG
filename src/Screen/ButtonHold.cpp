@@ -4,15 +4,6 @@
 
 #include "../Utils/RaylibUtils.h"
 
-void ButtonHold::draw()
-{
-	this->texture.draw();
-	if (!this->lockState)
-	{
-		update();
-	}
-}
-
 void ButtonHold::update()
 {
 	using RaylibUtils::checkCollisionPointRecs;

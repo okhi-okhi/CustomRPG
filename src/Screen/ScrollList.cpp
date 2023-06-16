@@ -52,7 +52,7 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 
 		this->scrollable = true;
 		const int barHeight = static_cast<int>(bounds.height / static_cast<float>(itemsText.size()) * static_cast<float>(itemCapacity));
-		this->slider = Slider(Rectangle(bounds.x + bounds.width / 2 + scrollBarWidth / 2, bounds.y, scrollBarWidth, bounds.height),
+		this->slider = std::make_shared<Slider>(Rectangle(bounds.x + bounds.width / 2 + scrollBarWidth / 2, bounds.y, scrollBarWidth, bounds.height),
 			sliderBar, sliderBackground, barHeight, &this->startIndex, 0, static_cast<int>(itemsText.size()) - itemCapacity, false);
 
 	} else {
@@ -70,14 +70,14 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 	const Picture itemBg(itemTexture, 2, tileImageWidth, Vector2(bounds.width, buttonHeight));
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
-		this->items.emplace_back(Vector2(bounds.x, buttonY), itemBg,
-		                         Text(itemsText[i], fontSize, textAlign, textColor, textSpacing, itemsFont[i]), [this, i] { select(i); });
+		this->items.push_back(std::make_shared<ButtonText>(Vector2(bounds.x, buttonY), Button(itemBg, [this, i] { select(i); }),
+		                         Text(itemsText[i], fontSize, textAlign, textColor, textSpacing, itemsFont[i])));
 		buttonY += buttonHeight;
 	}
-	updateClickables();
+	updateChildren();
 }
 
-ScrollList::ScrollList(const ScrollList& other) : ClickableGroup(other),
+ScrollList::ScrollList(const ScrollList& other) : ElementGroup(other),
 	itemCapacity(other.itemCapacity),
 	scrollable(other.scrollable),
 	startIndex(other.startIndex),
@@ -86,7 +86,7 @@ ScrollList::ScrollList(const ScrollList& other) : ClickableGroup(other),
 	items(other.items),
 	slider(other.slider)
 {
-	updateClickables();
+	updateChildren();
 }
 
 ScrollList& ScrollList::operator=(ScrollList other)
@@ -95,19 +95,19 @@ ScrollList& ScrollList::operator=(ScrollList other)
 	return *this;
 }
 
-void ScrollList::updateClickables()
+void ScrollList::updateChildren()
 {
-	ClickableGroup::updateClickables();
+	ElementGroup::updateChildren();
 	int index = 0;
 	for (auto& item : this->items)
 	{
-		item.setFunction([this, index] { select(index); });
-		this->clickables.push_back(&item);
+		item->getButton()->setFunction([this, index] { select(index); });
+		this->children.push_back(item);
 		index++;
 	}
-	for (auto& item : this->slider.getClickables())
+	for (auto& item : this->slider->getChildren())
 	{
-		this->clickables.push_back(item);
+		this->children.push_back(item);
 	}
 }
 
@@ -137,16 +137,16 @@ void ScrollList::draw()
 	}
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
-		this->items[i].setText(this->itemsText[this->startIndex + i]);
+		this->items[i]->setText(this->itemsText[this->startIndex + i]);
 	}
 	if(this->scrollable)
 	{
-		this->slider.draw();
+		this->slider->draw();
 	}
 	const int index = this->currentIndex - this->startIndex;
 	if(index >= 0 && index < this->itemCapacity)
 	{
-		this->items[index].setState(buttonState::HOVER);
+		this->items[index]->getButton()->setState(buttonState::HOVER);
 	}
 }
 
@@ -154,7 +154,7 @@ void ScrollList::updatePosition()
 {
 	for (auto& item : this->items)
 	{
-		item.updatePosition();
+		item->updatePosition();
 	}
 }
 
@@ -166,7 +166,7 @@ void ScrollList::select(const int index)
 void swap(ScrollList& first, ScrollList& second) noexcept
 {
 	using std::swap;
-	swap(static_cast<ClickableGroup&>(first), static_cast<ClickableGroup&>(second));
+	//swap(static_cast<ElementGroup&>(first), static_cast<ElementGroup&>(second));
 
 	swap(first.bounds, second.bounds);
 	swap(first.itemCapacity, second.itemCapacity);
@@ -177,5 +177,5 @@ void swap(ScrollList& first, ScrollList& second) noexcept
 	swap(first.itemsText, second.itemsText);
 	swap(first.slider, second.slider);
 
-	first.updateClickables();
+	first.updateChildren();
 }

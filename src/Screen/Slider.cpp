@@ -11,12 +11,12 @@ Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string
 	constexpr int tileWidth = 32;
 	this->elementType = elementTypes::SLIDER;
 
-	this->background = Button(Vector2(bounds.x, bounds.y),
+	this->background = std::make_shared<Button>(Vector2(bounds.x, bounds.y),
 		Picture(background, 2, tileWidth, Vector2(bounds.width, bounds.height)),
 		[this] { backgroundClick(); });
 
-	this->position = this->background.getPosition();
-	this->bounds = this->background.getHitbox()[0];
+	this->position = this->background->getPosition();
+	this->bounds = this->background->getHitbox()[0];
 
 	this->minValue = minValue;
 	this->maxValue = maxValue;
@@ -26,24 +26,26 @@ Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string
 
 	if (this->horizontal)
 	{
-		this->bar = ButtonHold(Vector2(this->bounds.x + static_cast<float>(barLength) / 2, bounds.y),
+		this->bar = std::make_shared<ButtonHold>(Vector2(this->bounds.x + static_cast<float>(barLength) / 2, bounds.y),
 			Picture(bar, 2, tileWidth, Vector2(barLength, bounds.height)), [this] { barDrag(); });
 
-		this->displayValueSpacing = (this->bounds.width - this->bar.getHitbox()[0].width) / static_cast<float>(this->maxValue - this->minValue);
+		this->displayValueSpacing = (this->bounds.width - this->bar->getHitbox()[0].width) / static_cast<float>(this->maxValue - this->minValue);
 		this->valueSpacing = this->bounds.width / static_cast<float>(this->maxValue - this->minValue + 1);
 	}
 	else
 	{
-		this->bar = ButtonHold(Vector2(bounds.x, this->bounds.y + static_cast<float>(barLength)/2),
+		this->bar = std::make_shared<ButtonHold>(Vector2(bounds.x, this->bounds.y + static_cast<float>(barLength)/2),
 			Picture(bar, 2, tileWidth, Vector2(bounds.width,barLength)), [this] { barDrag(); });
 
-		this->displayValueSpacing = (this->bounds.height - this->bar.getHitbox()[0].height) / static_cast<float>(this->maxValue - this->minValue);
+		this->displayValueSpacing = (this->bounds.height - this->bar->getHitbox()[0].height) / static_cast<float>(this->maxValue - this->minValue);
 		this->valueSpacing = this->bounds.height / static_cast<float>(this->maxValue - this->minValue + 1);
 	}
-	updateClickables();
+	updateChildren();
+	this->children.push_back(this->background);
+	this->children.push_back(this->bar);
 }
 
-Slider::Slider(const Slider& other) : ClickableGroup(other),
+Slider::Slider(const Slider& other) : ElementGroup(other),
 	bounds(other.bounds),
 	bar(other.bar),
 	background(other.background),
@@ -55,7 +57,7 @@ Slider::Slider(const Slider& other) : ClickableGroup(other),
 	displayValueSpacing(other.displayValueSpacing),
 	valueSpacing(other.valueSpacing)
 {
-	updateClickables();
+	updateChildren();
 }
 
 Slider& Slider::operator=(Slider other)
@@ -64,13 +66,11 @@ Slider& Slider::operator=(Slider other)
 	return *this;
 }
 
-void Slider::updateClickables()
+void Slider::updateChildren()
 {
-	ClickableGroup::updateClickables();
-	this->clickables.push_back(&this->background);
-	this->clickables.push_back(&this->bar);
-	this->bar.setFunction([this] { barDrag(); });
-	this->background.setFunction([this] { backgroundClick(); });
+	ElementGroup::updateChildren();
+	this->bar->setFunction([this] { barDrag(); });
+	this->background->setFunction([this] { backgroundClick(); });
 }
 
 void Slider::draw()
@@ -84,15 +84,15 @@ void Slider::draw()
 		else
 		{
 			this->dragging = false;
-			this->bar.setState(buttonState::IDLE);
-			this->bar.setLockState(false);
+			this->bar->setState(buttonState::IDLE);
+			this->bar->setLockState(false);
 		}
 	}
 	if (this->horizontal)
 	{
 		if (minValue <= *this->value && *this->value <= this->maxValue)
 		{
-			this->bar.setPositionX(this->bounds.x + this->bar.getHitbox()[0].width / 2 +
+			this->bar->setPositionX(this->bounds.x + this->bar->getHitbox()[0].width / 2 +
 			(*this->value - this->minValue) * this->displayValueSpacing);
 		}
 	}
@@ -100,7 +100,7 @@ void Slider::draw()
 	{
 		if (minValue <= *this->value && *this->value <= this->maxValue)
 		{
-			this->bar.setPositionY(this->bounds.y + this->bar.getHitbox()[0].height / 2 +
+			this->bar->setPositionY(this->bounds.y + this->bar->getHitbox()[0].height / 2 +
 				(*this->value - this->minValue) * this->displayValueSpacing);
 		}
 	}
@@ -111,8 +111,8 @@ void Slider::barDrag()
 	if(!this->dragging)
 	{
 		this->dragging = true;
-		this->bar.setState(buttonState::HOVER);
-		this->bar.setLockState(true);
+		this->bar->setState(buttonState::HOVER);
+		this->bar->setLockState(true);
 	}
 	if(this->horizontal)
 	{
@@ -162,11 +162,8 @@ void Slider::backgroundClick() const
 void swap(Slider& first, Slider& second) noexcept
 {
 	using std::swap;
-	swap(static_cast<ClickableGroup&>(first), static_cast<ClickableGroup&>(second));
 
 	swap(first.bounds, second.bounds);
-	swap(first.background, second.background);
-	swap(first.bar, second.bar);
 	swap(first.value, second.value);
 	swap(first.minValue, second.minValue);
 	swap(first.maxValue, second.maxValue);
@@ -175,5 +172,5 @@ void swap(Slider& first, Slider& second) noexcept
 	swap(first.displayValueSpacing, second.displayValueSpacing);
 	swap(first.valueSpacing, second.valueSpacing);
 
-	first.updateClickables();
+	first.updateChildren();
 }

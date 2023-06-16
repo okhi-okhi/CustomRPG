@@ -182,7 +182,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Screen\Screens\LanguageScreen.h" />
-    <ClInclude Include="Screen\ClickableGroup.h" />
+    <ClInclude Include="Screen\ElementGroup.h" />
     <ClInclude Include="Screen\ButtonHold.h" />
     <ClInclude Include="Screen\Clickable.h" />
     <ClInclude Include="Screen\ButtonText.h" />
@@ -241,7 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Screen\Screens\LanguageScreen.cpp" />
-    <ClCompile Include="Screen\ClickableGroup.cpp" />
+    <ClCompile Include="Screen\ElementGroup.cpp" />
     <ClCompile Include="Screen\ButtonHold.cpp" />
     <ClCompile Include="Screen\Clickable.cpp" />
     <ClCompile Include="Screen\ButtonText.cpp" />

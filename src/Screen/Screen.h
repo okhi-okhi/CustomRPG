@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Clickable.h"
-#include "ClickableGroup.h"
+#include "Button.h"
+#include "ElementGroup.h"
 
 enum class screenTypes
 {
@@ -16,7 +16,7 @@ class Screen
 protected:
 	screenTypes screenType;
 	std::string i18nKey;
-	std::vector<Element*> elements;
+	std::vector<shared_ptr<Element>> elements;
 	std::vector<std::pair<int, Clickable*>> clickableElements;
 
 public:
@@ -25,8 +25,8 @@ public:
 	virtual ~Screen() = default;
 
 	void addElement(Element* element);
-	void addElement(Clickable* clickable);
-	void addElement(ClickableGroup* clickableGroup);
+	void addElement(Button* button);
+	void addElement(ElementGroup* elementGroup);
 
 	void draw() const;
 

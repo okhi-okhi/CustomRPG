@@ -8,8 +8,8 @@ public:
 	ButtonHold(const Vector2 position, const Picture& texture,
 		const std::function<void()>& function) :
 		Button(position, texture, function, "button_click.wav") {}
-
-	void draw() override;
+	ButtonHold(const Picture& texture, const std::function<void()>& function) :
+		Button(texture, function, "button_click.wav") {}
 
 	void update() override;
 };
