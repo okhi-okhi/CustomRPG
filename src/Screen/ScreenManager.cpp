@@ -8,11 +8,35 @@
 void ScreenManager::init()
 {
 	zoomPercent = static_cast<float>(RaylibUtils::getWindowWidth()) / 1920.0f;
+	loadAllScreen();
+	updateHitbox();
+}
 
+void ScreenManager::loadAllScreen()
+{
 	this->allScreens.push_back(make_shared<MainScreen>());
 	this->allScreens.push_back(make_shared<SettingScreen>());
 	this->allScreens.push_back(make_shared<LanguageScreen>());
-	updateHitbox();
+}
+
+void ScreenManager::reloadAllScreen()
+{
+	this->allScreens.clear();
+	loadAllScreen();
+	std::cout << "a"<<std::endl;
+	std::vector<shared_ptr<Screen>> newScreens;
+	for (const auto& currentScreen : this->currentScreens)
+	{
+		for (const auto& storeScreen : this->allScreens)
+		{
+			if (currentScreen->getScreenType() == storeScreen->getScreenType())
+			{
+				newScreens.push_back(storeScreen);
+			}
+		}
+	}
+	this->currentScreens.clear();
+	this->currentScreens = newScreens;
 }
 
 void ScreenManager::addScreen(const screenTypes& screen)
@@ -43,6 +67,7 @@ void ScreenManager::removeScreen(const screenTypes& screen)
 			this->currentScreens.erase(currentScreens.begin() + i);
 		}
 	}
+	std::cout << "b" << std::endl;
 	updateHitbox();
 }
 
@@ -80,4 +105,5 @@ void ScreenManager::updateHitbox() const
 			}
 		}
 	}
+	std::cout << "c" << std::endl;
 }

@@ -12,6 +12,8 @@ public:
 	explicit ScreenManager(token) {}
 
 	void init();
+	void loadAllScreen();
+	void reloadAllScreen();
 
 	void addScreen(const screenTypes& screen);
 	void removeScreen(const screenTypes& screen);

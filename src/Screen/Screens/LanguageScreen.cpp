@@ -60,6 +60,7 @@ void LanguageScreen::changeLanguage(const int* index)
 			std::cout << e.what();
 		}
 	}
+	//ScreenManager::instance().reloadAllScreen();
 	closeLanguage();
 }
 
