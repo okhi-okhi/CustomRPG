@@ -1,5 +1,4 @@
 #include "ScrollList.h"
-
 #include <iostream>
 #include "../I18n/I18n.h"
 #include "../I18n/FontProvider.h"
@@ -16,15 +15,17 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 			for (const auto& key : itemsI18nKey) {
 				texts.push_back(I18n::instance().get(key));
 			}
-			return texts;}(),
-			fontSize, textAlign, textColor, textSpacing,
-			[&]() {
+			return texts;
+		}(),
+		fontSize, textAlign, textColor, textSpacing,
+		[&]() {
 			std::vector<const raylib::Font*> fonts;
 			for (const auto& key : itemsI18nKey) {
 				fonts.push_back(&FontProvider::instance().get(key));
 			}
-			return fonts;}(),
-			itemTexture, sliderBar, sliderBackground)
+			return fonts;
+		}(),
+		itemTexture, sliderBar, sliderBackground)
 {
 
 }
@@ -98,14 +99,19 @@ void ScrollList::updateChildren()
 {
 	ElementGroup::updateChildren();
 	int index = 0;
-	for (auto& item : this->items)
+	for (const auto& item : this->items)
 	{
-		item->getButton()->setFunction([this, index] { select(index); });
 		this->children.push_back(item);
+		item->getButton()->setFunction([this, index] { select(index); });
+		for (auto& child : item->getChildren())
+		{
+			this->children.push_back(child);
+		}
 		index++;
 	}
 	if(this->scrollable)
 	{
+		this->children.push_back(this->slider);
 		for (auto& item : this->slider->getChildren())
 		{
 			this->children.push_back(item);
@@ -141,10 +147,6 @@ void ScrollList::draw()
 	{
 		this->items[i]->setText(this->itemsText[this->startIndex + i]);
 	}
-	if(this->scrollable)
-	{
-		this->slider->draw();
-	}
 	const int index = this->currentIndex - this->startIndex;
 	if(index >= 0 && index < this->itemCapacity)
 	{
@@ -158,7 +160,7 @@ void ScrollList::updatePosition()
 	{
 		this->slider->setPosition(Vector2(this->bounds.x + this->bounds.width + scrollBarWidth / 2, this->position.y));
 	}
-	const int buttonHeight = this->items[0]->getButton()->getHitbox()[0].height;
+	const float buttonHeight = this->items[0]->getButton()->getHitbox()[0].height;
 	float buttonY = this->bounds.y + static_cast<float>(buttonHeight) / 2;
 	for (int i = 0; i < this->itemCapacity; i++)
 	{

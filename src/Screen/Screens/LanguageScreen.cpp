@@ -3,6 +3,7 @@
 #include "../ScreenManager.h"
 #include "../ScrollList.h"
 #include "../../I18n/I18n.h"
+#include "../../I18n/FontProvider.h"
 #include "../../System/PathProvider.h"
 #include "../../System/SystemConfig.h"
 #include "../../Utils/Utilities.h"
@@ -39,11 +40,14 @@ LanguageScreen::LanguageScreen() : Screen(screenTypes::LANGUAGE, "language")
 
 void LanguageScreen::changeLanguage(const int* index)
 {
+	closeLanguage();
 	const string selectLanguage = I18n::instance().getSystemI18n().getLanguages()[*index].id;
 	if(I18n::instance().getSystemI18n().getCurrentLanguage().info.id != selectLanguage)
 	{
 		I18n::instance().getSystemI18n().loadLanguage(selectLanguage);
 		SystemConfig::instance().setCurrentLanguage(selectLanguage);
+		FontProvider::instance().loadSystemFont();
+		ScreenManager::instance().delayReload();
 		try {
 			std::ifstream inFile(PathProvider::instance().getConfigPath());
 			json j = json::parse(inFile);
@@ -60,8 +64,6 @@ void LanguageScreen::changeLanguage(const int* index)
 			std::cout << e.what();
 		}
 	}
-	//ScreenManager::instance().reloadAllScreen();
-	closeLanguage();
 }
 
 void LanguageScreen::closeLanguage()

@@ -22,8 +22,6 @@ ButtonText& ButtonText::operator=(ButtonText other)
 
 void ButtonText::draw()
 {
-	this->button->draw();
-	this->text->draw();
 }
 
 void ButtonText::updatePosition()
