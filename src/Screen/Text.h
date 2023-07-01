@@ -37,6 +37,8 @@ public:
 	void draw() override;
 	void updatePosition() override;
 
+	void setAlign(const textAlign align) { this->align = align; updatePosition(); }
+
 	const std::string& getText() const { return this->text; }
 	const float& getFontSize() const { return this->fontSize; }
 	const textAlign& getAlign() const { return this->align; }

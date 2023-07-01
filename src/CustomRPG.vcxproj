@@ -198,6 +198,7 @@
     <ClInclude Include="Screen\ScrollList.h" />
     <ClInclude Include="Screen\Slider.h" />
     <ClInclude Include="Screen\Screens\SettingScreen.h" />
+    <ClInclude Include="Screen\SliderText.h" />
     <ClInclude Include="Utils\RaylibUtils.h" />
     <ClInclude Include="Screen\Button.h" />
     <ClInclude Include="Entity\Ally.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="Screen\ScrollList.cpp" />
     <ClCompile Include="Screen\Slider.cpp" />
     <ClCompile Include="Screen\Screens\SettingScreen.cpp" />
+    <ClCompile Include="Screen\SliderText.cpp" />
     <ClCompile Include="Utils\RaylibUtils.cpp" />
     <ClCompile Include="Screen\Button.cpp" />
     <ClCompile Include="Entity\Ally.cpp" />

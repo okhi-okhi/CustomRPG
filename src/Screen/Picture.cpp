@@ -11,11 +11,12 @@ Picture::Picture(const std::string& fileName, const int textureFrameNum, const i
 
 Picture::Picture(const std::string& fileName, const Vector2 position, const int textureFrameNum, int width)
 {
+	using std::cout, std::endl;
 	this->elementType = elementTypes::PICTURE;
 
 	width = static_cast<int>(RaylibUtils::getRealLength(width));
 	raylib::Image image(PathProvider::instance().get(resourcesFolder::TEXTURES, fileName));
-	image.Resize(width, static_cast<int>(width * static_cast<float>(image.height) / static_cast<float>(image.width)));
+	image.Resize(width, static_cast<int>(std::ceil(width * static_cast<float>(image.height) / static_cast<float>(image.width))));
 	this->spriteTexture = image;
 		
 	this->textureFrameNum = textureFrameNum;
@@ -76,10 +77,10 @@ void Picture::draw()
 void Picture::updatePosition()
 {
 	this->originPos = 
-		Vector2(position.x - static_cast<float>(spriteTexture.width) / 2,position.y - this->getHeight() / 2);
+		Vector2(this->position.x - static_cast<float>(spriteTexture.width) / 2, this->position.y - this->getHeight() / 2);
 	this->hitbox.clear();
 	this->hitbox.emplace_back(
-		Rectangle(originPos.x, originPos.y,
+		Rectangle(this->originPos.x, this->originPos.y,
 			static_cast<float>(spriteTexture.width), this->getHeight()));
 	ScreenManager::instance().updateHitbox();
 }

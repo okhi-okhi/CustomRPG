@@ -1,19 +1,21 @@
 #include "Slider.h"
-
-#include <iostream>
-
 #include "../Utils/RaylibUtils.h"
 
-Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string& background,
-               const int barLength, int* value, const int minValue, const int maxValue, const bool horizontal)
+Slider::Slider(const Picture& bar, const Picture& background, int* value, const int minValue,
+	const int maxValue, const bool horizontal, const std::function<void()>& dragFunction) :
+	Slider(Vector2(0, 0), bar, background, value, minValue, maxValue, horizontal, dragFunction)
+{
+}
+
+Slider::Slider(const Vector2 bounds, const Picture& bar, const Picture& background,
+               int* value, const int minValue, const int maxValue,
+               const bool horizontal, const std::function<void()>& dragFunction)
 {
 	using RaylibUtils::getRealLength;
-	constexpr int tileWidth = 32;
 	this->elementType = elementTypes::SLIDER;
 
 	this->background = std::make_shared<Button>(Vector2(bounds.x, bounds.y),
-		Picture(background, 2, tileWidth, Vector2(bounds.width, bounds.height)),
-		[this] { backgroundClick(); });
+		background, [this] { backgroundClick(); });
 
 	this->position = this->background->getPosition();
 	this->bounds = this->background->getHitbox()[0];
@@ -22,20 +24,21 @@ Slider::Slider(const Rectangle bounds, const std::string& bar, const std::string
 	this->maxValue = maxValue;
 	this->value = value;
 	this->horizontal = horizontal;
+	this->dragFunction = dragFunction;
 	this->dragging = false;
 
 	if (this->horizontal)
 	{
-		this->bar = std::make_shared<ButtonHold>(Vector2(this->bounds.x + static_cast<float>(barLength) / 2, bounds.y),
-			Picture(bar, 2, tileWidth, Vector2(barLength, bounds.height)), [this] { barDrag(); });
+		this->bar = std::make_shared<ButtonHold>(Vector2(this->bounds.x, bounds.y),
+			bar, [this] { barDrag(); });
 
-		this->displayValueSpacing = (this->bounds.width - this->bar->getHitbox()[0].width) / static_cast<float>(this->maxValue - this->minValue);
+		this->displayValueSpacing = (this->bounds.width) / static_cast<float>(this->maxValue - this->minValue);
 		this->valueSpacing = this->bounds.width / static_cast<float>(this->maxValue - this->minValue + 1);
 	}
 	else
 	{
-		this->bar = std::make_shared<ButtonHold>(Vector2(bounds.x, this->bounds.y + static_cast<float>(barLength)/2),
-			Picture(bar, 2, tileWidth, Vector2(bounds.width,barLength)), [this] { barDrag(); });
+		this->bar = std::make_shared<ButtonHold>(Vector2(bounds.x, this->bounds.y + bar.getHitbox()[0].height /2),
+			bar, [this] { barDrag(); });
 
 		this->displayValueSpacing = (this->bounds.height - this->bar->getHitbox()[0].height) / static_cast<float>(this->maxValue - this->minValue);
 		this->valueSpacing = this->bounds.height / static_cast<float>(this->maxValue - this->minValue + 1);
@@ -53,6 +56,7 @@ Slider::Slider(const Slider& other) : ElementGroup(other),
 	minValue(other.minValue),
 	maxValue(other.maxValue),
 	horizontal(other.horizontal),
+	dragFunction(other.dragFunction),
 	dragging(other.dragging),
 	displayValueSpacing(other.displayValueSpacing),
 	valueSpacing(other.valueSpacing)
@@ -88,13 +92,14 @@ void Slider::draw()
 			this->dragging = false;
 			this->bar->setState(buttonState::IDLE);
 			this->bar->setLockState(false);
+			dragFunction();
 		}
 	}
 	if (this->horizontal)
 	{
 		if (minValue <= *this->value && *this->value <= this->maxValue)
 		{
-			this->bar->setPositionX(this->bounds.x + this->bar->getHitbox()[0].width / 2 +
+			this->bar->setPositionX(this->bounds.x+
 			(*this->value - this->minValue) * this->displayValueSpacing);
 		}
 	}
@@ -102,7 +107,7 @@ void Slider::draw()
 	{
 		if (minValue <= *this->value && *this->value <= this->maxValue)
 		{
-			this->bar->setPositionY(this->bounds.y + this->bar->getHitbox()[0].height / 2 +
+			this->bar->setPositionY(this->bounds.y+
 				(*this->value - this->minValue) * this->displayValueSpacing);
 		}
 	}
@@ -114,11 +119,11 @@ void Slider::updatePosition()
 	this->bounds = this->background->getHitbox()[0];
 	if(this->horizontal)
 	{
-		this->bar->setPositionY(this->bounds.y);
+		this->bar->setPositionY(this->position.y);
 	}
 	else
 	{
-		this->bar->setPositionX(this->bounds.x);
+		this->bar->setPositionX(this->position.x);
 	}
 }
 

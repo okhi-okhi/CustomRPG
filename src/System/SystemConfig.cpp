@@ -11,6 +11,7 @@ void SystemConfig::load(const std::string& fileName) {
 	if (inFile.good()) {
 		json j = json::parse(inFile, nullptr, true, true);
 		try {
+			this->masterVolume = j["masterVolume"];
 			this->defaultLanguage = j["defaultLanguage"];
 			this->currentLanguage = j["currentLanguage"];
 		}
@@ -29,6 +30,7 @@ void SystemConfig::load(const std::string& fileName) {
 
 		std::ofstream outFile(fileName);
 		ordered_json j = {
+			{"masterVolume", this->masterVolume},
 			{"defaultLanguage", this->defaultLanguage},
 			{"currentLanguage", this->currentLanguage},
 		};

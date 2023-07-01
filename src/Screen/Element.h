@@ -13,7 +13,8 @@ enum class elementTypes
 	BUTTON_TEXT,
 	BUTTON_ARG,
 	SCROLL_LIST,
-	SLIDER
+	SLIDER,
+	SLIDER_TEXT
 };
 
 class Element

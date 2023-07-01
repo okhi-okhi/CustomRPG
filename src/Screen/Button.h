@@ -35,6 +35,7 @@ public:
 	void setState(buttonState buttonState) { this->texture.setCurrentFrame(static_cast<int>(buttonState)); }
 	void setLockState(const bool _lockState) { this->lockState = _lockState; }
 	void setFunction(const std::function<void()>& _function) { this->function = _function; }
+
 	void addReserveRec(const raylib::Rectangle hitbox) { this->reserveRec.push_back(hitbox); }
 	void clearReserveRec() { this->reserveRec.clear(); }
 

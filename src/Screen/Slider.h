@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include "ButtonHold.h"
 #include "ElementGroup.h"
 
@@ -12,6 +13,7 @@ private:
 	int minValue;
 	int maxValue;
 	bool horizontal;
+	std::function<void()> dragFunction;
 
 	bool dragging;
 	float displayValueSpacing;
@@ -22,8 +24,12 @@ private:
 
 public:
 	Slider() : value(nullptr), minValue(0), maxValue(0), horizontal(false), dragging(false), displayValueSpacing(0), valueSpacing(0) {}
-	Slider(Rectangle bounds, const std::string& bar, const std::string& background,
-		int barLength, int* value, int minValue, int maxValue, bool horizontal);
+	Slider(const Picture& bar, const Picture& background,
+		int* value, int minValue, int maxValue, bool horizontal,
+		const std::function<void()>& dragFunction = std::function<void()>());
+	Slider(Vector2 bounds, const Picture& bar, const Picture& background,
+		int* value, int minValue, int maxValue, bool horizontal,
+		const std::function<void()>& dragFunction = std::function<void()>());
 	Slider(const Slider& other);
 	Slider(Slider&& other) noexcept : Slider() { swap(*this, other); }
 	~Slider() override = default;

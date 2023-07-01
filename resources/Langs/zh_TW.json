@@ -8,6 +8,8 @@
             "button3": "離開遊戲"
         },
         "setting":{
+            "masterVolume": "主音量",
+            "currentMasterVolume": "%volume%",
             "button1": "語言",
             "button2": "返回"
         },

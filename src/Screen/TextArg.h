@@ -12,8 +12,8 @@ private:
 public:
 	TextArg() = default;
 	TextArg(const std::string& i18nKey, const std::map<std::string, argTypes>& args,
-		raylib::Vector2 pos, float fontSize = 32, textAlign align = textAlign::LEFT,
-		raylib::Color color = BLACK, float spacing = 1.0f);
+		raylib::Vector2 pos, float fontSize, textAlign align,
+		raylib::Color color, float spacing);
 
 	void draw() override;
 	void updatePosition() override;

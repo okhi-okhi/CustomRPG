@@ -67,8 +67,10 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 	{
 		this->scrollable = true;
 		const int barHeight = static_cast<int>(bounds.height / static_cast<float>(itemsText.size()) * static_cast<float>(itemCapacity));
-		this->slider = std::make_shared<Slider>(Rectangle(bounds.x + bounds.width / 2 + scrollBarWidth / 2, bounds.y, scrollBarWidth, bounds.height),
-			sliderBar, sliderBackground, barHeight, &this->startIndex, 0, static_cast<int>(itemsText.size()) - itemCapacity, false);
+		this->slider = std::make_shared<Slider>(Vector2(bounds.x + bounds.width / 2 + this->scrollBarWidth / 2, bounds.y),
+			Picture(sliderBar, 2, tileImageWidth, Vector2(this->scrollBarWidth, barHeight)),
+			Picture(sliderBackground, 2, tileImageWidth, Vector2(this->scrollBarWidth, bounds.height)),
+			&this->startIndex, 0, static_cast<int>(itemsText.size()) - itemCapacity, false);
 	}
 	else {
 		this->scrollable = false;

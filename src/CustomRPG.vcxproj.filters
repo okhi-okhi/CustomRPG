@@ -194,6 +194,7 @@
     <ClInclude Include="Screen\ElementGroup.h" />
     <ClInclude Include="Screen\Screens\SettingScreen.h" />
     <ClInclude Include="Screen\Screens\LanguageScreen.h" />
+    <ClInclude Include="Screen\SliderText.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity\Ally.cpp">
@@ -321,5 +322,6 @@
     <ClCompile Include="Screen\ElementGroup.cpp" />
     <ClCompile Include="Screen\Screens\SettingScreen.cpp" />
     <ClCompile Include="Screen\Screens\LanguageScreen.cpp" />
+    <ClCompile Include="Screen\SliderText.cpp" />
   </ItemGroup>
 </Project>
