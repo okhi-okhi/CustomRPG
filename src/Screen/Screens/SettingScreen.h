@@ -3,10 +3,12 @@
 
 class SettingScreen final : public Screen
 {
+private:
+	raylib::Sound testSound;
 public:
 	SettingScreen();
 
-	static void changeMasterVolume();
+	void changeMasterVolume();
 	static void openLanguage();
 	static void closeSetting();
 };

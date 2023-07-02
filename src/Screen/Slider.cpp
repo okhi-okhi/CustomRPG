@@ -15,7 +15,7 @@ Slider::Slider(const Vector2 bounds, const Picture& bar, const Picture& backgrou
 	this->elementType = elementTypes::SLIDER;
 
 	this->background = std::make_shared<Button>(Vector2(bounds.x, bounds.y),
-		background, [this] { backgroundClick(); });
+		background, [this] { backgroundClick(); }, "none");
 
 	this->position = this->background->getPosition();
 	this->bounds = this->background->getHitbox()[0];
@@ -90,7 +90,6 @@ void Slider::draw()
 		else
 		{
 			this->dragging = false;
-			this->bar->setState(buttonState::IDLE);
 			this->bar->setLockState(false);
 			dragFunction();
 		}
@@ -147,7 +146,7 @@ void Slider::barDrag()
 		}
 		else
 		{
-			*this->value = static_cast<int>((GetMouseX() - this->bounds.x) / this->valueSpacing);
+			*this->value = this->minValue + static_cast<int>((GetMouseX() - this->bounds.x) / this->valueSpacing);
 		}
 	}
 	else
@@ -162,12 +161,12 @@ void Slider::barDrag()
 		}
 		else
 		{
-			*this->value = static_cast<int>((GetMouseY() - this->bounds.y) / this->valueSpacing);
+			*this->value = this->minValue + static_cast<int>((GetMouseY() - this->bounds.y) / this->valueSpacing);
 		}
 	}
 }
 
-void Slider::backgroundClick() const
+void Slider::backgroundClick()
 {
 	using std::cout, std::endl;
 	if (this->horizontal)
@@ -178,6 +177,7 @@ void Slider::backgroundClick() const
 	{
 		*this->value = this->minValue + static_cast<int>((GetMouseY() - this->bounds.y) / this->valueSpacing);
 	}
+	this->dragging = true;
 }
 
 void swap(Slider& first, Slider& second) noexcept

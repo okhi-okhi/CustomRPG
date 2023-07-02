@@ -20,7 +20,7 @@ private:
 	float valueSpacing;
 
 	void barDrag();
-	void backgroundClick() const;
+	void backgroundClick();
 
 public:
 	Slider() : value(nullptr), minValue(0), maxValue(0), horizontal(false), dragging(false), displayValueSpacing(0), valueSpacing(0) {}

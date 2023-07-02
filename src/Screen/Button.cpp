@@ -16,7 +16,14 @@ Button::Button(const Vector2 position, const Picture& texture,
 	this->texture = texture;
 	this->texture.setPosition(this->position);
 	this->function = function;
-	this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, clickSound).c_str());
+	if(clickSound != "none")
+	{
+		this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, "button_click.wav").c_str());
+	}
+	else
+	{
+		this->clickSound = Sound();
+	}
 	this->lockState = false;
 
 	this->hitbox = this->texture.getHitbox();

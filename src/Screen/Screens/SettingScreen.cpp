@@ -11,13 +11,15 @@
 
 SettingScreen::SettingScreen() : Screen(screenTypes::SETTING, "setting")
 {
+	this->testSound.Load(PathProvider::instance().getFromSystem(resourcesFolder::SOUNDS) + "button_click.wav");
+
 	addElement(make_shared<Picture>("screens/setting/background.png", Vector2(960, 540), 1, 540));
 
 	addElementGroup(make_shared<SliderText>(Vector2(1000, 320), 
 		Slider(
 			Picture("screens/slider_bar.png", 2, 12),
 			Picture("screens/slider_background_horizontal.png", 2, 32, Vector2(250, 32)),
-			&SystemConfig::instance().getMasterVolume(), 0, 100, true, changeMasterVolume
+			&SystemConfig::instance().getMasterVolume(), 0, 100, true, [this] { changeMasterVolume(); }
 		),
 		Text("screen.setting.masterVolume", 48, textAlign::CENTER, WHITE, 1.0f),
 		TextArg("screen.setting.currentMasterVolume", std::map<std::string, argTypes>{ {"volume", & SystemConfig::instance().getMasterVolume()} }, Vector2(1170, 325), 48, textAlign::CENTER, WHITE, 1.0f)
@@ -32,6 +34,7 @@ void SettingScreen::changeMasterVolume()
 {
 	using nlohmann::json;
 	SetMasterVolume(static_cast<float>(SystemConfig::instance().getMasterVolume()) / 100);
+	this->testSound.Play();
 	try {
 		std::ifstream inFile(PathProvider::instance().getConfigPath());
 		json j = json::parse(inFile);
