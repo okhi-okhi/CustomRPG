@@ -9,9 +9,9 @@
 #include "../../Utils/Utilities.h"
 #include "../../Utils/RaylibUtils.h"
 
-LanguageScreen::LanguageScreen() : Screen(screenTypes::LANGUAGE, "language")
+LanguageScreen::LanguageScreen() : Screen(ScreenType::LANGUAGE, "language")
 {
-	addElement(make_shared<Picture>("screens/setting/background.png", Vector2(960, 540), 1, 540));
+	addElement(make_shared<Picture>(Vector2(960, 540), "screens/setting/background.png", 1, 540));
 	
 	int idx = 0;
 	int currentLangIdx = 0;
@@ -68,5 +68,5 @@ void LanguageScreen::changeLanguage(const int* index)
 
 void LanguageScreen::closeLanguage()
 {
-	ScreenManager::instance().removeScreen(screenTypes::LANGUAGE);
+	ScreenManager::instance().removeScreen(ScreenType::LANGUAGE);
 }

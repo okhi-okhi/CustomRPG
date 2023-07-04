@@ -3,11 +3,11 @@
 #include "../I18n/I18n.h"
 #include "../Utils/RaylibUtils.h"
 
-TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argTypes>& args,
-	const raylib::Vector2 pos, const float fontSize,
+TextArg::TextArg(const raylib::Vector2 pos, const std::string& i18nKey,
+	const std::map<std::string, argTypes>& args, const float fontSize,
 	const textAlign align, const raylib::Color color, const float spacing)
 {
-	this->elementType = elementTypes::TEXT_ARG;
+	this->elementType = ElementType::TEXT_ARG;
 	this->i18nKey = i18nKey;
 	this->args = args;
 	this->position = RaylibUtils::getRealLength(pos);

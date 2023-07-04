@@ -2,11 +2,11 @@
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
-FullPicture::FullPicture(const std::string& fileName, const int textureFrameNum)
+FullPicture::FullPicture(const std::string& fileName, const int textureFrameNum, ParentFolder parentFolder)
 {
-	this->elementType = elementTypes::FULL_PICTURE;
+	this->elementType = ElementType::FULL_PICTURE;
 
-	raylib::Image image(PathProvider::instance().get(resourcesFolder::TEXTURES, fileName));
+	raylib::Image image(PathProvider::instance().get(parentFolder, resourcesFolder::TEXTURES, fileName));
 	image.Resize(RaylibUtils::getWindowWidth(), RaylibUtils::getWindowHeight());
 	this->spriteTexture = image;
 

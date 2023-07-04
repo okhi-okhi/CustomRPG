@@ -1,7 +1,4 @@
 #include "ButtonHold.h"
-
-#include <iostream>
-
 #include "../Utils/RaylibUtils.h"
 
 void ButtonHold::update()

@@ -12,7 +12,7 @@ Slider::Slider(const Vector2 bounds, const Picture& bar, const Picture& backgrou
                const bool horizontal, const std::function<void()>& dragFunction)
 {
 	using RaylibUtils::getRealLength;
-	this->elementType = elementTypes::SLIDER;
+	this->elementType = ElementType::SLIDER;
 
 	this->background = std::make_shared<Button>(Vector2(bounds.x, bounds.y),
 		background, [this] { backgroundClick(); }, "none");
@@ -90,7 +90,6 @@ void Slider::draw()
 		else
 		{
 			this->dragging = false;
-			this->bar->setLockState(false);
 			dragFunction();
 		}
 	}
@@ -128,12 +127,7 @@ void Slider::updatePosition()
 
 void Slider::barDrag()
 {
-	if(!this->dragging)
-	{
-		this->dragging = true;
-		this->bar->setState(buttonState::HOVER);
-		this->bar->setLockState(true);
-	}
+	this->dragging = true;
 	if(this->horizontal)
 	{
 		if(GetMouseX() <= this->bounds.x)
@@ -169,6 +163,7 @@ void Slider::barDrag()
 void Slider::backgroundClick()
 {
 	using std::cout, std::endl;
+	this->dragging = true;
 	if (this->horizontal)
 	{
 		*this->value = this->minValue + static_cast<int>((GetMouseX() - this->bounds.x) / this->valueSpacing);
@@ -177,7 +172,6 @@ void Slider::backgroundClick()
 	{
 		*this->value = this->minValue + static_cast<int>((GetMouseY() - this->bounds.y) / this->valueSpacing);
 	}
-	this->dragging = true;
 }
 
 void swap(Slider& first, Slider& second) noexcept

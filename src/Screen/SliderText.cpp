@@ -4,7 +4,7 @@
 SliderText::SliderText(const Vector2 position, const Slider& slider,
 	const Text& name, const TextArg& value)
 {
-	this->elementType = elementTypes::SLIDER_TEXT;
+	this->elementType = ElementType::SLIDER_TEXT;
 	this->position = RaylibUtils::getRealLength(position);
 
 	this->slider = std::make_shared<Slider>(slider);

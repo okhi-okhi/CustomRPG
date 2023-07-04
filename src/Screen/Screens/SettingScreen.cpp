@@ -1,28 +1,29 @@
 #include "SettingScreen.h"
 #include <fstream>
 #include <json.hpp>
-#include "../../System/PathProvider.h"
-#include "../../System/GlobalVariable.h"
+#include "../PictureTiled.h"
 #include "../ScreenManager.h"
 #include "../ButtonText.h"
 #include "../SliderText.h"
 #include "../TextArg.h"
 #include "../../System/SystemConfig.h"
+#include "../../System/PathProvider.h"
+#include "../../System/GlobalVariable.h"
 
-SettingScreen::SettingScreen() : Screen(screenTypes::SETTING, "setting")
+SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 {
 	this->testSound.Load(PathProvider::instance().getFromSystem(resourcesFolder::SOUNDS) + "button_click.wav");
 
-	addElement(make_shared<Picture>("screens/setting/background.png", Vector2(960, 540), 1, 540));
+	addElement(make_shared<Picture>(Vector2(960, 540), "screens/setting/background.png", 1, 540));
 
 	addElementGroup(make_shared<SliderText>(Vector2(1000, 320), 
 		Slider(
 			Picture("screens/slider_bar.png", 2, 12),
-			Picture("screens/slider_background_horizontal.png", 2, 32, Vector2(250, 32)),
+			PictureTiled("screens/slider_background_horizontal.png", 2, 32, Vector2(250, 32)),
 			&SystemConfig::instance().getMasterVolume(), 0, 100, true, [this] { changeMasterVolume(); }
 		),
 		Text("screen.setting.masterVolume", 48, textAlign::CENTER, WHITE, 1.0f),
-		TextArg("screen.setting.currentMasterVolume", std::map<std::string, argTypes>{ {"volume", & SystemConfig::instance().getMasterVolume()} }, Vector2(1170, 325), 48, textAlign::CENTER, WHITE, 1.0f)
+		TextArg(Vector2(1170, 325), "screen.setting.currentMasterVolume", std::map<std::string, argTypes>{ {"volume", & SystemConfig::instance().getMasterVolume()} }, 48, textAlign::CENTER, WHITE, 1.0f)
 	));
 
 	const Picture buttonBg("screens/button_1.png", 2, 384);
@@ -54,11 +55,11 @@ void SettingScreen::changeMasterVolume()
 
 void SettingScreen::openLanguage()
 {
-	ScreenManager::instance().addScreen(screenTypes::LANGUAGE);
-	ScreenManager::instance().removeScreen(screenTypes::SETTING);
+	ScreenManager::instance().addScreen(ScreenType::LANGUAGE);
+	ScreenManager::instance().removeScreen(ScreenType::SETTING);
 }
 
 void SettingScreen::closeSetting()
 {
-	ScreenManager::instance().removeScreen(screenTypes::SETTING);
+	ScreenManager::instance().removeScreen(ScreenType::SETTING);
 }

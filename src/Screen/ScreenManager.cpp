@@ -43,7 +43,7 @@ void ScreenManager::delayReload()
 	this->needReload = true;
 }
 
-void ScreenManager::addScreen(const screenTypes& screen)
+void ScreenManager::addScreen(const ScreenType& screen)
 {
 	for(const auto& currentScreen: this->currentScreens)
 	{
@@ -62,7 +62,7 @@ void ScreenManager::addScreen(const screenTypes& screen)
 	updateHitbox();
 }
 
-void ScreenManager::removeScreen(const screenTypes& screen)
+void ScreenManager::removeScreen(const ScreenType& screen)
 {
 	for (int i = 0; i < this->currentScreens.size(); i++)
 	{

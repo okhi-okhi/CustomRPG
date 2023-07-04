@@ -2,7 +2,7 @@
 #include "ScreenManager.h"
 #include "../Utils/RaylibUtils.h"
 
-Element::Element(const elementTypes elementType, const raylib::Vector2 pos)
+Element::Element(const ElementType elementType, const raylib::Vector2 pos)
 {
 	this->elementType = elementType;
 	this->position = RaylibUtils::getRealLength(pos);

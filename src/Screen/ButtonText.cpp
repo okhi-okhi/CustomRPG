@@ -3,7 +3,7 @@
 
 ButtonText::ButtonText(Vector2 position, const Button& button, const Text& text)
 {
-	this->elementType = elementTypes::BUTTON_TEXT;
+	this->elementType = ElementType::BUTTON_TEXT;
 	this->position = RaylibUtils::getRealLength(position);
 	this->button = std::make_shared<Button>(button);
 	this->button->setPosition(this->position);

@@ -3,7 +3,7 @@
 #include <Rectangle.hpp>
 #include <vector>
 
-enum class elementTypes
+enum class ElementType
 {
 	PICTURE = 0,
 	FULL_PICTURE,
@@ -20,14 +20,14 @@ enum class elementTypes
 class Element
 {
 protected:
-	elementTypes elementType;
+	ElementType elementType;
 	raylib::Vector2 position;
 	raylib::Vector2 originPos;
 	std::vector<raylib::Rectangle> hitbox;
 
 public:
-	Element() : elementType(elementTypes::PICTURE) {}
-	explicit Element(elementTypes elementType, raylib::Vector2 pos);
+	Element() : elementType(ElementType::PICTURE) {}
+	explicit Element(ElementType elementType, raylib::Vector2 pos);
 	Element(const Element& other) = default;
 	Element(Element&& other) noexcept : Element() { swap(*this, other); }
 	virtual ~Element() = default;
@@ -59,7 +59,7 @@ public:
 		updatePosition();
 	}
 
-	const elementTypes& getElementType() const { return this->elementType; }
+	const ElementType& getElementType() const { return this->elementType; }
 	const raylib::Vector2& getPosition() const { return this->position; }
 	const raylib::Vector2& getOriginPos() const { return this->originPos; }
 	const std::vector<raylib::Rectangle>& getHitbox() const { return this->hitbox; }

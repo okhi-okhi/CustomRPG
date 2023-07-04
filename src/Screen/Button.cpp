@@ -1,24 +1,21 @@
 ﻿#include "Button.h"
-
-#include <iostream>
-
 #include "ScreenManager.h"
 #include "../I18n/I18n.h"
 #include "../I18n/FontProvider.h"
 #include "../System/PathProvider.h"
-#include "../Utils/RaylibUtils.h"
+#include "../Utils/RaylibUtils.h"	
 
 Button::Button(const Vector2 position, const Picture& texture,
 	const std::function<void()>& function, const std::string& clickSound)
 {
-	this->elementType = elementTypes::BUTTON;
+	this->elementType = ElementType::BUTTON;
 	this->position = RaylibUtils::getRealLength(position);
 	this->texture = texture;
 	this->texture.setPosition(this->position);
 	this->function = function;
 	if(clickSound != "none")
 	{
-		this->clickSound = LoadSound(PathProvider::instance().get(resourcesFolder::SOUNDS, "button_click.wav").c_str());
+		this->clickSound = LoadSound(PathProvider::instance().get(ParentFolder::AUTO, resourcesFolder::SOUNDS, clickSound).c_str());
 	}
 	else
 	{

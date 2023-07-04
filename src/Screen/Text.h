@@ -27,11 +27,11 @@ public:
 	Text() : fontSize(0), align(), spacing(0), font(nullptr) {}
 	explicit Text(const std::string& i18nKey, float fontSize,
 		textAlign align, raylib::Color color, float spacing);
-	explicit Text(const std::string& i18nKey, raylib::Vector2 pos, float fontSize,
+	explicit Text(raylib::Vector2 pos, const std::string& i18nKey, float fontSize,
 		textAlign align, raylib::Color color, float spacing);
 	explicit Text(const std::string& text, float fontSize,
 		textAlign align, raylib::Color color, float spacing, const raylib::Font* font);
-	explicit Text(const std::string& text, raylib::Vector2 pos, float fontSize,
+	explicit Text(raylib::Vector2 pos, const std::string& text, float fontSize,
 		textAlign align, raylib::Color color, float spacing, const raylib::Font* font);
 
 	void draw() override;

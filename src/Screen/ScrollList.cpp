@@ -1,5 +1,6 @@
 #include "ScrollList.h"
 #include <iostream>
+#include "PictureTiled.h"
 #include "../I18n/I18n.h"
 #include "../I18n/FontProvider.h"
 #include "../Utils/RaylibUtils.h"
@@ -39,7 +40,7 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 	using RaylibUtils::getRealLength;
 	constexpr int tileImageWidth = 64;
 
-	this->elementType = elementTypes::SCROLL_LIST;
+	this->elementType = ElementType::SCROLL_LIST;
 	this->position = getRealLength(Vector2(bounds.x, bounds.y));
 	this->bounds = Rectangle(getRealLength(bounds.x - bounds.width/2), getRealLength(bounds.y - bounds.height / 2),
 		getRealLength(bounds.width), getRealLength(bounds.height));
@@ -49,13 +50,13 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 
 	for (int i = 0; i < itemsText.size(); i++)
 	{
-		this->itemsText.emplace_back(itemsText[i], Vector2(0, 0), fontSize,
+		this->itemsText.emplace_back(Vector2(0, 0), itemsText[i], fontSize,
 			textAlign, textColor, textSpacing, itemsFont[i]);
 	}
 
 	const float buttonHeight = bounds.height / static_cast<float>(itemCapacity);
 	float buttonY = bounds.y - bounds.height/2 + static_cast<float>(buttonHeight)/2;
-	const Picture itemBg(itemTexture, 2, tileImageWidth, Vector2(bounds.width, buttonHeight));
+	const PictureTiled itemBg(itemTexture, 2, tileImageWidth, Vector2(bounds.width, buttonHeight));
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
 		this->items.push_back(std::make_shared<ButtonText>(Vector2(bounds.x, buttonY), Button(itemBg, [this, i] { select(i); }),
@@ -66,10 +67,10 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 	if(itemsText.size() > this->itemCapacity)
 	{
 		this->scrollable = true;
-		const int barHeight = static_cast<int>(bounds.height / static_cast<float>(itemsText.size()) * static_cast<float>(itemCapacity));
+		const float barHeight = bounds.height / static_cast<float>(itemsText.size()) * static_cast<float>(itemCapacity);
 		this->slider = std::make_shared<Slider>(Vector2(bounds.x + bounds.width / 2 + this->scrollBarWidth / 2, bounds.y),
-			Picture(sliderBar, 2, tileImageWidth, Vector2(this->scrollBarWidth, barHeight)),
-			Picture(sliderBackground, 2, tileImageWidth, Vector2(this->scrollBarWidth, bounds.height)),
+			PictureTiled(sliderBar, 2, tileImageWidth, Vector2(this->scrollBarWidth, barHeight)),
+			PictureTiled(sliderBackground, 2, tileImageWidth, Vector2(this->scrollBarWidth, bounds.height)),
 			&this->startIndex, 0, static_cast<int>(itemsText.size()) - itemCapacity, false);
 	}
 	else {

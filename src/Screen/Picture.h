@@ -1,6 +1,7 @@
 #pragma once
 #include <Image.hpp>
 #include "Element.h"
+#include "../../System/PathProvider.h"
 
 class Picture : public Element
 {
@@ -11,11 +12,11 @@ protected:
 
 public:
 	Picture() : spriteTexture(), textureFrameNum(0), currentFrame(0) {}
-	Picture(const std::string& fileName, int textureFrameNum, int width);
-	Picture(const std::string& fileName, Vector2 position, int textureFrameNum, int width);
-	Picture(const std::string& fileName, int textureFrameNum, int tileWidth, Vector2 tiledBounds);
-	Picture(const std::string& fileName, Vector2 position,
-		int textureFrameNum, int tileWidth, Vector2 tiledBounds);
+	explicit Picture(const std::string& fileName, ParentFolder parentFolder = ParentFolder::AUTO);
+	Picture(const std::string& fileName, int textureFrameNum,
+		int width, ParentFolder parentFolder = ParentFolder::AUTO);
+	Picture(raylib::Vector2 pos, const std::string& fileName,
+		int textureFrameNum, int width, ParentFolder parentFolder = ParentFolder::AUTO);
 
 	void draw() override;
 	void updatePosition() override;

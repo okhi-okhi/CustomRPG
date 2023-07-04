@@ -1,0 +1,43 @@
+#include "PictureTiled.h"
+#include "../Utils/RaylibUtils.h"
+
+PictureTiled::PictureTiled(const std::string& fileName, const int textureFrameNum,
+	const int tileWidth, const raylib::Vector2 tiledBounds, const ParentFolder parentFolder) :
+	PictureTiled(Vector2(0, 0), fileName, textureFrameNum, tileWidth, tiledBounds, parentFolder)
+{
+}
+
+PictureTiled::PictureTiled(const raylib::Vector2 pos, const std::string& fileName,
+	const int textureFrameNum, int tileWidth, raylib::Vector2 tiledBounds, const ParentFolder parentFolder)
+{
+	this->elementType = ElementType::PICTURE;
+
+	tileWidth = static_cast<int>(RaylibUtils::getRealLength(tileWidth));
+	raylib::Image image(PathProvider::instance().get(parentFolder, resourcesFolder::TEXTURES, fileName));
+	image.ResizeNN(tileWidth, static_cast<int>(tileWidth * static_cast<float>(image.height) / static_cast<float>(image.width)));
+
+	const int imageFrameHeight = image.height / textureFrameNum;
+
+	tiledBounds = RaylibUtils::getRealLength(tiledBounds);
+	raylib::Image tiledImage = GenImageColor(static_cast<int>(tiledBounds.x), static_cast<int>(tiledBounds.y * textureFrameNum), BLANK);
+	for (int frame = 0; frame < textureFrameNum; frame++)
+	{
+		for (int y = static_cast<int>(tiledBounds.y) * frame; y < static_cast<int>(tiledBounds.y) * (frame + 1); y += imageFrameHeight)
+		{
+			for (int x = 0; x < static_cast<int>(tiledBounds.x); x += image.width)
+			{
+				tiledImage.Draw(image,
+					Rectangle(0, static_cast<float>(imageFrameHeight * frame), static_cast<float>(image.width), static_cast<float>(imageFrameHeight)),
+					Rectangle(static_cast<float>(x), static_cast<float>(y), static_cast<float>(image.width), static_cast<float>(imageFrameHeight)), WHITE);
+			}
+		}
+	}
+	this->spriteTexture = tiledImage;
+
+	this->textureFrameNum = textureFrameNum;
+
+	this->position = RaylibUtils::getRealLength(pos);
+	Picture::updatePosition();
+
+	this->currentFrame = 0;
+}

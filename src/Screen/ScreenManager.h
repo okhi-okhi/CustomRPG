@@ -17,8 +17,8 @@ public:
 	void reloadAllScreen();
 	void delayReload();
 
-	void addScreen(const screenTypes& screen);
-	void removeScreen(const screenTypes& screen);
+	void addScreen(const ScreenType& screen);
+	void removeScreen(const ScreenType& screen);
 	void clear();
 		
 	void draw();

@@ -1,67 +1,43 @@
 #include "Picture.h"
 #include "ScreenManager.h"
 #include "../System/Exceptions.hpp"
-#include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
-Picture::Picture(const std::string& fileName, const int textureFrameNum, const int width) :
-	Picture(fileName, Vector2(0, 0), textureFrameNum, width)
+Picture::Picture(const std::string& fileName, const ParentFolder parentFolder)
 {
-}
+	this->elementType = ElementType::PICTURE;
 
-Picture::Picture(const std::string& fileName, const Vector2 position, const int textureFrameNum, int width)
-{
-	using std::cout, std::endl;
-	this->elementType = elementTypes::PICTURE;
-
-	width = static_cast<int>(RaylibUtils::getRealLength(width));
-	raylib::Image image(PathProvider::instance().get(resourcesFolder::TEXTURES, fileName));
+	raylib::Image image(PathProvider::instance().get(parentFolder, resourcesFolder::TEXTURES, fileName));
+	const int width = static_cast<int>(RaylibUtils::getRealLength(image.width));
 	image.Resize(width, static_cast<int>(std::ceil(width * static_cast<float>(image.height) / static_cast<float>(image.width))));
 	this->spriteTexture = image;
-		
-	this->textureFrameNum = textureFrameNum;
 
-	this->position = RaylibUtils::getRealLength(position);
+	this->textureFrameNum = 1;
+
+	this->position = Vector2(0, 0);
 	Picture::updatePosition();
 
 	this->currentFrame = 0;
 }
 
-Picture::Picture(const std::string& fileName, const int textureFrameNum, const int tileWidth, const Vector2 tiledBounds) :
-	Picture(fileName, Vector2(0, 0), textureFrameNum, tileWidth, tiledBounds)
+Picture::Picture(const std::string& fileName, const int textureFrameNum, const int width, const ParentFolder parentFolder) :
+	Picture(Vector2(0, 0), fileName, textureFrameNum, width, parentFolder)
 {
 }
 
-Picture::Picture(const std::string& fileName, const Vector2 position,
-	const int textureFrameNum, int tileWidth, Vector2 tiledBounds)
+Picture::Picture(const raylib::Vector2 pos, const std::string& fileName,
+	const int textureFrameNum, int width, const ParentFolder parentFolder)
 {
-	this->elementType = elementTypes::PICTURE;
+	this->elementType = ElementType::PICTURE;
 
-	tileWidth = static_cast<int>(RaylibUtils::getRealLength(tileWidth));
-	raylib::Image image(PathProvider::instance().get(resourcesFolder::TEXTURES, fileName));
-	image.ResizeNN(tileWidth, static_cast<int>(tileWidth * static_cast<float>(image.height) / static_cast<float>(image.width)));
-
-	const int imageFrameHeight = image.height / textureFrameNum;
-
-	tiledBounds = RaylibUtils::getRealLength(tiledBounds);
-	raylib::Image tiledImage = GenImageColor(static_cast<int>(tiledBounds.x), static_cast<int>(tiledBounds.y * textureFrameNum), BLANK);
-	for(int frame = 0; frame < textureFrameNum; frame++)
-	{
-		for (int y = static_cast<int>(tiledBounds.y) * frame; y < static_cast<int>(tiledBounds.y) * (frame + 1); y += imageFrameHeight)
-		{
-			for (int x = 0; x < static_cast<int>(tiledBounds.x); x += image.width)
-			{
-				tiledImage.Draw(image,
-					Rectangle(0, static_cast<float>(imageFrameHeight * frame), static_cast<float>(image.width), static_cast<float>(imageFrameHeight)),
-					Rectangle(static_cast<float>(x), static_cast<float>(y), static_cast<float>(image.width), static_cast<float>(imageFrameHeight)), WHITE);
-			}
-		}
-	}
-	this->spriteTexture = tiledImage;
-
+	raylib::Image image(PathProvider::instance().get(parentFolder, resourcesFolder::TEXTURES, fileName));
+	width = static_cast<int>(RaylibUtils::getRealLength(width));
+	image.Resize(width, static_cast<int>(std::ceil(width * static_cast<float>(image.height) / static_cast<float>(image.width))));
+	this->spriteTexture = image;
+		
 	this->textureFrameNum = textureFrameNum;
 
-	this->position = RaylibUtils::getRealLength(position);
+	this->position = RaylibUtils::getRealLength(pos);
 	Picture::updatePosition();
 
 	this->currentFrame = 0;

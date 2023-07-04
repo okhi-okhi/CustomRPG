@@ -30,7 +30,7 @@ int main()
 	windowSetup(window);
 	
 	System::instance().init();
-	ScreenManager::instance().addScreen(screenTypes::MAIN);
+	ScreenManager::instance().addScreen(ScreenType::MAIN);
 
 	while (!window.ShouldClose() && running)
 	{

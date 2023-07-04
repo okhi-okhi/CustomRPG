@@ -11,8 +11,8 @@ private:
 
 public:
 	TextArg() = default;
-	TextArg(const std::string& i18nKey, const std::map<std::string, argTypes>& args,
-		raylib::Vector2 pos, float fontSize, textAlign align,
+	TextArg(raylib::Vector2 pos, const std::string& i18nKey,
+		const std::map<std::string, argTypes>& args, float fontSize, textAlign align,
 		raylib::Color color, float spacing);
 
 	void draw() override;

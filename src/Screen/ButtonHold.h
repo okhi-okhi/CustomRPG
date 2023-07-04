@@ -1,7 +1,7 @@
 #pragma once
 #include "Button.h"
 
-class ButtonHold : public Button
+class ButtonHold final : public Button
 {
 public:
 	ButtonHold() = default;

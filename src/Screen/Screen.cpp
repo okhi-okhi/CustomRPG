@@ -5,7 +5,7 @@
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
-Screen::Screen(const screenTypes screenType, const std::string& i18nKey)
+Screen::Screen(const ScreenType screenType, const std::string& i18nKey)
 {
 	this->screenType = screenType;
 	this->i18nKey = "screen." + i18nKey;
@@ -28,7 +28,7 @@ void Screen::addElementGroup(const shared_ptr<ElementGroup>& elementGroup)
 	for(const auto& child : elementGroup->getChildren())
 	{
 		this->elements.push_back(child);
-		if (child->getElementType() == elementTypes::BUTTON)
+		if (child->getElementType() == ElementType::BUTTON)
 		{
 			this->buttons.emplace_back(static_cast<int>(this->elements.size()) - 1, dynamic_pointer_cast<Button>(child));
 		}

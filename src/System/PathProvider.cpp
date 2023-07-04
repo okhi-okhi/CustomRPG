@@ -28,15 +28,29 @@ std::string PathProvider::getFromGame(const resourcesFolder folder) const
 	return this->currentGamePath + getFolder(folder);
 }
 
-std::string PathProvider::get(const resourcesFolder folder, const std::string& fileName) const
+std::string PathProvider::get(const ParentFolder parentFolder, const resourcesFolder folder, const std::string& fileName) const
 {
-	if(!currentGamePath.empty() && std::filesystem::exists(getFromGame(folder) + fileName))
+	switch (parentFolder)
 	{
-		return getFromGame(folder) + fileName;
+		case ParentFolder::AUTO:
+			if (!currentGamePath.empty() && std::filesystem::exists(getFromGame(folder) + fileName))
+			{
+				return getFromGame(folder) + fileName;
+			}
+			if (std::filesystem::exists(getFromSystem(folder) + fileName))
+			{
+				return getFromSystem(folder) + fileName;
+			}
+			throw InvalidFileException(getFromSystem(folder) + fileName);
+
+		case ParentFolder::SYSTEM:
+			return getFromSystem(folder) + fileName;
+
+		case ParentFolder::GAME:
+			return getFromGame(folder) + fileName;
+
+		case ParentFolder::NONE:
+			return fileName;
 	}
-	if (std::filesystem::exists(getFromSystem(folder) + fileName))
-	{
-		return getFromSystem(folder) + fileName;
-	}
-	throw InvalidFileException(getFromSystem(folder) + fileName);
+	return {};
 }
