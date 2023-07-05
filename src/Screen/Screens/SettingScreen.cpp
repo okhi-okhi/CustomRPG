@@ -12,21 +12,21 @@
 
 SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 {
-	this->testSound.Load(PathProvider::instance().getFromSystem(resourcesFolder::SOUNDS) + "button_click.wav");
+	this->testSound.Load(PathProvider::instance().get({ "button_click.wav" }, ResourcesFolder::SOUNDS));
 
-	addElement(make_shared<Picture>(Vector2(960, 540), "screens/setting/background.png", 1, 540));
+	addElement(make_shared<Picture>(Vector2(960, 540), File("screens/setting/background.png"), 1, 540));
 
 	addElementGroup(make_shared<SliderText>(Vector2(1000, 320), 
 		Slider(
-			Picture("screens/slider_bar.png", 2, 12),
-			PictureTiled("screens/slider_background_horizontal.png", 2, 32, Vector2(250, 32)),
+			Picture({ "screens/slider_bar.png" }, 2, 12),
+			PictureTiled({ "screens/slider_background_horizontal.png" }, 2, 32, Vector2(250, 32)),
 			&SystemConfig::instance().getMasterVolume(), 0, 100, true, [this] { changeMasterVolume(); }
 		),
 		Text("screen.setting.masterVolume", 48, textAlign::CENTER, WHITE, 1.0f),
 		TextArg(Vector2(1170, 325), "screen.setting.currentMasterVolume", std::map<std::string, argTypes>{ {"volume", & SystemConfig::instance().getMasterVolume()} }, 48, textAlign::CENTER, WHITE, 1.0f)
 	));
 
-	const Picture buttonBg("screens/button_1.png", 2, 384);
+	const Picture buttonBg({ "screens/button_1.png" }, 2, 384);
 	addElementGroup(make_shared<ButtonText>(Vector2(960, 540), Button(buttonBg, openLanguage), Text("screen.setting.button1", 48, textAlign::CENTER, WHITE, 0.0f)));
 	addElementGroup(make_shared<ButtonText>(Vector2(960, 720), Button(buttonBg, closeSetting), Text("screen.setting.button2", 48, textAlign::CENTER, WHITE, 0.0f)));
 }

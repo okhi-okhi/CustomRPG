@@ -11,7 +11,7 @@
 
 LanguageScreen::LanguageScreen() : Screen(ScreenType::LANGUAGE, "language")
 {
-	addElement(make_shared<Picture>(Vector2(960, 540), "screens/setting/background.png", 1, 540));
+	addElement(make_shared<Picture>(Vector2(960, 540), File("screens/setting/background.png"), 1, 540));
 	
 	int idx = 0;
 	int currentLangIdx = 0;
@@ -34,7 +34,7 @@ LanguageScreen::LanguageScreen() : Screen(ScreenType::LANGUAGE, "language")
 	
 	const int* i = &languageList->getCurrentIndex();
 	addElementGroup(make_shared<ButtonText>(Vector2(960, 770),
-		Button(Picture("screens/button_1.png", 2, 384), [i] { changeLanguage(i); }),
+		Button(Picture({ "screens/button_1.png" }, 2, 384), [i] { changeLanguage(i); }),
 		Text("screen.language.button1", 48, textAlign::CENTER, WHITE, 0.0f)));
 }
 

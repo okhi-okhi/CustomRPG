@@ -12,11 +12,8 @@ protected:
 
 public:
 	Picture() : spriteTexture(), textureFrameNum(0), currentFrame(0) {}
-	explicit Picture(const std::string& fileName, ParentFolder parentFolder = ParentFolder::AUTO);
-	Picture(const std::string& fileName, int textureFrameNum,
-		int width, ParentFolder parentFolder = ParentFolder::AUTO);
-	Picture(raylib::Vector2 pos, const std::string& fileName,
-		int textureFrameNum, int width, ParentFolder parentFolder = ParentFolder::AUTO);
+	Picture(const File& file, int textureFrameNum, int width);
+	Picture(raylib::Vector2 pos, const File& file, int textureFrameNum, int width);
 
 	void draw() override;
 	void updatePosition() override;

@@ -9,10 +9,10 @@
 
 MainScreen::MainScreen() : Screen(ScreenType::MAIN, "main")
 {
-	addElement(make_shared<FullPicture>("screens/main/background.png", 1));
-	addElement(make_shared<Picture>(Vector2(960, 108), "screens/main/title.png", 1, 960));
+	addElement(make_shared<FullPicture>(File("screens/main/background.png"), 1));
+	addElement(make_shared<Picture>(Vector2(960, 108), File("screens/main/title.png"), 1, 960));
 
-	const Picture buttonBg("screens/button_1.png", 2, 384);
+	const Picture buttonBg({ "screens/button_1.png" }, 2, 384);
 	addElementGroup(make_shared<ButtonText>(Vector2(960, 324), Button(buttonBg, closeWindow), Text("screen.main.button1", 48, textAlign::CENTER, WHITE, 0.0f)));
 	addElementGroup(make_shared<ButtonText>(Vector2(960, 540), Button(buttonBg, openSetting), Text("screen.main.button2", 48, textAlign::CENTER, WHITE, 0.0f)));
 	addElementGroup(make_shared<ButtonText>(Vector2(960, 756), Button(buttonBg, closeWindow), Text("screen.main.button3", 48, textAlign::CENTER, WHITE, 0.0f)));

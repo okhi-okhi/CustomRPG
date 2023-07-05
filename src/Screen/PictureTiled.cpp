@@ -1,19 +1,19 @@
 #include "PictureTiled.h"
 #include "../Utils/RaylibUtils.h"
 
-PictureTiled::PictureTiled(const std::string& fileName, const int textureFrameNum,
-	const int tileWidth, const raylib::Vector2 tiledBounds, const ParentFolder parentFolder) :
-	PictureTiled(Vector2(0, 0), fileName, textureFrameNum, tileWidth, tiledBounds, parentFolder)
+PictureTiled::PictureTiled(const File& file, const int textureFrameNum,
+	const int tileWidth, const raylib::Vector2 tiledBounds) :
+	PictureTiled(Vector2(0, 0), file, textureFrameNum, tileWidth, tiledBounds)
 {
 }
 
-PictureTiled::PictureTiled(const raylib::Vector2 pos, const std::string& fileName,
-	const int textureFrameNum, int tileWidth, raylib::Vector2 tiledBounds, const ParentFolder parentFolder)
+PictureTiled::PictureTiled(const raylib::Vector2 pos, const File& file,
+	const int textureFrameNum, int tileWidth, raylib::Vector2 tiledBounds)
 {
 	this->elementType = ElementType::PICTURE;
 
 	tileWidth = static_cast<int>(RaylibUtils::getRealLength(tileWidth));
-	raylib::Image image(PathProvider::instance().get(parentFolder, resourcesFolder::TEXTURES, fileName));
+	raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
 	image.ResizeNN(tileWidth, static_cast<int>(tileWidth * static_cast<float>(image.height) / static_cast<float>(image.width)));
 
 	const int imageFrameHeight = image.height / textureFrameNum;

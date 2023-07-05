@@ -15,7 +15,7 @@ Button::Button(const Vector2 position, const Picture& texture,
 	this->function = function;
 	if(clickSound != "none")
 	{
-		this->clickSound = LoadSound(PathProvider::instance().get(ParentFolder::AUTO, resourcesFolder::SOUNDS, clickSound).c_str());
+		this->clickSound = LoadSound(PathProvider::instance().get(FileSource::AUTO, ResourcesFolder::SOUNDS, clickSound).c_str());
 	}
 	else
 	{

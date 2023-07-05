@@ -2,37 +2,37 @@
 #include <filesystem>
 #include "Exceptions.hpp"
 
-std::string PathProvider::getFolder(const resourcesFolder folder) const
+std::string PathProvider::getFolder(const ResourcesFolder folder) const
 {
 	switch (folder)
 	{
-	case resourcesFolder::LANGS:
+	case ResourcesFolder::LANGS:
 		return this->langsFolder;
-	case resourcesFolder::FONTS:
+	case ResourcesFolder::FONTS:
 		return this->fontsFolder;
-	case resourcesFolder::SOUNDS:
+	case ResourcesFolder::SOUNDS:
 		return this->soundsFolder;
-	case resourcesFolder::TEXTURES:
+	case ResourcesFolder::TEXTURES:
 		return this->texturesFolder;
 	}
 	return {};
 }
 
-std::string PathProvider::getFromSystem(const resourcesFolder folder) const
+std::string PathProvider::getFromSystem(const ResourcesFolder folder) const
 {
 	return this->resourcesPath + getFolder(folder);
 }
 
-std::string PathProvider::getFromGame(const resourcesFolder folder) const
+std::string PathProvider::getFromGame(const ResourcesFolder folder) const
 {
 	return this->currentGamePath + getFolder(folder);
 }
 
-std::string PathProvider::get(const ParentFolder parentFolder, const resourcesFolder folder, const std::string& fileName) const
+std::string PathProvider::get(const FileSource parentFolder, const ResourcesFolder folder, const std::string& fileName) const
 {
 	switch (parentFolder)
 	{
-		case ParentFolder::AUTO:
+		case FileSource::AUTO:
 			if (!currentGamePath.empty() && std::filesystem::exists(getFromGame(folder) + fileName))
 			{
 				return getFromGame(folder) + fileName;
@@ -43,14 +43,19 @@ std::string PathProvider::get(const ParentFolder parentFolder, const resourcesFo
 			}
 			throw InvalidFileException(getFromSystem(folder) + fileName);
 
-		case ParentFolder::SYSTEM:
+		case FileSource::SYSTEM:
 			return getFromSystem(folder) + fileName;
 
-		case ParentFolder::GAME:
+		case FileSource::GAME:
 			return getFromGame(folder) + fileName;
 
-		case ParentFolder::NONE:
+		case FileSource::NONE:
 			return fileName;
 	}
 	return {};
+}
+
+string PathProvider::get(const File& file, const ResourcesFolder folder) const
+{
+	return get(file.src, folder, file.name);
 }

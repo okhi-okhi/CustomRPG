@@ -10,8 +10,8 @@ void I18nProvider::init(const string& resourceFolder, const string& currentLangu
 {
 	namespace fs = std::filesystem;
 
-	this->langsFolder = resourceFolder + PathProvider::instance().getFolder(resourcesFolder::LANGS);
-	this->fontsFolder = resourceFolder + PathProvider::instance().getFolder(resourcesFolder::FONTS);
+	this->langsFolder = resourceFolder + PathProvider::instance().getFolder(ResourcesFolder::LANGS);
+	this->fontsFolder = resourceFolder + PathProvider::instance().getFolder(ResourcesFolder::FONTS);
 	for (const auto& langFile : fs::directory_iterator(this->langsFolder))
 	{
 		string id = langFile.path().stem().string();

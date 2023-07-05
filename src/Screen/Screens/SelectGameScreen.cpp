@@ -3,7 +3,7 @@
 
 SelectGameScreen::SelectGameScreen() : Screen(ScreenType::SELECT_GAME, "selectGame")
 {
-	addElement(make_shared<FullPicture>("screens/main/background.png", 1));
+	addElement(make_shared<FullPicture>(File("screens/main/background.png"), 1));
 
 
 }

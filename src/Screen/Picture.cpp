@@ -3,34 +3,17 @@
 #include "../System/Exceptions.hpp"
 #include "../Utils/RaylibUtils.h"
 
-Picture::Picture(const std::string& fileName, const ParentFolder parentFolder)
-{
-	this->elementType = ElementType::PICTURE;
-
-	raylib::Image image(PathProvider::instance().get(parentFolder, resourcesFolder::TEXTURES, fileName));
-	const int width = static_cast<int>(RaylibUtils::getRealLength(image.width));
-	image.Resize(width, static_cast<int>(std::ceil(width * static_cast<float>(image.height) / static_cast<float>(image.width))));
-	this->spriteTexture = image;
-
-	this->textureFrameNum = 1;
-
-	this->position = Vector2(0, 0);
-	Picture::updatePosition();
-
-	this->currentFrame = 0;
-}
-
-Picture::Picture(const std::string& fileName, const int textureFrameNum, const int width, const ParentFolder parentFolder) :
-	Picture(Vector2(0, 0), fileName, textureFrameNum, width, parentFolder)
+Picture::Picture(const File& file, const int textureFrameNum, const int width) :
+	Picture(Vector2(0, 0), file, textureFrameNum, width)
 {
 }
 
-Picture::Picture(const raylib::Vector2 pos, const std::string& fileName,
-	const int textureFrameNum, int width, const ParentFolder parentFolder)
+Picture::Picture(const raylib::Vector2 pos, const File& file,
+	const int textureFrameNum, int width)
 {
 	this->elementType = ElementType::PICTURE;
 
-	raylib::Image image(PathProvider::instance().get(parentFolder, resourcesFolder::TEXTURES, fileName));
+	raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
 	width = static_cast<int>(RaylibUtils::getRealLength(width));
 	image.Resize(width, static_cast<int>(std::ceil(width * static_cast<float>(image.height) / static_cast<float>(image.width))));
 	this->spriteTexture = image;

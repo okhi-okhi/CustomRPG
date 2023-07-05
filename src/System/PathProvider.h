@@ -4,7 +4,7 @@
 
 using std::string;
 
-enum class ParentFolder
+enum class FileSource
 {
 	AUTO = 0,
 	SYSTEM,
@@ -12,12 +12,22 @@ enum class ParentFolder
 	NONE
 };
 
-enum class resourcesFolder
+enum class ResourcesFolder
 {
 	LANGS,
 	FONTS,
 	SOUNDS,
 	TEXTURES,
+};
+
+struct File
+{
+	FileSource src;
+	string name;
+
+	File() : src(FileSource::AUTO) {}
+	File(string name) : src(FileSource::AUTO), name(std::move(name)) {}
+	File(const FileSource src, string name) : src(src), name(std::move(name)) {}
 };
 
 class PathProvider : public Singleton<PathProvider>
@@ -38,10 +48,11 @@ public:
 	explicit PathProvider(token){}
 	void setCurrentGamePath(const string& path) { this->currentGamePath = gamesPath + path + '/'; }
 
-	string getFolder(resourcesFolder folder) const;
-	string getFromSystem(resourcesFolder folder) const;
-	string getFromGame(resourcesFolder folder) const;
-	string get(ParentFolder parentFolder, resourcesFolder folder, const string& fileName) const;
+	string getFolder(ResourcesFolder folder) const;
+	string getFromSystem(ResourcesFolder folder) const;
+	string getFromGame(ResourcesFolder folder) const;
+	string get(FileSource parentFolder, ResourcesFolder folder, const string& fileName) const;
+	string get(const File& file, ResourcesFolder folder) const;
 
 	string getConfigPath() const { return this->configPath; }
 	string getGamesPath() const { return this->gamesPath; }

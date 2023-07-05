@@ -16,7 +16,7 @@ protected:
 	Sound clickSound;
 	std::function<void()> function;
 	bool lockState;
-	std::vector<raylib::Rectangle> reserveRec;
+	std::vector<raylib::Rectangle> reserveRec{};
 
 public:
 	Button() : clickSound(), lockState(false) {}

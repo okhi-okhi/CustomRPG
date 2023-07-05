@@ -5,7 +5,7 @@ class FullPicture final : public Picture
 {
 public:
 	FullPicture() = default;
-	FullPicture(const std::string& fileName, int textureFrameNum, ParentFolder parentFolder = ParentFolder::AUTO);
+	FullPicture(const File& file, int textureFrameNum);
 
 	void draw() override;
 	void updatePosition() override;

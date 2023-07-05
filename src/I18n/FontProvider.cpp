@@ -26,9 +26,9 @@ void FontProvider::loadFont(const Language& lang, const std::string& rootPath, r
 		str.append(value);
 	}
 
-	json j = Utils::readJsonFile(rootPath + PathProvider::instance().getFolder(resourcesFolder::LANGS) + lang.info.id);
+	json j = Utils::readJsonFile(rootPath + PathProvider::instance().getFolder(ResourcesFolder::LANGS) + lang.info.id);
 	try {
-		result = RaylibUtils::getContainTextFont(rootPath + PathProvider::instance().getFolder(resourcesFolder::FONTS) + j["font"].get<string>(), str);
+		result = RaylibUtils::getContainTextFont(rootPath + PathProvider::instance().getFolder(ResourcesFolder::FONTS) + j["font"].get<string>(), str);
 	}
 	catch (json::exception& e)
 	{

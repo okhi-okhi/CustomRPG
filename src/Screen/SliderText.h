@@ -11,9 +11,9 @@ private:
 	const float spacing = 32;
 
 public:
-	SliderText() : slider(nullptr), name(nullptr), value(nullptr) {}
+	SliderText() = default;
 	SliderText(Vector2 position,const Slider& slider,
-		const Text& name, const TextArg& value);
+	           const Text& name, const TextArg& value);
 	explicit SliderText(const SliderText& other);
 	SliderText(SliderText&& other) noexcept : SliderText() { swap(*this, other); }
 	~SliderText() override = default;
