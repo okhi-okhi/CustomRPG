@@ -16,17 +16,14 @@ PictureGallery::PictureGallery(raylib::Rectangle bounds, const std::vector<File>
 	{
 		raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
 		const float imageRatio = static_cast<float>(image.width) / static_cast<float>(image.height);
-		std::cout << "i: " << imageRatio << " f: " << frameRatio << "\n";
 		if (imageRatio > frameRatio)
 		{
-			image.Resize(this->bounds.width, this->bounds.width / imageRatio);
-			std::cout << "h: " << this->bounds.width / imageRatio << "\n";
+			image.Resize(static_cast<int>(this->bounds.width), static_cast<int>(this->bounds.width / imageRatio));
 			this->pictures.emplace_back(image);
 		}
 		else
 		{
-			image.Resize(this->bounds.height * imageRatio, this->bounds.height);
-			std::cout << "w: " << this->bounds.height * imageRatio << "\n";
+			image.Resize(static_cast<int>(this->bounds.height * imageRatio), static_cast<int>(this->bounds.height));
 			this->pictures.emplace_back(image);
 		}
 	}
@@ -43,7 +40,9 @@ void PictureGallery::updatePosition()
 	this->bounds.x = this->position.x - this->bounds.width / 2;
 	this->bounds.y = this->position.y - this->bounds.height / 2;
 
-	this->originPos = this->position - Vector2(this->pictures[this->currentIndex].width / 2, this->pictures[this->currentIndex].height / 2);
+	this->originPos = this->position - 
+		Vector2( static_cast<float>(this->pictures[this->currentIndex].width) / 2,
+			static_cast<float>(this->pictures[this->currentIndex].height) / 2);
 	this->hitbox.clear();
 	this->hitbox.emplace_back(
 		this->originPos.x, this->originPos.y,
@@ -54,12 +53,18 @@ void PictureGallery::updatePosition()
 
 void PictureGallery::nextPicture()
 {
-	this->currentIndex++;
-	updatePosition();
+	if(this->currentIndex < this->pictures.size() - 1)
+	{
+		this->currentIndex++;
+		updatePosition();
+	}
 }
 
 void PictureGallery::previousPicture()
 {
-	this->currentIndex--;
-	updatePosition();
+	if (this->currentIndex > 0)
+	{
+		this->currentIndex--;
+		updatePosition();
+	}
 }

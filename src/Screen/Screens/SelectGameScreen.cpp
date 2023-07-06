@@ -19,9 +19,9 @@ SelectGameScreen::SelectGameScreen() : Screen(ScreenType::SELECT_GAME, "selectGa
 			files.emplace_back(FileSource::NONE, highlightPic.path().string());
 		}
 	}
-	auto gallery = make_shared<PictureGallery>(Rectangle(1000, 500, 400, 1000), files);
+	auto gallery = make_shared<PictureGallery>(Rectangle(960, 540, 640, 360), files);
 	addElement(gallery);
 
-	addButton(make_shared<Button>(Vector2(600, 500), Picture({ "screens/arrow_left.png" }, 2, 64), [gallery] { gallery->previousPicture(); }));
-	addButton(make_shared<Button>(Vector2(1500, 500), Picture({ "screens/arrow_right.png" }, 2, 64), [gallery] { gallery->nextPicture(); }));
+	addButton(make_shared<Button>(Vector2(640, 540), Picture({ "screens/arrow_left.png" }, 2, 64), [gallery] { gallery->previousPicture(); }));
+	addButton(make_shared<Button>(Vector2(1280, 540), Picture({ "screens/arrow_right.png" }, 2, 64), [gallery] { gallery->nextPicture(); }));
 }
