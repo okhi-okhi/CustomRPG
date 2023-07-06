@@ -1,8 +1,26 @@
 #pragma once
+#include <Image.hpp>
 #include "Element.h"
-class PictureGallery : Element
+#include "../../System/PathProvider.h"
+
+class PictureGallery final : public Element
 {
 private:
+	std::vector<Texture2D> pictures;
+	raylib::Rectangle bounds;
+	int currentIndex;
+
 public:
-	PictureGallery();
+	PictureGallery() : currentIndex(0) {}
+	PictureGallery(raylib::Rectangle bounds, const std::vector<File>& files);
+
+	void draw() override;
+	void updatePosition() override;
+
+	void nextPicture();
+	void previousPicture();
+
+	const std::vector<Texture2D>& getPictures() const { return this->pictures; }
+	const raylib::Rectangle& getBounds() const { return this->bounds; }
+	const int& getCurrentIndex() const { return this->currentIndex; }
 };

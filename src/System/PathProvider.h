@@ -18,6 +18,7 @@ enum class ResourcesFolder
 	FONTS,
 	SOUNDS,
 	TEXTURES,
+	HIGHLIGHT_SCREENSHOTS
 };
 
 struct File
@@ -43,6 +44,7 @@ private:
 	const string fontsFolder = "fonts/";
 	const string soundsFolder = "sounds/";
 	const string texturesFolder = "textures/";
+	const string highlightScreenshotsFolder = "highlight_screenshots/";
 
 public:
 	explicit PathProvider(token){}

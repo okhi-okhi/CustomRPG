@@ -10,7 +10,7 @@ PictureTiled::PictureTiled(const File& file, const int textureFrameNum,
 PictureTiled::PictureTiled(const raylib::Vector2 pos, const File& file,
 	const int textureFrameNum, int tileWidth, raylib::Vector2 tiledBounds)
 {
-	this->elementType = ElementType::PICTURE;
+	this->elementType = ElementType::PICTURE_TILED;
 
 	tileWidth = static_cast<int>(RaylibUtils::getRealLength(tileWidth));
 	raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));

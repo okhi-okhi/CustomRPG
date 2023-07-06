@@ -5,7 +5,7 @@
 #include "../I18n/FontProvider.h"
 #include "../Utils/RaylibUtils.h"
 
-ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int currentIndex,
+ScrollList::ScrollList(const raylib::Rectangle bounds, const int itemCapacity, const int currentIndex,
 	const std::vector<std::string>& itemsI18nKey, const float fontSize,
 	const textAlign textAlign, const raylib::Color textColor,
 	const float textSpacing, const std::string& itemTexture, const std::string& sliderBar,
@@ -31,7 +31,7 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 
 }
 
-ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int currentIndex,
+ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const int currentIndex,
 	const std::vector<std::string>& itemsText, float fontSize, textAlign textAlign, raylib::Color textColor,
 	float textSpacing, const std::vector<const raylib::Font*>& itemsFont,
 	const std::string& itemTexture, const std::string& sliderBar,
@@ -41,9 +41,9 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 	constexpr int tileImageWidth = 64;
 
 	this->elementType = ElementType::SCROLL_LIST;
-	this->position = getRealLength(Vector2(bounds.x, bounds.y));
-	this->bounds = Rectangle(getRealLength(bounds.x - bounds.width/2), getRealLength(bounds.y - bounds.height / 2),
-		getRealLength(bounds.width), getRealLength(bounds.height));
+	this->position = getRealLength(bounds.GetPosition());
+	this->bounds = getRealLength(Rectangle(bounds.x - bounds.width / 2, bounds.y - bounds.height / 2,
+		bounds.width, bounds.height));
 	this->startIndex = 0;
 	this->currentIndex = currentIndex;
 	this->itemCapacity = itemsText.size() < itemCapacity ? static_cast<int>(itemsText.size()) : itemCapacity;
@@ -64,7 +64,7 @@ ScrollList::ScrollList(const Rectangle bounds, const int itemCapacity, const int
 		buttonY += buttonHeight;
 	}
 
-	if(itemsText.size() > this->itemCapacity)
+	if (itemsText.size() > this->itemCapacity)
 	{
 		this->scrollable = true;
 		const float barHeight = bounds.height / static_cast<float>(itemsText.size()) * static_cast<float>(itemCapacity);
@@ -112,7 +112,7 @@ void ScrollList::updateChildren()
 		}
 		index++;
 	}
-	if(this->scrollable)
+	if (this->scrollable)
 	{
 		this->children.push_back(this->slider);
 		for (auto& item : this->slider->getChildren())
@@ -125,9 +125,9 @@ void ScrollList::updateChildren()
 void ScrollList::draw()
 {
 	const int wheelMove = static_cast<int>(GetMouseWheelMove());
-	if(wheelMove != 0)
+	if (wheelMove != 0)
 	{
-		if(this->scrollable)
+		if (this->scrollable)
 		{
 			int moveY = 0;
 			if(wheelMove > 0)
@@ -139,7 +139,7 @@ void ScrollList::draw()
 			}
 			else
 			{
-				if(this->startIndex + this->itemCapacity < this->itemsText.size())
+				if (this->startIndex + this->itemCapacity < this->itemsText.size())
 				{
 					this->startIndex++;
 				}
@@ -151,7 +151,7 @@ void ScrollList::draw()
 		this->items[i]->setText(this->itemsText[this->startIndex + i]);
 	}
 	const int index = this->currentIndex - this->startIndex;
-	if(index >= 0 && index < this->itemCapacity)
+	if (index >= 0 && index < this->itemCapacity)
 	{
 		this->items[index]->getButton()->setState(buttonState::HOVER);
 	}
@@ -159,10 +159,14 @@ void ScrollList::draw()
 
 void ScrollList::updatePosition()
 {
-	if(this->scrollable)
+	this->bounds.x = this->position.x - this->bounds.width / 2;
+	this->bounds.y = this->position.y - this->bounds.height / 2;
+
+	if (this->scrollable)
 	{
 		this->slider->setPosition(Vector2(this->bounds.x + this->bounds.width + scrollBarWidth / 2, this->position.y));
 	}
+
 	const float buttonHeight = this->items[0]->getButton()->getHitbox()[0].height;
 	float buttonY = this->bounds.y + static_cast<float>(buttonHeight) / 2;
 	for (int i = 0; i < this->itemCapacity; i++)

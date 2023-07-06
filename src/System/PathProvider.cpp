@@ -14,6 +14,8 @@ std::string PathProvider::getFolder(const ResourcesFolder folder) const
 		return this->soundsFolder;
 	case ResourcesFolder::TEXTURES:
 		return this->texturesFolder;
+	case ResourcesFolder::HIGHLIGHT_SCREENSHOTS:
+		return this->highlightScreenshotsFolder;
 	}
 	return {};
 }

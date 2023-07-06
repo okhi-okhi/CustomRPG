@@ -2,12 +2,21 @@
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
-FullPicture::FullPicture(const File& file, const int textureFrameNum)
+FullPicture::FullPicture(const File& file, const int textureFrameNum, const ScaleMode mode)
 {
 	this->elementType = ElementType::FULL_PICTURE;
 
 	raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
-	image.Resize(RaylibUtils::getWindowWidth(), RaylibUtils::getWindowHeight());
+	switch (mode)
+	{
+	case ScaleMode::NN:
+		image.ResizeNN(RaylibUtils::getWindowWidth(), RaylibUtils::getWindowHeight());
+		break;
+
+	case ScaleMode::BICUBIC:
+		image.Resize(RaylibUtils::getWindowWidth(), RaylibUtils::getWindowHeight());
+		break;
+	}
 	this->spriteTexture = image;
 
 	this->textureFrameNum = textureFrameNum;

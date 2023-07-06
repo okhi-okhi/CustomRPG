@@ -18,12 +18,12 @@ private:
 
 public:
 	ScrollList() : itemCapacity(0), scrollable(false), startIndex(0), currentIndex(-1){}
-	ScrollList(Rectangle bounds, int itemCapacity, int currentIndex,
+	ScrollList(raylib::Rectangle bounds, int itemCapacity, int currentIndex,
 		const std::vector<std::string>& itemsI18nKey,
 		float fontSize, textAlign textAlign, raylib::Color textColor, float textSpacing,
 		const std::string& itemTexture, const std::string& sliderBar,
 		const std::string& sliderBackground);
-	ScrollList(Rectangle bounds, int itemCapacity, int currentIndex,
+	ScrollList(raylib::Rectangle bounds, int itemCapacity, int currentIndex,
 	           const std::vector<std::string>& itemsText,
 	           float fontSize, textAlign textAlign, raylib::Color textColor, float textSpacing,
 	           const std::vector<const raylib::Font*>& itemsFont,

@@ -2,6 +2,7 @@
 #include "Screens/MainScreen.h"
 #include "Screens/SettingScreen.h"
 #include "Screens/LanguageScreen.h"
+#include "Screens/SelectGameScreen.h"
 #include "../Utils/RaylibUtils.h"
 #include "../System/GlobalVariable.h"
 
@@ -17,6 +18,7 @@ void ScreenManager::loadAllScreen()
 	this->allScreens.push_back(make_shared<MainScreen>());
 	this->allScreens.push_back(make_shared<SettingScreen>());
 	this->allScreens.push_back(make_shared<LanguageScreen>());
+	this->allScreens.push_back(make_shared<SelectGameScreen>());
 }
 
 void ScreenManager::reloadAllScreen()

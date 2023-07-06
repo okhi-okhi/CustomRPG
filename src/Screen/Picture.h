@@ -1,7 +1,14 @@
 #pragma once
 #include <Image.hpp>
+#include <Texture.hpp>
 #include "Element.h"
 #include "../../System/PathProvider.h"
+
+enum class ScaleMode
+{
+	NN,
+	BICUBIC,
+};
 
 class Picture : public Element
 {
@@ -12,8 +19,10 @@ protected:
 
 public:
 	Picture() : spriteTexture(), textureFrameNum(0), currentFrame(0) {}
-	Picture(const File& file, int textureFrameNum, int width);
-	Picture(raylib::Vector2 pos, const File& file, int textureFrameNum, int width);
+	explicit Picture(const File& file);
+	Picture(raylib::Vector2 pos, const File& file);
+	Picture(const File& file, int textureFrameNum, int width, ScaleMode mode = ScaleMode::NN);
+	Picture(raylib::Vector2 pos, const File& file, int textureFrameNum, int width, ScaleMode mode = ScaleMode::NN);
 
 	void draw() override;
 	void updatePosition() override;

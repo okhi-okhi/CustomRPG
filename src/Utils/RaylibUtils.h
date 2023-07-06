@@ -8,8 +8,8 @@ namespace RaylibUtils
 
 	float getRealLength(float length);
 	float getRealLength(int length);
-	Vector2 getRealLength(Vector2 length);
-	Rectangle getRealLength(Rectangle length);
+	Vector2 getRealLength(Vector2 vector2);
+	Rectangle getRealLength(Rectangle rec);
 
 	bool checkCollisionPointRecs(const raylib::Vector2& point, const std::vector<raylib::Rectangle>& recs);
 

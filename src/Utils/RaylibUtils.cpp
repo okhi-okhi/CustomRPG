@@ -3,7 +3,7 @@
 
 int RaylibUtils::getWindowWidth()
 {
-    if(IsWindowFullscreen())
+    if (IsWindowFullscreen())
     {
         return GetMonitorWidth(GetCurrentMonitor());
     }
@@ -29,20 +29,20 @@ float RaylibUtils::getRealLength(const int length)
     return static_cast<float>(length) * zoomPercent;
 }
 
-Vector2 RaylibUtils::getRealLength(Vector2 length)
+Vector2 RaylibUtils::getRealLength(Vector2 vector2)
 {
-	length.x *= zoomPercent;
-	length.y *= zoomPercent;
-	return length;
+	vector2.x *= zoomPercent;
+	vector2.y *= zoomPercent;
+	return vector2;
 }
 
-Rectangle RaylibUtils::getRealLength(Rectangle length)
+Rectangle RaylibUtils::getRealLength(Rectangle rec)
 {
-    length.x *= zoomPercent;
-	length.y *= zoomPercent;
-	length.width *= zoomPercent;
-	length.height *= zoomPercent;
-	return length;
+    rec.x *= zoomPercent;
+	rec.y *= zoomPercent;
+	rec.width *= zoomPercent;
+	rec.height *= zoomPercent;
+	return rec;
 }
 
 bool RaylibUtils::checkCollisionPointRecs(const raylib::Vector2& point,
