@@ -3,8 +3,8 @@
     "font": "NotoSansTC-Medium.otf",
     "screen":{
         "main":{
-            "button1": "開始遊戲",
-            "button2": "設定",
+            "button1": "<gold>原神<red>啟動!!!",
+            "button2": "<FF00FF>設定",
             "button3": "離開遊戲"
         },
         "setting":{
@@ -18,11 +18,8 @@
             "button1": "完成"
         },
         "test":{
-            "text1": "我是選項1",
-            "text2": "玩家距離: %distance%",
-            "text3": "我是選項3",
-            "text4": "我是選項4",
-            "text5": "english777"
+            "text1": "<084cfb>我是選項1",
+            "text2": "玩家距離: %distance%"
         }
     },
     "menu": {

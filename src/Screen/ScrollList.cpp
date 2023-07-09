@@ -7,7 +7,7 @@
 
 ScrollList::ScrollList(const raylib::Rectangle bounds, const int itemCapacity, const int currentIndex,
 	const std::vector<std::string>& itemsI18nKey, const float fontSize,
-	const textAlign textAlign, const raylib::Color textColor,
+	const TextAlign textAlign, const raylib::Color textColor,
 	const float textSpacing, const std::string& itemTexture, const std::string& sliderBar,
 	const std::string& sliderBackground) :
 	ScrollList(bounds, itemCapacity, currentIndex,
@@ -32,7 +32,7 @@ ScrollList::ScrollList(const raylib::Rectangle bounds, const int itemCapacity, c
 }
 
 ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const int currentIndex,
-	const std::vector<std::string>& itemsText, float fontSize, textAlign textAlign, raylib::Color textColor,
+	const std::vector<std::string>& itemsText, float fontSize, TextAlign textAlign, raylib::Color textColor,
 	float textSpacing, const std::vector<const raylib::Font*>& itemsFont,
 	const std::string& itemTexture, const std::string& sliderBar,
 	const std::string& sliderBackground)

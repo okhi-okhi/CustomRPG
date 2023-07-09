@@ -29,13 +29,13 @@ LanguageScreen::LanguageScreen() : Screen(ScreenType::LANGUAGE, "language")
 	}
 	const auto languageList =
 		make_shared<ScrollList>(Rectangle(960, 540, 400, 600), 8, currentLangIdx, languages,
-			32.0f, textAlign::CENTER, WHITE, 0.0f, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png");
+			32.0f, TextAlign::CENTER, WHITE, 0.0f, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png");
 	addElementGroup(languageList);
 	
 	const int* i = &languageList->getCurrentIndex();
 	addElementGroup(make_shared<ButtonText>(Vector2(960, 770),
 		Button(Picture({ "screens/button_1.png" }, 2, 384), [i] { changeLanguage(i); }),
-		Text("screen.language.button1", 48, textAlign::CENTER, WHITE, 0.0f)));
+		Text("screen.language.button1", 48, TextAlign::CENTER, WHITE, 0.0f)));
 }
 
 void LanguageScreen::changeLanguage(const int* index)

@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <iostream>
 #include <json.hpp>
+#include <regex>
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
@@ -128,26 +129,11 @@ void I18nProvider::loadDefaultLanguage(const string& fileName)
 
 string I18nProvider::replaceKeyInString(string str) const
 {
-	using std::cout, std::endl;
-	std::size_t first = 0;
-	std::size_t n = 0;
-	for (std::size_t i = 0; i < str.length(); i++) {
-		if (str[i] == '|') {
-			n++;
-			if (n == 1) {
-				first = i;
-			}
-			else if (n == 2) {
-				const std::size_t second = i;
-				string s = get(str.substr(first + 1, second - first - 1));
-				str.replace(first, second - first + 1, s);
-				i = i - second + first + s.length() - 1;
-			}
-			else {
-				n = 1;
-				first = i;
-			}
-		}
+	const std::regex pattern(R"(\|(.+?)\|)");
+	std::smatch match;
+	while (std::regex_search(str, match, pattern)) {
+		std::string s = get(match[1]);
+		str.replace(match.position(), match.length(), s);
 	}
 	return str;
 }

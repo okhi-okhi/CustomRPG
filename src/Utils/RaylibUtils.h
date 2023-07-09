@@ -13,6 +13,8 @@ namespace RaylibUtils
 
 	bool checkCollisionPointRecs(const raylib::Vector2& point, const std::vector<raylib::Rectangle>& recs);
 
+	std::vector<int> hexDecode(const std::string& str, unsigned char charsPerNum = 2);
+
 	raylib::Font getContainTextFont(const std::string& fileName, const std::string& text);
 	int* codepointRemoveDuplicates(const int* codepoints, int codepointCount, int* codepointsResultCount);
 

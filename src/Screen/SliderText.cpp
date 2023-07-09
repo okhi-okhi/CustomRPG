@@ -12,11 +12,11 @@ SliderText::SliderText(const Vector2 position, const Slider& slider,
 
 	this->name = std::make_shared<Text>(name);
 	this->name->setPosition(Vector2(this->slider->getBounds().x - this->spacing, this->position.y));
-	this->name->setAlign(textAlign::RIGHT);
+	this->name->setAlign(TextAlign::RIGHT);
 
 	this->value = std::make_shared<TextArg>(value);
 	this->value->setPosition(Vector2(this->slider->getBounds().x + this->slider->getBounds().width + this->spacing, this->position.y));
-	this->value->setAlign(textAlign::LEFT);
+	this->value->setAlign(TextAlign::LEFT);
 
 	updateChildren();
 }

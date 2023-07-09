@@ -5,7 +5,7 @@
 
 TextArg::TextArg(const raylib::Vector2 pos, const std::string& i18nKey,
 	const std::map<std::string, argTypes>& args, const float fontSize,
-	const textAlign align, const raylib::Color color, const float spacing)
+	const TextAlign align, const raylib::Color color, const float spacing)
 {
 	this->elementType = ElementType::TEXT_ARG;
 	this->i18nKey = i18nKey;
@@ -25,7 +25,7 @@ TextArg::TextArg(const raylib::Vector2 pos, const std::string& i18nKey,
 void TextArg::draw()
 {
 	update();
-	raylib::DrawTextEx(*this->font, text, this->originPos, this->fontSize, this->spacing, this->color);
+	//raylib::DrawTextEx(*this->font, text, this->originPos, this->fontSize, this->spacing, this->color);
 }
 
 void TextArg::updatePosition()
@@ -36,7 +36,7 @@ void TextArg::updatePosition()
 void TextArg::update()
 {
 	std::map<std::string, std::string> newArgs;
-	for (const auto& [fst, snd] : args)
+	for (const auto& [fst, snd] : this->args)
 	{
 		if (snd.index() == 2)
 		{
@@ -51,11 +51,11 @@ void TextArg::update()
 			newArgs.emplace(fst, std::to_string(*std::get<const int*>(snd)));
 		}
 	}
-	const std::string newText = I18n::instance().get(i18nKey, newArgs);
+	const std::string newText = I18n::instance().get(this->i18nKey, newArgs);
 
-	if (this->text != newText)
-	{
-		this->text = newText;
-		updatePosition();
-	}
+	// if (this->text != newText)
+	// {
+	// 	this->text = newText;
+	// 	updatePosition();
+	// }
 }

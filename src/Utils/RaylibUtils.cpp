@@ -1,4 +1,5 @@
 #include "RaylibUtils.h"
+#include <charconv>
 #include "../System/GlobalVariable.h"
 
 int RaylibUtils::getWindowWidth()
@@ -56,6 +57,23 @@ bool RaylibUtils::checkCollisionPointRecs(const raylib::Vector2& point,
 		}
 	}
 	return false;
+}
+
+std::vector<int> RaylibUtils::hexDecode(const std::string& str, unsigned char charsPerNum)
+{
+    std::vector out(str.size() / charsPerNum, 0);
+
+    int value;
+    for (std::size_t i = 0; i < str.size() / charsPerNum; i++) {
+        std::from_chars(
+            str.data() + (i * charsPerNum),
+            str.data() + (i * charsPerNum) + charsPerNum,
+            value,
+            16
+        );
+        out[i] = value;
+    }
+    return out;
 }
 
 raylib::Font RaylibUtils::getContainTextFont(const std::string& fileName, const std::string& text)
