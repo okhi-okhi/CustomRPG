@@ -3,8 +3,8 @@
     "font": "NotoSansTC-Medium.otf",
     "screen":{
         "main":{
-            "button1": "<gold>原神<red>啟動!!!",
-            "button2": "<FF00FF>設定",
+            "button1": "開始遊戲",
+            "button2": "設定",
             "button3": "離開遊戲"
         },
         "setting":{

@@ -29,9 +29,10 @@ protected:
 	float spacing;
 
 	const raylib::Font* font;
+	int lineNums;
 
 public:
-	Text() : fontSize(0), align(), spacing(0), font(nullptr) {}
+	Text() : fontSize(0), align(), spacing(0), font(nullptr), lineNums(0) {}
 	explicit Text(const std::string& i18nKey, float fontSize,
 		TextAlign align, raylib::Color color, float spacing);
 	explicit Text(raylib::Vector2 pos, const std::string& i18nKey, float fontSize,

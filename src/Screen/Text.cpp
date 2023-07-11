@@ -34,6 +34,15 @@ Text::Text(const raylib::Vector2 pos, const std::string& text,
 
 	this->font = font;
 
+	this->lineNums = 1;
+	for(const auto& c : text)
+	{
+		if (c == '\n')
+		{
+			this->lineNums++;
+		}
+	}
+
 	Text::updatePosition();
 }
 
@@ -44,23 +53,32 @@ void Text::draw()
 
 	const float scaleFactor = this->fontSize / this->font->baseSize;
 
-	switch (this->align)
+	struct Char
 	{
-		case TextAlign::LEFT:
-			for (const auto& colorText : this->texts) {
-				const int size = TextLength(colorText.text.c_str());
-				for (int i = 0; i < size;)
-				{
-					int codepointByteCount = 0;
-					const int codepoint = GetCodepointNext(&colorText.text[i], &codepointByteCount);
-					const int index = GetGlyphIndex(*this->font, codepoint);
+		int codepoint;
+		float width;
+		Color color;
+	};
+	float width;
+	std::vector<Char> currentLine;
 
-					if (codepoint == 0x3f) codepointByteCount = 1;
+	for (const auto& colorText : this->texts) {
+		const int size = TextLength(colorText.text.c_str());
+		for (int i = 0; i < size;)
+		{
+			int codepointByteCount = 0;
+			const int codepoint = GetCodepointNext(&colorText.text[i], &codepointByteCount);
+			const int index = GetGlyphIndex(*this->font, codepoint);
 
+			if (codepoint == 0x3f) codepointByteCount = 1;
+			switch (this->align)
+			{
+				case TextAlign::LEFT:
 					if (codepoint == '\n')
 					{
-						textOffsetY += static_cast<int>((this->font->baseSize + this->font->baseSize / 2.0f) * scaleFactor);
+						textOffsetY += static_cast<int>(this->fontSize);
 						textOffsetX = 0.0f;
+
 					}
 					else
 					{
@@ -76,18 +94,74 @@ void Text::draw()
 							textOffsetX += static_cast<float>(this->font->glyphs[index].advanceX) * scaleFactor + this->spacing;
 						}
 					}
+					break;
 
-					i += codepointByteCount;
-				}
+				case TextAlign::CENTER:
+					if (codepoint == '\n')
+					{
+						//std::cout << "x: " << this->originPos.x + textOffsetX << " y: " << this->originPos.y + textOffsetY << std::endl;
+						for (const auto& [currentCodepoint, currentWidth, currentColor] : currentLine) {
+							DrawTextCodepoint(*this->font, currentCodepoint, Vector2(this->originPos.x + textOffsetX, this->originPos.y + textOffsetY), this->fontSize, currentColor);
+							textOffsetX += currentWidth;
+						}
+						textOffsetY += static_cast<int>(this->fontSize);
+						textOffsetX = 0.0f;
+						currentLine.clear();
+					}
+					else
+					{
+						if (this->font->glyphs[index].advanceX == 0) {
+							width = this->font->recs[index].width * scaleFactor + this->spacing;
+						}
+						else {
+							width = static_cast<float>(this->font->glyphs[index].advanceX) * scaleFactor + this->spacing;
+						}
+						currentLine.emplace_back(codepoint, width, colorText.color);
+						textOffsetX -= width / 2;
+					}
+					break;
+
+				case TextAlign::RIGHT:
+					if (codepoint == '\n')
+					{
+						//std::cout << "x: " << this->originPos.x + textOffsetX << " y: " << this->originPos.y + textOffsetY << std::endl;
+						for (const auto& [currentCodepoint, currentWidth, currentColor] : currentLine) {
+							DrawTextCodepoint(*this->font, currentCodepoint, Vector2(this->originPos.x + textOffsetX, this->originPos.y + textOffsetY), this->fontSize, currentColor);
+							textOffsetX += currentWidth;
+						}
+						textOffsetY += static_cast<int>(this->fontSize);
+						textOffsetX = 0.0f;
+						currentLine.clear();
+					}
+					else
+					{
+						if (this->font->glyphs[index].advanceX == 0) {
+							width = this->font->recs[index].width * scaleFactor + this->spacing;
+						}
+						else {
+							width = static_cast<float>(this->font->glyphs[index].advanceX) * scaleFactor + this->spacing;
+						}
+						currentLine.emplace_back(codepoint, width, colorText.color);
+						textOffsetX -= width;
+					}
+					break;
 			}
+
+			i += codepointByteCount;
+			}
+		}
+
+	if (align == TextAlign::CENTER || align == TextAlign::RIGHT) {
+		for (const auto& [currentCodepoint, currentWidth, currentColor] : currentLine) {
+			DrawTextCodepoint(*this->font, currentCodepoint, Vector2(this->originPos.x + textOffsetX, this->originPos.y + textOffsetY), this->fontSize, currentColor);
+			textOffsetX += currentWidth;
+		}
 	}
 }
 
 void Text::updatePosition()
 {
-	const Vector2 textSize = MeasureTextEx(*this->font, this->texts[0].text.c_str(), this->fontSize, this->spacing);
-
-	this->originPos.y = this->position.y - textSize.y / 2;
+	this->originPos.y = this->position.y - (this->fontSize * this->lineNums / 2);
 	this->originPos.x = this->position.x;
 }
 
@@ -190,6 +264,5 @@ Color Text::str2Color(const std::string& colorStr)
 		const auto rgb = RaylibUtils::hexDecode(colorStr);
 		currentColor = Color(rgb[0], rgb[1], rgb[2], 255);
 	}
-	std::cout << "r: " << static_cast<int>(currentColor.r) << std::endl;
 	return currentColor;
 }
