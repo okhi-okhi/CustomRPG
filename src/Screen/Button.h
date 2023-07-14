@@ -3,7 +3,7 @@
 #include <Sound.hpp>
 #include "Picture.h"
 
-enum class buttonState
+enum class ButtonState
 {
 	IDLE = 0,
 	HOVER
@@ -32,7 +32,7 @@ public:
 	virtual void update();
 
 	void checkCollision(const std::vector<raylib::Rectangle>& recs);
-	void setState(buttonState buttonState) { this->texture.setCurrentFrame(static_cast<int>(buttonState)); }
+	void setState(ButtonState buttonState) { this->texture.setCurrentFrame(static_cast<int>(buttonState)); }
 	void setLockState(const bool _lockState) { this->lockState = _lockState; }
 	void setFunction(const std::function<void()>& _function) { this->function = _function; }
 
@@ -40,7 +40,7 @@ public:
 	void clearReserveRec() { this->reserveRec.clear(); }
 
 	const Picture& getTexture() const { return this->texture; }
-	buttonState getButtonState() const { return static_cast<buttonState>(this->texture.getCurrentFrame()); }
+	ButtonState getButtonState() const { return static_cast<ButtonState>(this->texture.getCurrentFrame()); }
 	float getButtonHeight() const { return this->texture.getHeight(); }
 	const std::vector<raylib::Rectangle>& getReserveRec() const { return this->reserveRec; }
 };

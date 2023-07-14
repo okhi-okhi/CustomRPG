@@ -11,17 +11,27 @@ enum class TextAlign
 	RIGHT
 };
 
-struct ColorText
+struct ColorChar
 {
-	std::string text;
-	raylib::Color color;
-	ColorText(std::string text, const raylib::Color color) : text(std::move(text)), color(color) {}
+	int codepointByteCount;
+	int codepoint;
+	float width;
+	Color color;
+	ColorChar(const int codepointByteCount, const int codepoint, const float width, const Color color) :
+		codepointByteCount(codepointByteCount), codepoint(codepoint), width(width), color(color) {}
+};
+
+struct TextLine
+{
+	float width;
+	std::vector<ColorChar> text;
+	TextLine(const float width, std::vector<ColorChar> text) : width(width), text(std::move(text)) {}
 };
 
 class Text : public Element
 {
 protected:
-	std::vector<ColorText> texts;
+	std::vector<TextLine> textLines;
 
 	float fontSize;
 	TextAlign align;
@@ -29,10 +39,9 @@ protected:
 	float spacing;
 
 	const raylib::Font* font;
-	int lineNums;
 
 public:
-	Text() : fontSize(0), align(), spacing(0), font(nullptr), lineNums(0) {}
+	Text() : fontSize(0), align(), spacing(0), font(nullptr) {}
 	explicit Text(const std::string& i18nKey, float fontSize,
 		TextAlign align, raylib::Color color, float spacing);
 	explicit Text(raylib::Vector2 pos, const std::string& i18nKey, float fontSize,
@@ -45,11 +54,11 @@ public:
 	void draw() override;
 	void updatePosition() override;
 
-	static std::vector<ColorText> str2ColorTexts(std::string str);
+	std::vector<TextLine> str2TextLines(std::string str) const;
 	static Color str2Color(const std::string& colorStr);
 	void setAlign(const TextAlign align) { this->align = align; updatePosition(); }
 
-	const std::vector<ColorText>& getTexts() const { return this->texts; }
+	const std::vector<TextLine>& getTexts() const { return this->textLines; }
 	const float& getFontSize() const { return this->fontSize; }
 	const TextAlign& getAlign() const { return this->align; }
 	const raylib::Color& getColor() const { return this->color; }

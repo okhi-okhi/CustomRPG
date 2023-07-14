@@ -25,8 +25,6 @@ Text::Text(const raylib::Vector2 pos, const std::string& text,
            const float fontSize, const TextAlign align, const raylib::Color color,
            const float spacing, const raylib::Font* font) : Element(ElementType::TEXT, pos)
 {
-	this->texts = str2ColorTexts(text);
-
 	this->fontSize = RaylibUtils::getRealLength(fontSize);
 	this->align = align;
 	this->color = color;
@@ -34,176 +32,98 @@ Text::Text(const raylib::Vector2 pos, const std::string& text,
 
 	this->font = font;
 
-	this->lineNums = 1;
-	for(const auto& c : text)
-	{
-		if (c == '\n')
-		{
-			this->lineNums++;
-		}
-	}
+	this->textLines = str2TextLines(text);
 
 	Text::updatePosition();
 }
 
 void Text::draw()
 {
-	int textOffsetY = 0;
-	float textOffsetX = 0.0f;
+	float textOffsetX = 0;
+	float textOffsetY = 0;
 
-	const float scaleFactor = this->fontSize / this->font->baseSize;
-
-	struct Char
+	for (const auto& text : this->textLines)
 	{
-		int codepoint;
-		float width;
-		Color color;
-	};
-	float width;
-	std::vector<Char> currentLine;
-
-	for (const auto& colorText : this->texts) {
-		const int size = TextLength(colorText.text.c_str());
-		for (int i = 0; i < size;)
+		switch (this->align)
 		{
-			int codepointByteCount = 0;
-			const int codepoint = GetCodepointNext(&colorText.text[i], &codepointByteCount);
-			const int index = GetGlyphIndex(*this->font, codepoint);
-
-			if (codepoint == 0x3f) codepointByteCount = 1;
-			switch (this->align)
-			{
-				case TextAlign::LEFT:
-					if (codepoint == '\n')
-					{
-						textOffsetY += static_cast<int>(this->fontSize);
-						textOffsetX = 0.0f;
-
-					}
-					else
-					{
-						if ((codepoint != ' ') && (codepoint != '\t'))
-						{
-							DrawTextCodepoint(*this->font, codepoint, Vector2(this->originPos.x + textOffsetX, this->originPos.y + textOffsetY), this->fontSize, colorText.color);
-						}
-
-						if (this->font->glyphs[index].advanceX == 0) {
-							textOffsetX += this->font->recs[index].width * scaleFactor + this->spacing;
-						}
-						else {
-							textOffsetX += static_cast<float>(this->font->glyphs[index].advanceX) * scaleFactor + this->spacing;
-						}
-					}
-					break;
-
-				case TextAlign::CENTER:
-					if (codepoint == '\n')
-					{
-						//std::cout << "x: " << this->originPos.x + textOffsetX << " y: " << this->originPos.y + textOffsetY << std::endl;
-						for (const auto& [currentCodepoint, currentWidth, currentColor] : currentLine) {
-							DrawTextCodepoint(*this->font, currentCodepoint, Vector2(this->originPos.x + textOffsetX, this->originPos.y + textOffsetY), this->fontSize, currentColor);
-							textOffsetX += currentWidth;
-						}
-						textOffsetY += static_cast<int>(this->fontSize);
-						textOffsetX = 0.0f;
-						currentLine.clear();
-					}
-					else
-					{
-						if (this->font->glyphs[index].advanceX == 0) {
-							width = this->font->recs[index].width * scaleFactor + this->spacing;
-						}
-						else {
-							width = static_cast<float>(this->font->glyphs[index].advanceX) * scaleFactor + this->spacing;
-						}
-						currentLine.emplace_back(codepoint, width, colorText.color);
-						textOffsetX -= width / 2;
-					}
-					break;
-
-				case TextAlign::RIGHT:
-					if (codepoint == '\n')
-					{
-						//std::cout << "x: " << this->originPos.x + textOffsetX << " y: " << this->originPos.y + textOffsetY << std::endl;
-						for (const auto& [currentCodepoint, currentWidth, currentColor] : currentLine) {
-							DrawTextCodepoint(*this->font, currentCodepoint, Vector2(this->originPos.x + textOffsetX, this->originPos.y + textOffsetY), this->fontSize, currentColor);
-							textOffsetX += currentWidth;
-						}
-						textOffsetY += static_cast<int>(this->fontSize);
-						textOffsetX = 0.0f;
-						currentLine.clear();
-					}
-					else
-					{
-						if (this->font->glyphs[index].advanceX == 0) {
-							width = this->font->recs[index].width * scaleFactor + this->spacing;
-						}
-						else {
-							width = static_cast<float>(this->font->glyphs[index].advanceX) * scaleFactor + this->spacing;
-						}
-						currentLine.emplace_back(codepoint, width, colorText.color);
-						textOffsetX -= width;
-					}
-					break;
-			}
-
-			i += codepointByteCount;
-			}
+		case TextAlign::LEFT:
+			textOffsetX = 0;
+			break;
+		case TextAlign::CENTER:
+			textOffsetX = - static_cast<float>(text.width) / 2;
+			break;
+		case TextAlign::RIGHT:
+			textOffsetX = - static_cast<float>(text.width);
+			break;
 		}
 
-	if (align == TextAlign::CENTER || align == TextAlign::RIGHT) {
-		for (const auto& [currentCodepoint, currentWidth, currentColor] : currentLine) {
-			DrawTextCodepoint(*this->font, currentCodepoint, Vector2(this->originPos.x + textOffsetX, this->originPos.y + textOffsetY), this->fontSize, currentColor);
-			textOffsetX += currentWidth;
+		for (const auto& colorChar : text.text)
+		{
+			DrawTextCodepoint(*this->font, colorChar.codepoint, Vector2(this->originPos.x + textOffsetX, this->originPos.y + textOffsetY), this->fontSize, colorChar.color);
+			textOffsetX += colorChar.width;
 		}
+		textOffsetY += this->fontSize;
 	}
 }
 
 void Text::updatePosition()
 {
-	this->originPos.y = this->position.y - (this->fontSize * this->lineNums / 2);
-	this->originPos.x = this->position.x;
+	this->originPos.y = this->position.y - (this->fontSize * textLines.size() / 2);
+	this->originPos.x = this->position.x + 0;
 }
 
-std::vector<ColorText> Text::str2ColorTexts(std::string str)
+std::vector<TextLine> Text::str2TextLines(std::string str) const
 {
-	std::vector<ColorText> colorTexts;
-	std::vector<std::pair<std::string, std::string>> result;
+	float width = 0;
+	std::vector<TextLine> textLines;
+	auto currentColor = WHITE;
+	std::vector<ColorChar> currentText;
 
-	std::size_t start = 0;
-	while (start < str.size()) {
-		const std::size_t color_start = str.find('<', start);
-		if (color_start == std::string::npos) {
-			colorTexts.emplace_back(str.substr(start), str2Color("white"));
-			break;
-		}
-
-		if (color_start > start) {
-			colorTexts.emplace_back(str.substr(start, color_start - start), str2Color("white"));
-		}
-		const std::size_t color_end = str.find('>', color_start);
-		if (color_end == std::string::npos) {
-			break;
-		}
-
-		const std::size_t text_start = color_end + 1;
-		const std::size_t text_end = str.find('<', text_start);
-		if (text_end == std::string::npos) {
-			std::string text = str.substr(text_start);
-			if (!text.empty()) {
-				colorTexts.emplace_back(text, str2Color(str.substr(color_start + 1, color_end - color_start - 1)));
+	for(size_t i = 0; i < str.size(); i++)
+	{
+		if (str[i] == '<') {
+			const size_t colorEnd = str.find('>', i);
+			std::string colorStr = str.substr(i + 1, colorEnd - i - 1);
+			if(!colorStr.empty())
+			{
+				currentColor = str2Color(colorStr);
+				i = colorEnd;
 			}
-			break;
 		}
+		else if (str[i] == '\n')
+		{
+			for (const auto& colorChar : currentText)
+			{
+				width += colorChar.width;
+			}
+			textLines.emplace_back(width, currentText);
+			currentText.clear();
+			width = 0;
+		}
+		else {
+			int codepointByteCount;
+			const int codepoint = GetCodepointNext(&str[i], &codepointByteCount);
+			const int index = GetGlyphIndex(*this->font, codepoint);
+			float charWidth;
 
-		std::string text = str.substr(text_start, text_end - text_start);
-		if (!text.empty()) {
-			colorTexts.emplace_back(text, str2Color(str.substr(color_start + 1, color_end - color_start - 1)));
+			if (codepoint == 0x3f) codepointByteCount = 1;
+			if (this->font->glyphs[index].advanceX == 0) {
+				charWidth = this->font->recs[index].width * this->fontSize / this->font->baseSize + this->spacing;
+			}
+			else {
+				charWidth = static_cast<float>(this->font->glyphs[index].advanceX) * this->fontSize / this->font->baseSize + this->spacing;
+			}
+			currentText.emplace_back(codepointByteCount, codepoint, charWidth, currentColor);
+			i += codepointByteCount - 1;
 		}
-		start = text_end;
 	}
+	for (const auto& colorChar : currentText)
+	{
+		width += colorChar.width;
+	}
+	textLines.emplace_back(width, currentText);
 
-	return colorTexts;
+	return textLines;
 }
 
 Color Text::str2Color(const std::string& colorStr)

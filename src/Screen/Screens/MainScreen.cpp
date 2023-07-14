@@ -15,7 +15,7 @@ MainScreen::MainScreen() : Screen(ScreenType::MAIN, "main")
 	const Picture buttonBg({ "screens/button_1.png" }, 2, 384);
 	addElementGroup(make_shared<ButtonText>(Vector2(960, 324), Button(buttonBg, openSelectGame), Text("screen.main.button1", 48, TextAlign::CENTER, WHITE, 0.0f)));
 	addElementGroup(make_shared<ButtonText>(Vector2(960, 540), Button(buttonBg, openSetting), Text("screen.main.button2", 48, TextAlign::CENTER, WHITE, 0.0f)));
-	addElementGroup(make_shared<ButtonText>(Vector2(960, 756), Button(buttonBg, closeWindow), Text("screen.main.button3", 48, TextAlign::CENTER, WHITE, 0.0f)));
+	addElementGroup(make_shared<ButtonText>(Vector2(960, 756), Button(buttonBg, closeWindow), Text("screen.main.button3", 48, TextAlign::RIGHT, WHITE, 0.0f)));
 }
 
 void MainScreen::openSelectGame()

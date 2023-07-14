@@ -153,7 +153,7 @@ void ScrollList::draw()
 	const int index = this->currentIndex - this->startIndex;
 	if (index >= 0 && index < this->itemCapacity)
 	{
-		this->items[index]->getButton()->setState(buttonState::HOVER);
+		this->items[index]->getButton()->setState(ButtonState::HOVER);
 	}
 }
 
