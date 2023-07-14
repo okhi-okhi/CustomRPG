@@ -8,12 +8,13 @@ class TextArg final : public Text
 private:
 	std::string i18nKey;
 	std::map<std::string, argTypes> args;
+	std::string text;
 
 public:
 	TextArg() = default;
 	TextArg(raylib::Vector2 pos, const std::string& i18nKey,
-		const std::map<std::string, argTypes>& args, float fontSize, TextAlign align,
-		raylib::Color color, float spacing);
+		const std::map<std::string, argTypes>& args, float fontSize,
+		TextAlign align, float spacing);
 
 	void draw() override;
 	void updatePosition() override;

@@ -35,7 +35,7 @@ LanguageScreen::LanguageScreen() : Screen(ScreenType::LANGUAGE, "language")
 	const int* i = &languageList->getCurrentIndex();
 	addElementGroup(make_shared<ButtonText>(Vector2(960, 770),
 		Button(Picture({ "screens/button_1.png" }, 2, 384), [i] { changeLanguage(i); }),
-		Text("screen.language.button1", 48, TextAlign::CENTER, WHITE, 0.0f)));
+		Text("screen.language.button1", 48, TextAlign::CENTER, 0.0f)));
 }
 
 void LanguageScreen::changeLanguage(const int* index)

@@ -5,7 +5,7 @@
 
 TextArg::TextArg(const raylib::Vector2 pos, const std::string& i18nKey,
 	const std::map<std::string, argTypes>& args, const float fontSize,
-	const TextAlign align, const raylib::Color color, const float spacing)
+	const TextAlign align, const float spacing)
 {
 	this->elementType = ElementType::TEXT_ARG;
 	this->i18nKey = i18nKey;
@@ -14,7 +14,6 @@ TextArg::TextArg(const raylib::Vector2 pos, const std::string& i18nKey,
 
 	this->fontSize = RaylibUtils::getRealLength(fontSize);
 	this->align = align;
-	this->color = color;
 	this->spacing = spacing;
 
 	this->font = &FontProvider::instance().get(i18nKey);
@@ -25,7 +24,7 @@ TextArg::TextArg(const raylib::Vector2 pos, const std::string& i18nKey,
 void TextArg::draw()
 {
 	update();
-	//raylib::DrawTextEx(*this->font, text, this->originPos, this->fontSize, this->spacing, this->color);
+	Text::draw();
 }
 
 void TextArg::updatePosition()
@@ -53,9 +52,10 @@ void TextArg::update()
 	}
 	const std::string newText = I18n::instance().get(this->i18nKey, newArgs);
 
-	// if (this->text != newText)
-	// {
-	// 	this->text = newText;
-	// 	updatePosition();
-	// }
+	if (this->text != newText)
+	{
+		this->text = newText;
+		this->textLines = str2TextLines(newText);
+		updatePosition();
+	}
 }

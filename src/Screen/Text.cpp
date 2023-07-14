@@ -4,30 +4,29 @@
 #include "../Utils/RaylibUtils.h"
 
 Text::Text(const std::string& i18nKey, const float fontSize, const TextAlign align,
-           const raylib::Color color, const float spacing) :
-	Text(Vector2(0, 0), i18nKey, fontSize, align, color, spacing)
+           const float spacing) :
+	Text(Vector2(0, 0), i18nKey, fontSize, align, spacing)
 {
 }
 
 Text::Text(const raylib::Vector2 pos, const std::string& i18nKey, const float fontSize,
-           const TextAlign align, const raylib::Color color, const float spacing) :
-	Text(pos, I18n::instance().get(i18nKey), fontSize, align, color, spacing, &FontProvider::instance().get(i18nKey))
+           const TextAlign align, const float spacing) :
+	Text(pos, I18n::instance().get(i18nKey), fontSize, align, spacing, &FontProvider::instance().get(i18nKey))
 {
 }
 
 Text::Text(const std::string& text, const float fontSize, const TextAlign align,
-           const raylib::Color color, const float spacing, const raylib::Font* font) :
-	Text(Vector2(0, 0), text, fontSize, align, color, spacing, font)
+		   const float spacing, const raylib::Font* font) :
+	Text(Vector2(0, 0), text, fontSize, align, spacing, font)
 {
 }
 
 Text::Text(const raylib::Vector2 pos, const std::string& text,
-           const float fontSize, const TextAlign align, const raylib::Color color,
+           const float fontSize, const TextAlign align,
            const float spacing, const raylib::Font* font) : Element(ElementType::TEXT, pos)
 {
 	this->fontSize = RaylibUtils::getRealLength(fontSize);
 	this->align = align;
-	this->color = color;
 	this->spacing = spacing;
 
 	this->font = font;

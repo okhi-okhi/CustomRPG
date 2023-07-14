@@ -22,7 +22,7 @@ SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 			PictureTiled({ "screens/slider_background_horizontal.png" }, 2, 32, Vector2(250, 32)),
 			&SystemConfig::instance().getMasterVolume(), 0, 100, true, [this] { changeMasterVolume(); }
 		),
-		Text("screen.setting.masterVolume", 48, TextAlign::CENTER, WHITE, 1.0f),
+		Text("screen.setting.masterVolume", 48, TextAlign::CENTER, 1.0f),
 		TextArg(Vector2(1170, 325), "screen.setting.currentMasterVolume", std::map<std::string, argTypes>{ {"volume", & SystemConfig::instance().getMasterVolume()} }, 48, TextAlign::CENTER, WHITE, 1.0f)
 	));
 

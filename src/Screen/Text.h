@@ -35,7 +35,6 @@ protected:
 
 	float fontSize;
 	TextAlign align;
-	raylib::Color color;
 	float spacing;
 
 	const raylib::Font* font;
@@ -43,13 +42,13 @@ protected:
 public:
 	Text() : fontSize(0), align(), spacing(0), font(nullptr) {}
 	explicit Text(const std::string& i18nKey, float fontSize,
-		TextAlign align, raylib::Color color, float spacing);
-	explicit Text(raylib::Vector2 pos, const std::string& i18nKey, float fontSize,
-		TextAlign align, raylib::Color color, float spacing);
+		TextAlign align, float spacing);
+	explicit Text(raylib::Vector2 pos, const std::string& i18nKey,
+		float fontSize, TextAlign align, float spacing);
 	explicit Text(const std::string& text, float fontSize,
-		TextAlign align, raylib::Color color, float spacing, const raylib::Font* font);
+		TextAlign align, float spacing, const raylib::Font* font);
 	explicit Text(raylib::Vector2 pos, const std::string& text, float fontSize,
-		TextAlign align, raylib::Color color, float spacing, const raylib::Font* font);
+		TextAlign align, float spacing, const raylib::Font* font);
 
 	void draw() override;
 	void updatePosition() override;
@@ -61,7 +60,6 @@ public:
 	const std::vector<TextLine>& getTexts() const { return this->textLines; }
 	const float& getFontSize() const { return this->fontSize; }
 	const TextAlign& getAlign() const { return this->align; }
-	const raylib::Color& getColor() const { return this->color; }
 	const float& getSpacing() const { return this->spacing; }
 	const raylib::Font* getFont() const { return this->font; }
 };
