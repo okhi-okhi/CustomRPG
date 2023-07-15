@@ -23,7 +23,7 @@ TextBox::TextBox(const raylib::Rectangle bounds, const std::string& text, const 
 
 	this->textLines = TextBox::str2TextLines(text);
 	const int maxCapacity = static_cast<int>(this->bounds.height / this->fontSize);
-	this->lineCapacity = (this->textLines.size() > maxCapacity) ? maxCapacity : this->textLines.size();
+	this->lineCapacity = (this->textLines.size() > maxCapacity) ? maxCapacity : static_cast<int>(this->textLines.size());
 	this->startIndex = 0;
 	this->scrollable = (this->textLines.size() > this->lineCapacity) ? true : false;
 	TextBox::updatePosition();
@@ -36,7 +36,6 @@ void TextBox::draw()
 		const int wheelMove = static_cast<int>(GetMouseWheelMove());
 		if (wheelMove != 0)
 		{
-			int moveY = 0;
 			if (wheelMove > 0)
 			{
 				if (this->startIndex > 0)

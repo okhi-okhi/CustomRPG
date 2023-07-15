@@ -1,9 +1,9 @@
 #pragma once
 #include "Text.h"
 
-class TextBox : public Text
+class TextBox : virtual public Text
 {
-private:
+protected:
 	raylib::Rectangle bounds;
 	int lineCapacity;
 	int startIndex;
@@ -20,5 +20,10 @@ public:
 	void updatePosition() override;
 
 	std::vector<TextLine> str2TextLines(std::string str) const override;
+
+	const raylib::Rectangle& getBounds() const { return bounds; }
+	const int& getLineCapacity() const { return lineCapacity; }
+	const int& getStartIndex() const { return startIndex; }
+	const bool& isScrollable() const { return scrollable; }
 };
 

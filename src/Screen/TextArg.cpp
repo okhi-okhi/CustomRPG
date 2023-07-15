@@ -8,9 +8,9 @@ TextArg::TextArg(const raylib::Vector2 pos, const std::string& i18nKey,
 	const TextAlign align, const float spacing)
 {
 	this->elementType = ElementType::TEXT_ARG;
+	this->position = RaylibUtils::getRealLength(pos);
 	this->i18nKey = i18nKey;
 	this->args = args;
-	this->position = RaylibUtils::getRealLength(pos);
 
 	this->fontSize = RaylibUtils::getRealLength(fontSize);
 	this->align = align;

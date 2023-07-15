@@ -23,7 +23,7 @@ SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 			&SystemConfig::instance().getMasterVolume(), 0, 100, true, [this] { changeMasterVolume(); }
 		),
 		Text("screen.setting.masterVolume", 48, TextAlign::CENTER, 1.0f),
-		TextArg(Vector2(1170, 325), "screen.setting.currentMasterVolume", std::map<std::string, argTypes>{ {"volume", & SystemConfig::instance().getMasterVolume()} }, 48, TextAlign::CENTER, 1.0f)
+		TextArg(Vector2(1170, 325), "screen.setting.currentMasterVolume", std::map<std::string, argTypes>{ {"volume", &SystemConfig::instance().getMasterVolume()} }, 48, TextAlign::CENTER, 1.0f)
 	));
 
 	const Picture buttonBg({ "screens/button_1.png" }, 2, 384);

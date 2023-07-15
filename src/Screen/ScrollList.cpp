@@ -129,7 +129,6 @@ void ScrollList::draw()
 	{
 		if (wheelMove != 0)
 		{
-			int moveY = 0;
 			if(wheelMove > 0)
 			{
 				if(this->startIndex > 0)

@@ -3,9 +3,9 @@
 #include "Text.h"
 
 using argTypes = std::variant<const int*, const float*, const std::string*>;
-class TextArg final : public Text
+class TextArg : virtual public Text
 {
-private:
+protected:
 	std::string i18nKey;
 	std::map<std::string, argTypes> args;
 	std::string text;
