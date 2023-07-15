@@ -31,7 +31,7 @@ Text::Text(const raylib::Vector2 pos, const std::string& text,
 
 	this->font = font;
 
-	this->textLines = str2TextLines(text);
+	this->textLines = Text::str2TextLines(text);
 
 	Text::updatePosition();
 }
@@ -49,10 +49,10 @@ void Text::draw()
 			textOffsetX = 0;
 			break;
 		case TextAlign::CENTER:
-			textOffsetX = - static_cast<float>(text.width) / 2;
+			textOffsetX = - text.width / 2;
 			break;
 		case TextAlign::RIGHT:
-			textOffsetX = - static_cast<float>(text.width);
+			textOffsetX = - text.width;
 			break;
 		}
 
@@ -67,14 +67,14 @@ void Text::draw()
 
 void Text::updatePosition()
 {
+	this->originPos.x = this->position.x;
 	this->originPos.y = this->position.y - (this->fontSize * textLines.size() / 2);
-	this->originPos.x = this->position.x + 0;
 }
 
 std::vector<TextLine> Text::str2TextLines(std::string str) const
 {
-	float width = 0;
 	std::vector<TextLine> textLines;
+	float currentWidth = 0;
 	auto currentColor = WHITE;
 	std::vector<ColorChar> currentText;
 
@@ -91,13 +91,9 @@ std::vector<TextLine> Text::str2TextLines(std::string str) const
 		}
 		else if (str[i] == '\n')
 		{
-			for (const auto& colorChar : currentText)
-			{
-				width += colorChar.width;
-			}
-			textLines.emplace_back(width, currentText);
+			textLines.emplace_back(currentWidth, currentText);
 			currentText.clear();
-			width = 0;
+			currentWidth = 0;
 		}
 		else {
 			int codepointByteCount;
@@ -112,15 +108,12 @@ std::vector<TextLine> Text::str2TextLines(std::string str) const
 			else {
 				charWidth = static_cast<float>(this->font->glyphs[index].advanceX) * this->fontSize / this->font->baseSize + this->spacing;
 			}
+			currentWidth += charWidth;
 			currentText.emplace_back(codepointByteCount, codepoint, charWidth, currentColor);
 			i += codepointByteCount - 1;
 		}
 	}
-	for (const auto& colorChar : currentText)
-	{
-		width += colorChar.width;
-	}
-	textLines.emplace_back(width, currentText);
+	textLines.emplace_back(currentWidth, currentText);
 
 	return textLines;
 }

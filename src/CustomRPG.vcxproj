@@ -202,6 +202,7 @@
     <ClInclude Include="Screen\SliderText.h" />
     <ClInclude Include="Screen\Screens\SelectGameScreen.h" />
     <ClInclude Include="Screen\TextBox.h" />
+    <ClInclude Include="Screen\TextArgBox.h" />
     <ClInclude Include="Utils\RaylibUtils.h" />
     <ClInclude Include="Screen\Button.h" />
     <ClInclude Include="Entity\Ally.h" />
@@ -265,6 +266,7 @@
     <ClCompile Include="Screen\SliderText.cpp" />
     <ClCompile Include="Screen\Screens\SelectGameScreen.cpp" />
     <ClCompile Include="Screen\TextBox.cpp" />
+    <ClCompile Include="Screen\TextArgBox.cpp" />
     <ClCompile Include="Utils\RaylibUtils.cpp" />
     <ClCompile Include="Screen\Button.cpp" />
     <ClCompile Include="Entity\Ally.cpp" />

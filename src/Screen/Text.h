@@ -53,8 +53,9 @@ public:
 	void draw() override;
 	void updatePosition() override;
 
-	std::vector<TextLine> str2TextLines(std::string str) const;
+	virtual std::vector<TextLine> str2TextLines(std::string str) const;
 	static Color str2Color(const std::string& colorStr);
+
 	void setAlign(const TextAlign align) { this->align = align; updatePosition(); }
 
 	const std::vector<TextLine>& getTexts() const { return this->textLines; }

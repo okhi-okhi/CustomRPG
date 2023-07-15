@@ -20,7 +20,7 @@ protected:
 
 public:
 	Button() : clickSound(), lockState(false) {}
-	Button(Vector2 position, const Picture& texture,
+	Button(Vector2 pos, const Picture& texture,
 		const std::function<void()>& function,
 		const std::string& clickSound = "button_click.wav");
 	Button(const Picture& texture, const std::function<void()>& function,

@@ -46,12 +46,12 @@ ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const i
 		bounds.width, bounds.height));
 	this->startIndex = 0;
 	this->currentIndex = currentIndex;
-	this->itemCapacity = itemsText.size() < itemCapacity ? static_cast<int>(itemsText.size()) : itemCapacity;
+	this->itemCapacity = (itemsText.size() > itemCapacity) ? itemCapacity : static_cast<int>(itemsText.size());
 
 	for (int i = 0; i < itemsText.size(); i++)
 	{
 		this->itemsText.emplace_back(Vector2(0, 0), itemsText[i], fontSize,
-			textAlign, textColor, textSpacing, itemsFont[i]);
+			textAlign, textSpacing, itemsFont[i]);
 	}
 
 	const float buttonHeight = bounds.height / static_cast<float>(itemCapacity);
@@ -60,7 +60,7 @@ ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const i
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
 		this->items.push_back(std::make_shared<ButtonText>(Vector2(bounds.x, buttonY), Button(itemBg, [this, i] { select(i); }),
-		                         Text(itemsText[i], fontSize, textAlign, textColor, textSpacing, itemsFont[i])));
+		                         Text(itemsText[i], fontSize, textAlign, textSpacing, itemsFont[i])));
 		buttonY += buttonHeight;
 	}
 
@@ -125,9 +125,9 @@ void ScrollList::updateChildren()
 void ScrollList::draw()
 {
 	const int wheelMove = static_cast<int>(GetMouseWheelMove());
-	if (wheelMove != 0)
+	if (this->scrollable)
 	{
-		if (this->scrollable)
+		if (wheelMove != 0)
 		{
 			int moveY = 0;
 			if(wheelMove > 0)
@@ -139,16 +139,16 @@ void ScrollList::draw()
 			}
 			else
 			{
-				if (this->startIndex + this->itemCapacity < this->itemsText.size())
+				if (this->startIndex + this->itemCapacity < static_cast<int>(this->itemsText.size()))
 				{
 					this->startIndex++;
 				}
 			}
+			for (size_t i = 0; i < this->itemCapacity; i++)
+			{
+				this->items[i]->setText(this->itemsText[this->startIndex + i]);
+			}
 		}
-	}
-	for (int i = 0; i < this->itemCapacity; i++)
-	{
-		this->items[i]->setText(this->itemsText[this->startIndex + i]);
 	}
 	const int index = this->currentIndex - this->startIndex;
 	if (index >= 0 && index < this->itemCapacity)

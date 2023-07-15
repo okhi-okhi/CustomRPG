@@ -6,7 +6,6 @@ PictureGallery::PictureGallery(raylib::Rectangle bounds, const std::vector<File>
 	Element(ElementType::PICTURE_GALLERY, bounds.GetPosition())
 {
 	using RaylibUtils::getRealLength;
-	this->elementType = ElementType::PICTURE_GALLERY;
 	this->bounds = getRealLength(Rectangle(bounds.x - bounds.width / 2, bounds.y - bounds.height / 2,
 		bounds.width, bounds.height));
 	this->currentIndex = 0;

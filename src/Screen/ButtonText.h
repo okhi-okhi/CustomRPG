@@ -11,7 +11,7 @@ private:
 
 public:
 	ButtonText() = default;
-	ButtonText(Vector2 position, const Button& button, const Text& text);
+	ButtonText(Vector2 pos, const Button& button, const Text& text);
 	ButtonText(const ButtonText& other) = default;
 	ButtonText(ButtonText&& other) noexcept : ButtonText() { swap(*this, other); }
 	~ButtonText() override = default;

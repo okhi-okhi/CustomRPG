@@ -23,12 +23,12 @@ SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 			&SystemConfig::instance().getMasterVolume(), 0, 100, true, [this] { changeMasterVolume(); }
 		),
 		Text("screen.setting.masterVolume", 48, TextAlign::CENTER, 1.0f),
-		TextArg(Vector2(1170, 325), "screen.setting.currentMasterVolume", std::map<std::string, argTypes>{ {"volume", & SystemConfig::instance().getMasterVolume()} }, 48, TextAlign::CENTER, WHITE, 1.0f)
+		TextArg(Vector2(1170, 325), "screen.setting.currentMasterVolume", std::map<std::string, argTypes>{ {"volume", & SystemConfig::instance().getMasterVolume()} }, 48, TextAlign::CENTER, 1.0f)
 	));
 
 	const Picture buttonBg({ "screens/button_1.png" }, 2, 384);
-	addElementGroup(make_shared<ButtonText>(Vector2(960, 540), Button(buttonBg, openLanguage), Text("screen.setting.button1", 48, TextAlign::CENTER, WHITE, 0.0f)));
-	addElementGroup(make_shared<ButtonText>(Vector2(960, 720), Button(buttonBg, closeSetting), Text("screen.setting.button2", 48, TextAlign::CENTER, WHITE, 0.0f)));
+	addElementGroup(make_shared<ButtonText>(Vector2(960, 540), Button(buttonBg, openLanguage), Text("screen.setting.button1", 48, TextAlign::CENTER, 0.0f)));
+	addElementGroup(make_shared<ButtonText>(Vector2(960, 720), Button(buttonBg, closeSetting), Text("screen.setting.button2", 48, TextAlign::CENTER, 0.0f)));
 }
 
 void SettingScreen::changeMasterVolume()

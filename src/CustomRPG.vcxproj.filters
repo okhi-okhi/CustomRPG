@@ -198,6 +198,7 @@
     <ClInclude Include="Screen\PictureGallery.h" />
     <ClInclude Include="Screen\PictureTiled.h" />
     <ClInclude Include="Screen\TextBox.h" />
+    <ClInclude Include="Screen\TextArgBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity\Ally.cpp">
@@ -329,5 +330,6 @@
     <ClCompile Include="Screen\PictureGallery.cpp" />
     <ClCompile Include="Screen\PictureTiled.cpp" />
     <ClCompile Include="Screen\TextBox.cpp" />
+    <ClCompile Include="Screen\TextArgBox.cpp" />
   </ItemGroup>
 </Project>

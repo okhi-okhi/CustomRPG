@@ -1,10 +1,10 @@
 #include "ButtonText.h"
 #include "../Utils/RaylibUtils.h"
 
-ButtonText::ButtonText(Vector2 position, const Button& button, const Text& text)
+ButtonText::ButtonText(const Vector2 pos, const Button& button, const Text& text)
 {
 	this->elementType = ElementType::BUTTON_TEXT;
-	this->position = RaylibUtils::getRealLength(position);
+	this->position = RaylibUtils::getRealLength(pos);
 	this->button = std::make_shared<Button>(button);
 	this->button->setPosition(this->position);
 	this->text = std::make_shared<Text>(text);

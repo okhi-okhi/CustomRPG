@@ -5,11 +5,9 @@
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"	
 
-Button::Button(const Vector2 position, const Picture& texture,
-	const std::function<void()>& function, const std::string& clickSound)
+Button::Button(const Vector2 pos, const Picture& texture,
+	const std::function<void()>& function, const std::string& clickSound) : Element(ElementType::BUTTON, pos)
 {
-	this->elementType = ElementType::BUTTON;
-	this->position = RaylibUtils::getRealLength(position);
 	this->texture = texture;
 	this->texture.setPosition(this->position);
 	this->function = function;
