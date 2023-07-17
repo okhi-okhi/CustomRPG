@@ -153,3 +153,15 @@ std::vector<TextLine> TextBox::str2TextLines(std::string str) const
 
 	return textLines;
 }
+
+void TextBox::setText(const std::string& text, const raylib::Font* font)
+{
+	this->startIndex = 0;
+	this->font = font;
+	this->textLines = TextBox::str2TextLines(text);
+	const int maxCapacity = static_cast<int>(this->bounds.height / this->fontSize);
+	this->lineCapacity = (this->textLines.size() > maxCapacity) ? maxCapacity : static_cast<int>(this->textLines.size());
+	this->scrollable = (this->textLines.size() > this->lineCapacity) ? true : false;
+
+	TextBox::updatePosition();
+}

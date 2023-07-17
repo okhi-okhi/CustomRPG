@@ -29,19 +29,19 @@ LanguageScreen::LanguageScreen() : Screen(ScreenType::LANGUAGE, "language")
 	}
 	const auto languageList =
 		make_shared<ScrollList>(Rectangle(960, 540, 400, 600), 8, currentLangIdx, languages,
-			32.0f, TextAlign::CENTER, WHITE, 0.0f, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png");
+			32.0f, TextAlign::CENTER, 0.0f, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png", [this] { changeLanguage(); });
 	addElementGroup(languageList);
 	
-	const int* i = &languageList->getCurrentIndex();
+	this->selectedLangIndex = &languageList->getCurrentIndex();
 	addElementGroup(make_shared<ButtonText>(Vector2(960, 770),
-		Button(Picture({ "screens/button_1.png" }, 2, 384), [i] { changeLanguage(i); }),
+		Button(Picture({ "screens/button_1.png" }, 2, 384), closeLanguage),
 		Text("screen.language.button1", 48, TextAlign::CENTER, 0.0f)));
 }
 
-void LanguageScreen::changeLanguage(const int* index)
+void LanguageScreen::changeLanguage() const
 {
 	closeLanguage();
-	const string selectLanguage = I18n::instance().getSystemI18n().getLanguages()[*index].id;
+	const string selectLanguage = I18n::instance().getSystemI18n().getLanguages()[*this->selectedLangIndex].id;
 	if(I18n::instance().getSystemI18n().getCurrentLanguage().info.id != selectLanguage)
 	{
 		I18n::instance().getSystemI18n().loadLanguage(selectLanguage);

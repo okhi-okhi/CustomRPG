@@ -1,0 +1,29 @@
+{
+    "currentLanguage": "zh_TW",
+    "defaultLanguage": "en_US",
+    "lineCapacity": 3,
+    "nextPlaceNum": 3,
+    "teamCapacity": 5,
+    "formula": {
+        "entity": {
+            "atk": "strength + 3",
+            "defense": "dexterity + vitality*0.5 + 1",
+            "expNext": "level^2*3 + 100",
+            "hpMax": "vitality*5 + strength",
+            "luck": "0",
+            "manaMax": "intelligence*5"
+        }
+    },
+    "talents": [
+        "strength",
+        "vitality",
+        "dexterity",
+        "intelligence"
+    ],
+    "armorSlots": [
+        "helmet",
+        "chestplate",
+        "leggings",
+        "boots"
+    ]
+}

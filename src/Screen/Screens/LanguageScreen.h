@@ -3,10 +3,13 @@
 
 class LanguageScreen final : public Screen
 {
+private:
+	const int* selectedLangIndex;
+
 public:
 	LanguageScreen();
 
-	static void changeLanguage(const int* index);
+	void changeLanguage() const;
 	static void closeLanguage();
 };
 

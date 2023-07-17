@@ -1,7 +1,6 @@
 {
     "name": "English (US)",
     "font": "pixantiqua.ttf",
-    "charWidthFix": "1",
     "screen":{
         "main":{
             "button1": "Start game",
@@ -9,12 +8,18 @@
             "button3": "Quit game"
         },
         "setting":{
+            "masterVolume": "Master\nvolume",
+            "currentMasterVolume": "%volume%",
             "button1": "Select language",
-            "button2": "return"
+            "button2": "Return"
         },
         "language":{
             "language": "%language%",
-            "button1": "done"
+            "button1": "Done"
+        },
+        "selectGame":{
+            "nameAndAuthor": "%name%\n%author%",
+            "dynamicDescription": "%description%"
         }
     },
     "menu":{

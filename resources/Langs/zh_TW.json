@@ -17,9 +17,9 @@
             "language": "%language%",
             "button1": "完成"
         },
-        "test":{
-            "text1": "<084cfb>我是選項1",
-            "text2": "玩家距離: %distance%"
+        "selectGame":{
+            "nameAndAuthor": "%name%\n%author%",
+            "dynamicDescription": "%description%"
         }
     },
     "menu": {

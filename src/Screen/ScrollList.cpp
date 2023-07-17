@@ -7,9 +7,8 @@
 
 ScrollList::ScrollList(const raylib::Rectangle bounds, const int itemCapacity, const int currentIndex,
 	const std::vector<std::string>& itemsI18nKey, const float fontSize,
-	const TextAlign textAlign, const raylib::Color textColor,
-	const float textSpacing, const std::string& itemTexture, const std::string& sliderBar,
-	const std::string& sliderBackground) :
+	const TextAlign textAlign, const float textSpacing, const std::string& itemTexture,
+	const std::string& sliderBar, const std::string& sliderBackground, const std::function<void()>& function) :
 	ScrollList(bounds, itemCapacity, currentIndex,
 		[&]() {
 			std::vector<std::string> texts;
@@ -18,7 +17,7 @@ ScrollList::ScrollList(const raylib::Rectangle bounds, const int itemCapacity, c
 			}
 			return texts;
 		}(),
-		fontSize, textAlign, textColor, textSpacing,
+		fontSize, textAlign, textSpacing,
 		[&]() {
 			std::vector<const raylib::Font*> fonts;
 			for (const auto& key : itemsI18nKey) {
@@ -26,16 +25,16 @@ ScrollList::ScrollList(const raylib::Rectangle bounds, const int itemCapacity, c
 			}
 			return fonts;
 		}(),
-		itemTexture, sliderBar, sliderBackground)
+		itemTexture, sliderBar, sliderBackground, function)
 {
 
 }
 
 ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const int currentIndex,
-	const std::vector<std::string>& itemsText, float fontSize, TextAlign textAlign, raylib::Color textColor,
+	const std::vector<std::string>& itemsText, float fontSize, TextAlign textAlign,
 	float textSpacing, const std::vector<const raylib::Font*>& itemsFont,
 	const std::string& itemTexture, const std::string& sliderBar,
-	const std::string& sliderBackground)
+	const std::string& sliderBackground, const std::function<void()>& function)
 {
 	using RaylibUtils::getRealLength;
 	constexpr int tileImageWidth = 64;
@@ -47,6 +46,7 @@ ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const i
 	this->startIndex = 0;
 	this->currentIndex = currentIndex;
 	this->itemCapacity = (itemsText.size() > itemCapacity) ? itemCapacity : static_cast<int>(itemsText.size());
+	this->function = function;
 
 	for (int i = 0; i < itemsText.size(); i++)
 	{
@@ -177,7 +177,11 @@ void ScrollList::updatePosition()
 
 void ScrollList::select(const int index)
 {
-	this->currentIndex = this->startIndex + index;
+	if (this->currentIndex != this->startIndex + index)
+	{
+		this->currentIndex = this->startIndex + index;
+		this->function();
+	}
 }
 
 void swap(ScrollList& first, ScrollList& second) noexcept

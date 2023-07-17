@@ -13,6 +13,7 @@ private:
 	std::vector<Text> itemsText;
 	std::vector<shared_ptr<ButtonText>> items;
 	shared_ptr<Slider> slider;
+	std::function<void()> function;
 
 	const float scrollBarWidth = 32;
 
@@ -20,15 +21,15 @@ public:
 	ScrollList() : itemCapacity(0), scrollable(false), startIndex(0), currentIndex(-1){}
 	ScrollList(raylib::Rectangle bounds, int itemCapacity, int currentIndex,
 		const std::vector<std::string>& itemsI18nKey,
-		float fontSize, TextAlign textAlign, raylib::Color textColor, float textSpacing,
+		float fontSize, TextAlign textAlign, float textSpacing,
 		const std::string& itemTexture, const std::string& sliderBar,
-		const std::string& sliderBackground);
+		const std::string& sliderBackground, const std::function<void()>& function);
 	ScrollList(raylib::Rectangle bounds, int itemCapacity, int currentIndex,
-	           const std::vector<std::string>& itemsText,
-	           float fontSize, TextAlign textAlign, raylib::Color textColor, float textSpacing,
-	           const std::vector<const raylib::Font*>& itemsFont,
-	           const std::string& itemTexture, const std::string& sliderBar,
-	           const std::string& sliderBackground);
+		const std::vector<std::string>& itemsText,
+		float fontSize, TextAlign textAlign, float textSpacing,
+		const std::vector<const raylib::Font*>& itemsFont,
+		const std::string& itemTexture, const std::string& sliderBar,
+		const std::string& sliderBackground, const std::function<void()>& function);
 	ScrollList(const ScrollList& other);
 	ScrollList(ScrollList&& other) noexcept : ScrollList() { swap(*this, other); }
 	~ScrollList() override = default;

@@ -20,6 +20,7 @@ public:
 	void updatePosition() override;
 
 	std::vector<TextLine> str2TextLines(std::string str) const override;
+	void setText(const std::string& text, const raylib::Font* font) override;
 
 	const raylib::Rectangle& getBounds() const { return bounds; }
 	const int& getLineCapacity() const { return lineCapacity; }

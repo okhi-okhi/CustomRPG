@@ -49,8 +49,9 @@ std::string  Utils::boolToString(const bool& boolean) {
 	return boolean ? "true" : "false";
 }
 
-json Utils::readJsonFile(std::string fileName) {
-	fileName += ".json";
+json Utils::readJsonFile(std::string fileName, bool addSuffix) {
+	if(addSuffix)
+		fileName += ".json";
 	std::ifstream inFile(fileName);
 	if (!inFile.good()) {
 		throw InvalidFileException(fileName);

@@ -48,7 +48,7 @@ private:
 
 public:
 	explicit PathProvider(token){}
-	void setCurrentGamePath(const string& path) { this->currentGamePath = gamesPath + path + '/'; }
+	void setCurrentGamePath(const string& path) { this->currentGamePath = this->gamesPath + path + '/'; }
 
 	string getFolder(ResourcesFolder folder) const;
 	string getFromSystem(ResourcesFolder folder) const;

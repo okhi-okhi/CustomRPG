@@ -23,6 +23,7 @@ public:
 	void loadSystemFont();
 	void loadGameFont();
 
+	const raylib::Font& getSystemDefaultFont() const { return this->systemFont.defaultFont; }
 	const raylib::Font& get(const string& key) const;
 };
 

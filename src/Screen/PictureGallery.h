@@ -20,6 +20,8 @@ public:
 	void nextPicture();
 	void previousPicture();
 
+	void setPictures(const std::vector<File>& files);
+
 	const std::vector<Texture2D>& getPictures() const { return this->pictures; }
 	const raylib::Rectangle& getBounds() const { return this->bounds; }
 	const int& getCurrentIndex() const { return this->currentIndex; }

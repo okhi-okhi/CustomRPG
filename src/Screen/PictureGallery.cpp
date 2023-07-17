@@ -9,23 +9,7 @@ PictureGallery::PictureGallery(raylib::Rectangle bounds, const std::vector<File>
 	this->bounds = getRealLength(Rectangle(bounds.x - bounds.width / 2, bounds.y - bounds.height / 2,
 		bounds.width, bounds.height));
 	this->currentIndex = 0;
-
-	const float frameRatio = this->bounds.width / this->bounds.height;
-	for(const auto& file : files)
-	{
-		raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
-		const float imageRatio = static_cast<float>(image.width) / static_cast<float>(image.height);
-		if (imageRatio > frameRatio)
-		{
-			image.Resize(static_cast<int>(this->bounds.width), static_cast<int>(this->bounds.width / imageRatio));
-			this->pictures.emplace_back(image);
-		}
-		else
-		{
-			image.Resize(static_cast<int>(this->bounds.height * imageRatio), static_cast<int>(this->bounds.height));
-			this->pictures.emplace_back(image);
-		}
-	}
+	setPictures(files);
 	updatePosition();
 }
 
@@ -65,5 +49,27 @@ void PictureGallery::previousPicture()
 	{
 		this->currentIndex--;
 		updatePosition();
+	}
+}
+
+void PictureGallery::setPictures(const std::vector<File>& files)
+{
+	this->currentIndex = 0;
+	this->pictures.clear();
+	const float frameRatio = this->bounds.width / this->bounds.height;
+	for (const auto& file : files)
+	{
+		raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
+		const float imageRatio = static_cast<float>(image.width) / static_cast<float>(image.height);
+		if (imageRatio > frameRatio)
+		{
+			image.Resize(static_cast<int>(this->bounds.width), static_cast<int>(this->bounds.width / imageRatio));
+			this->pictures.emplace_back(image);
+		}
+		else
+		{
+			image.Resize(static_cast<int>(this->bounds.height * imageRatio), static_cast<int>(this->bounds.height));
+			this->pictures.emplace_back(image);
+		}
 	}
 }

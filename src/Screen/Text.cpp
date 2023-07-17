@@ -178,3 +178,10 @@ Color Text::str2Color(const std::string& colorStr)
 	}
 	return currentColor;
 }
+
+void Text::setText(const std::string& text, const raylib::Font* font)
+{
+	this->font = font;
+	this->textLines = Text::str2TextLines(text);
+	Text::updatePosition();
+}

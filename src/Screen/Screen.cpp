@@ -37,9 +37,9 @@ void Screen::addElementGroup(const shared_ptr<ElementGroup>& elementGroup)
 
 void Screen::draw() const
 {
-	for(const auto& element : this->elements)
+	for(int i=0; i<this->elements.size(); i++)
 	{
-		element->draw();
+		this->elements[i]->draw();
 	}
 }
 

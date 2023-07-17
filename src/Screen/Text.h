@@ -56,6 +56,7 @@ public:
 	virtual std::vector<TextLine> str2TextLines(std::string str) const;
 	static Color str2Color(const std::string& colorStr);
 
+	virtual void setText(const std::string& text, const raylib::Font* font);
 	void setAlign(const TextAlign align) { this->align = align; updatePosition(); }
 
 	const std::vector<TextLine>& getTexts() const { return this->textLines; }
