@@ -184,9 +184,7 @@
     <ClInclude Include="Screen\PictureTiled.h" />
     <ClInclude Include="Screen\PictureGallery.h" />
     <ClInclude Include="Screen\Screens\LanguageScreen.h" />
-    <ClInclude Include="Screen\ElementGroup.h" />
     <ClInclude Include="Screen\ButtonHold.h" />
-    <ClInclude Include="Screen\Clickable.h" />
     <ClInclude Include="Screen\ButtonText.h" />
     <ClInclude Include="Screen\ScreenManager.h" />
     <ClInclude Include="Screen\FullPicture.h" />
@@ -248,9 +246,7 @@
     <ClCompile Include="Screen\PictureTiled.cpp" />
     <ClCompile Include="Screen\PictureGallery.cpp" />
     <ClCompile Include="Screen\Screens\LanguageScreen.cpp" />
-    <ClCompile Include="Screen\ElementGroup.cpp" />
     <ClCompile Include="Screen\ButtonHold.cpp" />
-    <ClCompile Include="Screen\Clickable.cpp" />
     <ClCompile Include="Screen\ButtonText.cpp" />
     <ClCompile Include="Screen\ScreenManager.cpp" />
     <ClCompile Include="Screen\FullPicture.cpp" />

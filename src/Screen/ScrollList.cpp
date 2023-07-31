@@ -59,8 +59,8 @@ ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const i
 	const PictureTiled itemBg(itemTexture, 2, tileImageWidth, Vector2(bounds.width, buttonHeight));
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
-		this->items.push_back(std::make_shared<ButtonText>(Vector2(bounds.x, buttonY), Button(itemBg, [this, i] { select(i); }),
-		                         Text(itemsText[i], fontSize, textAlign, textSpacing, itemsFont[i])));
+		this->items.emplace_back(Vector2(bounds.x, buttonY), Button(itemBg, [this, i] { select(i); }),
+		                         Text(itemsText[i], fontSize, textAlign, textSpacing, itemsFont[i]));
 		buttonY += buttonHeight;
 	}
 
@@ -68,7 +68,7 @@ ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const i
 	{
 		this->scrollable = true;
 		const float barHeight = bounds.height / static_cast<float>(itemsText.size()) * static_cast<float>(itemCapacity);
-		this->slider = std::make_shared<Slider>(Vector2(bounds.x + bounds.width / 2 + this->scrollBarWidth / 2, bounds.y),
+		this->slider = Slider(Vector2(bounds.x + bounds.width / 2 + this->scrollBarWidth / 2, bounds.y),
 			PictureTiled(sliderBar, 2, tileImageWidth, Vector2(this->scrollBarWidth, barHeight)),
 			PictureTiled(sliderBackground, 2, tileImageWidth, Vector2(this->scrollBarWidth, bounds.height)),
 			&this->startIndex, 0, static_cast<int>(itemsText.size()) - itemCapacity, false);
@@ -76,11 +76,9 @@ ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const i
 	else {
 		this->scrollable = false;
 	}
-
-	updateChildren();
 }
 
-ScrollList::ScrollList(const ScrollList& other) : ElementGroup(other),
+ScrollList::ScrollList(const ScrollList& other) : Element(other),
 	itemCapacity(other.itemCapacity),
 	scrollable(other.scrollable),
 	startIndex(other.startIndex),
@@ -96,30 +94,6 @@ ScrollList& ScrollList::operator=(ScrollList other)
 {
 	swap(*this, other);
 	return *this;
-}
-
-void ScrollList::updateChildren()
-{
-	ElementGroup::updateChildren();
-	int index = 0;
-	for (const auto& item : this->items)
-	{
-		this->children.push_back(item);
-		item->getButton()->setFunction([this, index] { select(index); });
-		for (auto& child : item->getChildren())
-		{
-			this->children.push_back(child);
-		}
-		index++;
-	}
-	if (this->scrollable)
-	{
-		this->children.push_back(this->slider);
-		for (auto& item : this->slider->getChildren())
-		{
-			this->children.push_back(item);
-		}
-	}
 }
 
 void ScrollList::draw()
@@ -145,14 +119,34 @@ void ScrollList::draw()
 			}
 			for (size_t i = 0; i < this->itemCapacity; i++)
 			{
-				this->items[i]->setText(this->itemsText[this->startIndex + i]);
+				this->items[i].setText(this->itemsText[this->startIndex + i]);
 			}
 		}
 	}
 	const int index = this->currentIndex - this->startIndex;
 	if (index >= 0 && index < this->itemCapacity)
 	{
-		this->items[index]->getButton()->setState(ButtonState::HOVER);
+		this->items[index].getButton().setState(ButtonState::HOVER);
+	}
+	for (size_t i = 0; i < this->itemCapacity; i++)
+	{
+		this->items[i].draw();
+	}
+	if(this->scrollable)
+	{
+		this->slider.draw();
+	}
+}
+
+void ScrollList::update()
+{
+	if (this->scrollable)
+	{
+		this->slider.update();
+	}
+	for (int i = this->itemCapacity-1; i >= 0; i--)
+	{
+		this->items[i].update();
 	}
 }
 
@@ -163,15 +157,29 @@ void ScrollList::updatePosition()
 
 	if (this->scrollable)
 	{
-		this->slider->setPosition(Vector2(this->bounds.x + this->bounds.width + scrollBarWidth / 2, this->position.y));
+		this->slider.setPosition(Vector2(this->bounds.x + this->bounds.width + scrollBarWidth / 2, this->position.y));
 	}
 
-	const float buttonHeight = this->items[0]->getButton()->getHitbox()[0].height;
+	const float buttonHeight = this->items[0].getButton().getHitbox()[0].height;
 	float buttonY = this->bounds.y + static_cast<float>(buttonHeight) / 2;
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
-		this->items[i]->setPosition(Vector2(this->position.x, buttonY));
+		this->items[i].setPosition(Vector2(this->position.x, buttonY));
 		buttonY += buttonHeight;
+	}
+}
+
+void ScrollList::updateChildren()
+{
+	int index = 0;
+	for (auto& item : this->items)
+	{
+		item.getButton().setFunction([this, index] { select(index); });
+		index++;
+	}
+	if (this->scrollable)
+	{
+		this->slider.updateChildren();
 	}
 }
 
@@ -187,7 +195,7 @@ void ScrollList::select(const int index)
 void swap(ScrollList& first, ScrollList& second) noexcept
 {
 	using std::swap;
-	swap(static_cast<ElementGroup&>(first), static_cast<ElementGroup&>(second));
+	swap(static_cast<Element&>(first), static_cast<Element&>(second));
 
 	swap(first.bounds, second.bounds);
 	swap(first.itemCapacity, second.itemCapacity);
@@ -197,6 +205,7 @@ void swap(ScrollList& first, ScrollList& second) noexcept
 	swap(first.items, second.items);
 	swap(first.itemsText, second.itemsText);
 	swap(first.slider, second.slider);
+	swap(first.function, second.function);
 
 	first.updateChildren();
 }

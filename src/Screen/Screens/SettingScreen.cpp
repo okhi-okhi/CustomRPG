@@ -16,7 +16,7 @@ SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 
 	addElement(make_shared<Picture>(Vector2(960, 540), File("screens/setting/background.png"), 1, 540));
 
-	addElementGroup(make_shared<SliderText>(Vector2(1000, 320), 
+	addElement(make_shared<SliderText>(Vector2(1000, 320),
 		Slider(
 			Picture({ "screens/slider_bar.png" }, 2, 12),
 			PictureTiled({ "screens/slider_background_horizontal.png" }, 2, 32, Vector2(250, 32)),
@@ -27,8 +27,8 @@ SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 	));
 
 	const Picture buttonBg({ "screens/button_1.png" }, 2, 384);
-	addElementGroup(make_shared<ButtonText>(Vector2(960, 540), Button(buttonBg, openLanguage), Text("screen.setting.button1", 48, TextAlign::CENTER, 0.0f)));
-	addElementGroup(make_shared<ButtonText>(Vector2(960, 720), Button(buttonBg, closeSetting), Text("screen.setting.button2", 48, TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(Vector2(960, 540), Button(buttonBg, openLanguage), Text("screen.setting.button1", 48, TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(Vector2(960, 720), Button(buttonBg, closeSetting), Text("screen.setting.button2", 48, TextAlign::CENTER, 0.0f)));
 }
 
 void SettingScreen::changeMasterVolume()

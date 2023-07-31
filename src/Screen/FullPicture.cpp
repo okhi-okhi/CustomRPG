@@ -21,7 +21,7 @@ FullPicture::FullPicture(const File& file, const int textureFrameNum, const Scal
 
 	this->textureFrameNum = textureFrameNum;
 	this->position = Vector2(0.0f, 0.0f);
-	this->hitbox.emplace_back(Rectangle(0.0f, 0.0f, static_cast<float>(spriteTexture.width), this->getHeight()));
+	this->hitbox.emplace_back(0.0f, 0.0f, static_cast<float>(spriteTexture.width), this->getHeight());
 	this->currentFrame = 0;
 }
 

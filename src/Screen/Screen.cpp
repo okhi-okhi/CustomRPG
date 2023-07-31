@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include "ScreenManager.h"
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"
 
@@ -11,35 +12,24 @@ Screen::Screen(const ScreenType screenType, const std::string& i18nKey)
 	this->i18nKey = "screen." + i18nKey;
 }
 
-void Screen::addElement(const shared_ptr<Element>& element)
+void Screen::addElement(const std::shared_ptr<Element>& element)
 {
 	this->elements.push_back(element);
 }
 
-void Screen::addButton(const shared_ptr<Button>& button)
+void Screen::draw() const
 {
-	this->elements.push_back(button);
-	this->buttons.emplace_back(static_cast<int>(this->elements.size()) - 1, button);
-}
-
-void Screen::addElementGroup(const shared_ptr<ElementGroup>& elementGroup)
-{
-	this->elements.push_back(elementGroup);
-	for(const auto& child : elementGroup->getChildren())
+	for (const auto& element : this->elements)
 	{
-		this->elements.push_back(child);
-		if (child->getElementType() == ElementType::BUTTON)
-		{
-			this->buttons.emplace_back(static_cast<int>(this->elements.size()) - 1, dynamic_pointer_cast<Button>(child));
-		}
+		element->draw();
 	}
 }
 
-void Screen::draw() const
+void Screen::update() const
 {
-	for(int i=0; i<this->elements.size(); i++)
+	for (int i = static_cast<int>(this->elements.size()) - 1; i >= 0; i--)
 	{
-		this->elements[i]->draw();
+		this->elements[i]->update();
 	}
 }
 

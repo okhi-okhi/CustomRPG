@@ -10,7 +10,6 @@ void ScreenManager::init()
 {
 	zoomPercent = static_cast<float>(RaylibUtils::getWindowWidth()) / 1920.0f;
 	loadAllScreen();
-	updateHitbox();
 }
 
 void ScreenManager::loadAllScreen()
@@ -61,7 +60,6 @@ void ScreenManager::addScreen(const ScreenType& screen)
 			this->currentScreens.push_back(storeScreen);
 		}
 	}
-	updateHitbox();
 }
 
 void ScreenManager::removeScreen(const ScreenType& screen)
@@ -70,10 +68,11 @@ void ScreenManager::removeScreen(const ScreenType& screen)
 	{
 		if (this->currentScreens[i]->getScreenType() == screen)
 		{
+			std::cout<<"erase screen: "<< this->currentScreens[i] <<std::endl;
 			this->currentScreens.erase(currentScreens.begin() + i);
+			std::cout << "success" << std::endl;
 		}
 	}
-	updateHitbox();
 }
 
 void ScreenManager::clear()
@@ -94,25 +93,11 @@ void ScreenManager::draw()
 	}
 }
 
-void ScreenManager::updateHitbox() const
+void ScreenManager::update()
 {
-	for(int i=0; i < this->currentScreens.size(); i++)
+	this->clicked = false;
+	for (int i = static_cast<int>(currentScreens.size()) - 1; i>=0; i--)
 	{
-		for(int j=0; j < this->currentScreens[i]->getButtons().size(); j++)
-		{
-			const auto [index, btn] = this->currentScreens[i]->getButtons()[j];
-			btn->clearReserveRec();
-			for(int k = index+1; k < this->currentScreens[i]->getElements().size(); k++)
-			{
-				btn->checkCollision(this->currentScreens[i]->getElements()[k]->getHitbox());
-			}
-			for(int l = i+1; l < this->currentScreens.size(); l++)
-			{
-				for (const auto& element : this->currentScreens[l]->getElements())
-				{
-					btn->checkCollision(element->getHitbox());
-				}
-			}
-		}
+		currentScreens[i]->update();
 	}
 }

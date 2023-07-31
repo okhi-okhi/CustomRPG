@@ -1,4 +1,5 @@
 #include "ButtonHold.h"
+#include "ScreenManager.h"
 #include "../Utils/RaylibUtils.h"
 
 void ButtonHold::update()
@@ -6,7 +7,7 @@ void ButtonHold::update()
 	using RaylibUtils::checkCollisionPointRecs;
 	if (checkCollisionPointRecs(GetMousePosition(), this->hitbox))
 	{
-		if (checkCollisionPointRecs(GetMousePosition(), this->reserveRec))
+		if (ScreenManager::instance().isClicked())
 		{
 			if (this->texture.getCurrentFrame() == static_cast<int>(ButtonState::HOVER))
 			{
@@ -16,6 +17,7 @@ void ButtonHold::update()
 		}
 
 		this->texture.setCurrentFrame(static_cast<int>(ButtonState::HOVER));
+		ScreenManager::instance().setClicked(true);
 		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT))
 		{
 			this->function();

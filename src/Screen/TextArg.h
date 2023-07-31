@@ -17,9 +17,8 @@ public:
 		TextAlign align, float spacing);
 
 	void draw() override;
+	void update() override;
 	void updatePosition() override;
-
-	void update();
 
 	const std::string& getI18nKey() const { return this->i18nKey; }
 	const std::map<std::string, argTypes>& getArgs() const { return this->args; }

@@ -65,8 +65,6 @@ void Picture::updatePosition()
 	this->hitbox.emplace_back(
 		this->originPos.x, this->originPos.y,
 		static_cast<float>(spriteTexture.width), this->getHeight());
-
-	ScreenManager::instance().updateHitbox();
 }
 
 void Picture::setCurrentFrame(const int frame)

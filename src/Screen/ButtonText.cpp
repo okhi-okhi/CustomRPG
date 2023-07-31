@@ -5,50 +5,33 @@ ButtonText::ButtonText(const Vector2 pos, const Button& button, const Text& text
 {
 	this->elementType = ElementType::BUTTON_TEXT;
 	this->position = RaylibUtils::getRealLength(pos);
-	this->button = std::make_shared<Button>(button);
-	this->button->setPosition(this->position);
-	this->text = std::make_shared<Text>(text);
-	this->text->setPosition(this->position);
-
-	this->children.push_back(this->button);
-	this->children.push_back(this->text);
-}
-
-ButtonText& ButtonText::operator=(ButtonText other)
-{
-	swap(*this, other);
-	return *this;
+	this->button = button;
+	this->button.setPosition(this->position);
+	this->text = text;
+	this->text.setPosition(this->position);
 }
 
 void ButtonText::draw()
 {
+	this->button.draw();
+	this->text.draw();
+}
+
+void ButtonText::update()
+{
+	this->button.update();
+	this->text.update();
 }
 
 void ButtonText::updatePosition()
 {
-	this->button->setPosition(this->position);
-	this->text->setPosition(this->position);
-}
-
-void ButtonText::updateChildren()
-{
-	ElementGroup::updateChildren();
-	this->children.push_back(this->button);
-	this->children.push_back(this->text);
+	this->button.setPosition(this->position);
+	this->text.setPosition(this->position);
 }
 
 void ButtonText::setText(const Text& _text)
 {
-	const Vector2 position = this->text->getPosition();
-	this->text = std::make_shared<Text>(_text);
-	this->text->setPosition(position);
-}
-
-void swap(ButtonText& first, ButtonText& second) noexcept
-{
-	using std::swap;
-	swap(static_cast<ElementGroup&>(first), static_cast<ElementGroup&>(second));
-
-	swap(first.button, second.button);
-	swap(first.text, second.text);
+	const Vector2 position = this->text.getPosition();
+	this->text = _text;
+	this->text.setPosition(position);
 }

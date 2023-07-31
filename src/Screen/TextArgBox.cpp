@@ -20,7 +20,7 @@ TextArgBox::TextArgBox(const raylib::Rectangle bounds, const std::string& i18nKe
 
 	this->font = &FontProvider::instance().get(i18nKey);
 
-	update();
+	TextArg::update();
 
 	const int maxCapacity = static_cast<int>(this->bounds.height / this->fontSize);
 	this->lineCapacity = (this->textLines.size() > maxCapacity) ? maxCapacity : static_cast<int>(this->textLines.size());
@@ -32,7 +32,6 @@ TextArgBox::TextArgBox(const raylib::Rectangle bounds, const std::string& i18nKe
 
 void TextArgBox::draw()
 {
-	update();
 	TextBox::draw();
 }
 

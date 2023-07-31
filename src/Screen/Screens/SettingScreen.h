@@ -1,4 +1,5 @@
 #pragma once
+#include <Sound.hpp>
 #include "../Screen.h"
 
 class SettingScreen final : public Screen

@@ -26,12 +26,6 @@ void PictureGallery::updatePosition()
 	this->originPos = this->position - 
 		Vector2( static_cast<float>(this->pictures[this->currentIndex].width) / 2,
 			static_cast<float>(this->pictures[this->currentIndex].height) / 2);
-	this->hitbox.clear();
-	this->hitbox.emplace_back(
-		this->originPos.x, this->originPos.y,
-		static_cast<float>(this->pictures[this->currentIndex].width), static_cast<float>(this->pictures[this->currentIndex].height));
-
-	ScreenManager::instance().updateHitbox();
 }
 
 void PictureGallery::nextPicture()

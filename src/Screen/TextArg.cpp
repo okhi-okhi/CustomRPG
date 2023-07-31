@@ -18,12 +18,11 @@ TextArg::TextArg(const raylib::Vector2 pos, const std::string& i18nKey,
 
 	this->font = &FontProvider::instance().get(i18nKey);
 
-	update();
+	TextArg::update();
 }
 
 void TextArg::draw()
 {
-	update();
 	Text::draw();
 }
 

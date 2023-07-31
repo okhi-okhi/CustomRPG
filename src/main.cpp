@@ -36,6 +36,7 @@ int main()
 	{
         window.BeginDrawing();
         {
+			ScreenManager::instance().update();
 			ScreenManager::instance().draw();
         }
 		window.EndDrawing();

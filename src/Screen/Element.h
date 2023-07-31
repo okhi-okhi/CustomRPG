@@ -40,6 +40,7 @@ public:
 	friend void swap(Element& first, Element& second) noexcept;
 
 	virtual void draw() = 0;
+	virtual void update();
 	virtual void updatePosition() = 0;
 
 	void setPosition(const raylib::Vector2 pos) {

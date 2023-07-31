@@ -19,9 +19,8 @@ Button::Button(const Vector2 pos, const Picture& texture,
 	{
 		this->clickSound = Sound();
 	}
-	this->lockState = false;
 
-	this->hitbox = this->texture.getHitbox();
+	this->hitbox.emplace_back(this->texture.getOriginPos().x, this->texture.getOriginPos().y, static_cast<float>(this->texture.getSpriteTexture().width), this->texture.getHeight());
 	this->originPos = this->texture.getOriginPos();
 }
 
@@ -33,18 +32,6 @@ Button::Button(const Picture& texture, const std::function<void()>& function, co
 void Button::draw()
 {
 	this->texture.draw();
-	if (!this->lockState)
-	{
-		update();
-	}
-}
-
-void Button::updatePosition()
-{
-	this->texture.setPosition(this->position);
-	this->originPos = this->texture.getOriginPos();
-	this->hitbox = this->texture.getHitbox();
-	ScreenManager::instance().updateHitbox();
 }
 
 void Button::update()
@@ -52,7 +39,7 @@ void Button::update()
 	using RaylibUtils::checkCollisionPointRecs, std::cout;
 	if (checkCollisionPointRecs(GetMousePosition(), this->hitbox))
 	{
-		if(checkCollisionPointRecs(GetMousePosition(), this->reserveRec))
+		if (ScreenManager::instance().isClicked())
 		{
 			if (this->texture.getCurrentFrame() == static_cast<int>(ButtonState::HOVER))
 			{
@@ -61,7 +48,8 @@ void Button::update()
 			return;
 		}
 		this->texture.setCurrentFrame(static_cast<int>(ButtonState::HOVER));
-		if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		ScreenManager::instance().setClicked(true);
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
 			PlaySound(this->clickSound);
 			this->function();
@@ -73,16 +61,10 @@ void Button::update()
 	}
 }
 
-void Button::checkCollision(const std::vector<raylib::Rectangle>& recs)
+void Button::updatePosition()
 {
-	for (const auto& rec : recs)
-	{
-		for (const auto& hitbox : this->hitbox)
-		{
-			if (CheckCollisionRecs(rec, hitbox))
-			{
-					addReserveRec(rec);
-			}
-		}
-	}
+	this->texture.setPosition(this->position);
+	this->originPos = this->texture.getOriginPos();
+	this->hitbox.clear();
+	this->hitbox.emplace_back(this->texture.getOriginPos().x, this->texture.getOriginPos().y, static_cast<float>(this->texture.getSpriteTexture().width), this->texture.getHeight());
 }

@@ -24,7 +24,7 @@ SelectGameScreen::SelectGameScreen() : Screen(ScreenType::SELECT_GAME, "selectGa
 	const auto gameList =
 		make_shared<ScrollList>(Rectangle(300, 540, 500, 800), 8, -1, gameNames,
 			48.0f, TextAlign::CENTER, 0.0f, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png", [this] { showGameInfo(); });
-	addElementGroup(gameList);
+	addElement(gameList);
 	this->selectedGameIndex = &gameList->getCurrentIndex();
 }
 
@@ -35,8 +35,8 @@ void SelectGameScreen::showGameInfo()
 		this->isAnyGameSelected = true;
 		this->pictureGallery = make_shared<PictureGallery>(Rectangle(1150, 300, 640, 480), this->games[*this->selectedGameIndex].screenshots);
 		addElement(this->pictureGallery);
-		addButton(make_shared<Button>(Vector2(750, 300), Picture({ "screens/arrow_left.png" }, 2, 64), [this] { pictureGallery->previousPicture(); }));
-		addButton(make_shared<Button>(Vector2(1550, 300), Picture({ "screens/arrow_right.png" }, 2, 64), [this] { pictureGallery->nextPicture(); }));
+		addElement(make_shared<Button>(Vector2(750, 300), Picture({ "screens/arrow_left.png" }, 2, 64), [this] { pictureGallery->previousPicture(); }));
+		addElement(make_shared<Button>(Vector2(1550, 300), Picture({ "screens/arrow_right.png" }, 2, 64), [this] { pictureGallery->nextPicture(); }));
 
 		std::string nameAndAuthor = I18n::instance().getSystemI18n().get("screen.selectGame.nameAndAuthor",
 			{ {"name", this->games[*this->selectedGameIndex].name},
