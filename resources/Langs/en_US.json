@@ -3,23 +3,23 @@
     "font": "pixantiqua.ttf",
     "screen":{
         "main":{
-            "button1": "Start game",
-            "button2": "Setting",
-            "button3": "Quit game"
+            "button1": "<size=64>XDDDgg\nlloolol",
+            "button2": "<size=48>Setting",
+            "button3": "<size=48>Quit game"
         },
         "setting":{
-            "masterVolume": "Master\nvolume",
-            "currentMasterVolume": "%volume%",
-            "button1": "Select language",
-            "button2": "Return"
+            "masterVolume": "<size=32>Master\nvolume",
+            "currentMasterVolume": "<size=48>%volume%",
+            "button1": "<size=40>Select language",
+            "button2": "<size=48>Return"
         },
         "language":{
-            "language": "%language%",
-            "button1": "Done"
+            "language": "<size=48>%language%",
+            "button1": "<size=48>Done"
         },
         "selectGame":{
-            "nameAndAuthor": "%name%\n%author%",
-            "dynamicDescription": "%description%"
+            "author": "<size=48>%author%",
+            "dynamicDescription": "<size=48>%description%"
         }
     },
     "menu":{

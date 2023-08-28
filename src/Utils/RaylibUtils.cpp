@@ -87,7 +87,7 @@ raylib::Font RaylibUtils::getContainTextFont(const std::string& fileName, const 
     int* codepointsNoDups = codepointRemoveDuplicates(codepoints, codepointCount, &codepointsNoDupsCount);
     UnloadCodepoints(codepoints);
 
-    raylib::Font font = LoadFontEx(fileName.c_str(), 64, codepointsNoDups, codepointsNoDupsCount);
+    raylib::Font font = LoadFontEx(fileName.c_str(), 128, codepointsNoDups, codepointsNoDupsCount);
     SetTextureFilter(font.texture, TEXTURE_FILTER_BILINEAR);
 
     free(codepointsNoDups);

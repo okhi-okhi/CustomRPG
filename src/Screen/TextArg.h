@@ -1,4 +1,5 @@
 #pragma once
+#include <map>
 #include <variant>
 #include "Text.h"
 
@@ -13,7 +14,7 @@ protected:
 public:
 	TextArg() = default;
 	TextArg(raylib::Vector2 pos, const std::string& i18nKey,
-		const std::map<std::string, argTypes>& args, float fontSize,
+		const std::map<std::string, argTypes>& args,
 		TextAlign align, float spacing);
 
 	void draw() override;

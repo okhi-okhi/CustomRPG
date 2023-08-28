@@ -4,7 +4,7 @@
 #include "../Utils/RaylibUtils.h"
 
 TextArg::TextArg(const raylib::Vector2 pos, const std::string& i18nKey,
-	const std::map<std::string, argTypes>& args, const float fontSize,
+	const std::map<std::string, argTypes>& args,
 	const TextAlign align, const float spacing)
 {
 	this->elementType = ElementType::TEXT_ARG;
@@ -12,7 +12,6 @@ TextArg::TextArg(const raylib::Vector2 pos, const std::string& i18nKey,
 	this->i18nKey = i18nKey;
 	this->args = args;
 
-	this->fontSize = RaylibUtils::getRealLength(fontSize);
 	this->align = align;
 	this->spacing = spacing;
 
@@ -54,7 +53,7 @@ void TextArg::update()
 	if (this->text != newText)
 	{
 		this->text = newText;
-		this->textLines = str2TextLines(newText);
+		parseText(newText);
 		updatePosition();
 	}
 }

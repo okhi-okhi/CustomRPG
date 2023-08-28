@@ -26,7 +26,7 @@ int Utils::lengthOfNumber(int n)
 int Utils::lengthOfString(const std::string& str)
 {
 	int c, i, ix, q;
-	for (q = 0, i = 0, ix = str.length(); i < ix; i++, q++)
+	for (q = 0, i = 0, ix = static_cast<int>(str.length()); i < ix; i++, q++)
 	{
 		c = static_cast<unsigned char>(str[i]);
 		if (c >= 0 && c <= 127) i += 0;

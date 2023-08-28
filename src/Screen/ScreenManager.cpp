@@ -68,9 +68,7 @@ void ScreenManager::removeScreen(const ScreenType& screen)
 	{
 		if (this->currentScreens[i]->getScreenType() == screen)
 		{
-			std::cout<<"erase screen: "<< this->currentScreens[i] <<std::endl;
 			this->currentScreens.erase(currentScreens.begin() + i);
-			std::cout << "success" << std::endl;
 		}
 	}
 }

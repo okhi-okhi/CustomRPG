@@ -1,7 +1,6 @@
 #pragma once
 #include <Color.hpp>
 #include <Font.hpp>
-#include <map>
 #include "Element.h"
 
 enum class TextAlign
@@ -11,56 +10,68 @@ enum class TextAlign
 	RIGHT
 };
 
-struct ColorChar
+struct TextBatchChar
 {
-	int codepointByteCount;
 	int codepoint;
 	float width;
+	TextBatchChar(const int codepoint, const float width) : codepoint(codepoint), width(width) {}
+};
+
+struct TextBatch
+{
+	std::vector<TextBatchChar> chars;
+	float size;
 	Color color;
-	ColorChar(const int codepointByteCount, const int codepoint, const float width, const Color color) :
-		codepointByteCount(codepointByteCount), codepoint(codepoint), width(width), color(color) {}
+	TextBatch() : size(32.0f), color(WHITE) {}
+	TextBatch(std::vector<TextBatchChar> chars, const float size, const Color color) :
+		chars(std::move(chars)), size(size), color(color) {}
 };
 
 struct TextLine
 {
+	int startBatch;
+	int startBatchIndex;
 	float width;
-	std::vector<ColorChar> text;
-	TextLine(const float width, std::vector<ColorChar> text) : width(width), text(std::move(text)) {}
+	float height;
+
+	TextLine(const float width, const float height) : startBatch(0), startBatchIndex(0), width(width), height(height) {}
+	TextLine(const int startBatch, const int startBatchIndex, const float width, const float height) :
+		startBatch(startBatch), startBatchIndex(startBatchIndex), width(width), height(height) {}
 };
 
 class Text : public Element
 {
 protected:
+	static constexpr float DEFAULT_LINE_SPACING = 1.0f;
+	std::vector<TextBatch> textBatches;
 	std::vector<TextLine> textLines;
 
-	float fontSize;
 	TextAlign align;
 	float spacing;
 
 	const raylib::Font* font;
 
 public:
-	Text() : fontSize(0), align(), spacing(0), font(nullptr) {}
-	explicit Text(const std::string& i18nKey, float fontSize,
-		TextAlign align, float spacing);
+	Text() : align(), spacing(0), font(nullptr) {}
+	explicit Text(const std::string& i18nKey, TextAlign align, float spacing);
 	explicit Text(raylib::Vector2 pos, const std::string& i18nKey,
-		float fontSize, TextAlign align, float spacing);
-	explicit Text(const std::string& text, float fontSize,
-		TextAlign align, float spacing, const raylib::Font* font);
-	explicit Text(raylib::Vector2 pos, const std::string& text, float fontSize,
+		TextAlign align, float spacing);
+	explicit Text(const std::string& text, TextAlign align, float spacing,
+		const raylib::Font* font);
+	explicit Text(raylib::Vector2 pos, const std::string& text,
 		TextAlign align, float spacing, const raylib::Font* font);
 
 	void draw() override;
 	void updatePosition() override;
 
-	virtual std::vector<TextLine> str2TextLines(std::string str) const;
-	static Color str2Color(const std::string& colorStr);
-
-	virtual void setText(const std::string& text, const raylib::Font* font);
+	virtual void parseText(std::string str);
+	virtual void setText(const std::string& text);
+	void setFont(const raylib::Font* font) { this->font = font; }
 	void setAlign(const TextAlign align) { this->align = align; updatePosition(); }
 
-	const std::vector<TextLine>& getTexts() const { return this->textLines; }
-	const float& getFontSize() const { return this->fontSize; }
+	static Color str2Color(const std::string& colorStr);
+
+	const std::vector<TextBatch>& getTexts() const { return this->textBatches; }
 	const TextAlign& getAlign() const { return this->align; }
 	const float& getSpacing() const { return this->spacing; }
 	const raylib::Font* getFont() const { return this->font; }

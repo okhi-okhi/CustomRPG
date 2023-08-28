@@ -6,7 +6,7 @@
 #include "../Utils/RaylibUtils.h"
 
 ScrollList::ScrollList(const raylib::Rectangle bounds, const int itemCapacity, const int currentIndex,
-	const std::vector<std::string>& itemsI18nKey, const float fontSize,
+	const std::vector<std::string>& itemsI18nKey,
 	const TextAlign textAlign, const float textSpacing, const std::string& itemTexture,
 	const std::string& sliderBar, const std::string& sliderBackground, const std::function<void()>& function) :
 	ScrollList(bounds, itemCapacity, currentIndex,
@@ -17,7 +17,7 @@ ScrollList::ScrollList(const raylib::Rectangle bounds, const int itemCapacity, c
 			}
 			return texts;
 		}(),
-		fontSize, textAlign, textSpacing,
+		textAlign, textSpacing,
 		[&]() {
 			std::vector<const raylib::Font*> fonts;
 			for (const auto& key : itemsI18nKey) {
@@ -31,7 +31,7 @@ ScrollList::ScrollList(const raylib::Rectangle bounds, const int itemCapacity, c
 }
 
 ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const int currentIndex,
-	const std::vector<std::string>& itemsText, float fontSize, TextAlign textAlign,
+	const std::vector<std::string>& itemsText, TextAlign textAlign,
 	float textSpacing, const std::vector<const raylib::Font*>& itemsFont,
 	const std::string& itemTexture, const std::string& sliderBar,
 	const std::string& sliderBackground, const std::function<void()>& function)
@@ -50,7 +50,7 @@ ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const i
 
 	for (int i = 0; i < itemsText.size(); i++)
 	{
-		this->itemsText.emplace_back(Vector2(0, 0), itemsText[i], fontSize,
+		this->itemsText.emplace_back(Vector2(0, 0), itemsText[i],
 			textAlign, textSpacing, itemsFont[i]);
 	}
 
@@ -60,7 +60,7 @@ ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const i
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
 		this->items.emplace_back(Vector2(bounds.x, buttonY), Button(itemBg, [this, i] { select(i); }),
-		                         Text(itemsText[i], fontSize, textAlign, textSpacing, itemsFont[i]));
+		                         Text(itemsText[i], textAlign, textSpacing, itemsFont[i]));
 		buttonY += buttonHeight;
 	}
 

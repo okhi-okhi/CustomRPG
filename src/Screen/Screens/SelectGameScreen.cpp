@@ -22,45 +22,46 @@ SelectGameScreen::SelectGameScreen() : Screen(ScreenType::SELECT_GAME, "selectGa
 	addElement(make_shared<FullPicture>(File("screens/main/background.png"), 1));
 
 	const auto gameList =
-		make_shared<ScrollList>(Rectangle(300, 540, 500, 800), 8, -1, gameNames,
-			48.0f, TextAlign::CENTER, 0.0f, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png", [this] { showGameInfo(); });
+		make_shared<ScrollList>(Rectangle{ 300, 540, 500, 800 }, 8, -1, gameNames,
+			TextAlign::CENTER, 0.0f, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png", [this] { showGameInfo(); });
 	addElement(gameList);
 	this->selectedGameIndex = &gameList->getCurrentIndex();
 }
 
 void SelectGameScreen::showGameInfo()
 {
-	if(!this->isAnyGameSelected)
+	if (!this->isAnyGameSelected)
 	{
 		this->isAnyGameSelected = true;
-		this->pictureGallery = make_shared<PictureGallery>(Rectangle(1150, 300, 640, 480), this->games[*this->selectedGameIndex].screenshots);
+		this->pictureGallery = make_shared<PictureGallery>(Rectangle{ 1150, 300, 640, 480 }, this->games[*this->selectedGameIndex].screenshots);
 		addElement(this->pictureGallery);
-		addElement(make_shared<Button>(Vector2(750, 300), Picture({ "screens/arrow_left.png" }, 2, 64), [this] { pictureGallery->previousPicture(); }));
-		addElement(make_shared<Button>(Vector2(1550, 300), Picture({ "screens/arrow_right.png" }, 2, 64), [this] { pictureGallery->nextPicture(); }));
+		addElement(make_shared<Button>(Vector2{ 750, 300 }, Picture({ "screens/arrow_left.png" }, 2, 64), [this] { pictureGallery->previousPicture(); }));
+		addElement(make_shared<Button>(Vector2{ 1550, 300 }, Picture({ "screens/arrow_right.png" }, 2, 64), [this] { pictureGallery->nextPicture(); }));
 
-		std::string nameAndAuthor = I18n::instance().getSystemI18n().get("screen.selectGame.nameAndAuthor",
-			{ {"name", this->games[*this->selectedGameIndex].name},
-			  {"author", this->games[*this->selectedGameIndex].author} });
-		this->info = make_shared<Text>(Vector2(800, 597), nameAndAuthor, 48.0f, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
+		std::string author = I18n::instance().getSystemI18n().get("screen.selectGame.author",
+			{ {"author", this->games[*this->selectedGameIndex].author} });
+		this->info = make_shared<Text>(Vector2{ 800, 570 }, author, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
 		addElement(this->info);
 
 		std::string text = I18n::instance().getSystemI18n().get("screen.selectGame.dynamicDescription",
 			{ {"description", this->games[*this->selectedGameIndex].description} });
-		this->description = make_shared<TextBox>(Rectangle(1600, 1050, 800, 400), text, 48.0f, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
+		this->description = make_shared<TextBox>(Rectangle{ 1600, 980, 800, 400 }, text, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
 		addElement(this->description);
 	}
 	else
 	{
 		this->pictureGallery->setPictures(this->games[*this->selectedGameIndex].screenshots);
 
-		const std::string nameAndAuthor = I18n::instance().getSystemI18n().get("screen.selectGame.nameAndAuthor",
-			{ {"name", this->games[*this->selectedGameIndex].name},
-			  {"author", this->games[*this->selectedGameIndex].author} });
-		this->info->setText(nameAndAuthor, &this->games[*this->selectedGameIndex].font);
+		const std::string author = I18n::instance().getSystemI18n().get("screen.selectGame.author",
+			{ {"author", this->games[*this->selectedGameIndex].author} });
+		std::cout << author << std::endl;
+		this->info->setFont(&this->games[*this->selectedGameIndex].font);
+		this->info->setText(author);
 		
 		const std::string text = I18n::instance().getSystemI18n().get("screen.selectGame.dynamicDescription",
 			{ {"description", this->games[*this->selectedGameIndex].description} });
-		this->description->setText(text, &this->games[*this->selectedGameIndex].font);
+		this->description->setFont(&this->games[*this->selectedGameIndex].font);
+		this->description->setText(text);
 	}
 }
 

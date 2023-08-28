@@ -3,23 +3,23 @@
     "font": "NotoSansTC-Medium.otf",
     "screen":{
         "main":{
-            "button1": "開始遊戲",
-            "button2": "設定",
-            "button3": "離開遊戲"
+            "button1": "<size=48>開始遊戲",
+            "button2": "<size=48>設定",
+            "button3": "<size=48>離開遊戲"
         },
         "setting":{
-            "masterVolume": "主音量",
-            "currentMasterVolume": "%volume%",
-            "button1": "語言",
-            "button2": "返回"
+            "masterVolume": "<size=40>主音量",
+            "currentMasterVolume": "<size=40>%volume%",
+            "button1": "<size=48>語言",
+            "button2": "<size=48>返回"
         },
         "language":{
-            "language": "%language%",
-            "button1": "完成"
+            "language": "<size=48>%language%",
+            "button1": "<size=48>完成"
         },
         "selectGame":{
-            "nameAndAuthor": "%name%\n%author%",
-            "dynamicDescription": "%description%"
+            "nameAndAuthor": "<size=64>%name%\n%author%",
+            "dynamicDescription": "<size=64>%description%"
         }
     },
     "menu": {

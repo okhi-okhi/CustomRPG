@@ -4,7 +4,7 @@
 #include "../Utils/RaylibUtils.h"
 
 TextArgBox::TextArgBox(const raylib::Rectangle bounds, const std::string& i18nKey,
-	const std::map<std::string, argTypes>& args, const float fontSize,
+	const std::map<std::string, argTypes>& args,
 	const TextAlign align, const float spacing)
 {
 	this->elementType = ElementType::TEXT_ARG_BOX;
@@ -14,20 +14,16 @@ TextArgBox::TextArgBox(const raylib::Rectangle bounds, const std::string& i18nKe
 	this->i18nKey = i18nKey;
 	this->args = args;
 
-	this->fontSize = RaylibUtils::getRealLength(fontSize);
 	this->align = align;
 	this->spacing = spacing;
 
 	this->font = &FontProvider::instance().get(i18nKey);
 
 	TextArg::update();
-
-	const int maxCapacity = static_cast<int>(this->bounds.height / this->fontSize);
-	this->lineCapacity = (this->textLines.size() > maxCapacity) ? maxCapacity : static_cast<int>(this->textLines.size());
 	this->startIndex = 0;
+	calculateLineCapacity();
 	this->scrollable = (this->textLines.size() > this->lineCapacity) ? true : false;
-
-	TextArgBox::updatePosition();
+	TextBox::updatePosition();
 }
 
 void TextArgBox::draw()
