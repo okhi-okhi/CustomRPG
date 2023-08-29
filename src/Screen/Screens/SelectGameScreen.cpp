@@ -45,7 +45,7 @@ void SelectGameScreen::showGameInfo()
 
 		std::string text = I18n::instance().getSystemI18n().get("screen.selectGame.dynamicDescription",
 			{ {"description", this->games[*this->selectedGameIndex].description} });
-		this->description = make_shared<TextBox>(Rectangle{ 1600, 980, 800, 400 }, text, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
+		this->description = make_shared<TextBox>(Rectangle{ 1600, 930, 800, 400 }, text, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
 		addElement(this->description);
 	}
 	else
@@ -54,7 +54,6 @@ void SelectGameScreen::showGameInfo()
 
 		const std::string author = I18n::instance().getSystemI18n().get("screen.selectGame.author",
 			{ {"author", this->games[*this->selectedGameIndex].author} });
-		std::cout << author << std::endl;
 		this->info->setFont(&this->games[*this->selectedGameIndex].font);
 		this->info->setText(author);
 		

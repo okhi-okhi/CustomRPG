@@ -127,6 +127,7 @@ void Text::parseText(std::string str)
 			{
 				std::cout << "WARN! Unknown text tag: " << tagStr << std::endl;
 			}
+			codepointByteCount = 1;
 			i = tagEnd;
 		}
 		else if (str[i] == '\n')

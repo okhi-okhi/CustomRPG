@@ -29,7 +29,7 @@ TextBox::TextBox(const raylib::Rectangle bounds, const std::string& text,
 
 void TextBox::draw()
 {
-	if(this->scrollable)
+	if (this->scrollable)
 	{
 		const int wheelMove = static_cast<int>(GetMouseWheelMove());
 		if (wheelMove != 0)
@@ -40,24 +40,25 @@ void TextBox::draw()
 				{
 					this->startIndex--;
 					calculateLineCapacity();
-					std::cout << "startIndex: " << this->startIndex << " lineCap: " << this->lineCapacity << std::endl;
 				}
 			}
 			else
 			{
-				if (this->startIndex + this->lineCapacity < this->textLines.size())
+				if (this->startIndex + this->lineCapacity+1 < this->textLines.size())
 				{
 					this->startIndex++;
 					calculateLineCapacity();
-					std::cout << "startIndex: " << this->startIndex << " lineCap: " << this->lineCapacity << std::endl;
 				}
 			}
 		}
 	}
 	float textOffsetX = 0;
 	float textOffsetY = 0;
-	int lineCount = 0;
-
+	int lineCount = 1;
+	if (lineCount > this->lineCapacity)
+	{
+		return;
+	}
 	switch (this->align)
 	{
 	case TextAlign::LEFT:
@@ -71,71 +72,86 @@ void TextBox::draw()
 		break;
 	}
 
-	for(int i = this->textLines[this->startIndex].startBatch; i < textBatches.size(); i++)
+	using std::cout, std::endl;
+	cout << "startIndex: " << this->startIndex << endl;
+	const int startBatch = this->textLines[this->startIndex].startBatch;
+	cout << "startBatch: " << startBatch << endl;
+	cout << "startBatchIndex: " << this->textLines[this->startIndex].startBatchIndex << endl;
+	for (int i = this->textLines[this->startIndex].startBatchIndex; i < this->textBatches[startBatch].chars.size(); i++)
 	{
-		if(i == this->textLines[this->startIndex].startBatch)
+		cout << "i: " << i << endl;
+		if (this->textBatches[startBatch].chars[i].codepoint == -1) // -1 == \n
 		{
-			for(int j = this->textLines[this->startIndex].startBatchIndex; j<this->textBatches[i].chars.size(); j++)
+			textOffsetY += textLines[this->startIndex].height * DEFAULT_LINE_SPACING;
+			if(lineCount > this->lineCapacity)
 			{
-				if (this->textBatches[i].chars[j].codepoint == -1) // -1 == \n
-				{
-					textOffsetY += textLines[i].height * DEFAULT_LINE_SPACING;
-					lineCount++;
-					if(lineCount >= this->lineCapacity)
-					{
-						return;
-					}
-					switch (this->align)
-					{
-					case TextAlign::LEFT:
-						textOffsetX = 0;
-						break;
-					case TextAlign::CENTER:
-						textOffsetX = -this->textLines[this->startIndex + lineCount + 1].width / 2;
-						break;
-					case TextAlign::RIGHT:
-						textOffsetX = -this->textLines[this->startIndex + lineCount + 1].width;
-						break;
-					}
-				}
-				else if((this->textBatches[i].chars[j].codepoint != ' ') && (this->textBatches[i].chars[j].codepoint != '\t'))
-				{
-					DrawTextCodepoint(*this->font, this->textBatches[i].chars[j].codepoint, Vector2{ this->originPos.x + textOffsetX, this->originPos.y + textOffsetY }, this->textBatches[i].size, this->textBatches[i].color);
-				}
-				textOffsetX += this->textBatches[i].chars[j].width;
+				return;
+			}
+			lineCount++;
+			if(this->startIndex + lineCount> this->textLines.size())
+			{
+				return;
+			}
+			switch (this->align)
+			{
+			case TextAlign::LEFT:
+				textOffsetX = 0;
+				break;
+			case TextAlign::CENTER:
+				textOffsetX = -this->textLines[this->startIndex + lineCount - 1].width / 2;
+				break;
+			case TextAlign::RIGHT:
+				textOffsetX = -this->textLines[this->startIndex + lineCount - 1].width;
+				break;
 			}
 		}
-		else
+		else if((this->textBatches[startBatch].chars[i].codepoint != ' ') && (this->textBatches[startBatch].chars[i].codepoint != '\t'))
 		{
-			for (const auto& c : this->textBatches[i].chars)
+			DrawTextCodepoint(*this->font, this->textBatches[startBatch].chars[i].codepoint,
+				Vector2{ this->originPos.x + textOffsetX, this->originPos.y + textOffsetY + this->textLines[this->startIndex + lineCount-1].height - this->textBatches[startBatch].size },
+				this->textBatches[startBatch].size, this->textBatches[startBatch].color);
+		}
+		textOffsetX += this->textBatches[startBatch].chars[i].width;
+	}
+
+	for (int i = startBatch + 1; i < textBatches.size(); i++)
+	{
+		cout << "i: " << i << endl;
+		for (const auto& c : this->textBatches[i].chars)
+		{
+			if (c.codepoint == -1) // -1 == \n
 			{
-				if (c.codepoint == -1) // -1 == \n
+				textOffsetY += textLines[i].height * DEFAULT_LINE_SPACING;
+				lineCount++;
+				if (lineCount > this->lineCapacity)
 				{
-					textOffsetY += textLines[i].height * DEFAULT_LINE_SPACING;
-					lineCount++;
-					if (lineCount >= this->lineCapacity)
-					{
-						return;
-					}
-					switch (this->align)
-					{
-					case TextAlign::LEFT:
-						textOffsetX = 0;
-						break;
-					case TextAlign::CENTER:
-						textOffsetX = -this->textLines[this->startIndex + lineCount+1].width / 2;
-						break;
-					case TextAlign::RIGHT:
-						textOffsetX = -this->textLines[this->startIndex + lineCount+1].width;
-						break;
-					}
+					return;
 				}
-				else if((c.codepoint != ' ') && (c.codepoint != '\t'))
+				lineCount++;
+				if (this->startIndex + lineCount > this->textLines.size())
 				{
-					DrawTextCodepoint(*this->font, c.codepoint, Vector2{ this->originPos.x + textOffsetX, this->originPos.y + textOffsetY }, this->textBatches[i].size, this->textBatches[i].color);
+					return;
 				}
-				textOffsetX += c.width;
+				switch (this->align)
+				{
+				case TextAlign::LEFT:
+					textOffsetX = 0;
+					break;
+				case TextAlign::CENTER:
+					textOffsetX = -this->textLines[this->startIndex + lineCount - 1].width / 2;
+					break;
+				case TextAlign::RIGHT:
+					textOffsetX = -this->textLines[this->startIndex + lineCount - 1].width;
+					break;
+				}
 			}
+			else if((c.codepoint != ' ') && (c.codepoint != '\t'))
+			{
+				DrawTextCodepoint(*this->font, c.codepoint, 
+					Vector2{ this->originPos.x + textOffsetX, this->originPos.y + textOffsetY + this->textLines[this->startIndex + lineCount - 1].height - this->textBatches[i].size },
+					this->textBatches[i].size, this->textBatches[i].color);
+			}
+			textOffsetX += c.width;
 		}
 	}
 }
@@ -163,15 +179,18 @@ void TextBox::updatePosition()
 
 void TextBox::calculateLineCapacity()
 {
-	int i = this->startIndex, maxCapacity = 0;
+	int maxCapacity = 0;
 	float totalHeight = 0;
-	float lineHeight = this->textLines[i].height * DEFAULT_LINE_SPACING;
-	while (totalHeight + lineHeight < this->bounds.height)
+	for(int i = this->startIndex; i < this->textLines.size(); i++)
 	{
+		const float lineHeight = this->textLines[i].height * DEFAULT_LINE_SPACING;
+		std::cout<< lineHeight << std::endl;
+		if(totalHeight + lineHeight > this->bounds.height)
+		{
+			break;
+		}
 		totalHeight += lineHeight;
-		i++;
 		maxCapacity++;
-		lineHeight = this->textLines[i].height * DEFAULT_LINE_SPACING;
 	}
 
 	if (this->textLines.size() > maxCapacity)
@@ -189,6 +208,9 @@ void TextBox::parseText(std::string str)
 	TextBatch currentBatch;
 	float currentWidth = 0;
 	float currentHeight = currentBatch.size;
+
+	int currentTextLineBatch = 0;
+	int currentTextLineBatchIndex = 0;
 
 	this->textBatches.clear();
 	this->textLines.clear();
@@ -214,17 +236,26 @@ void TextBox::parseText(std::string str)
 			{
 				currentBatch.size = RaylibUtils::getRealLength(std::stoi(tagStr.substr(5)));
 			}
+			else if (tagStr == "reset")
+			{
+				currentBatch = TextBatch();
+			}
 			else
 			{
 				std::cout << "WARN! Unknown text tag: " << tagStr << std::endl;
 			}
+			codepointByteCount = 1;
 			i = tagEnd;
 		}
 		else if (str[i] == '\n')
 		{
 			currentBatch.chars.emplace_back(-1, 0.0f);
-			this->textLines.emplace_back(currentWidth, currentHeight, this->textBatches.size(), currentBatch.chars.size() - 1);
+			std::cout<<"now: "<<this->textLines.size()<< " tb: "<< currentTextLineBatch<< " tbi: " << currentTextLineBatchIndex<<std::endl;
+			this->textLines.emplace_back(currentWidth, currentHeight, currentTextLineBatch, currentTextLineBatchIndex);
 			currentWidth = 0;
+			currentTextLineBatch = static_cast<int>(this->textBatches.size());
+			currentTextLineBatchIndex = static_cast<int>(currentBatch.chars.size());
+			codepointByteCount = 1;
 		}
 		else 
 		{
@@ -242,8 +273,11 @@ void TextBox::parseText(std::string str)
 			if (currentWidth + charWidth > this->bounds.width)
 			{
 				currentBatch.chars.emplace_back(-1, 0.0f);
-				this->textLines.emplace_back(currentWidth, currentHeight);
+				std::cout << "now: " << this->textLines.size() << " tb: " << currentTextLineBatch << " tbi: " << currentTextLineBatchIndex << std::endl;
+				this->textLines.emplace_back(currentWidth, currentHeight, currentTextLineBatch, currentTextLineBatchIndex);
 				currentWidth = 0;
+				currentTextLineBatch = static_cast<int>(this->textBatches.size());
+				currentTextLineBatchIndex = static_cast<int>(currentBatch.chars.size());
 			}
 
 			if (currentBatch.size > currentHeight)
@@ -255,7 +289,8 @@ void TextBox::parseText(std::string str)
 		}
 	}
 	this->textBatches.push_back(currentBatch);
-	this->textLines.emplace_back(currentWidth, currentHeight, this->textBatches.size(), currentBatch.chars.size() - 1);
+	std::cout << "now: " << this->textLines.size() << " tb: " << currentTextLineBatch << " tbi: " << currentTextLineBatchIndex << std::endl;
+	this->textLines.emplace_back(currentWidth, currentHeight, currentTextLineBatch, currentTextLineBatchIndex);
 }
 
 void TextBox::setText(const std::string& text)

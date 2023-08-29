@@ -3,7 +3,7 @@
     "font": "NotoSansTC-Medium.otf",
     "screen":{
         "main":{
-            "button1": "<size=48>開始遊戲",
+            "button1": "<size=48>開始<size=80>遊戲",
             "button2": "<size=48>設定",
             "button3": "<size=48>離開遊戲"
         },

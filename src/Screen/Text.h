@@ -29,14 +29,14 @@ struct TextBatch
 
 struct TextLine
 {
-	int startBatch;
-	int startBatchIndex;
 	float width;
 	float height;
+	int startBatch;
+	int startBatchIndex;
 
-	TextLine(const float width, const float height) : startBatch(0), startBatchIndex(0), width(width), height(height) {}
-	TextLine(const int startBatch, const int startBatchIndex, const float width, const float height) :
-		startBatch(startBatch), startBatchIndex(startBatchIndex), width(width), height(height) {}
+	TextLine(const float width, const float height) : width(width), height(height), startBatch(0), startBatchIndex(0) {}
+	TextLine(const float width, const float height, const int startBatch, const int startBatchIndex) :
+		width(width), height(height), startBatch(startBatch), startBatchIndex(startBatchIndex) {}
 };
 
 class Text : public Element
