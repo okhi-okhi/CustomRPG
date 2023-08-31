@@ -15,6 +15,7 @@ TextBox::TextBox(const raylib::Rectangle bounds, const std::string& text,
 	this->bounds = RaylibUtils::getRealLength(Rectangle{ bounds.x - bounds.width / 2, bounds.y - bounds.height / 2,
 		bounds.width, bounds.height });
 	this->position = this->bounds.GetPosition();
+	std::cout<< "x: " << this->position.x<< " y: "<<this->position.y << std::endl;
 	this->align = align;
 	this->spacing = spacing;
 
@@ -44,7 +45,7 @@ void TextBox::draw()
 			}
 			else
 			{
-				if (this->startIndex + this->lineCapacity+1 < this->textLines.size())
+				if (this->startIndex + this->lineCapacity < this->textLines.size())
 				{
 					this->startIndex++;
 					calculateLineCapacity();
@@ -73,17 +74,17 @@ void TextBox::draw()
 	}
 
 	using std::cout, std::endl;
-	cout << "startIndex: " << this->startIndex << endl;
+	//cout << "startIndex: " << this->startIndex << endl;
 	const int startBatch = this->textLines[this->startIndex].startBatch;
-	cout << "startBatch: " << startBatch << endl;
-	cout << "startBatchIndex: " << this->textLines[this->startIndex].startBatchIndex << endl;
+	//cout << "startBatch: " << startBatch << endl;
+	//cout << "startBatchIndex: " << this->textLines[this->startIndex].startBatchIndex << endl;
 	for (int i = this->textLines[this->startIndex].startBatchIndex; i < this->textBatches[startBatch].chars.size(); i++)
 	{
-		cout << "i: " << i << endl;
+		//cout << "i: " << i << endl;
 		if (this->textBatches[startBatch].chars[i].codepoint == -1) // -1 == \n
 		{
-			textOffsetY += textLines[this->startIndex].height * DEFAULT_LINE_SPACING;
-			if(lineCount > this->lineCapacity)
+			textOffsetY += textLines[this->startIndex + lineCount-1].height * DEFAULT_LINE_SPACING;
+			if(lineCount >= this->lineCapacity)
 			{
 				return;
 			}
@@ -116,14 +117,13 @@ void TextBox::draw()
 
 	for (int i = startBatch + 1; i < textBatches.size(); i++)
 	{
-		cout << "i: " << i << endl;
+		//cout << "i: " << i << endl;
 		for (const auto& c : this->textBatches[i].chars)
 		{
 			if (c.codepoint == -1) // -1 == \n
 			{
-				textOffsetY += textLines[i].height * DEFAULT_LINE_SPACING;
-				lineCount++;
-				if (lineCount > this->lineCapacity)
+				textOffsetY += textLines[this->startIndex + lineCount-1].height * DEFAULT_LINE_SPACING;
+				if (lineCount >= this->lineCapacity)
 				{
 					return;
 				}
@@ -185,6 +185,7 @@ void TextBox::calculateLineCapacity()
 	{
 		const float lineHeight = this->textLines[i].height * DEFAULT_LINE_SPACING;
 		std::cout<< lineHeight << std::endl;
+		std::cout << totalHeight + lineHeight << " : "<< this->bounds.height << std::endl;
 		if(totalHeight + lineHeight > this->bounds.height)
 		{
 			break;
@@ -201,6 +202,7 @@ void TextBox::calculateLineCapacity()
 	{
 		this->lineCapacity = static_cast<int>(this->textLines.size());
 	}
+	std::cout << "lineCapacity: " << this->lineCapacity << std::endl;
 }
 
 void TextBox::parseText(std::string str)
