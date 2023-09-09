@@ -13,6 +13,8 @@ protected:
 
 public:
 	TextArg() = default;
+	TextArg(const std::string& i18nKey, const std::map<std::string, argTypes>& args,
+		TextAlign align, float spacing);
 	TextArg(raylib::Vector2 pos, const std::string& i18nKey,
 		const std::map<std::string, argTypes>& args,
 		TextAlign align, float spacing);

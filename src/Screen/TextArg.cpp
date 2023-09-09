@@ -1,11 +1,14 @@
 #include "TextArg.h"
 #include "../I18n/FontProvider.h"
 #include "../I18n/I18n.h"
-#include "../Utils/RaylibUtils.h"
+
+TextArg::TextArg(const std::string& i18nKey, const std::map<std::string, argTypes>& args, const TextAlign align,
+                 const float spacing) : TextArg(raylib::Vector2{ 0, 0 }, i18nKey, args, align, spacing)
+{
+}
 
 TextArg::TextArg(const raylib::Vector2 pos, const std::string& i18nKey,
-	const std::map<std::string, argTypes>& args,
-	const TextAlign align, const float spacing)
+                 const std::map<std::string, argTypes>& args, const TextAlign align, const float spacing)
 {
 	this->elementType = ElementType::TEXT_ARG;
 	this->position = RaylibUtils::getRealLength(pos);

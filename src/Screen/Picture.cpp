@@ -11,16 +11,13 @@ Picture::Picture(const File& file) :
 Picture::Picture(const raylib::Vector2 pos, const File& file)
 {
 	this->elementType = ElementType::PICTURE;
+	this->textureFrameNum = 1;
+	this->currentFrame = 0;
+	this->position = pos;
 
 	raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
 	this->spriteTexture = image;
-
-	this->textureFrameNum = 1;
-
-	this->position = pos;
 	Picture::updatePosition();
-
-	this->currentFrame = 0;
 }
 
 Picture::Picture(const File& file, const int textureFrameNum, const int width, const ScaleMode mode) :
@@ -31,6 +28,8 @@ Picture::Picture(const File& file, const int textureFrameNum, const int width, c
 Picture::Picture(const raylib::Vector2 pos, const File& file,
 	const int textureFrameNum, int width, const ScaleMode mode) : Element(ElementType::PICTURE, pos)
 {
+	this->textureFrameNum = textureFrameNum;
+	this->currentFrame = 0;
 	raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
 	width = static_cast<int>(RaylibUtils::getRealLength(width));
 	switch (mode)
@@ -44,9 +43,6 @@ Picture::Picture(const raylib::Vector2 pos, const File& file,
 			break;
 	}
 	this->spriteTexture = image;
-	this->textureFrameNum = textureFrameNum;
-	this->currentFrame = 0;
-
 	Picture::updatePosition();
 }
 

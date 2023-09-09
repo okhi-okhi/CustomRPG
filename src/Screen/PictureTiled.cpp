@@ -3,7 +3,7 @@
 
 PictureTiled::PictureTiled(const File& file, const int textureFrameNum,
 	const int tileWidth, const raylib::Vector2 tiledBounds) :
-	PictureTiled(Vector2(0, 0), file, textureFrameNum, tileWidth, tiledBounds)
+	PictureTiled(raylib::Vector2{ 0, 0 }, file, textureFrameNum, tileWidth, tiledBounds)
 {
 }
 
@@ -11,6 +11,9 @@ PictureTiled::PictureTiled(const raylib::Vector2 pos, const File& file,
 	const int textureFrameNum, int tileWidth, raylib::Vector2 tiledBounds)
 {
 	this->elementType = ElementType::PICTURE_TILED;
+	this->position = RaylibUtils::getRealLength(pos);
+	this->textureFrameNum = textureFrameNum;
+	this->currentFrame = 0;
 
 	tileWidth = static_cast<int>(RaylibUtils::getRealLength(tileWidth));
 	raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
@@ -33,11 +36,5 @@ PictureTiled::PictureTiled(const raylib::Vector2 pos, const File& file,
 		}
 	}
 	this->spriteTexture = tiledImage;
-
-	this->textureFrameNum = textureFrameNum;
-
-	this->position = RaylibUtils::getRealLength(pos);
 	Picture::updatePosition();
-
-	this->currentFrame = 0;
 }

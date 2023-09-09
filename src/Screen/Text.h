@@ -1,7 +1,7 @@
 #pragma once
 #include <Color.hpp>
-#include <Font.hpp>
 #include "Element.h"
+#include "../Utils/RaylibUtils.h"
 
 enum class TextAlign
 {
@@ -22,7 +22,7 @@ struct TextBatch
 	std::vector<TextBatchChar> chars;
 	float size;
 	Color color;
-	TextBatch() : size(32.0f), color(WHITE) {}
+	TextBatch() : size(RaylibUtils::getRealLength(32.0f)), color(WHITE) {}
 	TextBatch(std::vector<TextBatchChar> chars, const float size, const Color color) :
 		chars(std::move(chars)), size(size), color(color) {}
 };

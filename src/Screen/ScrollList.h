@@ -5,6 +5,7 @@
 class ScrollList final : public Element
 {
 private:
+	static constexpr float scrollBarWidth = 32;
 	raylib::Rectangle bounds;
 	int itemCapacity;
 	bool scrollable;
@@ -14,8 +15,6 @@ private:
 	std::vector<ButtonText> items{};
 	Slider slider;
 	std::function<void()> function;
-
-	const float scrollBarWidth = 32;
 
 public:
 	ScrollList() : itemCapacity(0), scrollable(false), startIndex(0), currentIndex(-1){}

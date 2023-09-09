@@ -1,7 +1,6 @@
 #include "Text.h"
 #include "../I18n/FontProvider.h"
 #include "../I18n/I18n.h"
-#include "../Utils/RaylibUtils.h"
 
 Text::Text(const std::string& i18nKey, const TextAlign align, const float spacing) :
 	Text(Vector2{ 0, 0 }, i18nKey, align, spacing)

@@ -1,5 +1,9 @@
 #pragma once
-#include <raylib-cpp.hpp>
+#include <Font.hpp>
+#include <Rectangle.hpp>
+#include <string>
+#include <Vector2.hpp>
+#include <vector>
 
 namespace RaylibUtils
 {
