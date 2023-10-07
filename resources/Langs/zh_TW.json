@@ -9,7 +9,7 @@
         },
         "setting":{
             "masterVolume": "<size=40>主音量",
-            "currentMasterVolume": "<size=40>%volume%",
+            "currentMasterVolume": "<size=40><color=red>%volume%",
             "button1": "<size=48>語言",
             "button2": "<size=48>返回"
         },

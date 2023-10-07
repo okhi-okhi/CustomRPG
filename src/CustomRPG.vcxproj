@@ -181,7 +181,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Screen\PictureBoarder.h" />
+    <ClInclude Include="Screen\PictureBorder.h" />
     <ClInclude Include="Screen\PictureTiled.h" />
     <ClInclude Include="Screen\PictureGallery.h" />
     <ClInclude Include="Screen\Screens\LanguageScreen.h" />
@@ -244,7 +244,7 @@
     <ClInclude Include="Utils\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Screen\PictureBoarder.cpp" />
+    <ClCompile Include="Screen\PictureBorder.cpp" />
     <ClCompile Include="Screen\PictureTiled.cpp" />
     <ClCompile Include="Screen\PictureGallery.cpp" />
     <ClCompile Include="Screen\Screens\LanguageScreen.cpp" />

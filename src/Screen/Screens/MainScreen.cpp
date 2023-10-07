@@ -8,13 +8,13 @@
 MainScreen::MainScreen() : Screen(ScreenType::MAIN, "main")
 {
 	addElement(make_shared<FullPicture>(File("screens/main/background.png"), 1));
-	addElement(make_shared<Picture>(Vector2(960, 108), File("screens/main/title.png"), 1, 960, ScaleMode::BICUBIC));
+	addElement(make_shared<Picture>(Vector2{ 960, 108 }, File("screens/main/title.png"), 1, 960, ScaleMode::BICUBIC));
 
 	const Picture buttonBg({ "screens/button_1.png" }, 2, 384);
 
-	addElement(make_shared<ButtonText>(Vector2(960, 324), Button(buttonBg, openSelectGame), Text("screen.main.button1", TextAlign::CENTER, 0.0f)));
-	addElement(make_shared<ButtonText>(Vector2(960, 540), Button(buttonBg, openSetting), Text("screen.main.button2", TextAlign::CENTER, 0.0f)));
-	addElement(make_shared<ButtonText>(Vector2(960, 756), Button(buttonBg, closeWindow), Text("screen.main.button3", TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(Vector2{ 960, 324 }, Button(buttonBg, openSelectGame), Text("screen.main.button1", TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(Vector2{ 960, 540 }, Button(buttonBg, openSetting), Text("screen.main.button2", TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(Vector2{ 960, 756 }, Button(buttonBg, closeWindow), Text("screen.main.button3", TextAlign::CENTER, 0.0f)));
 }
 
 void MainScreen::openSelectGame()

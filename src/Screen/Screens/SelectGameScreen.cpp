@@ -2,6 +2,7 @@
 #include <filesystem>
 #include "../FullPicture.h"
 #include "../ScrollList.h"
+#include "../PictureBorder.h"
 #include "../../I18n/FontProvider.h"
 #include "../../Utils/Utilities.h"
 #include "../../Utils/RaylibUtils.h"
@@ -20,7 +21,8 @@ SelectGameScreen::SelectGameScreen() : Screen(ScreenType::SELECT_GAME, "selectGa
 	}
 
 	addElement(make_shared<FullPicture>(File("screens/main/background.png"), 1));
-	addElement(make_shared<Picture>(Vector2{ 960, 540 }, File("screens/selectGame/background.png"), 1, 1700));
+	addElement(make_shared<PictureBorder>(Vector2{ 960, 540 }, File("screens/selectGame/border_corner.png"),
+		File("screens/selectGame/border_side.png"), File("screens/selectGame/border_padding.png"), 1, 64, Vector2 {640, 480}));
 
 	const auto gameList =
 		make_shared<ScrollList>(Rectangle{ 300, 540, 500, 800 }, 8, -1, gameNames,
