@@ -78,9 +78,7 @@ void Slider::draw()
 		else
 		{
 			this->dragging = false;
-			std::cout << "a" << std::endl;
-			dragFunction();
-			std::cout << "b" << std::endl;
+			this->dragFunction();
 		}
 	}
 	if (this->horizontal)

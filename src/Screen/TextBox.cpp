@@ -32,7 +32,7 @@ void TextBox::draw()
 	if (this->scrollable)
 	{
 		const int wheelMove = static_cast<int>(GetMouseWheelMove());
-		if (wheelMove != 0)
+		if (wheelMove != 0 && CheckCollisionPointRec(GetMousePosition(), this->bounds))
 		{
 			if (wheelMove > 0)
 			{

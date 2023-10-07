@@ -21,11 +21,11 @@ SelectGameScreen::SelectGameScreen() : Screen(ScreenType::SELECT_GAME, "selectGa
 	}
 
 	addElement(make_shared<FullPicture>(File("screens/main/background.png"), 1));
-	addElement(make_shared<PictureBorder>(Vector2{ 960, 540 }, File("screens/selectGame/border_corner.png"),
-		File("screens/selectGame/border_side.png"), File("screens/selectGame/border_padding.png"), 1, 64, Vector2 {640, 480}));
+	addElement(make_shared<PictureBorder>(Vector2{ 300, 540 }, File("screens/selectGame/border_corner.png"),
+		File("screens/selectGame/border_side.png"), File("screens/selectGame/border_padding.png"), 1, 64, Vector2{ 512, 1024 }));
 
 	const auto gameList =
-		make_shared<ScrollList>(Rectangle{ 300, 540, 500, 800 }, 8, -1, gameNames,
+		make_shared<ScrollList>(Rectangle{ 300, 540, 300, 800 }, 8, -1, gameNames,
 			TextAlign::CENTER, 0.0f, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png", [this] { showGameInfo(); });
 	addElement(gameList);
 	this->selectedGameIndex = &gameList->getCurrentIndex();
@@ -36,6 +36,8 @@ void SelectGameScreen::showGameInfo()
 	if (!this->isAnyGameSelected)
 	{
 		this->isAnyGameSelected = true;
+		addElement(make_shared<PictureBorder>(Vector2{ 1250, 540 }, File("screens/selectGame/border_corner.png"),
+			File("screens/selectGame/border_side.png"), File("screens/selectGame/border_padding.png"), 1, 64, Vector2{ 1280, 1024 }));
 		this->pictureGallery = make_shared<PictureGallery>(Rectangle{ 1150, 300, 640, 480 }, this->games[*this->selectedGameIndex].screenshots);
 		addElement(this->pictureGallery);
 		addElement(make_shared<Button>(Vector2{ 750, 300 }, Picture({ "screens/arrow_left.png" }, 2, 64), [this] { pictureGallery->previousPicture(); }));
@@ -48,7 +50,7 @@ void SelectGameScreen::showGameInfo()
 
 		std::string text = I18n::instance().getSystemI18n().get("screen.selectGame.dynamicDescription",
 			{ {"description", this->games[*this->selectedGameIndex].description} });
-		this->description = make_shared<TextBox>(Rectangle{ 1150, 830, 800, 460 }, text, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
+		this->description = make_shared<TextBox>(Rectangle{ 1150, 810, 800, 420 }, text, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
 		addElement(this->description);
 	}
 	else

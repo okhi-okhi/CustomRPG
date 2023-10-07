@@ -101,7 +101,7 @@ void ScrollList::draw()
 	const int wheelMove = static_cast<int>(GetMouseWheelMove());
 	if (this->scrollable)
 	{
-		if (wheelMove != 0)
+		if (wheelMove != 0 && CheckCollisionPointRec(GetMousePosition(), this->bounds))
 		{
 			if(wheelMove > 0)
 			{
