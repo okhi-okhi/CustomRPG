@@ -1,7 +1,7 @@
 #include "SliderText.h"
 #include "../Utils/RaylibUtils.h"
 
-SliderText::SliderText(const Vector2 position, const Slider& slider,
+SliderText::SliderText(const raylib::Vector2 position, const Slider& slider,
 	const Text& name, const TextArg& value)
 {
 	this->elementType = ElementType::SLIDER_TEXT;

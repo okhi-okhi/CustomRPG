@@ -1,4 +1,5 @@
 #include "SettingScreen.h"
+#include <iostream>
 #include <fstream>
 #include <json.hpp>
 #include "../PictureTiled.h"
@@ -14,21 +15,21 @@ SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 {
 	this->testSound.Load(PathProvider::instance().get({ "button_click.wav" }, ResourcesFolder::SOUNDS));
 
-	addElement(make_shared<Picture>(Vector2(960, 540), File("screens/setting/background.png"), 1, 540));
+	addElement(make_shared<Picture>(raylib::Vector2(960, 540), File("screens/setting/background.png"), 1, 540));
 
-	addElement(make_shared<SliderText>(Vector2(1000, 320),
+	addElement(make_shared<SliderText>(raylib::Vector2(1000, 320),
 		Slider(
 			Picture({ "screens/slider_bar.png" }, 2, 12),
-			PictureTiled({ "screens/slider_background_horizontal.png" }, 2, 32, Vector2(250, 32)),
+			PictureTiled({ "screens/slider_background_horizontal.png" }, 2, 32, raylib::Vector2(250, 32)),
 			&SystemConfig::instance().getMasterVolume(), 0, 100, true, [this] { changeMasterVolume(); }
 		),
 		Text("screen.setting.masterVolume", TextAlign::CENTER, 1.0f),
-		TextArg(Vector2(1170, 325), "screen.setting.currentMasterVolume", std::map<std::string, argTypes>{ {"volume", &SystemConfig::instance().getMasterVolume()} }, TextAlign::CENTER, 1.0f)
+		TextArg(raylib::Vector2(1170, 325), "screen.setting.currentMasterVolume", std::map<std::string, argTypes>{ {"volume", &SystemConfig::instance().getMasterVolume()} }, TextAlign::CENTER, 1.0f)
 	));
 
 	const Picture buttonBg({ "screens/button_1.png" }, 2, 384);
-	addElement(make_shared<ButtonText>(Vector2(960, 540), Button(buttonBg, openLanguage), Text("screen.setting.button1", TextAlign::CENTER, 0.0f)));
-	addElement(make_shared<ButtonText>(Vector2(960, 720), Button(buttonBg, closeSetting), Text("screen.setting.button2", TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(raylib::Vector2(960, 540), Button(buttonBg, openLanguage), Text("screen.setting.button1", TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(raylib::Vector2(960, 720), Button(buttonBg, closeSetting), Text("screen.setting.button2", TextAlign::CENTER, 0.0f)));
 }
 
 void SettingScreen::changeMasterVolume()
@@ -55,11 +56,11 @@ void SettingScreen::changeMasterVolume()
 
 void SettingScreen::openLanguage()
 {
-	ScreenManager::instance().addScreen(ScreenType::LANGUAGE);
-	ScreenManager::instance().removeScreen(ScreenType::SETTING);
+	ScreenManager::instance().showScreen(ScreenType::LANGUAGE);
+	ScreenManager::instance().hiddenScreen(ScreenType::SETTING);
 }
 
 void SettingScreen::closeSetting()
 {
-	ScreenManager::instance().removeScreen(ScreenType::SETTING);
+	ScreenManager::instance().hiddenScreen(ScreenType::SETTING);
 }

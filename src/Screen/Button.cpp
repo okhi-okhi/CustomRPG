@@ -1,11 +1,12 @@
 ﻿#include "Button.h"
+#include <iostream>
 #include "ScreenManager.h"
 #include "../I18n/I18n.h"
 #include "../I18n/FontProvider.h"
 #include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"	
 
-Button::Button(const Vector2 pos, const Picture& texture,
+Button::Button(const raylib::Vector2 pos, const Picture& texture,
 	const std::function<void()>& function, const std::string& clickSound) : Element(ElementType::BUTTON, pos)
 {
 	this->texture = texture;

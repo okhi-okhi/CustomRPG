@@ -1,7 +1,7 @@
 #include "ButtonText.h"
 #include "../Utils/RaylibUtils.h"
 
-ButtonText::ButtonText(const Vector2 pos, const Button& button, const Text& text)
+ButtonText::ButtonText(const raylib::Vector2 pos, const Button& button, const Text& text)
 {
 	this->elementType = ElementType::BUTTON_TEXT;
 	this->position = RaylibUtils::getRealLength(pos);

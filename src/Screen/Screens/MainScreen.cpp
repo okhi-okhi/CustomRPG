@@ -19,13 +19,13 @@ MainScreen::MainScreen() : Screen(ScreenType::MAIN, "main")
 
 void MainScreen::openSelectGame()
 {
-	ScreenManager::instance().addScreen(ScreenType::SELECT_GAME);
-	ScreenManager::instance().removeScreen(ScreenType::MAIN);
+	ScreenManager::instance().showScreen(ScreenType::SELECT_GAME);
+	ScreenManager::instance().hiddenScreen(ScreenType::MAIN);
 }
 
 void MainScreen::openSetting()
 {
-	ScreenManager::instance().addScreen(ScreenType::SETTING);
+	ScreenManager::instance().showScreen(ScreenType::SETTING);
 }
 
 void MainScreen::closeWindow()

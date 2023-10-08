@@ -1,4 +1,5 @@
 #include "TextBox.h"
+#include <iostream>
 #include "../I18n/FontProvider.h"
 #include "../I18n/I18n.h"
 #include "../Utils/RaylibUtils.h"

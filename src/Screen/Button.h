@@ -18,7 +18,7 @@ protected:
 
 public:
 	Button() : clickSound() {}
-	Button(Vector2 pos, const Picture& texture,
+	Button(raylib::Vector2 pos, const Picture& texture,
 		const std::function<void()>& function,
 		const std::string& clickSound = "button_click.wav");
 	Button(const Picture& texture, const std::function<void()>& function,

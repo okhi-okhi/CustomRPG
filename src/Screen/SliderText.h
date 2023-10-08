@@ -12,7 +12,7 @@ private:
 
 public:
 	SliderText() = default;
-	SliderText(Vector2 position, const Slider& slider,
+	SliderText(raylib::Vector2 position, const Slider& slider,
 	           const Text& name, const TextArg& value);
 
 	void draw() override;

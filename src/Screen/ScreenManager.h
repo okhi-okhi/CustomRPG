@@ -5,8 +5,8 @@
 class ScreenManager : public Singleton<ScreenManager>
 {
 private:
-	std::vector<shared_ptr<Screen>> allScreens{};
-	std::vector<shared_ptr<Screen>> currentScreens{};
+	vector<shared_ptr<Screen>> allScreens;
+	vector<shared_ptr<Screen>> currentScreens;
 	bool needReload;
 	bool clicked;
 
@@ -18,14 +18,13 @@ public:
 	void reloadAllScreen();
 	void delayReload();
 
-	void addScreen(const ScreenType& screen);
-	void removeScreen(const ScreenType& screen);
+	void showScreen(const ScreenType& screen);
+	void hiddenScreen(const ScreenType& screen);
 	void clear();
 		
 	void draw();
 	void update();
 
-	//void updateHitbox() const;
 	void setClicked(const bool& clicked) { this->clicked = clicked; }
 
 	const std::vector<shared_ptr<Screen>>& getCurrentScreens() const { return this->currentScreens; }

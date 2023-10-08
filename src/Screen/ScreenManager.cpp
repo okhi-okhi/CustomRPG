@@ -24,7 +24,7 @@ void ScreenManager::reloadAllScreen()
 {
 	this->allScreens.clear();
 	loadAllScreen();
-	std::vector<shared_ptr<Screen>> newScreens;
+	vector<shared_ptr<Screen>> newScreens;
 	for (const auto& currentScreen : this->currentScreens)
 	{
 		for (const auto& storeScreen : this->allScreens)
@@ -44,7 +44,7 @@ void ScreenManager::delayReload()
 	this->needReload = true;
 }
 
-void ScreenManager::addScreen(const ScreenType& screen)
+void ScreenManager::showScreen(const ScreenType& screen)
 {
 	for(const auto& currentScreen: this->currentScreens)
 	{
@@ -58,17 +58,19 @@ void ScreenManager::addScreen(const ScreenType& screen)
 		if (storeScreen->getScreenType() == screen)
 		{
 			this->currentScreens.push_back(storeScreen);
+			break;
 		}
 	}
 }
 
-void ScreenManager::removeScreen(const ScreenType& screen)
+void ScreenManager::hiddenScreen(const ScreenType& screen)
 {
 	for (int i = 0; i < this->currentScreens.size(); i++)
 	{
 		if (this->currentScreens[i]->getScreenType() == screen)
 		{
 			this->currentScreens.erase(currentScreens.begin() + i);
+			break;
 		}
 	}
 }

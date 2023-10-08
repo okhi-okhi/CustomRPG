@@ -10,7 +10,7 @@ private:
 
 public:
 	ButtonText() = default;
-	ButtonText(Vector2 pos, const Button& button, const Text& text);
+	ButtonText(raylib::Vector2 pos, const Button& button, const Text& text);
 
 	void draw() override;
 	void update() override;

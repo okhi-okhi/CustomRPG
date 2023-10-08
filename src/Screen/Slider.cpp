@@ -164,7 +164,6 @@ void Slider::barDrag()
 
 void Slider::backgroundClick()
 {
-	using std::cout, std::endl;
 	this->dragging = true;
 	if (this->horizontal)
 	{

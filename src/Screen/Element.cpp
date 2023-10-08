@@ -10,7 +10,7 @@ Element::Element(const ElementType elementType, const raylib::Vector2 pos)
 
 void Element::update()
 {
-	using RaylibUtils::checkCollisionPointRecs, std::cout;
+	using RaylibUtils::checkCollisionPointRecs;
 	if (checkCollisionPointRecs(GetMousePosition(), this->hitbox))
 	{
 		ScreenManager::instance().setClicked(true);
@@ -20,6 +20,7 @@ void Element::update()
 void swap(Element& first, Element& second) noexcept
 {
 	using std::swap;
+	swap(first.id, second.id);
 	swap(first.elementType, second.elementType);
 	swap(first.position, second.position);
 	swap(first.originPos, second.originPos);

@@ -1,7 +1,9 @@
 #pragma once
-#include <iostream>
 #include <Rectangle.hpp>
+#include <string>
 #include <vector>
+
+using std::string, std::vector;
 
 enum class ElementType
 {
@@ -24,10 +26,12 @@ enum class ElementType
 class Element
 {
 protected:
+	string id = "Invalid";
 	ElementType elementType;
 	raylib::Vector2 position;
 	raylib::Vector2 originPos;
-	std::vector<raylib::Rectangle> hitbox;
+	vector<raylib::Rectangle> hitbox;
+	bool hidden = false;
 
 public:
 	Element() : elementType(ElementType::PICTURE) {}
@@ -44,6 +48,7 @@ public:
 	virtual void update();
 	virtual void updatePosition() = 0;
 
+	void setId(const string& id) { this->id = id; }
 	void setPosition(const raylib::Vector2 pos) {
 		this->position = pos;
 		updatePosition();
@@ -58,15 +63,18 @@ public:
 		this->position.y = posY;
 		updatePosition();
 	}
+	void setHide(const bool hide) { this->hidden = hide; }
 
 	void addPosition(const raylib::Vector2 pos) {
 		this->position += pos;
 		updatePosition();
 	}
 
+	const string& getId() const { return this->id; }
 	const ElementType& getElementType() const { return this->elementType; }
 	const raylib::Vector2& getPosition() const { return this->position; }
 	const raylib::Vector2& getOriginPos() const { return this->originPos; }
 	const std::vector<raylib::Rectangle>& getHitbox() const { return this->hitbox; }
+	const bool& isHidden() const { return this->hidden; }
 };
 

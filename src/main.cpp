@@ -31,7 +31,7 @@ int main()
 	windowSetup(window);
 	
 	System::instance().init();
-	ScreenManager::instance().addScreen(ScreenType::MAIN);
+	ScreenManager::instance().showScreen(ScreenType::MAIN);
 
 	while (!window.ShouldClose() && running)
 	{
