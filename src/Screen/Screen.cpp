@@ -1,4 +1,5 @@
 #include "Screen.h"
+#include <algorithm>
 #include <iostream>
 #include "ScreenManager.h"
 #include "../System/PathProvider.h"
@@ -12,81 +13,57 @@ Screen::Screen(const ScreenType screenType, const string& i18nKey)
 
 void Screen::addElement(const shared_ptr<Element>& element)
 {
-	if (element->getId() != "Invalid")
+	int max = 0;
+	for (const auto& displayElement : this->elements)
 	{
-		for (const auto& currentElement : this->elements)
+		if (displayElement.order > max)
 		{
-			if (element->getId() == currentElement->getId())
-			{
-				std::cout << "Element with id: " << element->getId() << " already exists" << std::endl;
-				return;
-			}
+			max = displayElement.order;
 		}
 	}
-	this->elements.push_back(element);
+	this->elements.emplace_back(max + 1, element);
 }
 
-void Screen::removeElement(const std::string& id)
+void Screen::removeElement(const shared_ptr<Element>& element)
 {
-	if (id == "Invalid")
-	{
-		std::cout << "Elements with no id set cannot be operated on" << std::endl;
-		return;
-	}
 	for (int i = 0; i < this->elements.size(); i++)
 	{
-		if (this->elements[i]->getId() == id)
+		if (this->elements[i].element == element)
 		{
 			this->elements.erase(this->elements.begin() + i);
 			return;
 		}
 	}
-	std::cout << "Element with id: " << id << " not found" << std::endl;
 }
 
-void Screen::showElement(const std::string& id) const
+void Screen::setOrder(const shared_ptr<Element>& element, const int order)
 {
-	if (id == "Invalid")
+	for (auto& displayElement : this->elements)
 	{
-		std::cout << "Elements with no id set cannot be operated on" << std::endl;
-		return;
-	}
-	for (const auto& element : this->elements)
-	{
-		if (element->getId() == id)
+		if (displayElement.element == element)
 		{
-			element->setHide(false);
+			displayElement.order = order;
+			sortElements();
 			return;
 		}
 	}
-	std::cout << "Element with id: " << id << " not found" << std::endl;
 }
 
-void Screen::hiddenElement(const std::string& id) const
+void Screen::sortElements()
 {
-	if (id == "Invalid") 
+	std::ranges::sort(this->elements, [](const DisplayElement& a, const DisplayElement& b) -> bool
 	{
-		std::cout << "Elements with no id set cannot be operated on" << std::endl;
-		return;
-	}
-	for (const auto& element : this->elements)
-	{
-		if (element->getId() == id)
-		{
-			element->setHide(true);
-			return;
-		}
-	}
-	std::cout << "Element with id: " << id << " not found" << std::endl;
+		return a.order < b.order;
+	});
 }
 
 void Screen::draw() const
 {
-	for (const auto& element : this->elements)
+	for (const auto& displayElement : this->elements)
 	{
-		if(!element->isHidden())
+		if(!displayElement.element->isHidden())
 		{
-			element->draw();
+			displayElement.element->draw();
 		}
 	}
 }
@@ -95,9 +72,9 @@ void Screen::update() const
 {
 	for (int i = static_cast<int>(this->elements.size()) - 1; i >= 0; i--)
 	{
-		if (!this->elements[i]->isHidden())
+		if (!this->elements[i].element->isHidden())
 		{
-			this->elements[i]->update();
+			this->elements[i].element->update();
 		}
 	}
 }

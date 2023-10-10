@@ -26,7 +26,6 @@ enum class ElementType
 class Element
 {
 protected:
-	string id = "Invalid";
 	ElementType elementType;
 	raylib::Vector2 position;
 	raylib::Vector2 originPos;
@@ -48,7 +47,6 @@ public:
 	virtual void update();
 	virtual void updatePosition() = 0;
 
-	void setId(const string& id) { this->id = id; }
 	void setPosition(const raylib::Vector2 pos) {
 		this->position = pos;
 		updatePosition();
@@ -70,7 +68,6 @@ public:
 		updatePosition();
 	}
 
-	const string& getId() const { return this->id; }
 	const ElementType& getElementType() const { return this->elementType; }
 	const raylib::Vector2& getPosition() const { return this->position; }
 	const raylib::Vector2& getOriginPos() const { return this->originPos; }

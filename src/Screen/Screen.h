@@ -14,26 +14,34 @@ enum class ScreenType
 	SELECT_GAME,
 };
 
+struct DisplayElement
+{
+	int order;
+	shared_ptr<Element> element;
+
+	DisplayElement(const int order, const shared_ptr<Element>& element) : order(order), element(element) {}
+};
+
 class Screen
 {
 protected:
 	ScreenType screenType;
 	string i18nKey;
-	vector<shared_ptr<Element>> elements;
+	vector<DisplayElement> elements;
 
 public:
 	explicit Screen(ScreenType screenType, const string& i18nKey);
 
 	void addElement(const shared_ptr<Element>& element);
-	void removeElement(const std::string& id);
-	void showElement(const std::string& id) const;
-	void hiddenElement(const std::string& id) const;
+	void removeElement(const shared_ptr<Element>& element);
+	void setOrder(const shared_ptr<Element>& element, int order);
 
+	void sortElements();
 	void draw() const;
 	void update() const;
 
 	const ScreenType& getScreenType() const { return this->screenType; }
 	const string& getI18nKey() const { return this->i18nKey; }
-	const vector<shared_ptr<Element>>& getElements() const { return this->elements; }
+	const vector<DisplayElement>& getElements() const { return this->elements; }
 };
 

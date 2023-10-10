@@ -20,7 +20,6 @@ void Element::update()
 void swap(Element& first, Element& second) noexcept
 {
 	using std::swap;
-	swap(first.id, second.id);
 	swap(first.elementType, second.elementType);
 	swap(first.position, second.position);
 	swap(first.originPos, second.originPos);
