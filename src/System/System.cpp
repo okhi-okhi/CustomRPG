@@ -11,7 +11,7 @@
 #include "../Screen/ScreenManager.h"
 
 void System::init() {
-	SystemConfig::instance().load(PathProvider::instance().getConfigPath());
+	SystemConfig::instance().load(PathProvider::getConfigPath());
 	I18n::instance().loadSystemI18n(SystemConfig::instance().getCurrentLanguage(), SystemConfig::instance().getDefaultLanguage());
 	FontProvider::instance().loadSystemFont();
 	ScreenManager::instance().init();
@@ -321,13 +321,13 @@ void System::selectLanguage() {
 		SystemConfig::instance().setCurrentLanguage(language);
 		//update config
 		try {
-			std::ifstream inFile(PathProvider::instance().getConfigPath());
+			std::ifstream inFile(PathProvider::getConfigPath());
 			json j = json::parse(inFile);
 			ordered_json j2;
 			j2["system"]["currentLanguage"] = language;
 			j.update(j2, true);
 			inFile.close();
-			std::ofstream outFile(PathProvider::instance().getConfigPath());
+			std::ofstream outFile(PathProvider::getConfigPath());
 			outFile << j.dump(4);
 			outFile.close();
 		}

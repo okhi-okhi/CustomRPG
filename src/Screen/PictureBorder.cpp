@@ -107,11 +107,11 @@ PictureBorder::PictureBorder(const raylib::Vector2 pos, const File& corner, cons
 	this->textureFrameNum = textureFrameNum;
 	this->currentFrame = 0;
 	tileWidth = static_cast<int>(RaylibUtils::getRealLength(tileWidth));
-	raylib::Image cornerImage(PathProvider::instance().get(corner, ResourcesFolder::TEXTURES));
+	raylib::Image cornerImage(PathProvider::get(corner, ResourcesFolder::TEXTURES));
 	cornerImage.ResizeNN(tileWidth, tileWidth * this->textureFrameNum);
-	raylib::Image sideImage(PathProvider::instance().get(side, ResourcesFolder::TEXTURES));
+	raylib::Image sideImage(PathProvider::get(side, ResourcesFolder::TEXTURES));
 	sideImage.ResizeNN(tileWidth, tileWidth * this->textureFrameNum);
-	raylib::Image paddingImage(PathProvider::instance().get(padding, ResourcesFolder::TEXTURES));
+	raylib::Image paddingImage(PathProvider::get(padding, ResourcesFolder::TEXTURES));
 	paddingImage.ResizeNN(tileWidth, tileWidth * this->textureFrameNum);
 	bounds = RaylibUtils::getRealLength(bounds);
 	this->spriteTexture = generateBorder(cornerImage, sideImage, paddingImage, this->textureFrameNum, tileWidth, bounds, true);
@@ -126,9 +126,9 @@ PictureBorder::PictureBorder(const raylib::Vector2 pos, const File& corner, cons
 	this->textureFrameNum = textureFrameNum;
 	this->currentFrame = 0;
 	tileWidth = static_cast<int>(RaylibUtils::getRealLength(tileWidth));
-	raylib::Image cornerImage(PathProvider::instance().get(corner, ResourcesFolder::TEXTURES));
+	raylib::Image cornerImage(PathProvider::get(corner, ResourcesFolder::TEXTURES));
 	cornerImage.ResizeNN(tileWidth, tileWidth * this->textureFrameNum);
-	raylib::Image sideImage(PathProvider::instance().get(side, ResourcesFolder::TEXTURES));
+	raylib::Image sideImage(PathProvider::get(side, ResourcesFolder::TEXTURES));
 	sideImage.ResizeNN(tileWidth, tileWidth * this->textureFrameNum);
 	bounds = RaylibUtils::getRealLength(bounds);
 

@@ -6,7 +6,7 @@
 
 Weapon::Weapon(const std::string& fileName)
 {
-	json j = Utils::readJsonFile("Items/Weapons/" + fileName );
+	json j = Utils::loadJsonFile("Items/Weapons/" + fileName );
 	try {
 		this->itemType = itemTypes::WEAPON;
 		this->id = fileName;

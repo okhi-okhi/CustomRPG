@@ -7,7 +7,7 @@
 CustomRPG::Material::Material(const std::string& fileName)
 {
 	using std::cout, std::endl;
-	json j = Utils::readJsonFile("Items/Materials/" + fileName);
+	json j = Utils::loadJsonFile("Items/Materials/" + fileName);
 	try {
 		this->itemType = itemTypes::MATERIAL;
 		this->id = fileName;

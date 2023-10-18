@@ -14,7 +14,7 @@ Button::Button(const raylib::Vector2 pos, const Picture& texture,
 	this->function = function;
 	if(clickSound != "none")
 	{
-		this->clickSound = LoadSound(PathProvider::instance().get(FileSource::AUTO, ResourcesFolder::SOUNDS, clickSound).c_str());
+		this->clickSound = LoadSound(PathProvider::get(FileSource::AUTO, ResourcesFolder::SOUNDS, clickSound).c_str());
 	}
 	else
 	{

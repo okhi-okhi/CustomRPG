@@ -5,7 +5,7 @@
 
 CraftWeapon::CraftWeapon(const std::string& fileName) {
 	using json = nlohmann::json;
-	json j = Utils::readJsonFile("Items/CraftWeapon/" + fileName);
+	json j = Utils::loadJsonFile("Items/CraftWeapon/" + fileName);
 
 	try {
 		this->id = fileName;

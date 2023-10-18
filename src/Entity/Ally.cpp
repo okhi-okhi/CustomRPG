@@ -7,7 +7,7 @@
 #include "../Utils/Utilities.h"
 
 Ally::Ally(const std::string& fileName) {
-	json j = Utils::readJsonFile("Entitys/Allys/" + fileName);
+	json j = Utils::loadJsonFile("Entitys/Allys/" + fileName);
 	try {
 		this->faction = Faction::ALLY;
 		this->id = fileName;

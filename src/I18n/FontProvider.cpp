@@ -6,14 +6,14 @@
 
 void FontProvider::loadSystemFont()
 {
-	loadFont(I18n::instance().getSystemI18n().getDefaultLanguage(), PathProvider::instance().getResourcesPath(), this->systemFont.defaultFont);
-	loadFont(I18n::instance().getSystemI18n().getCurrentLanguage(), PathProvider::instance().getResourcesPath(), this->systemFont.currentFont);
+	loadFont(I18n::instance().getSystemI18n().getDefaultLanguage(), PathProvider::getResourcesPath(), this->systemFont.defaultFont);
+	loadFont(I18n::instance().getSystemI18n().getCurrentLanguage(), PathProvider::getResourcesPath(), this->systemFont.currentFont);
 }
 
 void FontProvider::loadGameFont()
 {
-	loadFont(I18n::instance().getGameI18n().getDefaultLanguage(), PathProvider::instance().getCurrentGamePath(), this->gameFont.defaultFont);
-	loadFont(I18n::instance().getGameI18n().getCurrentLanguage(), PathProvider::instance().getCurrentGamePath(), this->gameFont.currentFont);
+	loadFont(I18n::instance().getGameI18n().getDefaultLanguage(), PathProvider::getCurrentGamePath(), this->gameFont.defaultFont);
+	loadFont(I18n::instance().getGameI18n().getCurrentLanguage(), PathProvider::getCurrentGamePath(), this->gameFont.currentFont);
 }
 
 void FontProvider::loadFont(const Language& lang, const std::string& rootPath, raylib::Font& result)
@@ -26,9 +26,9 @@ void FontProvider::loadFont(const Language& lang, const std::string& rootPath, r
 		str.append(value);
 	}
 
-	json j = Utils::readJsonFile(rootPath + PathProvider::instance().getFolder(ResourcesFolder::LANGS) + lang.info.id);
+	json j = Utils::loadJsonFile(rootPath + PathProvider::getFolder(ResourcesFolder::LANGS) + lang.info.id);
 	try {
-		result = RaylibUtils::getContainTextFont(rootPath + PathProvider::instance().getFolder(ResourcesFolder::FONTS) + j["font"].get<string>(), str);
+		result = RaylibUtils::getContainTextFont(rootPath + PathProvider::getFolder(ResourcesFolder::FONTS) + j["font"].get<string>(), str);
 	}
 	catch (json::exception& e)
 	{

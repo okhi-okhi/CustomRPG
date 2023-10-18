@@ -1,4 +1,5 @@
 #pragma once
+#include <filesystem>
 #include <Font.hpp>
 #include "../Screen.h"
 #include "../PictureGallery.h"
@@ -11,11 +12,11 @@ struct GameInfo
 	std::string author;
 	raylib::Font font;
 	std::vector<File> screenshots;
-	bool matchCurrentLanguage;
+	bool isMatchCurrentLanguage;
 
-	GameInfo() : matchCurrentLanguage(false) {}
-	GameInfo(std::string name, std::string description, std::string author, raylib::Font font, std::vector<File> screenshots) :
-		name(std::move(name)), description(std::move(description)), author(std::move(author)), font(std::move(font)), screenshots(std::move(screenshots)), matchCurrentLanguage(false) {}
+	GameInfo() : isMatchCurrentLanguage(false) {}
+	GameInfo(std::string name, std::string description, std::string author, raylib::Font font, std::vector<File> screenshots, bool isMatchCurrentLanguage) :
+		name(std::move(name)), description(std::move(description)), author(std::move(author)), font(std::move(font)), screenshots(std::move(screenshots)), isMatchCurrentLanguage(isMatchCurrentLanguage) {}
 };
 
 class SelectGameScreen final : public Screen
@@ -28,12 +29,13 @@ private:
 	shared_ptr<Text> info;
 	shared_ptr<TextBox> description;
 
+	static GameInfo readGameInfoFromLang(const std::filesystem::path& langFileName, bool isMatchLanguage);
+
 public:
 	SelectGameScreen();
 
 	void showGameInfo();
 
 	void readGameInfo();
-	GameInfo readGameInfoFromJson(const std::string& gamePath, const std::string& langFileName);
 };
 

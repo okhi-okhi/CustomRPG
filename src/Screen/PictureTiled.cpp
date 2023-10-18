@@ -16,7 +16,7 @@ PictureTiled::PictureTiled(const raylib::Vector2 pos, const File& file,
 	this->currentFrame = 0;
 
 	tileWidth = static_cast<int>(RaylibUtils::getRealLength(tileWidth));
-	raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
+	raylib::Image image(PathProvider::get(file, ResourcesFolder::TEXTURES));
 	image.ResizeNN(tileWidth, static_cast<int>(tileWidth * static_cast<float>(image.height) / static_cast<float>(image.width)));
 
 	const int imageFrameHeight = image.height / textureFrameNum;

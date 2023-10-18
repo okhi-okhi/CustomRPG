@@ -9,7 +9,7 @@
 Armor::Armor(const std::string& fileName)
 {
 	using std::cout, std::endl;
-	json j = Utils::readJsonFile("Items/Armors/" + fileName);
+	json j = Utils::loadJsonFile("Items/Armors/" + fileName);
 	try {
 		this->itemType = itemTypes::ARMOR;
 		this->id = fileName;

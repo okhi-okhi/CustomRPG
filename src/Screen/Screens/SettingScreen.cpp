@@ -13,7 +13,7 @@
 
 SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 {
-	this->testSound.Load(PathProvider::instance().get({ "button_click.wav" }, ResourcesFolder::SOUNDS));
+	this->testSound.Load(PathProvider::get({ "button_click.wav" }, ResourcesFolder::SOUNDS));
 
 	addElement(make_shared<Picture>(raylib::Vector2(960, 540), File("screens/setting/background.png"), 1, 540));
 
@@ -38,13 +38,13 @@ void SettingScreen::changeMasterVolume()
 	SetMasterVolume(static_cast<float>(SystemConfig::instance().getMasterVolume()) / 100);
 	this->testSound.Play();
 	try {
-		std::ifstream inFile(PathProvider::instance().getConfigPath());
+		std::ifstream inFile(PathProvider::getConfigPath());
 		json j = json::parse(inFile);
 		nlohmann::ordered_json j2;
 		j2["masterVolume"] = SystemConfig::instance().getMasterVolume();
 		j.update(j2, true);
 		inFile.close();
-		std::ofstream outFile(PathProvider::instance().getConfigPath());
+		std::ofstream outFile(PathProvider::getConfigPath());
 		outFile << j.dump(4);
 		outFile.close();
 	}

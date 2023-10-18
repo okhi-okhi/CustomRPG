@@ -42,7 +42,7 @@ struct TextLine
 class Text : public Element
 {
 protected:
-	static constexpr float DEFAULT_LINE_SPACING = 1.0f;
+	inline static const float DEFAULT_LINE_SPACING = 1.0f;
 	std::vector<TextBatch> textBatches;
 	std::vector<TextLine> textLines;
 

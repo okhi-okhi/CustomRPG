@@ -8,7 +8,7 @@
 
 Place::Place(const std::string& fileName)
 {
-	json j = Utils::readJsonFile("Games/Places/" + fileName);
+	json j = Utils::loadJsonFile("Games/Places/" + fileName);
 
 	try {
 		this->id = fileName;

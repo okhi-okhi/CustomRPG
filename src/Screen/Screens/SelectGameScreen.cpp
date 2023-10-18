@@ -73,63 +73,51 @@ void SelectGameScreen::readGameInfo()
 {
 	namespace fs = std::filesystem;
 
-	for (auto& game : fs::directory_iterator(PathProvider::instance().getGamesPath()))
+	for (auto& game : fs::directory_iterator(PathProvider::getGamesPath()))
 	{
-		fs::path systemCurrentLangFile = game.path();
-		systemCurrentLangFile /= PathProvider::instance().getFolder(ResourcesFolder::LANGS);
-		systemCurrentLangFile /= I18n::instance().getSystemI18n().getCurrentLanguage().info.id + ".json";
+		fs::path systemCurrentLangFile = game.path() /
+			(PathProvider::getFolder(ResourcesFolder::LANGS) +
+			I18n::instance().getSystemI18n().getCurrentLanguage().info.id + ".json");
 		if(exists(systemCurrentLangFile))
 		{
-			this->games.emplace_back(readGameInfoFromJson(game.path().string(), systemCurrentLangFile.string()));
-			//TODO match language
+			this->games.emplace_back(readGameInfoFromLang(systemCurrentLangFile, true));
 		}
 		else
 		{
-			fs::path systemDefaultLangFile = game.path();
-			systemDefaultLangFile /= PathProvider::instance().getFolder(ResourcesFolder::LANGS);
-			systemDefaultLangFile /= I18n::instance().getSystemI18n().getDefaultLanguage().info.id + ".json";
-			if(exists(systemDefaultLangFile))
+			fs::path gameConfigFile = game.path() / PathProvider::getConfigPath();
+			if (exists(gameConfigFile))
 			{
-				this->games.emplace_back(readGameInfoFromJson(game.path().string(), systemDefaultLangFile.string()));
+				json j = Utils::loadJsonFile(gameConfigFile.string(), false);
+				std::string currentLang = j["currentLanguage"];
+
+				fs::path gameCurrentLangFile = game.path() / PathProvider::getConfigPath();
+				this->games.emplace_back(readGameInfoFromLang(gameCurrentLangFile, false));
 			}
 			else
 			{
-				fs::path gameConfigFile = game.path();
-				gameConfigFile /= PathProvider::instance().getConfigPath();
-				if (exists(gameConfigFile))
-				{
-					json j = Utils::readJsonFile(gameConfigFile.string(), false);
-					std::string currentLang = j["currentLanguage"];
-
-					fs::path gameCurrentLangFile = game.path();
-					gameCurrentLangFile /= PathProvider::instance().getConfigPath();
-					this->games.emplace_back(readGameInfoFromJson(game.path().string(), gameCurrentLangFile.string()));
-				}
-				else
-				{
-					std::cout<< "ERROR! No config file found in game " << game.path().string() << std::endl;
-				}
+				std::cout << "ERROR! No config file found in game " << game.path().string() << std::endl;
 			}
 		}
 	}
 }
 
-GameInfo SelectGameScreen::readGameInfoFromJson(const std::string& gamePath, const std::string& langFileName)
+GameInfo SelectGameScreen::readGameInfoFromLang(const std::filesystem::path & langFileName, bool isMatchLanguage)
 {
 	namespace fs = std::filesystem;
 
+	fs::path gameFolder = langFileName.parent_path().parent_path();
 	GameInfo gameInfo;
-	json j = Utils::readJsonFile(langFileName, false);
+	json j = Utils::loadJsonFile(langFileName.string(), false);
 	gameInfo.name = j["info"]["name"];
 	gameInfo.description = j["info"]["description"];
 	gameInfo.author = j["info"]["author"];
+	gameInfo.isMatchCurrentLanguage = isMatchLanguage;
 
 	const std::string textNeedFont = gameInfo.name + gameInfo.description + gameInfo.author;
-	gameInfo.font = RaylibUtils::getContainTextFont(gamePath + '/' +
-		PathProvider::instance().getFolder(ResourcesFolder::FONTS) + j["font"].get<string>(), textNeedFont);
+	gameInfo.font = RaylibUtils::getContainTextFont(gameFolder.string() + '/' +
+		PathProvider::getFolder(ResourcesFolder::FONTS) + j["font"].get<string>(), textNeedFont);
 
-	fs::path gameHighlightFolder = gamePath;
-	gameHighlightFolder /= PathProvider::instance().getFolder(ResourcesFolder::HIGHLIGHT_SCREENSHOTS);
+	const fs::path gameHighlightFolder = gameFolder / PathProvider::getFolder(ResourcesFolder::HIGHLIGHT_SCREENSHOTS);
 	for (const auto& highlightPic : fs::directory_iterator(gameHighlightFolder))
 	{
 		gameInfo.screenshots.emplace_back(FileSource::NONE, highlightPic.path().string());

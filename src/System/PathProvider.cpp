@@ -2,35 +2,35 @@
 #include <filesystem>
 #include "Exceptions.hpp"
 
-std::string PathProvider::getFolder(const ResourcesFolder folder) const
+std::string PathProvider::getFolder(const ResourcesFolder folder)
 {
 	switch (folder)
 	{
 	case ResourcesFolder::LANGS:
-		return this->langsFolder;
+		return langsFolder;
 	case ResourcesFolder::FONTS:
-		return this->fontsFolder;
+		return fontsFolder;
 	case ResourcesFolder::SOUNDS:
-		return this->soundsFolder;
+		return soundsFolder;
 	case ResourcesFolder::TEXTURES:
-		return this->texturesFolder;
+		return texturesFolder;
 	case ResourcesFolder::HIGHLIGHT_SCREENSHOTS:
-		return this->highlightScreenshotsFolder;
+		return highlightScreenshotsFolder;
 	}
 	return {};
 }
 
-std::string PathProvider::getFromSystem(const ResourcesFolder folder) const
+std::string PathProvider::getFromSystem(const ResourcesFolder folder)
 {
-	return this->resourcesPath + getFolder(folder);
+	return resourcesPath + getFolder(folder);
 }
 
-std::string PathProvider::getFromGame(const ResourcesFolder folder) const
+std::string PathProvider::getFromGame(const ResourcesFolder folder)
 {
-	return this->currentGamePath + getFolder(folder);
+	return currentGamePath + getFolder(folder);
 }
 
-std::string PathProvider::get(const FileSource parentFolder, const ResourcesFolder folder, const std::string& fileName) const
+std::string PathProvider::get(const FileSource parentFolder, const ResourcesFolder folder, const std::string& fileName)
 {
 	switch (parentFolder)
 	{
@@ -57,7 +57,7 @@ std::string PathProvider::get(const FileSource parentFolder, const ResourcesFold
 	return {};
 }
 
-string PathProvider::get(const File& file, const ResourcesFolder folder) const
+string PathProvider::get(const File& file, const ResourcesFolder folder)
 {
 	return get(file.src, folder, file.name);
 }

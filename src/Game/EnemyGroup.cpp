@@ -6,7 +6,7 @@
 
 EnemyGroup::EnemyGroup(const std::string& fileName)
 {
-	json j = Utils::readJsonFile("Games/EnemyGroups/" + fileName);
+	json j = Utils::loadJsonFile("Games/EnemyGroups/" + fileName);
 
 	try {
 		this->spawnNum = static_cast<int>(readValue(j["spawnNum"]));

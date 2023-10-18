@@ -5,7 +5,7 @@
 class Event
 {
 public:
-	static constexpr int EventNum = 3;
+	inline static const int EventNum = 3;
 
 	static void generateEvent(Player& player, Place& place);
 

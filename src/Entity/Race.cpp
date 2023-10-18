@@ -8,7 +8,7 @@
 Race::Race(const std::string& fileName)
 {
 	using json = nlohmann::json;
-	json j = Utils::readJsonFile("Entitys/Races/" + fileName);
+	json j = Utils::loadJsonFile("Entitys/Races/" + fileName);
 
 	try {
 		this->id = fileName;

@@ -5,7 +5,7 @@
 Enemy::Enemy(const std::string& fileName, const int point) 
 {
 	using Utils::checkInRange, Utils::getFromFormula;
-	json j = Utils::readJsonFile("Entitys/Enemys/" + fileName);
+	json j = Utils::loadJsonFile("Entitys/Enemys/" + fileName);
 
 	try {
 		this->name = j["name"];

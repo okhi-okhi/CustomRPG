@@ -7,7 +7,7 @@
 Prop::Prop(const std::string& fileName)
 {
 	using std::cout, std::endl;
-	json j = Utils::readJsonFile("Items/Props/" + fileName);
+	json j = Utils::loadJsonFile("Items/Props/" + fileName);
 	try {
 		this->itemType = itemTypes::PROP;
 		this->id = fileName;

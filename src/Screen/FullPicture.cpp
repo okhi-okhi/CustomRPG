@@ -6,7 +6,7 @@ FullPicture::FullPicture(const File& file, const int textureFrameNum, const Scal
 {
 	this->elementType = ElementType::FULL_PICTURE;
 
-	raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
+	raylib::Image image(PathProvider::get(file, ResourcesFolder::TEXTURES));
 	switch (mode)
 	{
 	case ScaleMode::NN:

@@ -8,7 +8,7 @@ using json = nlohmann::json;
 
 Script::Script(std::string fileName)
 {
-	json j = Utils::readJsonFile("Games/Scripts/" + fileName);
+	json j = Utils::loadJsonFile("Games/Scripts/" + fileName);
 	try {
 		this->scnario = j["scnario"];
 

@@ -49,13 +49,13 @@ void LanguageScreen::changeLanguage() const
 		FontProvider::instance().loadSystemFont();
 		ScreenManager::instance().delayReload();
 		try {
-			std::ifstream inFile(PathProvider::instance().getConfigPath());
+			std::ifstream inFile(PathProvider::getConfigPath());
 			json j = json::parse(inFile);
 			nlohmann::ordered_json j2;
 			j2["currentLanguage"] = selectLanguage;
 			j.update(j2, true);
 			inFile.close();
-			std::ofstream outFile(PathProvider::instance().getConfigPath());
+			std::ofstream outFile(PathProvider::getConfigPath());
 			outFile << j.dump(4);
 			outFile.close();
 		}

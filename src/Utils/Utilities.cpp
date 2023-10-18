@@ -45,11 +45,11 @@ std::string Utils::floatToPercent(const float& value) {
 	return std::to_string(static_cast<int>(value * 100)) + "%";
 }
 
-std::string  Utils::boolToString(const bool& boolean) {
+std::string Utils::boolToString(const bool& boolean) {
 	return boolean ? "true" : "false";
 }
 
-json Utils::readJsonFile(std::string fileName, bool addSuffix) {
+json Utils::loadJsonFile(std::string fileName, const bool addSuffix) {
 	if(addSuffix)
 		fileName += ".json";
 	std::ifstream inFile(fileName);

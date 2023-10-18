@@ -7,7 +7,7 @@
 Occupation::Occupation(const std::string& fileName)
 {
 	using std::cout, std::endl;
-	json j = Utils::readJsonFile("Entitys/Occupations/" + fileName);
+	json j = Utils::loadJsonFile("Entitys/Occupations/" + fileName);
 	try {
 		this->id = fileName;
 		this->name = readString("name");

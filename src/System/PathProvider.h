@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "../Utils/Singleton.h"
 
 using std::string;
 
@@ -31,34 +30,35 @@ struct File
 	File(const FileSource src, string name) : src(src), name(std::move(name)) {}
 };
 
-class PathProvider : public Singleton<PathProvider>
+class PathProvider
 {
 private:
 	//Global path
-	const string configPath = "config.json";
-	const string gamesPath = "games/";
-	const string resourcesPath = "resources/";
-	string currentGamePath;
+	inline static const string configPath = "config.json";
+	inline static const string gamesPath = "games/";
+	inline static const string resourcesPath = "resources/";
+	inline static string currentGamePath;
 	//Folders
-	const string langsFolder = "langs/";
-	const string fontsFolder = "fonts/";
-	const string soundsFolder = "sounds/";
-	const string texturesFolder = "textures/";
-	const string highlightScreenshotsFolder = "highlight_screenshots/";
+	inline static const string langsFolder = "langs/";
+	inline static const string fontsFolder = "fonts/";
+	inline static const string soundsFolder = "sounds/";
+	inline static const string texturesFolder = "textures/";
+	inline static const string highlightScreenshotsFolder = "highlight_screenshots/";
+
+	PathProvider() = default;
 
 public:
-	explicit PathProvider(token){}
-	void setCurrentGamePath(const string& path) { this->currentGamePath = this->gamesPath + path + '/'; }
+	static void setCurrentGamePath(const string& path) { currentGamePath = path; }
 
-	string getFolder(ResourcesFolder folder) const;
-	string getFromSystem(ResourcesFolder folder) const;
-	string getFromGame(ResourcesFolder folder) const;
-	string get(FileSource parentFolder, ResourcesFolder folder, const string& fileName) const;
-	string get(const File& file, ResourcesFolder folder) const;
+	static string getFolder(ResourcesFolder folder);
+	static string getFromSystem(ResourcesFolder folder);
+	static string getFromGame(ResourcesFolder folder);
+	static string get(FileSource parentFolder, ResourcesFolder folder, const string& fileName);
+	static string get(const File& file, ResourcesFolder folder);
 
-	string getConfigPath() const { return this->configPath; }
-	string getGamesPath() const { return this->gamesPath; }
-	string getResourcesPath() const { return this->resourcesPath; }
-	string getCurrentGamePath() const { return this->currentGamePath; }
+	static string getConfigPath() { return configPath; }
+	static string getGamesPath() { return gamesPath; }
+	static string getResourcesPath() { return resourcesPath; }
+	static string getCurrentGamePath() { return currentGamePath; }
 };
 

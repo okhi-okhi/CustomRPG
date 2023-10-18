@@ -53,7 +53,7 @@ void PictureGallery::setPictures(const std::vector<File>& files)
 	const float frameRatio = this->bounds.width / this->bounds.height;
 	for (const auto& file : files)
 	{
-		raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
+		raylib::Image image(PathProvider::get(file, ResourcesFolder::TEXTURES));
 		const float imageRatio = static_cast<float>(image.width) / static_cast<float>(image.height);
 		if (imageRatio > frameRatio)
 		{

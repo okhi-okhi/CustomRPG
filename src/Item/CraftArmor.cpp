@@ -7,7 +7,7 @@
 
 CraftArmor::CraftArmor(const string& fileName) {
 	using json = nlohmann::json;
-	json j = Utils::readJsonFile("Items/CraftArmor/" + fileName);
+	json j = Utils::loadJsonFile("Items/CraftArmor/" + fileName);
 
 	try {
 		this->id = fileName;

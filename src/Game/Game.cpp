@@ -15,8 +15,8 @@ void Game::init(Player& player)
 	using std::cout, std::endl;
 	this->player = &player;
 
-	PathProvider::instance().setCurrentGamePath("FatefulAdventure");
-	GameConfig::instance().load(PathProvider::instance().getCurrentGamePath() + PathProvider::instance().getConfigPath());
+	PathProvider::setCurrentGamePath("FatefulAdventure");
+	GameConfig::instance().load(PathProvider::getCurrentGamePath() + PathProvider::getConfigPath());
 	I18n::instance().loadGameI18n(GameConfig::instance().getCurrentLanguage(), GameConfig::instance().getDefaultLanguage());
 	FontProvider::instance().loadGameFont();
 }

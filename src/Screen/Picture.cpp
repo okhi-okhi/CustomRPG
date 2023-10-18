@@ -15,7 +15,7 @@ Picture::Picture(const raylib::Vector2 pos, const File& file)
 	this->currentFrame = 0;
 	this->position = pos;
 
-	raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
+	raylib::Image image(PathProvider::get(file, ResourcesFolder::TEXTURES));
 	this->spriteTexture = image;
 	Picture::updatePosition();
 }
@@ -30,7 +30,7 @@ Picture::Picture(const raylib::Vector2 pos, const File& file,
 {
 	this->textureFrameNum = textureFrameNum;
 	this->currentFrame = 0;
-	raylib::Image image(PathProvider::instance().get(file, ResourcesFolder::TEXTURES));
+	raylib::Image image(PathProvider::get(file, ResourcesFolder::TEXTURES));
 	width = static_cast<int>(RaylibUtils::getRealLength(width));
 	switch (mode)
 	{

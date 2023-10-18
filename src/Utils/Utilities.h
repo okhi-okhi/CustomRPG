@@ -12,7 +12,7 @@ namespace Utils {
 	int lengthOfString(const std::string& str);
 	std::string floatToPercent(const float& value);
 	std::string boolToString(const bool& boolean);
-	json readJsonFile(std::string fileName, bool addSuffix = true);
+	json loadJsonFile(std::string fileName, bool addSuffix = true);
 
 	template<typename T>
 	T randomFromRange(T range_from, T range_to) {
