@@ -3,7 +3,7 @@
     "font": "pixantiqua.ttf",
     "screen":{
         "main":{
-            "button1": "<size=64>XDDDgg\nlloolol",
+            "button1": "<size=64>Start game",
             "button2": "<size=48>Setting",
             "button3": "<size=48>Quit game"
         },
@@ -18,8 +18,10 @@
             "button1": "<size=48>Done"
         },
         "selectGame":{
-            "author": "<size=48>%author%",
-            "dynamicDescription": "<size=48>%description%"
+            "nameAndAuthor": "<size=48>%name%\n%author%",
+            "dynamicDescription": "<size=48>%description%",
+            "isMatchLanguage": "<size=48><color=green>Support your language",
+            "notMatchLanguage": "<size=48><color=red>Is not supported your language "
         }
     },
     "menu":{

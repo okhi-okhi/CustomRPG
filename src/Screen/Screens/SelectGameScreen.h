@@ -27,6 +27,7 @@ private:
 	const int* selectedGameIndex;
 	shared_ptr<PictureGallery> pictureGallery;
 	shared_ptr<Text> info;
+	shared_ptr<Text> matchLanguage;
 	shared_ptr<TextBox> description;
 
 	static GameInfo readGameInfoFromLang(const std::filesystem::path& langFileName, bool isMatchLanguage);

@@ -38,29 +38,41 @@ void SelectGameScreen::showGameInfo()
 		this->isAnyGameSelected = true;
 		addElement(make_shared<PictureBorder>(Vector2{ 1250, 540 }, File("screens/selectGame/border_corner.png"),
 			File("screens/selectGame/border_side.png"), File("screens/selectGame/border_padding.png"), 1, 64, Vector2{ 1280, 1024 }));
-		this->pictureGallery = make_shared<PictureGallery>(Rectangle{ 1150, 300, 640, 480 }, this->games[*this->selectedGameIndex].screenshots);
+		this->pictureGallery = make_shared<PictureGallery>(Rectangle{ 1300, 300, 640, 480 }, this->games[*this->selectedGameIndex].screenshots);
 		addElement(this->pictureGallery);
-		addElement(make_shared<Button>(Vector2{ 750, 300 }, Picture({ "screens/arrow_left.png" }, 2, 64), [this] { pictureGallery->previousPicture(); }));
-		addElement(make_shared<Button>(Vector2{ 1550, 300 }, Picture({ "screens/arrow_right.png" }, 2, 64), [this] { pictureGallery->nextPicture(); }));
+		addElement(make_shared<Button>(Vector2{ 850, 300 }, Picture({ "screens/arrow_left.png" }, 2, 64), [this] { pictureGallery->previousPicture(); }));
+		addElement(make_shared<Button>(Vector2{ 1700, 300 }, Picture({ "screens/arrow_right.png" }, 2, 64), [this] { pictureGallery->nextPicture(); }));
 
-		std::string author = I18n::instance().getSystemI18n().get("screen.selectGame.author",
-			{ {"author", this->games[*this->selectedGameIndex].author} });
-		this->info = make_shared<Text>(Vector2{ 750, 570 }, author, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
+		const std::string nameAndAuthor = I18n::instance().getSystemI18n().get("screen.selectGame.nameAndAuthor",
+			{ {"name", this->games[*this->selectedGameIndex].name},
+			  {"author", this->games[*this->selectedGameIndex].author}});
+		this->info = make_shared<Text>(Vector2{ 750, 600 }, nameAndAuthor, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
 		addElement(this->info);
+
+		const std::string matchLanguageI18nKey = this->games[*this->selectedGameIndex].isMatchCurrentLanguage ?
+			"screen.selectGame.isMatchLanguage" : "screen.selectGame.notMatchLanguage";
+		this->matchLanguage = make_shared<Text>(Vector2{ 1800, 575 }, matchLanguageI18nKey, TextAlign::RIGHT, 1.0f);
+		addElement(this->matchLanguage);
 
 		std::string text = I18n::instance().getSystemI18n().get("screen.selectGame.dynamicDescription",
 			{ {"description", this->games[*this->selectedGameIndex].description} });
-		this->description = make_shared<TextBox>(Rectangle{ 1150, 810, 800, 420 }, text, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
+
+		this->description = make_shared<TextBox>(Rectangle{ 1275, 830, 1050, 350 }, text, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
 		addElement(this->description);
 	}
 	else
 	{
 		this->pictureGallery->setPictures(this->games[*this->selectedGameIndex].screenshots);
 
-		const std::string author = I18n::instance().getSystemI18n().get("screen.selectGame.author",
-			{ {"author", this->games[*this->selectedGameIndex].author} });
+		const std::string nameAndAuthor = I18n::instance().getSystemI18n().get("screen.selectGame.nameAndAuthor",
+			{ {"name", this->games[*this->selectedGameIndex].name},
+			  {"author", this->games[*this->selectedGameIndex].author} });
 		this->info->setFont(&this->games[*this->selectedGameIndex].font);
-		this->info->setText(author);
+		this->info->setText(nameAndAuthor);
+
+		const std::string matchLanguageStr = this->games[*this->selectedGameIndex].isMatchCurrentLanguage ?
+			I18n::instance().getSystemI18n().get("screen.selectGame.isMatchLanguage") : I18n::instance().getSystemI18n().get("screen.selectGame.notMatchLanguage");
+		this->matchLanguage->setText(matchLanguageStr);
 		
 		const std::string text = I18n::instance().getSystemI18n().get("screen.selectGame.dynamicDescription",
 			{ {"description", this->games[*this->selectedGameIndex].description} });
@@ -77,7 +89,7 @@ void SelectGameScreen::readGameInfo()
 	{
 		fs::path systemCurrentLangFile = game.path() /
 			(PathProvider::getFolder(ResourcesFolder::LANGS) +
-			I18n::instance().getSystemI18n().getCurrentLanguage().info.id + ".json");
+			 I18n::instance().getSystemI18n().getCurrentLanguage().info.id + ".json");
 		if(exists(systemCurrentLangFile))
 		{
 			this->games.emplace_back(readGameInfoFromLang(systemCurrentLangFile, true));
@@ -90,7 +102,9 @@ void SelectGameScreen::readGameInfo()
 				json j = Utils::loadJsonFile(gameConfigFile.string(), false);
 				std::string currentLang = j["currentLanguage"];
 
-				fs::path gameCurrentLangFile = game.path() / PathProvider::getConfigPath();
+				fs::path gameCurrentLangFile = game.path() / 
+					(PathProvider::getFolder(ResourcesFolder::LANGS) +
+					 currentLang + ".json");
 				this->games.emplace_back(readGameInfoFromLang(gameCurrentLangFile, false));
 			}
 			else
