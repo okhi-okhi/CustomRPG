@@ -1,11 +1,11 @@
 #include "SelectGameScreen.h"
 #include <filesystem>
-#include "../FullPicture.h"
-#include "../ScrollList.h"
-#include "../PictureBorder.h"
-#include "../../I18n/FontProvider.h"
-#include "../../Utils/Utilities.h"
-#include "../../Utils/RaylibUtils.h"
+#include "../../FullPicture.h"
+#include "../../ScrollList.h"
+#include "../../PictureBorder.h"
+#include "../../../I18n/FontProvider.h"
+#include "../../../Utils/Utilities.h"
+#include "../../../Utils/RaylibUtils.h"
 
 SelectGameScreen::SelectGameScreen() : Screen(ScreenType::SELECT_GAME, "selectGame")
 {
@@ -46,19 +46,21 @@ void SelectGameScreen::showGameInfo()
 		const std::string nameAndAuthor = I18n::instance().getSystemI18n().get("screen.selectGame.nameAndAuthor",
 			{ {"name", this->games[*this->selectedGameIndex].name},
 			  {"author", this->games[*this->selectedGameIndex].author}});
-		this->info = make_shared<Text>(Vector2{ 750, 600 }, nameAndAuthor, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
+		this->info = make_shared<Text>(Vector2{ 700, 600 }, nameAndAuthor, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
 		addElement(this->info);
 
 		const std::string matchLanguageI18nKey = this->games[*this->selectedGameIndex].isMatchCurrentLanguage ?
 			"screen.selectGame.isMatchLanguage" : "screen.selectGame.notMatchLanguage";
-		this->matchLanguage = make_shared<Text>(Vector2{ 1800, 575 }, matchLanguageI18nKey, TextAlign::RIGHT, 1.0f);
+		this->matchLanguage = make_shared<Text>(Vector2{ 700, 820 }, matchLanguageI18nKey, TextAlign::LEFT, 1.0f);
 		addElement(this->matchLanguage);
 
 		std::string text = I18n::instance().getSystemI18n().get("screen.selectGame.dynamicDescription",
 			{ {"description", this->games[*this->selectedGameIndex].description} });
 
-		this->description = make_shared<TextBox>(Rectangle{ 1275, 830, 1050, 350 }, text, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
+		this->description = make_shared<TextBox>(Rectangle{ 1500, 790, 700, 450 }, text, TextAlign::LEFT, 1.0f, &this->games[*this->selectedGameIndex].font);
 		addElement(this->description);
+
+		addElement(make_shared<ButtonText>(Vector2{ 850, 900 }, Button(Picture({ "screens/button_1.png" }, 2, 300), [this] { startGame(); }), Text("screen.selectGame.startGame", TextAlign::CENTER, 1.0f)));
 	}
 	else
 	{
@@ -79,6 +81,11 @@ void SelectGameScreen::showGameInfo()
 		this->description->setFont(&this->games[*this->selectedGameIndex].font);
 		this->description->setText(text);
 	}
+}
+
+void SelectGameScreen::startGame() const
+{
+	PathProvider::setCurrentGamePath(this->games[*this->selectedGameIndex].path);
 }
 
 void SelectGameScreen::readGameInfo()
@@ -119,8 +126,8 @@ GameInfo SelectGameScreen::readGameInfoFromLang(const std::filesystem::path & la
 {
 	namespace fs = std::filesystem;
 
-	fs::path gameFolder = langFileName.parent_path().parent_path();
 	GameInfo gameInfo;
+	gameInfo.path = langFileName.parent_path().parent_path().string();
 	json j = Utils::loadJsonFile(langFileName.string(), false);
 	gameInfo.name = j["info"]["name"];
 	gameInfo.description = j["info"]["description"];
@@ -128,10 +135,10 @@ GameInfo SelectGameScreen::readGameInfoFromLang(const std::filesystem::path & la
 	gameInfo.isMatchCurrentLanguage = isMatchLanguage;
 
 	const std::string textNeedFont = gameInfo.name + gameInfo.description + gameInfo.author;
-	gameInfo.font = RaylibUtils::getContainTextFont(gameFolder.string() + '/' +
+	gameInfo.font = RaylibUtils::getContainTextFont(gameInfo.path + '/' +
 		PathProvider::getFolder(ResourcesFolder::FONTS) + j["font"].get<string>(), textNeedFont);
 
-	const fs::path gameHighlightFolder = gameFolder / PathProvider::getFolder(ResourcesFolder::HIGHLIGHT_SCREENSHOTS);
+	const fs::path gameHighlightFolder = gameInfo.path + '/' + PathProvider::getFolder(ResourcesFolder::HIGHLIGHT_SCREENSHOTS);
 	for (const auto& highlightPic : fs::directory_iterator(gameHighlightFolder))
 	{
 		gameInfo.screenshots.emplace_back(FileSource::NONE, highlightPic.path().string());

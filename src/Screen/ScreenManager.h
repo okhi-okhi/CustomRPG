@@ -14,7 +14,7 @@ public:
 	explicit ScreenManager(token) : needReload(false), clicked(false) {}
 
 	void init();
-	void loadAllScreen();
+	void loadSystemScreens();
 	void reloadAllScreen();
 	void delayReload();
 

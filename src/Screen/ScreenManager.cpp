@@ -1,18 +1,18 @@
 #include "ScreenManager.h"
-#include "Screens/MainScreen.h"
-#include "Screens/SettingScreen.h"
-#include "Screens/LanguageScreen.h"
-#include "Screens/SelectGameScreen.h"
+#include "Screens/System/MainScreen.h"
+#include "Screens/System/SettingScreen.h"
+#include "Screens/System/LanguageScreen.h"
+#include "Screens/System/SelectGameScreen.h"
 #include "../Utils/RaylibUtils.h"
 #include "../System/GlobalVariable.h"
 
 void ScreenManager::init()
 {
 	zoomPercent = static_cast<float>(RaylibUtils::getWindowWidth()) / 1920.0f;
-	loadAllScreen();
+	loadSystemScreens();
 }
 
-void ScreenManager::loadAllScreen()
+void ScreenManager::loadSystemScreens()
 {
 	this->allScreens.push_back(make_shared<MainScreen>());
 	this->allScreens.push_back(make_shared<SettingScreen>());
@@ -23,7 +23,7 @@ void ScreenManager::loadAllScreen()
 void ScreenManager::reloadAllScreen()
 {
 	this->allScreens.clear();
-	loadAllScreen();
+	loadSystemScreens();
 	vector<shared_ptr<Screen>> newScreens;
 	for (const auto& currentScreen : this->currentScreens)
 	{

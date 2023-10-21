@@ -1,17 +1,17 @@
 #include "LanguageScreen.h"
 #include <fstream>
-#include "../ScreenManager.h"
-#include "../ScrollList.h"
-#include "../../I18n/I18n.h"
-#include "../../I18n/FontProvider.h"
-#include "../../System/PathProvider.h"
-#include "../../System/SystemConfig.h"
-#include "../../Utils/Utilities.h"
-#include "../../Utils/RaylibUtils.h"
+#include "../../ScreenManager.h"
+#include "../../ScrollList.h"
+#include "../../../I18n/I18n.h"
+#include "../../../I18n/FontProvider.h"
+#include "../../../System/PathProvider.h"
+#include "../../../System/SystemConfig.h"
+#include "../../../Utils/Utilities.h"
+#include "../../../Utils/RaylibUtils.h"
 
 LanguageScreen::LanguageScreen() : Screen(ScreenType::LANGUAGE, "language")
 {
-	addElement(make_shared<Picture>(Vector2(960, 540), File("screens/setting/background.png"), 1, 540));
+	addElement(make_shared<Picture>(raylib::Vector2(960, 540), File("screens/setting/background.png"), 1, 540));
 	
 	int idx = 0;
 	int currentLangIdx = 0;
@@ -28,14 +28,14 @@ LanguageScreen::LanguageScreen() : Screen(ScreenType::LANGUAGE, "language")
 		idx++;
 	}
 	const auto languageList =
-		make_shared<ScrollList>(Rectangle(960, 540, 400, 600), 8, currentLangIdx, languages,
+		make_shared<ScrollList>(raylib::Rectangle(960, 540, 400, 600), 8, currentLangIdx, languages,
 			TextAlign::CENTER, 0.0f, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png", [this] { changeLanguage(); });
 	addElement(languageList);
 	this->selectedLangIndex = &languageList->getCurrentIndex();
 
-	addElement(make_shared<ButtonText>(Vector2(960, 770),
+	addElement(make_shared<ButtonText>(raylib::Vector2(960, 770),
 		Button(Picture({ "screens/button_1.png" }, 2, 384), closeLanguage),
-		Text("screen.language.button1", TextAlign::CENTER, 0.0f)));
+		Text("screen.language.quit", TextAlign::CENTER, 0.0f)));
 }
 
 void LanguageScreen::changeLanguage() const

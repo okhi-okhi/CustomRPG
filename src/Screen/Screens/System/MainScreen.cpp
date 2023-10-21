@@ -1,8 +1,8 @@
 #include "MainScreen.h"
 #include <iostream>
-#include "../FullPicture.h"
-#include "../ButtonText.h"
-#include "../ScreenManager.h"
+#include "../../FullPicture.h"
+#include "../../ButtonText.h"
+#include "../../ScreenManager.h"
 #include "../../System/GlobalVariable.h"
 
 MainScreen::MainScreen() : Screen(ScreenType::MAIN, "main")
@@ -12,9 +12,9 @@ MainScreen::MainScreen() : Screen(ScreenType::MAIN, "main")
 
 	const Picture buttonBg({ "screens/button_1.png" }, 2, 384);
 
-	addElement(make_shared<ButtonText>(Vector2{ 960, 324 }, Button(buttonBg, openSelectGame), Text("screen.main.button1", TextAlign::CENTER, 0.0f)));
-	addElement(make_shared<ButtonText>(Vector2{ 960, 540 }, Button(buttonBg, openSetting), Text("screen.main.button2", TextAlign::CENTER, 0.0f)));
-	addElement(make_shared<ButtonText>(Vector2{ 960, 756 }, Button(buttonBg, closeWindow), Text("screen.main.button3", TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(Vector2{ 960, 324 }, Button(buttonBg, openSelectGame), Text("screen.main.selectGame", TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(Vector2{ 960, 540 }, Button(buttonBg, openSetting), Text("screen.main.setting", TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(Vector2{ 960, 756 }, Button(buttonBg, closeWindow), Text("screen.main.quit", TextAlign::CENTER, 0.0f)));
 }
 
 void MainScreen::openSelectGame()

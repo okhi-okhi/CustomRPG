@@ -2,14 +2,14 @@
 #include <iostream>
 #include <fstream>
 #include <json.hpp>
-#include "../PictureTiled.h"
-#include "../ScreenManager.h"
-#include "../ButtonText.h"
-#include "../SliderText.h"
-#include "../TextArg.h"
-#include "../../System/SystemConfig.h"
-#include "../../System/PathProvider.h"
-#include "../../System/GlobalVariable.h"
+#include "../../PictureTiled.h"
+#include "../../ScreenManager.h"
+#include "../../ButtonText.h"
+#include "../../SliderText.h"
+#include "../../TextArg.h"
+#include "../../../System/SystemConfig.h"
+#include "../../../System/PathProvider.h"
+#include "../../../System/GlobalVariable.h"
 
 SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 {
@@ -28,8 +28,8 @@ SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 	));
 
 	const Picture buttonBg({ "screens/button_1.png" }, 2, 384);
-	addElement(make_shared<ButtonText>(raylib::Vector2(960, 540), Button(buttonBg, openLanguage), Text("screen.setting.button1", TextAlign::CENTER, 0.0f)));
-	addElement(make_shared<ButtonText>(raylib::Vector2(960, 720), Button(buttonBg, closeSetting), Text("screen.setting.button2", TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(raylib::Vector2(960, 540), Button(buttonBg, openLanguage), Text("screen.setting.selectLanguage", TextAlign::CENTER, 0.0f)));
+	addElement(make_shared<ButtonText>(raylib::Vector2(960, 720), Button(buttonBg, closeSetting), Text("screen.setting.quit", TextAlign::CENTER, 0.0f)));
 }
 
 void SettingScreen::changeMasterVolume()

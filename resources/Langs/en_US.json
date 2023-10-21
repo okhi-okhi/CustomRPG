@@ -1,27 +1,28 @@
 {
     "name": "English (US)",
-    "font": "pixantiqua.ttf",
+    "font": "alagard.ttf",
     "screen":{
         "main":{
-            "button1": "<size=64>Start game",
-            "button2": "<size=48>Setting",
-            "button3": "<size=48>Quit game"
+            "selectGame": "<size=48>Select game",
+            "setting": "<size=48>Setting",
+            "quit": "<size=48>Quit game"
         },
         "setting":{
             "masterVolume": "<size=32>Master\nvolume",
             "currentMasterVolume": "<size=48>%volume%",
-            "button1": "<size=40>Select language",
-            "button2": "<size=48>Return"
+            "selectLanguage": "<size=40>Select language",
+            "quit": "<size=48>Return"
         },
         "language":{
             "language": "<size=48>%language%",
-            "button1": "<size=48>Done"
+            "quit": "<size=48>Done"
         },
         "selectGame":{
-            "nameAndAuthor": "<size=48>%name%\n%author%",
-            "dynamicDescription": "<size=48>%description%",
-            "isMatchLanguage": "<size=48><color=green>Support your language",
-            "notMatchLanguage": "<size=48><color=red>Is not supported your language "
+            "nameAndAuthor": "<size=32>%name%\n%author%",
+            "dynamicDescription": "<size=32>%description%",
+            "isMatchLanguage": "<size=32><color=green>Support your language",
+            "notMatchLanguage": "<size=32><color=red>Is not supported your language ",
+            "startGame": "<size=48>Start game"
         }
     },
     "menu":{

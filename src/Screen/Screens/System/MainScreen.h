@@ -1,13 +1,14 @@
 #pragma once
-#include "../Screen.h"
+#include "../../Screen.h"
 
 class MainScreen final : public Screen
 {
-public:
-	MainScreen();
-
+private:
 	static void openSelectGame();
 	static void openSetting();
 	static void closeWindow();
+
+public:
+	MainScreen();
 };
 

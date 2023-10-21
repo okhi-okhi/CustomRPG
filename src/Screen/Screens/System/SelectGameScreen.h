@@ -1,12 +1,13 @@
 #pragma once
 #include <filesystem>
 #include <Font.hpp>
-#include "../Screen.h"
-#include "../PictureGallery.h"
-#include "../TextBox.h"
+#include "../../Screen.h"
+#include "../../PictureGallery.h"
+#include "../../TextBox.h"
 
 struct GameInfo
 {
+	std::string path;
 	std::string name;
 	std::string description;
 	std::string author;
@@ -30,13 +31,14 @@ private:
 	shared_ptr<Text> matchLanguage;
 	shared_ptr<TextBox> description;
 
+	void showGameInfo();
+
+	void startGame() const;
+
+	void readGameInfo();
 	static GameInfo readGameInfoFromLang(const std::filesystem::path& langFileName, bool isMatchLanguage);
 
 public:
 	SelectGameScreen();
-
-	void showGameInfo();
-
-	void readGameInfo();
 };
 
