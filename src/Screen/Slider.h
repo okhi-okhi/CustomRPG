@@ -26,7 +26,7 @@ public:
 	Slider(const Picture& bar, const Picture& background,
 		int* value, int minValue, int maxValue, bool horizontal,
 		const std::function<void()>& dragFunction = std::function<void()>());
-	Slider(Vector2 bounds, const Picture& bar, const Picture& background,
+	Slider(Vector2 pos, const Picture& bar, const Picture& background,
 		int* value, int minValue, int maxValue, bool horizontal,
 		const std::function<void()>& dragFunction = std::function<void()>());
 	Slider(const Slider& other);

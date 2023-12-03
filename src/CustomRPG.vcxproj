@@ -181,6 +181,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Screen\ElementSheet.h" />
+    <ClInclude Include="Screen\ElementGroup.h" />
+    <ClInclude Include="Screen\Screens\Game\PlayerInfoScreen.h" />
+    <ClInclude Include="Screen\Screens\Game\GameMainScreen.h" />
     <ClInclude Include="Screen\PictureBorder.h" />
     <ClInclude Include="Screen\PictureTiled.h" />
     <ClInclude Include="Screen\PictureGallery.h" />
@@ -202,6 +206,7 @@
     <ClInclude Include="Screen\Screens\System\SelectGameScreen.h" />
     <ClInclude Include="Screen\TextBox.h" />
     <ClInclude Include="Screen\TextArgBox.h" />
+    <ClInclude Include="Screen\Screens\Game\SelectPlayerScreen.h" />
     <ClInclude Include="Utils\RaylibUtils.h" />
     <ClInclude Include="Screen\Button.h" />
     <ClInclude Include="Entity\Ally.h" />
@@ -244,6 +249,10 @@
     <ClInclude Include="Utils\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Screen\ElementSheet.cpp" />
+    <ClCompile Include="Screen\ElementGroup.cpp" />
+    <ClCompile Include="Screen\Screens\Game\PlayerInfoScreen.cpp" />
+    <ClCompile Include="Screen\Screens\Game\GameMainScreen.cpp" />
     <ClCompile Include="Screen\PictureBorder.cpp" />
     <ClCompile Include="Screen\PictureTiled.cpp" />
     <ClCompile Include="Screen\PictureGallery.cpp" />
@@ -265,6 +274,7 @@
     <ClCompile Include="Screen\Screens\System\SelectGameScreen.cpp" />
     <ClCompile Include="Screen\TextBox.cpp" />
     <ClCompile Include="Screen\TextArgBox.cpp" />
+    <ClCompile Include="Screen\Screens\Game\SelectPlayerScreen.cpp" />
     <ClCompile Include="Utils\RaylibUtils.cpp" />
     <ClCompile Include="Screen\Button.cpp" />
     <ClCompile Include="Entity\Ally.cpp" />

@@ -5,7 +5,7 @@
 class ScrollList final : public Element
 {
 private:
-	inline static const float scrollBarWidth = 32;
+	inline static constexpr float scrollBarWidth = 32;
 	raylib::Rectangle bounds;
 	int itemCapacity;
 	bool scrollable;

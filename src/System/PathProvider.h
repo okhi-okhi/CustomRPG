@@ -35,6 +35,7 @@ class PathProvider
 private:
 	//Global path
 	inline static const string configPath = "config.json";
+	inline static const string playerPath = "players.json";
 	inline static const string gamesPath = "games/";
 	inline static const string resourcesPath = "resources/";
 	inline static string currentGamePath;
@@ -57,6 +58,7 @@ public:
 	static string get(const File& file, ResourcesFolder folder);
 
 	static string getConfigPath() { return configPath; }
+	static string getPlayerPath() { return playerPath; }
 	static string getGamesPath() { return gamesPath; }
 	static string getResourcesPath() { return resourcesPath; }
 	static string getCurrentGamePath() { return currentGamePath; }

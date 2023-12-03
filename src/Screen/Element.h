@@ -20,7 +20,9 @@ enum class ElementType
 	BUTTON_TEXT,
 	SCROLL_LIST,
 	SLIDER,
-	SLIDER_TEXT
+	SLIDER_TEXT,
+	ELEMENT_GROUP,
+	ELEMENT_SHEET
 };
 
 class Element

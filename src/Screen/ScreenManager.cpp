@@ -3,6 +3,9 @@
 #include "Screens/System/SettingScreen.h"
 #include "Screens/System/LanguageScreen.h"
 #include "Screens/System/SelectGameScreen.h"
+#include "Screens/Game/SelectPlayerScreen.h"
+#include "Screens/Game/GameMainScreen.h"
+#include "Screens/Game/PlayerInfoScreen.h"
 #include "../Utils/RaylibUtils.h"
 #include "../System/GlobalVariable.h"
 
@@ -18,6 +21,13 @@ void ScreenManager::loadSystemScreens()
 	this->allScreens.push_back(make_shared<SettingScreen>());
 	this->allScreens.push_back(make_shared<LanguageScreen>());
 	this->allScreens.push_back(make_shared<SelectGameScreen>());
+}
+
+void ScreenManager::loadGameScreens()
+{
+	this->allScreens.push_back(make_shared<SelectPlayerScreen>());
+	this->allScreens.push_back(make_shared<GameMainScreen>());
+	this->allScreens.push_back(make_shared<PlayerInfoScreen>());
 }
 
 void ScreenManager::reloadAllScreen()
@@ -63,7 +73,7 @@ void ScreenManager::showScreen(const ScreenType& screen)
 	}
 }
 
-void ScreenManager::hiddenScreen(const ScreenType& screen)
+void ScreenManager::hideScreen(const ScreenType& screen)
 {
 	for (int i = 0; i < this->currentScreens.size(); i++)
 	{

@@ -38,16 +38,8 @@ void Button::draw()
 void Button::update()
 {
 	using RaylibUtils::checkCollisionPointRecs, std::cout;
-	if (checkCollisionPointRecs(GetMousePosition(), this->hitbox))
+	if (checkCollisionPointRecs(GetMousePosition(), this->hitbox) && !ScreenManager::instance().isClicked())
 	{
-		if (ScreenManager::instance().isClicked())
-		{
-			if (this->texture.getCurrentFrame() == static_cast<int>(ButtonState::HOVER))
-			{
-				this->texture.setCurrentFrame(static_cast<int>(ButtonState::IDLE));
-			}
-			return;
-		}
 		this->texture.setCurrentFrame(static_cast<int>(ButtonState::HOVER));
 		ScreenManager::instance().setClicked(true);
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))

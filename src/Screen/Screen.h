@@ -8,10 +8,15 @@ using std::shared_ptr, std::make_shared;
 
 enum class ScreenType
 {
+	//System
 	MAIN = 0,
 	SETTING,
 	LANGUAGE,
 	SELECT_GAME,
+	//Game
+	SELECT_PLAYER,
+	GAME_MAIN,
+	PLAYER_INFO,
 };
 
 struct DisplayElement

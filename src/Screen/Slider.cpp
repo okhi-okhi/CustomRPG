@@ -7,14 +7,14 @@ Slider::Slider(const Picture& bar, const Picture& background, int* value, const 
 {
 }
 
-Slider::Slider(const Vector2 bounds, const Picture& bar, const Picture& background,
+Slider::Slider(const Vector2 pos, const Picture& bar, const Picture& background,
                int* value, const int minValue, const int maxValue,
                const bool horizontal, const std::function<void()>& dragFunction)
 {
 	using RaylibUtils::getRealLength;
 	this->elementType = ElementType::SLIDER;
 
-	this->background = Button(Vector2(bounds.x, bounds.y),
+	this->background = Button(pos,
 		background, [this] { backgroundClick(); }, "none");
 
 	this->position = this->background.getPosition();
@@ -29,7 +29,7 @@ Slider::Slider(const Vector2 bounds, const Picture& bar, const Picture& backgrou
 
 	if (this->horizontal)
 	{
-		this->bar = ButtonHold(Vector2(this->bounds.x, bounds.y),
+		this->bar = ButtonHold(Vector2(this->bounds.x, pos.y),
 			bar, [this] { barDrag(); });
 
 		this->displayValueSpacing = (this->bounds.width) / static_cast<float>(this->maxValue - this->minValue);
@@ -37,7 +37,7 @@ Slider::Slider(const Vector2 bounds, const Picture& bar, const Picture& backgrou
 	}
 	else
 	{
-		this->bar = ButtonHold(Vector2(bounds.x, this->bounds.y + bar.getHitbox()[0].height /2),
+		this->bar = ButtonHold(Vector2(pos.x, this->bounds.y + bar.getHitbox()[0].height /2),
 			bar, [this] { barDrag(); });
 
 		this->displayValueSpacing = (this->bounds.height - this->bar.getHitbox()[0].height) / static_cast<float>(this->maxValue - this->minValue);

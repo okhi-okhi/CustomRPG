@@ -68,5 +68,5 @@ void LanguageScreen::changeLanguage() const
 
 void LanguageScreen::closeLanguage()
 {
-	ScreenManager::instance().hiddenScreen(ScreenType::LANGUAGE);
+	ScreenManager::instance().hideScreen(ScreenType::LANGUAGE);
 }

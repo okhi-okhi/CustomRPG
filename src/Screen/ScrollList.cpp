@@ -10,7 +10,7 @@ ScrollList::ScrollList(const raylib::Rectangle bounds, const int itemCapacity, c
 	const TextAlign textAlign, const float textSpacing, const std::string& itemTexture,
 	const std::string& sliderBar, const std::string& sliderBackground, const std::function<void()>& function) :
 	ScrollList(bounds, itemCapacity, currentIndex,
-		[&]() {
+		[&] {
 			std::vector<std::string> texts;
 			for (const auto& key : itemsI18nKey) {
 				texts.push_back(I18n::instance().get(key));
@@ -18,7 +18,7 @@ ScrollList::ScrollList(const raylib::Rectangle bounds, const int itemCapacity, c
 			return texts;
 		}(),
 		textAlign, textSpacing,
-		[&]() {
+		[&] {
 			std::vector<const raylib::Font*> fonts;
 			for (const auto& key : itemsI18nKey) {
 				fonts.push_back(&FontProvider::instance().get(key));
@@ -34,13 +34,12 @@ ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const i
 	const std::vector<std::string>& itemsText, TextAlign textAlign,
 	float textSpacing, const std::vector<const raylib::Font*>& itemsFont,
 	const std::string& itemTexture, const std::string& sliderBar,
-	const std::string& sliderBackground, const std::function<void()>& function)
+	const std::string& sliderBackground, const std::function<void()>& function) :
+	Element(ElementType::SCROLL_LIST, bounds.GetPosition())
 {
 	using RaylibUtils::getRealLength;
 	constexpr int tileImageWidth = 64;
 
-	this->elementType = ElementType::SCROLL_LIST;
-	this->position = getRealLength(bounds.GetPosition());
 	this->bounds = getRealLength(Rectangle(bounds.x - bounds.width / 2, bounds.y - bounds.height / 2,
 		bounds.width, bounds.height));
 	this->startIndex = 0;

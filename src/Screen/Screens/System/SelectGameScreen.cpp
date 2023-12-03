@@ -1,5 +1,6 @@
 #include "SelectGameScreen.h"
 #include <filesystem>
+#include "../../ScreenManager.h"
 #include "../../FullPicture.h"
 #include "../../ScrollList.h"
 #include "../../PictureBorder.h"
@@ -85,7 +86,10 @@ void SelectGameScreen::showGameInfo()
 
 void SelectGameScreen::startGame() const
 {
-	PathProvider::setCurrentGamePath(this->games[*this->selectedGameIndex].path);
+	PathProvider::setCurrentGamePath(this->games[*this->selectedGameIndex].path + '/');
+	ScreenManager::instance().loadGameScreens();
+	ScreenManager::instance().showScreen(ScreenType::SELECT_PLAYER);
+	ScreenManager::instance().hideScreen(ScreenType::SELECT_GAME);
 }
 
 void SelectGameScreen::readGameInfo()

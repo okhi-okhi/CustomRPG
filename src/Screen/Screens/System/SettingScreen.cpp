@@ -57,10 +57,10 @@ void SettingScreen::changeMasterVolume()
 void SettingScreen::openLanguage()
 {
 	ScreenManager::instance().showScreen(ScreenType::LANGUAGE);
-	ScreenManager::instance().hiddenScreen(ScreenType::SETTING);
+	ScreenManager::instance().hideScreen(ScreenType::SETTING);
 }
 
 void SettingScreen::closeSetting()
 {
-	ScreenManager::instance().hiddenScreen(ScreenType::SETTING);
+	ScreenManager::instance().hideScreen(ScreenType::SETTING);
 }

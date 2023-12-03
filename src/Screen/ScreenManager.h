@@ -15,11 +15,12 @@ public:
 
 	void init();
 	void loadSystemScreens();
+	void loadGameScreens();
 	void reloadAllScreen();
 	void delayReload();
 
 	void showScreen(const ScreenType& screen);
-	void hiddenScreen(const ScreenType& screen);
+	void hideScreen(const ScreenType& screen);
 	void clear();
 		
 	void draw();
