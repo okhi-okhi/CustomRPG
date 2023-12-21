@@ -1,7 +1,7 @@
 #include "ElementSheet.h"
 #include "../Utils/RaylibUtils.h"
 
-ElementSheet::ElementSheet(raylib::Rectangle bounds, const int row, const int column,
+ElementSheet::ElementSheet(const raylib::Rectangle bounds, const int row, const int column,
                            const int spacing, const int currentIndex, const vector<shared_ptr<Element>>& elements) :
 	Element(ElementType::ELEMENT_SHEET, bounds.GetPosition())
 {

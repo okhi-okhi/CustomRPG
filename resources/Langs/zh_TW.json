@@ -23,6 +23,10 @@
             "isMatchLanguage": "<size=48><color=green>支援你的語言",
             "notMatchLanguage": "<size=48><color=red>不支援你的語言",
             "startGame": "<size=48>開始遊戲"
+        },
+        "selectPlayer":{
+            "name": "<size=48>%name%",
+            "createNewPlayer": "<size=48>創建新玩家"
         }
     },
     "menu": {

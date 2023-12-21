@@ -30,7 +30,7 @@ class Sound : public ::Sound {
         // Nothing.
     }
 
-    Sound(Sound&& other) noexcept {
+    Sound(Sound&& other) {
         set(other);
 
         other.stream = { nullptr, nullptr, 0, 0, 0 };
@@ -195,10 +195,10 @@ class Sound : public ::Sound {
      * @return True or false depending on whether the Sound buffer is loaded.
      */
     bool IsReady() const {
-        return stream.buffer != nullptr;
+        return ::IsSoundReady(*this);
     }
 
- private:
+ protected:
     void set(const ::Sound& sound) {
         frameCount = sound.frameCount;
         stream = sound.stream;

@@ -25,10 +25,18 @@ class Window {
     /**
      * Initialize window and OpenGL context.
      *
+     * @param width The width of the window.
+     * @param height The height of the window.
+     * @param title The desired title of the window.
+     * @param flags The ConfigFlags to set prior to initializing the window. See SetConfigFlags for more details.
+     *
+     * @see ::SetConfigFlags()
+     * @see ConfigFlags
+     *
      * @throws raylib::RaylibException Thrown if the window failed to initiate.
      */
-    Window(int width, int height, const std::string& title = "raylib") {
-        Init(width, height, title);
+    Window(int width, int height, const std::string& title = "raylib", unsigned int flags = 0) {
+        Init(width, height, title, flags);
     }
 
     /**
@@ -41,11 +49,22 @@ class Window {
     /**
      * Initializes the window.
      *
+     * @param width The width of the window.
+     * @param height The height of the window.
+     * @param title The desired title of the window.
+     * @param flags The ConfigFlags to set prior to initializing the window. See SetConfigFlags for more details.
+     *
+     * @see ::SetConfigFlags()
+     * @see ConfigFlags
+     *
      * @throws raylib::RaylibException Thrown if the window failed to initiate.
      */
-    inline void Init(int width = 800, int height = 450, const std::string& title = "raylib") {
+    inline void Init(int width = 800, int height = 450, const std::string& title = "raylib", unsigned int flags = 0) {
+        if (flags != 0) {
+            ::SetConfigFlags(flags);
+        }
         ::InitWindow(width, height, title.c_str());
-        if (!IsWindowReady()) {
+        if (!::IsWindowReady()) {
             throw RaylibException("Failed to create Window");
         }
     }
@@ -71,13 +90,6 @@ class Window {
      */
     inline bool IsCursorOnScreen() const {
         return ::IsCursorOnScreen();
-    }
-
-    /**
-     * Check if window has been initialized successfully
-     */
-    inline static bool IsReady() {
-        return ::IsWindowReady();
     }
 
     /**
@@ -179,6 +191,14 @@ class Window {
     }
 
     /**
+     * Toggle window state: borderless/windowed
+    */
+    inline Window& ToggleBorderless() {
+        ::ToggleBorderlessWindowed();
+        return *this;
+    }
+
+    /**
      * Set window state: maximized, if resizable (only PLATFORM_DESKTOP)
      */
     inline Window& Maximize() {
@@ -207,6 +227,14 @@ class Window {
      */
     inline Window& SetIcon(const ::Image& image) {
         ::SetWindowIcon(image);
+        return *this;
+    }
+
+    /**
+     * Set icon for window (multiple images, RGBA 32bit, only PLATFORM_DESKTOP)
+     */
+    inline Window& SetIcons(Image* images, int count) {
+        ::SetWindowIcons(images, count);
         return *this;
     }
 
@@ -270,6 +298,14 @@ class Window {
      */
     inline Window& SetOpacity(float opacity) {
         ::SetWindowOpacity(opacity);
+        return *this;
+    }
+
+    /**
+     * Set window focused (only PLATFORM_DESKTOP)
+     */
+    inline Window& SetFocused() {
+        ::SetWindowFocused();
         return *this;
     }
 
@@ -400,6 +436,24 @@ class Window {
      */
     inline double GetTime() const {
         return ::GetTime();
+    }
+
+    /**
+     * Check if window has been initialized successfully
+     */
+    inline static bool IsReady() {
+        return ::IsWindowReady();
+    }
+
+    /**
+     * Sets the configuration flags for raylib.
+     *
+     * @param flags The ConfigFlags to apply to the configuration.
+     *
+     * @see ::SetConfigFlags
+     */
+    inline void SetConfigFlags(unsigned int flags) {
+        ::SetConfigFlags(flags);
     }
 };
 }  // namespace raylib

@@ -19,8 +19,8 @@ protected:
 
 public:
 	Picture() : spriteTexture(), textureFrameNum(0), currentFrame(0) {}
-	explicit Picture(const File& file);
-	Picture(raylib::Vector2 pos, const File& file);
+	explicit Picture(const File& file, ScaleMode mode = ScaleMode::NN);
+	Picture(raylib::Vector2 pos, const File& file, ScaleMode mode = ScaleMode::NN);
 	Picture(const File& file, int textureFrameNum, int width, ScaleMode mode = ScaleMode::NN);
 	Picture(raylib::Vector2 pos, const File& file, int textureFrameNum, int width, ScaleMode mode = ScaleMode::NN);
 

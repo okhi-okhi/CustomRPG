@@ -69,8 +69,16 @@ class Camera3D : public ::Camera3D {
     /**
      * Update camera position for selected mode
      */
-    inline Camera3D& Update() {
-        ::UpdateCamera(this, 0);
+    inline Camera3D& Update(int mode) {
+        ::UpdateCamera(this, mode);
+        return *this;
+    }
+
+    /**
+     * Update camera movement/rotation
+     */
+    inline Camera3D& Update(::Vector3 movement, ::Vector3 rotation, float zoom = 1.0f) {
+        ::UpdateCameraPro(this, movement, rotation, zoom);
         return *this;
     }
 
@@ -111,7 +119,7 @@ class Camera3D : public ::Camera3D {
         ::DrawBillboardRec(*this, texture, sourceRec, center, size, tint);
     }
 
- private:
+ protected:
     void set(const ::Camera3D& camera) {
         position = camera.position;
         target = camera.target;

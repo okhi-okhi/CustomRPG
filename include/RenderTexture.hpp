@@ -35,7 +35,7 @@ class RenderTexture : public ::RenderTexture {
 
     RenderTexture(const RenderTexture&) = delete;
 
-    RenderTexture(RenderTexture&& other) noexcept {
+    RenderTexture(RenderTexture&& other) {
         set(other);
 
         other.id = 0;
@@ -123,11 +123,11 @@ class RenderTexture : public ::RenderTexture {
     /**
      * Retrieves whether or not the render texture is ready.
      */
-    bool IsReady() const {
-        return id != 0;
+    inline bool IsReady() const {
+        return ::IsRenderTextureReady(*this);
     }
 
- private:
+ protected:
     void set(const ::RenderTexture& renderTexture) {
         id = renderTexture.id;
         texture = renderTexture.texture;

@@ -27,5 +27,34 @@
         },
         "lastUpdate": "2019-12-12T12:12:12.000Z",
         "lastPosition": "bar"
+    },
+    {
+        "name": "dsdadas",
+        "gold": 10,
+        "diamond": 0,
+        "distance": 0,
+        "fame": 1,
+        "team": [
+            "first_ally"
+        ],
+        "allAllys": {
+            "first_ally": {
+                "name": "0",
+                "level": 1,
+                "exp": 0,
+                "hp": 31,
+                "mana": 48,
+                "luck": 1,
+                "talentPoint": 0,
+                "talents": {
+                    "strength": 1,
+                    "vitality": 1,
+                    "dexterity": 2,
+                    "intelligence": 3
+                }
+            }
+        },
+        "lastUpdate": "2019-12-12T12:12:12.000Z",
+        "lastPosition": "bar"
     }
 ]

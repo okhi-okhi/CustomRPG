@@ -5,10 +5,10 @@
 
 #include "./raylib.hpp"
 #include "./raylib-cpp-utils.hpp"
-#include "./Mesh.hpp"
 #include "./RaylibException.hpp"
 
 namespace raylib {
+class Mesh;
 /**
  * Model type
  */
@@ -49,7 +49,7 @@ class Model : public ::Model {
 
     Model(const Model&) = delete;
 
-    Model(Model&& other) noexcept {
+    Model(Model&& other) {
         set(other);
 
         other.meshCount = 0;
@@ -193,7 +193,7 @@ class Model : public ::Model {
      * Determines whether or not the Model has data in it.
      */
     bool IsReady() const {
-        return meshCount > 0 || materialCount > 0 || boneCount > 0;
+        return ::IsModelReady(*this);
     }
 
     /**
@@ -220,7 +220,7 @@ class Model : public ::Model {
         }
     }
 
- private:
+ protected:
     void set(const ::Model& model) {
         transform = model.transform;
 

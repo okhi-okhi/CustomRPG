@@ -3,6 +3,7 @@
 #include "../../ElementSheet.h"
 #include "../../FullPicture.h"
 #include "../../Picture.h"
+#include "../../TextArg.h"
 #include "../../../System/PathProvider.h"
 #include "../../../Utils/Utilities.h"
 
@@ -16,6 +17,7 @@ SelectPlayerScreen::SelectPlayerScreen() : Screen(ScreenType::SELECT_PLAYER, "se
 	for(const auto& playerInfo : this->playersInfo)
 	{
 		block.emplace_back(make_shared<Picture>(File("screens/selectPlayer/block_background.png")));
+		block.emplace_back(make_shared<TextArg>(raylib::Vector2(0, -300), "screen.selectPlayer.name", std::map<std::string, argTypes>{ {"name", & playerInfo.name} }, TextAlign::CENTER, 1.0f));
 
 		playerList.emplace_back(make_shared<ElementGroup>(block));
 		playerCount++;
@@ -31,7 +33,7 @@ SelectPlayerScreen::SelectPlayerScreen() : Screen(ScreenType::SELECT_PLAYER, "se
 	}
 
 	addElement(make_shared<FullPicture>(File("screens/main/background.png"), 1));
-	addElement(make_shared<ElementSheet>(raylib::Rectangle(960, 540, 1920, 1080), 1, 5, 64, 0, playerList));
+	addElement(make_shared<ElementSheet>(raylib::Rectangle(960, 540, 1920, 1080), 1, 4, 64, 0, playerList));
 }
 
 void SelectPlayerScreen::loadPlayerFile()

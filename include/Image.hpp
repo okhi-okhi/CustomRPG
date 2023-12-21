@@ -96,7 +96,7 @@ class Image : public ::Image {
         set(other.Copy());
     }
 
-    Image(Image&& other) noexcept {
+    Image(Image&& other) {
         set(other);
 
         other.data = nullptr;
@@ -131,17 +131,10 @@ class Image : public ::Image {
     }
 
     /**
-     * Generate image: vertical gradient
+     * Generate image: linear gradient
      */
-    static ::Image GradientV(int width, int height, ::Color top, ::Color bottom) {
-        return ::GenImageGradientV(width, height, top, bottom);
-    }
-
-    /**
-     * Generate image: horizontal gradient
-     */
-    static ::Image GradientH(int width, int height, ::Color left, ::Color right) {
-        return ::GenImageGradientH(width, height, left, right);
+    static ::Image GradientLinear(int width, int height, int direction, ::Color start, ::Color end) {
+        return ::GenImageGradientLinear(width, height, direction, start, end);
     }
 
     /**
@@ -303,6 +296,13 @@ class Image : public ::Image {
         if (!::ExportImage(*this, fileName.c_str())) {
             throw RaylibException(TextFormat("Failed to export Image to file: %s", fileName.c_str()));
         }
+    }
+
+    /**
+     * Export image to memory buffer
+     */
+    inline unsigned char* ExportToMemory(const char *fileType, int *fileSize) {
+        return ::ExportImageToMemory(*this, fileType, fileSize);
     }
 
     /**
@@ -481,6 +481,14 @@ class Image : public ::Image {
      */
     inline Image& FlipHorizontal() {
         ::ImageFlipHorizontal(this);
+        return *this;
+    }
+
+    /**
+     * Rotate image by input angle in degrees (-359 to 359)
+     */
+    inline Image& Rotate(int degrees) {
+        ::ImageRotate(this, degrees);
         return *this;
     }
 
@@ -713,7 +721,7 @@ class Image : public ::Image {
      *
      * @return The pixel data size of the image.
      */
-    int GetPixelDataSize() const {
+    inline int GetPixelDataSize() const {
         return ::GetPixelDataSize(width, height, format);
     }
 
@@ -723,10 +731,10 @@ class Image : public ::Image {
      * @return True or false depending on whether the Image has been loaded.
      */
     inline bool IsReady() const {
-        return data != nullptr;
+        return ::IsImageReady(*this);
     }
 
- private:
+ protected:
     void set(const ::Image& image) {
         data = image.data;
         width = image.width;

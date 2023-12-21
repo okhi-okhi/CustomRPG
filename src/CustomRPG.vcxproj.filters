@@ -19,6 +19,18 @@
     <Filter Include="Header Files\Player">
       <UniqueIdentifier>{1D6DCEC7-89CE-ABD5-123C-F2877E9CE294}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Screen">
+      <UniqueIdentifier>{D00734CE-3C69-11DC-C5D6-578E3137489B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Screen\Screens">
+      <UniqueIdentifier>{F25DD512-5E6B-03F9-E751-FFE3535ECFAF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Screen\Screens\Game">
+      <UniqueIdentifier>{DBFEB247-C74F-9E89-F0B3-8C4BDC6331F3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Screen\Screens\System">
+      <UniqueIdentifier>{C6EC211E-B228-2588-1B3B-3D7F0796CDA2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Statu">
       <UniqueIdentifier>{41AF4806-2D93-095C-96F3-03AF82F6F3DD}</UniqueIdentifier>
     </Filter>
@@ -48,6 +60,18 @@
     </Filter>
     <Filter Include="Source Files\Player">
       <UniqueIdentifier>{E5182A89-517A-0797-DAE7-4D4946483E56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Screen">
+      <UniqueIdentifier>{98B38F8F-0415-6D9D-8D82-B34FF9E2A35C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Screen\Screens">
+      <UniqueIdentifier>{BA51E41F-265F-1206-AF45-0EF11B52DEBC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Screen\Screens\Game">
+      <UniqueIdentifier>{A38F9955-8FE0-8497-B844-7359A4F41701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Screen\Screens\System">
+      <UniqueIdentifier>{8ECFEF3F-7A0B-F3A9-E31D-0BA1CF789BC4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Statu">
       <UniqueIdentifier>{09027A61-F5E5-3AB7-5E46-350A4A492539}</UniqueIdentifier>
@@ -99,6 +123,9 @@
     <ClInclude Include="Game\Script.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
+    <ClInclude Include="I18n\FontProvider.h">
+      <Filter>Header Files\I18n</Filter>
+    </ClInclude>
     <ClInclude Include="I18n\I18n.h">
       <Filter>Header Files\I18n</Filter>
     </ClInclude>
@@ -135,6 +162,87 @@
     <ClInclude Include="Player\Team.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Screen\Button.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\ButtonHold.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\ButtonText.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Element.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\ElementGroup.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\ElementSheet.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\FullPicture.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Picture.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\PictureBorder.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\PictureGallery.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\PictureTiled.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Screen.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\ScreenManager.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Screens\Game\GameMainScreen.h">
+      <Filter>Header Files\Screen\Screens\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Screens\Game\PlayerInfoScreen.h">
+      <Filter>Header Files\Screen\Screens\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Screens\Game\SelectPlayerScreen.h">
+      <Filter>Header Files\Screen\Screens\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Screens\System\LanguageScreen.h">
+      <Filter>Header Files\Screen\Screens\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Screens\System\MainScreen.h">
+      <Filter>Header Files\Screen\Screens\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Screens\System\SelectGameScreen.h">
+      <Filter>Header Files\Screen\Screens\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Screens\System\SettingScreen.h">
+      <Filter>Header Files\Screen\Screens\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\ScrollList.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Slider.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\SliderText.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\Text.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\TextArg.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\TextArgBox.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen\TextBox.h">
+      <Filter>Header Files\Screen</Filter>
+    </ClInclude>
     <ClInclude Include="Statu\Statu.h">
       <Filter>Header Files\Statu</Filter>
     </ClInclude>
@@ -168,41 +276,15 @@
     <ClInclude Include="Utils\JsonUtils.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Utils\RaylibUtils.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
     <ClInclude Include="Utils\Singleton.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\Utilities.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Screen\Screen.h" />
-    <ClInclude Include="Screen\Button.h" />
-    <ClInclude Include="Utils\RaylibUtils.h" />
-    <ClInclude Include="I18n\FontProvider.h" />
-    <ClInclude Include="Screen\Picture.h" />
-    <ClInclude Include="Screen\Text.h" />
-    <ClInclude Include="Screen\TextArg.h" />
-    <ClInclude Include="Screen\Element.h" />
-    <ClInclude Include="Screen\Screens\System\MainScreen.h" />
-    <ClInclude Include="Screen\FullPicture.h" />
-    <ClInclude Include="Screen\ScreenManager.h" />
-    <ClInclude Include="Screen\ButtonText.h" />
-    <ClInclude Include="Screen\ScrollList.h" />
-    <ClInclude Include="Screen\ButtonHold.h" />
-    <ClInclude Include="Screen\Slider.h" />
-    <ClInclude Include="Screen\Screens\System\SettingScreen.h" />
-    <ClInclude Include="Screen\Screens\System\LanguageScreen.h" />
-    <ClInclude Include="Screen\SliderText.h" />
-    <ClInclude Include="Screen\Screens\System\SelectGameScreen.h" />
-    <ClInclude Include="Screen\PictureGallery.h" />
-    <ClInclude Include="Screen\PictureTiled.h" />
-    <ClInclude Include="Screen\TextBox.h" />
-    <ClInclude Include="Screen\TextArgBox.h" />
-    <ClInclude Include="Screen\PictureBorder.h" />
-    <ClInclude Include="Screen\Screens\Game\GameMainScreen.h" />
-    <ClInclude Include="Screen\Screens\Game\PlayerInfoScreen.h" />
-    <ClInclude Include="Screen\Screens\Game\SelectPlayerScreen.h" />
-    <ClInclude Include="Screen\ElementGroup.h" />
-    <ClInclude Include="Screen\ElementSheet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity\Ally.cpp">
@@ -241,6 +323,9 @@
     <ClCompile Include="Game\Script.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
+    <ClCompile Include="I18n\FontProvider.cpp">
+      <Filter>Source Files\I18n</Filter>
+    </ClCompile>
     <ClCompile Include="I18n\I18n.cpp">
       <Filter>Source Files\I18n</Filter>
     </ClCompile>
@@ -277,6 +362,87 @@
     <ClCompile Include="Player\Team.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Screen\Button.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\ButtonHold.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\ButtonText.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Element.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\ElementGroup.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\ElementSheet.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\FullPicture.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Picture.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\PictureBorder.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\PictureGallery.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\PictureTiled.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Screen.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\ScreenManager.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Screens\Game\GameMainScreen.cpp">
+      <Filter>Source Files\Screen\Screens\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Screens\Game\PlayerInfoScreen.cpp">
+      <Filter>Source Files\Screen\Screens\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Screens\Game\SelectPlayerScreen.cpp">
+      <Filter>Source Files\Screen\Screens\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Screens\System\LanguageScreen.cpp">
+      <Filter>Source Files\Screen\Screens\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Screens\System\MainScreen.cpp">
+      <Filter>Source Files\Screen\Screens\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Screens\System\SelectGameScreen.cpp">
+      <Filter>Source Files\Screen\Screens\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Screens\System\SettingScreen.cpp">
+      <Filter>Source Files\Screen\Screens\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\ScrollList.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Slider.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\SliderText.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\Text.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\TextArg.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\TextArgBox.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen\TextBox.cpp">
+      <Filter>Source Files\Screen</Filter>
+    </ClCompile>
     <ClCompile Include="Statu\Statu.cpp">
       <Filter>Source Files\Statu</Filter>
     </ClCompile>
@@ -304,40 +470,14 @@
     <ClCompile Include="Utils\JsonUtils.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\RaylibUtils.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
     <ClCompile Include="Utils\Utilities.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Screen\Screen.cpp" />
-    <ClCompile Include="Screen\Button.cpp" />
-    <ClCompile Include="Utils\RaylibUtils.cpp" />
-    <ClCompile Include="I18n\FontProvider.cpp" />
-    <ClCompile Include="Screen\Picture.cpp" />
-    <ClCompile Include="Screen\Text.cpp" />
-    <ClCompile Include="Screen\TextArg.cpp" />
-    <ClCompile Include="Screen\Element.cpp" />
-    <ClCompile Include="Screen\Screens\System\MainScreen.cpp" />
-    <ClCompile Include="Screen\FullPicture.cpp" />
-    <ClCompile Include="Screen\ScreenManager.cpp" />
-    <ClCompile Include="Screen\ButtonText.cpp" />
-    <ClCompile Include="Screen\ScrollList.cpp" />
-    <ClCompile Include="Screen\ButtonHold.cpp" />
-    <ClCompile Include="Screen\Slider.cpp" />
-    <ClCompile Include="Screen\Screens\System\SettingScreen.cpp" />
-    <ClCompile Include="Screen\Screens\System\LanguageScreen.cpp" />
-    <ClCompile Include="Screen\SliderText.cpp" />
-    <ClCompile Include="Screen\Screens\System\SelectGameScreen.cpp" />
-    <ClCompile Include="Screen\PictureGallery.cpp" />
-    <ClCompile Include="Screen\PictureTiled.cpp" />
-    <ClCompile Include="Screen\TextBox.cpp" />
-    <ClCompile Include="Screen\TextArgBox.cpp" />
-    <ClCompile Include="Screen\PictureBorder.cpp" />
-    <ClCompile Include="Screen\Screens\Game\GameMainScreen.cpp" />
-    <ClCompile Include="Screen\Screens\Game\PlayerInfoScreen.cpp" />
-    <ClCompile Include="Screen\Screens\Game\SelectPlayerScreen.cpp" />
-    <ClCompile Include="Screen\ElementGroup.cpp" />
-    <ClCompile Include="Screen\ElementSheet.cpp" />
   </ItemGroup>
 </Project>

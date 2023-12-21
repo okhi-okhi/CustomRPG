@@ -30,7 +30,7 @@ class Mesh : public ::Mesh {
 
     Mesh(const Mesh&) = delete;
 
-    Mesh(Mesh&& other) noexcept {
+    Mesh(Mesh&& other) {
         set(other);
 
         other.vertexCount = 0;
@@ -266,7 +266,7 @@ class Mesh : public ::Mesh {
         return ::LoadModelFromMesh(*this);
     }
 
- private:
+ protected:
     void set(const ::Mesh& mesh) {
         vertexCount = mesh.vertexCount;
         triangleCount = mesh.triangleCount;

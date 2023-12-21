@@ -48,7 +48,7 @@ class Wave : public ::Wave {
         set(other.Copy());
     }
 
-    Wave(Wave&& other) noexcept {
+    Wave(Wave&& other) {
         set(other);
 
         other.frameCount = 0;
@@ -212,10 +212,10 @@ class Wave : public ::Wave {
      * @return True or false depending on whether the wave data has been loaded.
      */
     inline bool IsReady() const {
-        return data != nullptr;
+        return ::IsWaveReady(*this);
     }
 
- private:
+ protected:
     void set(const ::Wave& wave) {
         frameCount = wave.frameCount;
         sampleRate = wave.sampleRate;

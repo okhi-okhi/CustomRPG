@@ -3,12 +3,12 @@
 #include "../System/Exceptions.hpp"
 #include "../Utils/RaylibUtils.h"
 
-Picture::Picture(const File& file) :
-	Picture(Vector2(0, 0), file)
+Picture::Picture(const File& file, const ScaleMode mode) :
+	Picture(Vector2(0, 0), file, mode)
 {
 }
 
-Picture::Picture(const raylib::Vector2 pos, const File& file)
+Picture::Picture(const raylib::Vector2 pos, const File& file, const ScaleMode mode)
 {
 	this->elementType = ElementType::PICTURE;
 	this->textureFrameNum = 1;
@@ -16,6 +16,17 @@ Picture::Picture(const raylib::Vector2 pos, const File& file)
 	this->position = pos;
 
 	raylib::Image image(PathProvider::get(file, ResourcesFolder::TEXTURES));
+	const int width = static_cast<int>(RaylibUtils::getRealLength(image.GetWidth()));
+	switch (mode)
+	{
+	case ScaleMode::NN:
+		image.ResizeNN(width, static_cast<int>(std::ceil(width * static_cast<float>(image.height) / static_cast<float>(image.width))));
+		break;
+
+	case ScaleMode::BICUBIC:
+		image.Resize(width, static_cast<int>(std::ceil(width * static_cast<float>(image.height) / static_cast<float>(image.width))));
+		break;
+	}
 	this->spriteTexture = image;
 	Picture::updatePosition();
 }

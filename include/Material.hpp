@@ -26,7 +26,7 @@ class Material : public ::Material {
 
     Material(const Material&) = delete;
 
-    Material(Material&& other) noexcept {
+    Material(Material&& other) {
         set(other);
 
         other.maps = nullptr;
@@ -109,7 +109,14 @@ class Material : public ::Material {
         ::DrawMeshInstanced(mesh, *this, transforms, instances);
     }
 
- private:
+    /**
+     * Check if material is ready
+     */
+    inline bool IsReady() const {
+        return ::IsMaterialReady(*this);
+    }
+
+ protected:
     void set(const ::Material& material) {
         shader = material.shader;
         maps = material.maps;
