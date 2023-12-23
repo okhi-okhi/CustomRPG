@@ -4,7 +4,7 @@
 
 using std::shared_ptr;
 
-class ElementSheet : public Element
+class ElementSheet final : public Element
 {
 private:
 	raylib::Rectangle bounds;

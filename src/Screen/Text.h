@@ -1,4 +1,5 @@
 #pragma once
+#include <map>
 #include <Color.hpp>
 #include "Element.h"
 #include "../Utils/RaylibUtils.h"
@@ -53,23 +54,25 @@ protected:
 
 public:
 	Text() : align(), spacing(0), font(nullptr) {}
-	explicit Text(const std::string& i18nKey, TextAlign align, float spacing);
-	explicit Text(raylib::Vector2 pos, const std::string& i18nKey,
+	explicit Text(const string& i18nKey, TextAlign align, float spacing);
+	explicit Text(raylib::Vector2 pos, const string& i18nKey,
 		TextAlign align, float spacing);
-	explicit Text(const std::string& text, TextAlign align, float spacing,
+	explicit Text(raylib::Vector2 pos, const string& i18nKey,
+		const std::map<string, string>& args, TextAlign align, float spacing);
+	explicit Text(const string& text, TextAlign align, float spacing,
 		const raylib::Font* font);
-	explicit Text(raylib::Vector2 pos, const std::string& text,
+	explicit Text(raylib::Vector2 pos, const string& text,
 		TextAlign align, float spacing, const raylib::Font* font);
 
 	void draw() override;
 	void updatePosition() override;
 
-	virtual void parseText(std::string str);
-	virtual void setText(const std::string& text);
+	virtual void parseText(string str);
+	virtual void setText(const string& text);
 	void setFont(const raylib::Font* font) { this->font = font; }
 	void setAlign(const TextAlign align) { this->align = align; updatePosition(); }
 
-	static Color str2Color(const std::string& colorStr);
+	static Color str2Color(const string& colorStr);
 
 	const std::vector<TextBatch>& getTexts() const { return this->textBatches; }
 	const TextAlign& getAlign() const { return this->align; }

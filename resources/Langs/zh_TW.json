@@ -25,7 +25,9 @@
             "startGame": "<size=48>開始遊戲"
         },
         "selectPlayer":{
-            "name": "<size=48>%name%",
+            "index": "<size=64>存檔%index%",
+            "gold": "<size=48><color=gold>%gold%",
+            "diamond": "<size=48><color=skyblue>%diamond%",
             "createNewPlayer": "<size=48>創建新玩家"
         }
     },

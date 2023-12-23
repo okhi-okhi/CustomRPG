@@ -3,24 +3,30 @@
 #include "../I18n/FontProvider.h"
 #include "../I18n/I18n.h"
 
-Text::Text(const std::string& i18nKey, const TextAlign align, const float spacing) :
+Text::Text(const string& i18nKey, const TextAlign align, const float spacing) :
 	Text(Vector2{ 0, 0 }, i18nKey, align, spacing)
 {
 }
 
-Text::Text(const raylib::Vector2 pos, const std::string& i18nKey, const TextAlign align,
+Text::Text(const raylib::Vector2 pos, const string& i18nKey, const TextAlign align,
 		   const float spacing) :
 	Text(pos, I18n::instance().get(i18nKey), align, spacing, &FontProvider::instance().get(i18nKey))
 {
 }
 
-Text::Text(const std::string& text, const TextAlign align, const float spacing,
-		   const raylib::Font* font) :
+Text::Text(const raylib::Vector2 pos, const string& i18nKey, const std::map<string, string>& args,
+           const TextAlign align, const float spacing) :
+	Text(pos, I18n::instance().get(i18nKey, args), align, spacing, &FontProvider::instance().get(i18nKey))
+{
+}
+
+Text::Text(const string& text, const TextAlign align, const float spacing,
+           const raylib::Font* font) :
 	Text(Vector2{ 0, 0 }, text, align, spacing, font)
 {
 }
 
-Text::Text(const raylib::Vector2 pos, const std::string& text, const TextAlign align,
+Text::Text(const raylib::Vector2 pos, const string& text, const TextAlign align,
            const float spacing, const raylib::Font* font) : Element(ElementType::TEXT, pos)
 {
 	this->align = align;
@@ -93,7 +99,7 @@ void Text::updatePosition()
 	this->originPos.y = this->position.y - totalHeight / 2;
 }
 
-void Text::parseText(std::string str)
+void Text::parseText(string str)
 {
 	TextBatch currentBatch;
 	float currentWidth = 0;
@@ -114,7 +120,7 @@ void Text::parseText(std::string str)
 			}
 
 			const size_t tagEnd = str.find('>', i);
-			std::string tagStr = str.substr(i + 1, tagEnd - i - 1);
+			string tagStr = str.substr(i + 1, tagEnd - i - 1);
 			if (tagStr.find("color=") == 0)
 			{
 				currentBatch.color = str2Color(tagStr.substr(6));
@@ -163,7 +169,7 @@ void Text::parseText(std::string str)
 	this->textLines.emplace_back(currentWidth, currentHeight);
 }
 
-Color Text::str2Color(const std::string& colorStr)
+Color Text::str2Color(const string& colorStr)
 {
 	Color currentColor;
 	if (colorStr == "red") {
@@ -224,7 +230,7 @@ Color Text::str2Color(const std::string& colorStr)
 	return currentColor;
 }
 
-void Text::setText(const std::string& text)
+void Text::setText(const string& text)
 {
 	parseText(text);
 	Text::updatePosition();

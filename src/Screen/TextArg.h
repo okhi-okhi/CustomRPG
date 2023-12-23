@@ -1,9 +1,9 @@
 #pragma once
-#include <map>
 #include <variant>
 #include "Text.h"
 
-using argTypes = std::variant<const int*, const float*, const std::string*>;
+using argTypes = std::variant<const int*, const float*, const string*>;
+
 class TextArg : virtual public Text
 {
 protected:

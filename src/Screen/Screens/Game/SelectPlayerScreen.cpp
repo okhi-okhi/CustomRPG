@@ -6,6 +6,7 @@
 #include "../../TextArg.h"
 #include "../../../System/PathProvider.h"
 #include "../../../Utils/Utilities.h"
+#include "../../../I18n/I18n.h"
 
 SelectPlayerScreen::SelectPlayerScreen() : Screen(ScreenType::SELECT_PLAYER, "selectPlayer")
 {
@@ -17,7 +18,17 @@ SelectPlayerScreen::SelectPlayerScreen() : Screen(ScreenType::SELECT_PLAYER, "se
 	for(const auto& playerInfo : this->playersInfo)
 	{
 		block.emplace_back(make_shared<Picture>(File("screens/selectPlayer/block_background.png")));
-		block.emplace_back(make_shared<TextArg>(raylib::Vector2(0, -300), "screen.selectPlayer.name", std::map<std::string, argTypes>{ {"name", & playerInfo.name} }, TextAlign::CENTER, 1.0f));
+		block.emplace_back(make_shared<Text>(raylib::Vector2(0, -330), "screen.selectPlayer.index",
+			std::map<string, string>{ {"index", std::to_string(playerCount+1) } }, TextAlign::CENTER, 1.0f));
+		block.emplace_back(make_shared<Picture>(raylib::Vector2(0, -270), File("misc/divider_1.png"), 1, 384));
+
+		block.emplace_back(make_shared<Picture>(raylib::Vector2(-150, -230), File("icons/gold.png"), 1, 64));
+		block.emplace_back(make_shared<Text>(raylib::Vector2(-100, -230), "screen.selectPlayer.gold",
+			std::map<string, string>{ {"gold", std::to_string(playerInfo.gold) } }, TextAlign::LEFT, 1.0f));
+
+		block.emplace_back(make_shared<Picture>(raylib::Vector2(-150, -150), File("icons/diamond.png"), 1, 64));
+		block.emplace_back(make_shared<Text>(raylib::Vector2(-100, -150), "screen.selectPlayer.diamond",
+			std::map<string, string>{ {"diamond", std::to_string(playerInfo.diamond) } }, TextAlign::LEFT, 1.0f));
 
 		playerList.emplace_back(make_shared<ElementGroup>(block));
 		playerCount++;
@@ -40,11 +51,11 @@ void SelectPlayerScreen::loadPlayerFile()
 {
 	json playersFile = Utils::loadJsonFile(PathProvider::getCurrentGamePath() + PathProvider::getPlayerPath(), false);
 
-	PlayerInfo playerInfo;
 	for(const auto& player : playersFile.items())
 	{
-		playerInfo.name = player.value()["name"];
+		PlayerInfo playerInfo;
 		playerInfo.gold = player.value()["gold"];
+		playerInfo.diamond = player.value()["diamond"];
 		playerInfo.distance = player.value()["distance"];
 		playerInfo.fame = player.value()["fame"];
 
