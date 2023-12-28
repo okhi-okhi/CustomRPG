@@ -30,6 +30,13 @@ SelectPlayerScreen::SelectPlayerScreen() : Screen(ScreenType::SELECT_PLAYER, "se
 		block.emplace_back(make_shared<Text>(raylib::Vector2(-100, -150), "screen.selectPlayer.diamond",
 			std::map<string, string>{ {"diamond", std::to_string(playerInfo.diamond) } }, TextAlign::LEFT, 1.0f));
 
+		block.emplace_back(make_shared<Text>(raylib::Vector2(-150, -70), "screen.selectPlayer.distance",
+			std::map<string, string>{ {"distance", std::to_string(playerInfo.distance) } }, TextAlign::LEFT, 1.0f));
+
+		block.emplace_back(make_shared<Picture>(raylib::Vector2(-150, 10), File("icons/fame.png"), 1, 64));
+		block.emplace_back(make_shared<Text>(raylib::Vector2(-100, 10), "screen.selectPlayer.fame",
+			std::map<string, string>{ {"fame", std::to_string(playerInfo.fame) } }, TextAlign::LEFT, 1.0f));
+
 		playerList.emplace_back(make_shared<ElementGroup>(block));
 		playerCount++;
 		block.clear();
