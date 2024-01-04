@@ -28,8 +28,9 @@
             "index": "<size=64>存檔%index%",
             "gold": "<size=48><color=gold>%gold%",
             "diamond": "<size=48><color=skyblue>%diamond%",
-            "distance": "<size=48>距離: %distance%",
+            "distance": "<size=48>%distance%",
             "fame": "<size=48><color=yellow>%fame%",
+            "lastUpdate": "<size=32>最後遊玩時間:%time%",
             "createNewPlayer": "<size=48>創建新玩家"
         }
     },

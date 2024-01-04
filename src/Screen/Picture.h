@@ -1,5 +1,6 @@
 #pragma once
 #include <Image.hpp>
+#include <memory>
 #include <Texture.hpp>
 #include "Element.h"
 #include "../../System/PathProvider.h"
@@ -34,3 +35,39 @@ public:
 	const int& getCurrentFrame() const { return this->currentFrame; }
 };
 
+class PictureBuilder : public ElementBuilder<PictureBuilder>
+{
+private:
+    File file{};
+    int textureFrameNum = 1;
+    int width = -1;
+    ScaleMode scaleMode = ScaleMode::NN;
+
+public:
+    PictureBuilder() = default;
+
+    PictureBuilder& setFile(const File& file) {
+        this->file = file;
+        return *this;
+    }
+
+    PictureBuilder& setTextureFrameNum(const int textureFrameNum) {
+        this->textureFrameNum = textureFrameNum;
+        return *this;
+    }
+
+    PictureBuilder& setWidth(const int width) {
+        this->width = width;
+        return *this;
+    }
+
+    PictureBuilder& setScaleMode(const ScaleMode scaleMode) {
+        this->scaleMode = scaleMode;
+        return *this;
+    }
+
+    std::shared_ptr<Element> build() const override
+    {
+        return std::make_shared<Picture>(this->position, this->file, this->textureFrameNum, this->width, this->scaleMode);
+    }
+};

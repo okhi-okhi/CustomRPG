@@ -42,7 +42,14 @@ Picture::Picture(const raylib::Vector2 pos, const File& file,
 	this->textureFrameNum = textureFrameNum;
 	this->currentFrame = 0;
 	raylib::Image image(PathProvider::get(file, ResourcesFolder::TEXTURES));
-	width = static_cast<int>(RaylibUtils::getRealLength(width));
+	if (width == -1)
+	{
+		width = static_cast<int>(RaylibUtils::getRealLength(image.GetWidth()));
+	}
+	else
+	{
+		width = static_cast<int>(RaylibUtils::getRealLength(width));
+	}
 	switch (mode)
 	{
 		case ScaleMode::NN:

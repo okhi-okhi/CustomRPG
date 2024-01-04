@@ -1,6 +1,7 @@
 #pragma once
 #include "Picture.h"
-class PictureBorder : public Picture
+
+class PictureBorder final : public Picture
 {
 private:
 	raylib::Image generateBorder(const raylib::Image& cornerImage,
