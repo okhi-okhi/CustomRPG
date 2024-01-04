@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-using std::string, std::vector;
+using std::string, std::vector, std::shared_ptr, std::make_shared;;
 
 enum class ElementType
 {
@@ -96,5 +96,5 @@ public:
 	T& setHide(const bool hide) { this->hidden = hide; return static_cast<T&>(*this); }
 	T& setCanBlock(const bool canBlock) { this->canBlock = canBlock; return static_cast<T&>(*this); }
 
-	virtual std::shared_ptr<Element> build() const = 0;
+	virtual shared_ptr<Element> build() const = 0;
 };

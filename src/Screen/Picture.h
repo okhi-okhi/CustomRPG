@@ -37,7 +37,7 @@ public:
 
 class PictureBuilder : public ElementBuilder<PictureBuilder>
 {
-private:
+protected:
     File file{};
     int textureFrameNum = 1;
     int width = -1;
@@ -66,8 +66,8 @@ public:
         return *this;
     }
 
-    std::shared_ptr<Element> build() const override
+    shared_ptr<Element> build() const override
     {
-        return std::make_shared<Picture>(this->position, this->file, this->textureFrameNum, this->width, this->scaleMode);
+        return make_shared<Picture>(this->position, this->file, this->textureFrameNum, this->width, this->scaleMode);
     }
 };

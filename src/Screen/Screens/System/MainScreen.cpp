@@ -1,6 +1,7 @@
 #include "MainScreen.h"
 #include <iostream>
 #include "../../FullPicture.h"
+#include "../../PictureTiled.h"
 #include "../../ButtonText.h"
 #include "../../ScreenManager.h"
 #include "../../System/GlobalVariable.h"
@@ -12,6 +13,13 @@ MainScreen::MainScreen() : Screen(ScreenType::MAIN, "main")
 		.setPosition(raylib::Vector2(960, 108))
 		.setFile(File("screens/main/title.png"))
 		.setWidth(960)
+		.setScaleMode(ScaleMode::BICUBIC)
+		.build());
+	addElement(PictureTiledBuilder()
+		.setPosition(raylib::Vector2(960, 108))
+		.setFile(File("screens/main/title.png"))
+		.setWidth(960)
+		.setTiledBounds(raylib::Vector2{ 0, 0 })
 		.setScaleMode(ScaleMode::BICUBIC)
 		.build());
 

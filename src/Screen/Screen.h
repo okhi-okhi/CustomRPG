@@ -4,8 +4,6 @@
 #include <memory>
 #include "Element.h"
 
-using std::shared_ptr, std::make_shared;
-
 enum class ScreenType
 {
 	//System
