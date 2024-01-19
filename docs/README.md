@@ -15,8 +15,7 @@ CustomRPG is a turn-based RPG game engine that allows anyone to create a complet
 For example, the following enemy setting file defines a goblin axeman:
 
 {% code title="entitys\enemys\goblin_axe.json" fullWidth="false" %}
-````json
-```
+```json
 {
     "name": null,
     "level": {"min": 1, "max": 20},
@@ -50,7 +49,6 @@ For example, the following enemy setting file defines a goblin axeman:
     }
 }
 ```
-````
 {% endcode %}
 
 The strength of enemies can be scaled with level, so you don't have to create multiple files for different levels of the same enemy.&#x20;
