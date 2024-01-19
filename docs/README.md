@@ -16,7 +16,7 @@ For example, the following enemy setting file defines a goblin axeman:
 
 {% code title="entitys\enemys\goblin_axe.json" fullWidth="false" %}
 ````json
-```json
+```
 {
     "name": null,
     "level": {"min": 1, "max": 20},
