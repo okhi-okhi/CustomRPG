@@ -1,19 +1,17 @@
 #include "PictureTiled.h"
 #include "../Utils/RaylibUtils.h"
 
-PictureTiled::PictureTiled(const File& file, const int textureFrameNum,
-	const int tileWidth, const raylib::Vector2 tiledBounds) :
-	PictureTiled(raylib::Vector2{ 0, 0 }, file, textureFrameNum, tileWidth, tiledBounds)
+shared_ptr<PictureTiled> PictureTiledBuilder::build() const
 {
+	return make_shared<PictureTiled>(this->position, this->file, this->textureFrameNum, this->tileWidth, this->tiledBounds);
 }
 
 PictureTiled::PictureTiled(const raylib::Vector2 pos, const File& file,
-	const int textureFrameNum, int tileWidth, raylib::Vector2 tiledBounds)
+                           const int textureFrameNum, int tileWidth, raylib::Vector2 tiledBounds)
 {
 	this->elementType = ElementType::PICTURE_TILED;
 	this->position = RaylibUtils::getRealLength(pos);
 	this->textureFrameNum = textureFrameNum;
-	this->currentFrame = 0;
 
 	tileWidth = static_cast<int>(RaylibUtils::getRealLength(tileWidth));
 	raylib::Image image(PathProvider::get(file, ResourcesFolder::TEXTURES));

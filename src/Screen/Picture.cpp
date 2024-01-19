@@ -3,6 +3,11 @@
 #include "../System/Exceptions.hpp"
 #include "../Utils/RaylibUtils.h"
 
+shared_ptr<Picture> PictureBuilder::build() const
+{
+	return make_shared<Picture>(this->position, this->file, this->textureFrameNum, this->width, this->scaleMode);
+}
+
 Picture::Picture(const File& file, const ScaleMode mode) :
 	Picture(Vector2(0, 0), file, mode)
 {

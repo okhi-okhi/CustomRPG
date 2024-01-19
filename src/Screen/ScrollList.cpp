@@ -55,7 +55,13 @@ ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const i
 
 	const float buttonHeight = bounds.height / static_cast<float>(itemCapacity);
 	float buttonY = bounds.y - bounds.height/2 + static_cast<float>(buttonHeight)/2;
-	const PictureTiled itemBg(itemTexture, 2, tileImageWidth, Vector2(bounds.width, buttonHeight));
+	const PictureTiled itemBg = *PictureTiled::builder()
+		.setFile(itemTexture)
+		.setTextureFrameNum(2)
+		.setTileWidth(tileImageWidth)
+		.setTiledBounds(raylib::Vector2(bounds.width, buttonHeight))
+		.build();
+
 	for (int i = 0; i < this->itemCapacity; i++)
 	{
 		this->items.emplace_back(Vector2(bounds.x, buttonY), Button(itemBg, [this, i] { select(i); }),
@@ -67,9 +73,19 @@ ScrollList::ScrollList(raylib::Rectangle bounds, const int itemCapacity, const i
 	{
 		this->scrollable = true;
 		const float barHeight = bounds.height / static_cast<float>(itemsText.size()) * static_cast<float>(itemCapacity);
-		this->slider = Slider(Vector2(bounds.x + bounds.width / 2 + this->scrollBarWidth / 2, bounds.y),
-			PictureTiled(sliderBar, 2, tileImageWidth, Vector2(this->scrollBarWidth, barHeight)),
-			PictureTiled(sliderBackground, 2, tileImageWidth, Vector2(this->scrollBarWidth, bounds.height)),
+		this->slider = Slider(Vector2(bounds.x + bounds.width / 2 + scrollBarWidth / 2, bounds.y),
+			*PictureTiled::builder()
+				.setFile(sliderBar)
+				.setTextureFrameNum(2)
+				.setTileWidth(tileImageWidth)
+				.setTiledBounds(raylib::Vector2(scrollBarWidth, barHeight))
+				.build(),
+			*PictureTiled::builder()
+				.setFile(sliderBackground)
+				.setTextureFrameNum(2)
+				.setTileWidth(tileImageWidth)
+				.setTiledBounds(raylib::Vector2(scrollBarWidth, bounds.height))
+				.build(),
 			&this->startIndex, 0, static_cast<int>(itemsText.size()) - itemCapacity, false);
 	}
 	else {

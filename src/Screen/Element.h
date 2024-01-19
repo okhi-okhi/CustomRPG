@@ -80,7 +80,7 @@ public:
 	const bool& isHidden() const { return this->hidden; }
 };
 
-template <typename T>
+template <typename T, typename U>
 class ElementBuilder
 {
 protected:
@@ -96,5 +96,5 @@ public:
 	T& setHide(const bool hide) { this->hidden = hide; return static_cast<T&>(*this); }
 	T& setCanBlock(const bool canBlock) { this->canBlock = canBlock; return static_cast<T&>(*this); }
 
-	virtual shared_ptr<Element> build() const = 0;
+	virtual shared_ptr<U> build() const = 0;
 };

@@ -32,6 +32,9 @@ std::string PathProvider::getFromGame(const ResourcesFolder folder)
 
 std::string PathProvider::get(const FileSource parentFolder, const ResourcesFolder folder, const std::string& fileName)
 {
+	if (fileName == "Invalid")
+		throw InvalidFileException(getFromSystem(folder) + fileName);
+
 	switch (parentFolder)
 	{
 		case FileSource::AUTO:

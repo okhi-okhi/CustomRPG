@@ -9,21 +9,12 @@
 MainScreen::MainScreen() : Screen(ScreenType::MAIN, "main")
 {
 	addElement(make_shared<FullPicture>(File("screens/main/background.png"), 1));
-	addElement(PictureBuilder()
+	addElement(Picture::builder()
 		.setPosition(raylib::Vector2(960, 108))
 		.setFile(File("screens/main/title.png"))
 		.setWidth(960)
 		.setScaleMode(ScaleMode::BICUBIC)
 		.build());
-	addElement(PictureTiledBuilder()
-		.setPosition(raylib::Vector2(960, 108))
-		.setFile(File("screens/main/title.png"))
-		.setWidth(960)
-		.setTiledBounds(raylib::Vector2{ 0, 0 })
-		.setScaleMode(ScaleMode::BICUBIC)
-		.build());
-
-	//addElement(make_shared<Picture>(Vector2{ 960, 108 }, File("screens/main/title.png"), 1, 960, ScaleMode::BICUBIC));
 
 	const Picture buttonBg({ "screens/button_1.png" }, 2, 384);
 

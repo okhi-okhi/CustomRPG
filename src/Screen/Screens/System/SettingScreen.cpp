@@ -20,7 +20,7 @@ SettingScreen::SettingScreen() : Screen(ScreenType::SETTING, "setting")
 	addElement(make_shared<SliderText>(raylib::Vector2(1000, 320),
 		Slider(
 			Picture({ "screens/slider_bar.png" }, 2, 12),
-			PictureTiled({ "screens/slider_background_horizontal.png" }, 2, 32, raylib::Vector2(250, 32)),
+			*PictureTiled::builder().setFile(File("screens/slider_background_horizontal.png")).setTextureFrameNum(2).setTileWidth(32).setTiledBounds(raylib::Vector2(250, 32)).build(),
 			&SystemConfig::instance().getMasterVolume(), 0, 100, true, [this] { changeMasterVolume(); }
 		),
 		Text("screen.setting.masterVolume", TextAlign::CENTER, 1.0f),

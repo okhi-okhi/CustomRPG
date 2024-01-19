@@ -1,9 +1,6 @@
 ﻿#include "Button.h"
 #include <iostream>
 #include "ScreenManager.h"
-#include "../I18n/I18n.h"
-#include "../I18n/FontProvider.h"
-#include "../System/PathProvider.h"
 #include "../Utils/RaylibUtils.h"	
 
 Button::Button(const raylib::Vector2 pos, const Picture& texture,
@@ -37,7 +34,7 @@ void Button::draw()
 
 void Button::update()
 {
-	using RaylibUtils::checkCollisionPointRecs, std::cout;
+	using RaylibUtils::checkCollisionPointRecs;
 	if (checkCollisionPointRecs(GetMousePosition(), this->hitbox) && !ScreenManager::instance().isClicked())
 	{
 		this->texture.setCurrentFrame(static_cast<int>(ButtonState::HOVER));

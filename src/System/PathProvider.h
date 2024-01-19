@@ -25,7 +25,7 @@ struct File
 	FileSource src;
 	string name;
 
-	File() : src(FileSource::AUTO) {}
+	File() : src(FileSource::AUTO), name("Invalid") {}
 	File(string name) : src(FileSource::AUTO), name(std::move(name)) {}
 	File(const FileSource src, string name) : src(src), name(std::move(name)) {}
 };

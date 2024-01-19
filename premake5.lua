@@ -53,6 +53,30 @@ function check_raylib()
     end
 end
 
+function check_raylib_cpp()
+    if(not os.isfile("raylib-cpp-master.zip")) then
+        print("Raylib-cpp not found, downloading from github")
+        local result_str, response_code = http.download("https://github.com/RobLoach/raylib-cpp/archive/master.zip", "raylib-cpp-master.zip", {
+            progress = download_progress,
+            headers = { "From: Premake", "Referer: Premake" }
+        })
+        if result_str == nil then
+            print("Download failed!")
+            return
+        end
+    end
+    print("Unzipping to " ..  os.getcwd())
+    zip.extract("raylib-cpp-master.zip", os.getcwd())
+    os.remove("raylib-cpp-master.zip")
+
+    local files = os.matchfiles("raylib-cpp-master/include/*")
+    for _, file in ipairs(files) do
+        if path.getname(file) ~= "CMakeLists.txt" then
+            os.copyfile(file, "include/" .. path.getname(file))
+        end
+    end
+end
+
 workspaceName = path.getbasename(os.getcwd())
 
 if (string.lower(workspaceName) == "raylib") then
@@ -87,6 +111,7 @@ workspace (workspaceName)
     cdialect "C99"
     cppdialect "C++11"
 	check_raylib();
+    check_raylib_cpp();
 
 	include ("raylib_premake5.lua")
 
