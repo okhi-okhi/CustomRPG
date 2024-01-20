@@ -39,9 +39,9 @@ LanguageInfo I18nProvider::getLanguageInfo(const string& fileName) const
 	}
 	json j = json::parse(inFile);
 	try {
-		return {fileName, j["name"],
+		return {fileName, j["name"].get<string>(),
 			RaylibUtils::getContainTextFont(
-				this->fontsFolder + j["font"].get<string>(), j["name"])};
+				this->fontsFolder + j["font"].get<string>(), j["name"].get<string>())};
 	}
 	catch (json::exception& e)
 	{
@@ -64,8 +64,8 @@ bool I18nProvider::loadLanguage(const string& fileName)
 	}
 	json j = json::parse(inFile);
 	try {
-		this->currentLanguage.info = LanguageInfo(fileName, j["name"],
-			RaylibUtils::getContainTextFont(this->fontsFolder + j["font"].get<string>(), j["name"]));
+		this->currentLanguage.info = LanguageInfo(fileName, j["name"].get<string>(),
+			RaylibUtils::getContainTextFont(this->fontsFolder + j["font"].get<string>(), j["name"].get<string>()));
 
 		j = j.flatten();
 		json j2;
@@ -73,7 +73,8 @@ bool I18nProvider::loadLanguage(const string& fileName)
 		{
 			std::string s = item.key();
 			s.erase(0, 1);
-			j2[s] = item.value();
+			std::ranges::replace(s, '/', '.');
+			j2[s] = item.value().get<string>();
 		}
 		this->currentLanguage.translation = j2.get<std::map<string, string>>();
 	}
@@ -114,7 +115,8 @@ void I18nProvider::loadDefaultLanguage(const string& fileName)
 		{
 			std::string s = item.key();
 			s.erase(0, 1);
-			this->defaultLanguage.translation[s] = item.value();
+			std::ranges::replace(s, '/', '.');
+			this->defaultLanguage.translation[s] = item.value().get<string>();
 		}
 	}
 	catch (json::exception& e)

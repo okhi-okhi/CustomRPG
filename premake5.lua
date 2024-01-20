@@ -75,6 +75,7 @@ function check_raylib_cpp()
             os.copyfile(file, "include/" .. path.getname(file))
         end
     end
+    os.remove("raylib-cpp-master")
 end
 
 workspaceName = path.getbasename(os.getcwd())
@@ -88,6 +89,7 @@ end
 workspace (workspaceName)
     configurations { "Debug", "Release"}
     platforms { "x64", "x86"}
+    buildoptions {"/bigobj"}
 
     filter "configurations:Debug"
         defines { "DEBUG" }
@@ -109,9 +111,9 @@ workspace (workspaceName)
     end
 
     cdialect "C99"
-    cppdialect "C++11"
+    cppdialect "C++20"
 	check_raylib();
-    check_raylib_cpp();
+    -- check_raylib_cpp();
 
 	include ("raylib_premake5.lua")
 
