@@ -363,5 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 /raylib-master
+/include
 /raylib-cpp-master
 /exprtk
