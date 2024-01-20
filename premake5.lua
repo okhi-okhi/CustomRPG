@@ -38,44 +38,61 @@ function download_progress(total, current)
     print("Download progress (" .. percent .. "%/100%)")
 end
 
-function check_raylib()
-    if(os.isdir("raylib") == false and os.isdir("raylib-master") == false) then
-        if(not os.isfile("raylib-master.zip")) then
-            print("Raylib not found, downloading from github")
-            local result_str, response_code = http.download("https://github.com/raysan5/raylib/archive/refs/heads/master.zip", "raylib-master.zip", {
-                progress = download_progress,
-                headers = { "From: Premake", "Referer: Premake" }
-            })
-        end
+function download_file(url, filename, is_zip)
+    print(filename .." not found, downloading from " .. url)
+    local result_str, response_code = http.download(url, filename, {
+        progress = download_progress,
+        headers = { "From: Premake", "Referer: Premake" }
+    })
+    if result_str == nil then
+        print("Download failed!")
+        return
+    end
+    if is_zip then
         print("Unzipping to " ..  os.getcwd())
-        zip.extract("raylib-master.zip", os.getcwd())
-        os.remove("raylib-master.zip")
+        zip.extract(filename, os.getcwd())
+        os.remove(filename)
+    end
+end
+
+function check_raylib()
+    if(not os.isdir("raylib-master")) then
+        download_file("https://github.com/raysan5/raylib/archive/refs/heads/master.zip", "raylib-master.zip", true)
     end
 end
 
 function check_raylib_cpp()
-    if(not os.isfile("raylib-cpp-master.zip")) then
-        print("Raylib-cpp not found, downloading from github")
-        local result_str, response_code = http.download("https://github.com/RobLoach/raylib-cpp/archive/master.zip", "raylib-cpp-master.zip", {
-            progress = download_progress,
-            headers = { "From: Premake", "Referer: Premake" }
-        })
-        if result_str == nil then
-            print("Download failed!")
-            return
-        end
+    if(not os.isfile("include/raylib-cpp.hpp")) then
+        download_file("https://github.com/RobLoach/raylib-cpp/archive/master.zip", "raylib-cpp-master.zip", true)
     end
-    print("Unzipping to " ..  os.getcwd())
-    zip.extract("raylib-cpp-master.zip", os.getcwd())
-    os.remove("raylib-cpp-master.zip")
-
     local files = os.matchfiles("raylib-cpp-master/include/*")
     for _, file in ipairs(files) do
         if path.getname(file) ~= "CMakeLists.txt" then
             os.copyfile(file, "include/" .. path.getname(file))
         end
     end
-    os.remove("raylib-cpp-master")
+end
+
+function check_exprtk()
+    if(not os.isfile("include/exprtk.hpp")) then
+        download_file("https://www.partow.net/downloads/exprtk.zip", "exprtk.zip", true)
+    end
+    os.copyfile("exprtk/exprtk.hpp", "include/exprtk.hpp")
+end
+
+function check_json()
+    if(not os.isfile("include/json.hpp")) then
+        download_file("https://raw.githubusercontent.com/nlohmann/json/master/single_include/nlohmann/json.hpp", "json.hpp", false)
+    end
+    os.copyfile("json.hpp", "include/json.hpp")
+    os.remove("json.hpp")
+end
+
+function check_lib()
+    check_raylib();
+    check_raylib_cpp();
+    check_exprtk();
+    check_json();
 end
 
 workspaceName = path.getbasename(os.getcwd())
@@ -112,8 +129,7 @@ workspace (workspaceName)
 
     cdialect "C99"
     cppdialect "C++20"
-	check_raylib();
-    -- check_raylib_cpp();
+	check_lib();
 
 	include ("raylib_premake5.lua")
 
