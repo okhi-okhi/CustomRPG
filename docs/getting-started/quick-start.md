@@ -9,8 +9,8 @@ description: >-
 ### **Installation**
 
 1. Clone the CustomRPG [repository](https://github.com/okhi-okhi/CustomRPG).
-2. Run the premake-VisualStudio.bat file. This will download all required external libraries.
-3. Open the CustomRPG.sln file in Visual Studio.
+2. Run the `premake-VisualStudio.bat` file. This will download all required external libraries.
+3. Open the `CustomRPG.sln` file in Visual Studio.
 
 > **Note**
 >
