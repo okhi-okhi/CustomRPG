@@ -12,13 +12,15 @@ description: >-
 2. Run the `premake-VisualStudio.bat` file. This will download all required external libraries.
 3. Open the `CustomRPG.sln` file in Visual Studio.
 
-> **Note**
->
-> This project uses four external libraries:
->
-> * [raylib](https://www.raylib.com/)
-> * [raylib-cpp](https://github.com/RobLoach/raylib-cpp)
-> * [nlohmann-json](https://github.com/nlohmann/json)
-> * [exprtk](https://www.partow.net/programming/exprtk/)
->
-> So, it is possible that these external libraries can cause errors.  This is not something that I can control.
+{% hint style="warning" %}
+### **Note**
+
+This project uses four external libraries:
+
+* [raylib](https://www.raylib.com/)
+* [raylib-cpp](https://github.com/RobLoach/raylib-cpp)
+* [nlohmann-json](https://github.com/nlohmann/json)
+* [exprtk](https://www.partow.net/programming/exprtk/)
+
+So, it is possible that these external libraries can cause errors.  This is not something that I can control.
+{% endhint %}
