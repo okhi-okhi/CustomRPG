@@ -8,3 +8,4 @@
 ## Gameplay
 
 * [Overview](gameplay/overview.md)
+* [Entity](gameplay/entity.md)
