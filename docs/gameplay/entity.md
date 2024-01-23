@@ -28,7 +28,7 @@ Talents are special abilities that can provide the entity with various bonuses. 
 
 Allies are player-controlled entities. In addition to the stats listed above, allies also have the following:
 
-* **Exp**
+* **Experience**
 * **Luck:** Affects the drop rate of items, which can affect combat.
 * **Talent Point:** Can be consumed to upgrade any talent.
 * **Race:** Affects the ally's initial stats and can have passive abilities.
