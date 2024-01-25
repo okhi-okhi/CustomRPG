@@ -1,14 +1,19 @@
 ---
-description: >-
-  An entity is any living being in the game world that can engage in combat.
-  This includes allies and enemies.
+description: An entity is any living being in the game world that can engage in combat.
 ---
 
 # Entity
 
 ### **Entity**
 
-Entity has the following stats:
+There are two types of items in the game:
+
+* [Ally](entity.md#ally)
+* [Enemy](entity.md#enemy)
+
+### **Entity P**roperties
+
+All entities have the following properties:
 
 * **Name**
 * **Level**
@@ -26,7 +31,7 @@ Talents are special abilities that can provide the entity with various bonuses. 
 
 ### Ally
 
-Allies are player-controlled entities. In addition to the stats listed above, allies also have the following:
+Allies are player-controlled entities. In addition to the properties listed above, allies also have the following:
 
 * **Experience**
 * **Luck:** Affects the drop rate of items, which can affect combat.
@@ -43,7 +48,7 @@ When an ally reaches a certain amount of experience, it will level up. When an a
 
 ### Enemy
 
-Enemies are non-player-controlled hostile entities that cannot wear equipment. In addition to the stats entity has above, enemies also have the following:
+Enemies are non-player-controlled hostile entities that cannot wear equipment. In addition to the properties entity has above, enemies also have the following:
 
 * **Drop Exp:** Experience points dropped when killed. Will be evenly distributed to allies in the player's combat team.
 * **Drop Gold:** Gold dropped when killed.

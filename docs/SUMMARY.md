@@ -10,3 +10,4 @@
 * [Overview](gameplay/overview.md)
 * [Entity](gameplay/entity.md)
 * [Equipment](gameplay/equipment.md)
+* [Inventory](gameplay/inventory.md)
