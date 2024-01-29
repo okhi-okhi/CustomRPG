@@ -31,14 +31,14 @@ Talents are special abilities that can provide the entity with various bonuses. 
 
 ### Ally
 
-Allies are player-controlled entities. In addition to the properties listed above, allies also have the following:
+Allies are player-controlled entities.
 
 * **Experience**
 * **Luck:** Affects the drop rate of items, which can affect combat.
 * **Talent Point:** Can be consumed to upgrade any talent.
 * **Race:** Affects the ally's initial stats and can have passive abilities.
 * **Occupation:** Affects the stats that the ally gains each level and can have skills.
-* **Equipment**
+* [**Equipment**](equipment.md)
 
 {% hint style="info" %}
 #### Level up
@@ -48,7 +48,7 @@ When an ally reaches a certain amount of experience, it will level up. When an a
 
 ### Enemy
 
-Enemies are non-player-controlled hostile entities that cannot wear equipment. In addition to the properties entity has above, enemies also have the following:
+Enemies are non-player-controlled hostile entities that cannot wear equipment.
 
 * **Drop Exp:** Experience points dropped when killed. Will be evenly distributed to allies in the player's combat team.
 * **Drop Gold:** Gold dropped when killed.
