@@ -11,3 +11,4 @@
 * [Entity](gameplay/entity.md)
 * [Equipment](gameplay/equipment.md)
 * [Item](gameplay/item.md)
+* [Team](gameplay/team.md)

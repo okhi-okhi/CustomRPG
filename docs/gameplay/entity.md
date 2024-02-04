@@ -29,7 +29,7 @@ All entities have the following properties:
 Talents are special abilities that can provide the entity with various bonuses. The specific kinds of talents can be changed in the game's configuration.
 {% endhint %}
 
-### Ally
+### Ally **P**roperties
 
 Allies are player-controlled entities.
 
@@ -46,7 +46,7 @@ Allies are player-controlled entities.
 When an ally reaches a certain amount of experience, it will level up. When an ally levels up, its stats will increase according to its occupation and it also gains 1 talent point.
 {% endhint %}
 
-### Enemy
+### Enemy **P**roperties
 
 Enemies are non-player-controlled hostile entities that cannot wear equipment.
 

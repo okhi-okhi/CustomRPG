@@ -1,7 +1,3 @@
----
-description: All items can be stored in the player's unlimited inventory.
----
-
 # Item
 
 ### **Item**
@@ -26,7 +22,7 @@ All items have the following properties:
 The rarity of the item. Rarer items are more difficult to obtain.The rarity categories are defined in the game config.**(This feature has not been implemented yet)**
 {% endhint %}
 
-### **Weapon**
+### **Weapon Properties**
 
 * [**Weapon Type**](item.md#weapon-type)
 * **Level**
@@ -41,7 +37,7 @@ The rarity of the item. Rarer items are more difficult to obtain.The rarity cate
 When the durability of an item returns to zero, the item will be damaged and disappear. Materials can be used to repair the item.
 {% endhint %}
 
-### Armor
+### Armor **Properties**
 
 * [**Armor Type**](item.md#armor-type)
 * **Level**
@@ -50,17 +46,17 @@ When the durability of an item returns to zero, the item will be damaged and dis
 * **Durability**
 * **Durability Max**
 
-### **Material**
+### **Material Properties**
 
 * **Description**
 * **some recipe stuff (TODO)**
 
-### **Prop**
+### **Prop Properties**
 
 * **Description**
 * **some onUse effect (TODO)**
 
-### **Weapon Type**
+### **Weapon Type Properties**
 
 Affect the some properties for weapons.
 
@@ -70,7 +66,7 @@ Affect the some properties for weapons.
 * **Hidden:** Whether it is hidden in the forging menu and can only be forged using special formulas.
 * **Passives**
 
-### **Armor Type**
+### **Armor Type Properties**
 
 Affect the some properties for armors.
 
@@ -78,3 +74,7 @@ Affect the some properties for armors.
 * **Armor Slot**
 * **Hidden:** Whether it is hidden in the forging menu and can only be forged using special formulas.
 * **Passives**
+
+### **Inventory**
+
+Players have an unlimited inventory in which to store items. Each inventory slot can hold up to 99 identical items, but equipment cannot be stacked.
