@@ -25,7 +25,7 @@ These are just ideas, most of the gameplay is not yet implemented. We welcome yo
 * [x] [**Entity System**](entity.md)**:** Entities include allies and enemies. Entities have various stats, such as health, attack power, and defense power. These stats affect how creatures perform in battle.
 * [x] [**Equipment System**](equipment.md)**:** Each character can equip weapons, armor, and other accessories.
 * [x] [**Item System**](item.md)**:** Items (weapons, armor, materials, props)  can be stored in your inventory.
-* [x] **Team System:** Players can choose up to four characters to form their team. Each character has their own unique abilities and skills, so players must carefully consider their team composition to create a balanced and effective team.
+* [x] [**Team System**](broken-reference)**:** Players can choose some allies to form their team. Players must carefully consider their team composition to create a balanced and effective team.
 * [x] **Location System:** The game world is made up of a variety of places, each with its own unique challenges and rewards.
 * [x] **Reputation System:** Players' reputations will affect how they are treated by non-player characters (NPCs). A good reputation can lead to discounts from merchants, while a bad reputation can make it difficult to find allies.
 * [x] **Random Events:** Players will encounter random events throughout the game. These events can be both positive and negative, and they can have a significant impact on the game's outcome.
