@@ -16,7 +16,7 @@ private:
 public:
 	explicit Enemy(const std::string& fileName, int point=0);
 
-	std::string getAsString()const;
+	std::string getAsString() const;
 	void debugPrint() const;
 
 	std::string getAttackTypes() const { return this->attackTypes.getRandomItem(); }

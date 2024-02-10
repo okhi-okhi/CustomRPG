@@ -25,7 +25,7 @@ private:
 	virtual std::string readString(const std::string& key) const override;
 
 public:
-	Ally() : Entity(), exp(0), expNext(0), luck(0), talentPoint(0), inTeam(false) {}
+	Ally() : exp(0), expNext(0), luck(0), talentPoint(0), inTeam(false) {}
 	Ally(std::string id, std::string name, const int& level, const int& exp,
 		const int& hp, const int& mana, const int& luck, const int& talentPoint,
 		std::map<std::string, int> talents, const std::string& race) :
