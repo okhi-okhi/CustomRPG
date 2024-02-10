@@ -1,6 +1,6 @@
 # Overview
 
-### CustomRPG: A simple turn-based RPG game engine
+### What is CustomRPG?
 
 CustomRPG is a turn-based RPG game engine that allows anyone to create a complete RPG game with just JSON files. No programming skills are required.
 
