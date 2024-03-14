@@ -1,6 +1,7 @@
 #include "PathProvider.h"
 #include <filesystem>
 #include "Exceptions.hpp"
+// a
 
 std::string PathProvider::getFolder(const ResourcesFolder folder)
 {
