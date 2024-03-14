@@ -30,6 +30,7 @@ Button::Button(const Picture& texture, const std::function<void()>& function, co
 void Button::draw()
 {
 	this->texture.draw();
+	std::cout<< this->texture.getCurrentFrame() << std::endl;
 }
 
 void Button::update()

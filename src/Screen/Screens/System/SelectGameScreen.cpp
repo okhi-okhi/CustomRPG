@@ -23,13 +23,20 @@ SelectGameScreen::SelectGameScreen() : Screen(ScreenType::SELECT_GAME, "selectGa
 
 	addElement(make_shared<FullPicture>(File("screens/main/background.png"), 1));
 	addElement(make_shared<PictureBorder>(Vector2{ 300, 540 }, File("screens/selectGame/border_corner.png"),
-		File("screens/selectGame/border_side.png"), File("screens/selectGame/border_padding.png"), 1, 64, Vector2{ 512, 1024 }));
+		File("screens/selectGame/border_side.png"), File("screens/selectGame/border_padding.png"), 1, 64, Vector2{ 512, 896 }));
+	addElement(make_shared<Button>(Vector2{ 72, 50 }, Picture(File("screens/return.png"), 2, 144), openMain));
 
 	const auto gameList =
 		make_shared<ScrollList>(Rectangle{ 300, 540, 300, 800 }, 8, -1, gameNames,
 			TextAlign::CENTER, 0.0f, fonts, "screens/button_tile_1.png", "screens/scroll_bar.png", "screens/button_tile_1.png", [this] { showGameInfo(); });
 	addElement(gameList);
 	this->selectedGameIndex = &gameList->getCurrentIndex();
+}
+
+void SelectGameScreen::openMain()
+{
+	ScreenManager::instance().showScreen(ScreenType::MAIN);
+	ScreenManager::instance().hideScreen(ScreenType::SELECT_GAME);
 }
 
 void SelectGameScreen::showGameInfo()

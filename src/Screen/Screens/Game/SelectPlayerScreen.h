@@ -17,6 +17,7 @@ class SelectPlayerScreen : public Screen
 private:
 	vector<PlayerInfo> playersInfo;
 
+	static void openSelectGame();
 	void loadPlayerFile();
 
 public:

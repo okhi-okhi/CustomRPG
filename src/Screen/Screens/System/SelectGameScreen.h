@@ -31,8 +31,8 @@ private:
 	shared_ptr<Text> matchLanguage;
 	shared_ptr<TextBox> description;
 
+	static void openMain();
 	void showGameInfo();
-
 	void startGame() const;
 
 	void readGameInfo();

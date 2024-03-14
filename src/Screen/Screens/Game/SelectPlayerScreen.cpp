@@ -1,4 +1,6 @@
 #include "SelectPlayerScreen.h"
+#include "../../ScreenManager.h"
+#include "../../Button.h"
 #include "../../ElementGroup.h"
 #include "../../ElementSheet.h"
 #include "../../FullPicture.h"
@@ -55,7 +57,14 @@ SelectPlayerScreen::SelectPlayerScreen() : Screen(ScreenType::SELECT_PLAYER, "se
 	}
 
 	addElement(make_shared<FullPicture>(File("screens/main/background.png"), 1));
+	addElement(make_shared<Button>(Vector2{ 72, 50 }, Picture(File("screens/return.png"), 2, 144), openSelectGame));
 	addElement(make_shared<ElementSheet>(raylib::Rectangle(960, 540, 1920, 1080), 1, 4, 64, 0, playerList));
+}
+
+void SelectPlayerScreen::openSelectGame()
+{
+	ScreenManager::instance().showScreen(ScreenType::SELECT_GAME);
+	ScreenManager::instance().hideScreen(ScreenType::SELECT_PLAYER);
 }
 
 void SelectPlayerScreen::loadPlayerFile()
